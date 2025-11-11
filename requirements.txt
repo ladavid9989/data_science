@@ -1,3 +1,11 @@
-streamlit
-plotly
-pandas
+# Core dependencies
+streamlit>=1.36.0
+pandas>=2.2.0
+plotly>=5.24.0
+
+# Optional but recommended for smooth chart rendering & export
+kaleido>=0.2.1
+
+# Optional but harmless dependencies
+numpy>=1.26.0
+requests>=2.32.0
