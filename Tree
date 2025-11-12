@@ -1,0 +1,15 @@
+import os
+
+def print_tree(startpath, max_depth=2):
+    for root, dirs, files in os.walk(startpath):
+        level = root.replace(startpath, '').count(os.sep)
+        if level > max_depth:
+            continue
+        indent = '│   ' * level
+        print(f"{indent}├── {os.path.basename(root)}/")
+        subindent = '│   ' * (level + 1)
+        for f in files:
+            print(f"{subindent}├── {f}")
+
+# 현재 폴더 구조 출력
+print_tree('.', max_depth=2)
