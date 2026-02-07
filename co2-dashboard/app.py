@@ -11,7 +11,7 @@ st.set_page_config(
 )
 
 # Title and Description
-st.title("🌍 Global CO2 Emissions Dashboard (1970-2023)")
+st.title("🌍 Global CO2 Emissions Dashboard")
 st.markdown("""
 This dashboard visualizes CO2 emissions data from the World Bank.
 Use the sidebar to filter by year, country, and metric.
