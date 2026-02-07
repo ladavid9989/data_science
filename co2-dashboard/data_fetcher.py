@@ -9,7 +9,7 @@ def get_co2_data():
     Fetches CO2 emissions data (Total and Per Capita) from World Bank API.
     
     Returns:
-        pd.DataFrame: A dataframe with columns ['ISO3', 'Country', 'Year', 'CO2_Total', 'CO2_PerCapita']
+        pd.DataFrame: A dataframe with columns ['ISO3', 'Country', 'Region', 'IncomeGroup', 'Year', 'CO2_Total', 'CO2_PerCapita']
     """
     # Indicators (Updated to GHG series as classic EN.ATM.CO2E.KT is missing/issues)
     # EN.GHG.CO2.MT.CE.AR5: Carbon dioxide (CO2) emissions (total) excluding LULUCF (Mt CO2e)
@@ -63,12 +63,37 @@ def get_co2_data():
         # Filter out aggregates
         df_clean = df_pivot[~df_pivot['ISO3'].isin(aggregates)].copy()
         
-        # Map country names
+        # Get metadata mappings
+        try:
+            region_map = wb.region.Series().to_dict()
+            income_map = wb.income.Series().to_dict()
+        except:
+            region_map = {}
+            income_map = {}
+
+        # Map country names, regions, and income levels
         country_map = countries['name'].to_dict()
         df_clean['Country'] = df_clean['ISO3'].map(country_map)
         
+        # Map Region and Income (using the 'region' and 'incomeLevel' columns from countries df)
+        # We need to map the codes in countries df to names first
+        
+        # Create a dict for ISO3 -> Region Name
+        iso3_to_region = {}
+        iso3_to_income = {}
+        
+        for iso3, row in countries.iterrows():
+            region_code = row.get('region', '')
+            income_code = row.get('incomeLevel', '')
+            
+            iso3_to_region[iso3] = region_map.get(region_code, region_code)
+            iso3_to_income[iso3] = income_map.get(income_code, income_code)
+            
+        df_clean['Region'] = df_clean['ISO3'].map(iso3_to_region)
+        df_clean['IncomeGroup'] = df_clean['ISO3'].map(iso3_to_income)
+        
         # Reorder and select columns
-        cols = ['ISO3', 'Country', 'Year', 'CO2_Total', 'CO2_PerCapita']
+        cols = ['ISO3', 'Country', 'Region', 'IncomeGroup', 'Year', 'CO2_Total', 'CO2_PerCapita']
         
         # Ensure all columns exist (in case one indicator failed completely, though unlikely if fetch worked)
         for col in cols:
@@ -88,6 +113,7 @@ def get_co2_data():
         return df_clean
 
     except Exception as e:
+
         # If running in streamlit, show error
         try:
             st.error(f"Failed to fetch data: {e}")

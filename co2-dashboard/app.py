@@ -24,6 +24,29 @@ with st.spinner("Fetching data from World Bank API..."):
 # Sidebar Controls
 st.sidebar.header("Filter Settings")
 
+# 1. Region Filter
+all_regions = sorted([r for r in df['Region'].dropna().unique() if r != ''])
+selected_regions = st.sidebar.multiselect(
+    "Select Region (Optional)",
+    options=all_regions,
+    default=[]
+)
+
+# 2. Income Group Filter
+all_income_groups = sorted([i for i in df['IncomeGroup'].dropna().unique() if i != ''])
+selected_income_groups = st.sidebar.multiselect(
+    "Select Income Group (Optional)",
+    options=all_income_groups,
+    default=[]
+)
+
+# Filter data based on Region and Income BEFORE Country selection
+df_filtered = df.copy()
+if selected_regions:
+    df_filtered = df_filtered[df_filtered['Region'].isin(selected_regions)]
+if selected_income_groups:
+    df_filtered = df_filtered[df_filtered['IncomeGroup'].isin(selected_income_groups)]
+
 # Metric Selection
 metric_options = {
     "Total Emissions (Mt)": "CO2_Total",
@@ -48,10 +71,19 @@ selected_year = st.sidebar.slider(
 )
 
 # Country Selection
-all_countries = sorted(df['Country'].unique())
-# Default to top 5 emitters in the selected year and metric
-df_year = df[df['Year'] == selected_year]
-top_countries = df_year.sort_values(by=selected_metric, ascending=False).head(5)['Country'].tolist()
+# Get unique countries from the FILTERED dataset
+all_countries = sorted(df_filtered['Country'].unique())
+
+# Default to top 5 emitters in the selected year and metric (within filtered scope)
+df_year_filtered = df_filtered[df_filtered['Year'] == selected_year]
+
+if not df_year_filtered.empty:
+    top_countries = df_year_filtered.sort_values(by=selected_metric, ascending=False).head(5)['Country'].tolist()
+else:
+    top_countries = []
+
+# If the previously selected default countries aren't in the new filtered list, reset them
+# (Streamlit handles this, but good to be explicit for the default)
 
 selected_countries = st.sidebar.multiselect(
     "Select Countries for Comparison",
@@ -64,31 +96,40 @@ selected_countries = st.sidebar.multiselect(
 # Row 1: Key Metrics & Map
 col1, col2 = st.columns([1, 3])
 
-# Filter data for selected year
-df_current_year = df[df['Year'] == selected_year].copy()
+# Filter data for selected year (using the fully filtered dataset)
+# If no countries selected, do we show all filtered? 
+# Usually map shows global/filtered scope.
+# Line chart shows specific countries.
+
+df_current_year = df_filtered[df_filtered['Year'] == selected_year].copy()
 df_current_year.dropna(subset=[selected_metric], inplace=True)
 
 with col1:
-    st.subheader(f"Global Stats ({selected_year})")
+    scope_text = "Global"
+    if selected_regions or selected_income_groups:
+        scope_text = "Filtered"
+        
+    st.subheader(f"{scope_text} Stats ({selected_year})")
     if not df_current_year.empty:
         total_emissions = df_current_year[selected_metric].sum()
         
         # Format based on metric
         if selected_metric == "CO2_Total":
-            st.metric(label="Global Total (Mt)", value=f"{total_emissions:,.0f}")
+            st.metric(label=f"Total Emissions (Mt)", value=f"{total_emissions:,.0f}")
         else:
             avg_per_capita = df_current_year[selected_metric].mean()
-            st.metric(label="Global Avg (tons/capita)", value=f"{avg_per_capita:.2f}")
+            st.metric(label=f"Avg Emissions (tons/capita)", value=f"{avg_per_capita:.2f}")
             
         st.markdown(f"**Countries Reporting:** {len(df_current_year)}")
     else:
         st.warning("No data available for this year.")
 
 with col2:
-    st.subheader(f"Global Map - {selected_metric_label}")
+    st.subheader(f"Map - {selected_metric_label}")
     if not df_current_year.empty:
         fig_map = px.choropleth(
             df_current_year,
+
             locations="ISO3",
             color=selected_metric,
             hover_name="Country",
