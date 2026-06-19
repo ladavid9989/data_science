@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>10 Weeks DS / Coding Interview Intensive</title>
+  <style>
+    :root {
+      --green: #138a45;
+      --green-dark: #0b6f35;
+      --green-light: #eaf7ef;
+      --bg: #f3f5f7;
+      --card: #ffffff;
+      --text: #0f172a;
+      --muted: #64748b;
+      --line: #e5e7eb;
+      --easy: #00a86b;
+      --medium: #d97706;
+      --hard: #dc2626;
+      --mixed: #2563eb;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .hero {
+      background: linear-gradient(135deg, var(--green-dark), var(--green));
+      color: white;
+      padding: 54px 20px 90px;
+      text-align: center;
+    }
+
+    .hero h1 {
+      margin: 0 0 12px;
+      font-size: clamp(28px, 5vw, 48px);
+      letter-spacing: -0.04em;
+    }
+
+    .hero p {
+      margin: 0;
+      color: rgba(255,255,255,.82);
+      font-size: 16px;
+    }
+
+    .wrap {
+      width: min(960px, calc(100% - 32px));
+      margin: -54px auto 64px;
+    }
+
+    .profile {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      background: #f8fafc;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(15,23,42,.08);
+      margin-bottom: 28px;
+    }
+
+    .profile div {
+      padding: 20px 18px;
+      text-align: center;
+      border-right: 1px solid var(--line);
+    }
+
+    .profile div:last-child { border-right: 0; }
+
+    .label {
+      display: block;
+      font-size: 11px;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .value { font-weight: 800; }
+
+    .tabs {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding: 8px 2px 20px;
+      scrollbar-width: none;
+    }
+
+    .tabs::-webkit-scrollbar { display: none; }
+
+    .tab {
+      flex: 0 0 auto;
+      border: 0;
+      background: transparent;
+      color: var(--muted);
+      padding: 10px 16px;
+      border-radius: 999px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .tab.active {
+      background: var(--green);
+      color: white;
+      box-shadow: 0 6px 14px rgba(19,138,69,.22);
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: 20px;
+      border: 1px solid var(--line);
+      overflow: hidden;
+      box-shadow: 0 12px 28px rgba(15,23,42,.06);
+    }
+
+    .section { padding: 30px; }
+    .section + .section { border-top: 1px solid var(--line); }
+
+    .week-kicker {
+      color: var(--green);
+      font-weight: 900;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      font-size: 12px;
+      margin-bottom: 12px;
+    }
+
+    h2 {
+      margin: 0 0 18px;
+      font-size: clamp(24px, 4vw, 34px);
+      letter-spacing: -0.04em;
+    }
+
+    .desc {
+      background: #f8fafc;
+      border-radius: 16px;
+      padding: 20px;
+      line-height: 1.7;
+      color: #334155;
+    }
+
+    .topics {
+      display: grid;
+      gap: 10px;
+      margin: 18px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .topics li::before {
+      content: "•";
+      color: var(--green);
+      font-weight: 900;
+      margin-right: 10px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+
+    th, td {
+      text-align: left;
+      padding: 16px 12px;
+      border-bottom: 1px solid var(--line);
+      font-size: 14px;
+    }
+
+    th {
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      font-size: 11px;
+    }
+
+    a {
+      color: #1d4ed8;
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    a:hover { text-decoration: underline; }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 5px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 900;
+      background: #f1f5f9;
+    }
+
+    .Easy { color: var(--easy); }
+    .Medium { color: var(--medium); }
+    .Hard { color: var(--hard); }
+    .Mixed { color: var(--mixed); }
+    .Placeholder { color: var(--muted); }
+
+    .overview-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 14px;
+    }
+
+    .overview-item {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 18px;
+      background: #fff;
+    }
+
+    .overview-item strong { display: block; margin-bottom: 6px; }
+    .overview-item span { color: var(--muted); font-size: 14px; line-height: 1.5; }
+
+    .progress-box {
+      margin-top: 18px;
+      background: #f8fafc;
+      border-radius: 16px;
+      padding: 18px;
+    }
+
+    .progress-row {
+      display: flex;
+      justify-content: space-between;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    .bar {
+      height: 9px;
+      background: #e5e7eb;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .bar span {
+      display: block;
+      width: 0%;
+      height: 100%;
+      background: var(--green);
+    }
+
+    @media (max-width: 720px) {
+      .hero { padding-bottom: 76px; }
+      .profile { grid-template-columns: 1fr 1fr; }
+      .profile div { border-bottom: 1px solid var(--line); }
+      .profile div:nth-child(2) { border-right: 0; }
+      .profile div:nth-child(3), .profile div:nth-child(4) { border-bottom: 0; }
+      .section { padding: 22px; }
+      th:nth-child(2), td:nth-child(2) { text-align: right; }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <h1>Data Science / Coding Interview Intensive</h1>
+    <p>10주 집중 커리큘럼 · Python · SQL · Pandas · ML Interview</p>
+  </header>
+
+  <main class="wrap">
+    <section class="profile" aria-label="student profile">
+      <div><span class="label">Student</span><span class="value">Demo Student</span></div>
+      <div><span class="label">Background</span><span class="value">Statistics + AI</span></div>
+      <div><span class="label">Target</span><span class="value">DS / ML Interview</span></div>
+      <div><span class="label">Format</span><span class="value">10 Weeks Intensive</span></div>
+    </section>
+
+    <nav class="tabs" id="tabs"></nav>
+    <section class="card" id="content"></section>
+  </main>
+
+  <script>
+    const curriculumData = [
+      {
+        week: 1,
+        title: "Python Basics + Big O",
+        description: "Python 문법을 빠르게 훑고, 코딩 인터뷰에서 필요한 Big O 표기법을 익힌다.",
+        topics: ["List, dictionary, set", "조건문, 반복문, 함수", "Time complexity", "Space complexity"],
+        problems: [
+          ["Contains Duplicate", "Easy", "https://leetcode.com/problems/contains-duplicate/"],
+          ["Valid Anagram", "Easy", "https://leetcode.com/problems/valid-anagram/"],
+          ["Two Sum", "Easy", "https://leetcode.com/problems/two-sum/"]
+        ]
+      },
+      {
+        week: 2,
+        title: "Array & Hashing",
+        description: "배열과 해시맵을 이용해 O(n²) 풀이를 O(n)으로 줄이는 연습을 한다.",
+        topics: ["HashMap", "HashSet", "Counter", "Frequency counting"],
+        problems: [
+          ["Group Anagrams", "Medium", "https://leetcode.com/problems/group-anagrams/"],
+          ["Top K Frequent Elements", "Medium", "https://leetcode.com/problems/top-k-frequent-elements/"]
+        ]
+      },
+      {
+        week: 3,
+        title: "Two Pointers + Sliding Window",
+        description: "정렬된 배열, 문자열, 구간 문제에서 포인터와 윈도우를 활용한다.",
+        topics: ["Two pointers", "Sliding window", "Intervals"],
+        problems: [
+          ["Two Sum II", "Medium", "https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/"],
+          ["3Sum", "Medium", "https://leetcode.com/problems/3sum/"],
+          ["Container With Most Water", "Medium", "https://leetcode.com/problems/container-with-most-water/"]
+        ]
+      },
+      {
+        week: 4,
+        title: "SQL Interview Basics",
+        description: "데이터사이언스 면접에 자주 나오는 SQL 집계, 조인, 윈도우 함수를 연습한다.",
+        topics: ["GROUP BY", "JOIN", "Window function", "CTE"],
+        problems: [["LeetCode SQL 50", "Mixed", "https://leetcode.com/studyplan/top-sql-50/"]]
+      },
+      {
+        week: 5,
+        title: "Pandas for Interviews",
+        description: "pandas로 데이터 정리, 필터링, groupby, merge를 연습한다.",
+        topics: ["DataFrame filtering", "groupby", "merge", "missing values"],
+        problems: [["LeetCode Pandas Study Plan", "Mixed", "https://leetcode.com/studyplan/30-days-of-pandas/"]]
+      },
+      ...Array.from({ length: 5 }, (_, i) => ({
+        week: i + 6,
+        title: `Week ${i + 6} Placeholder`,
+        description: "이 주차는 추후 실제 커리큘럼으로 교체하세요.",
+        topics: ["Topic A", "Topic B", "Topic C"],
+        problems: [["Add problem link", "Placeholder", "#"]]
+      }))
+    ];
+
+    const tabs = document.getElementById("tabs");
+    const content = document.getElementById("content");
+    let activeTab = "overview";
+
+    function renderTabs() {
+      const items = ["overview", ...curriculumData.map(w => w.week)];
+      tabs.innerHTML = items.map(item => {
+        const label = item === "overview" ? "Overview" : `${item} ${curriculumData[item - 1].title.split(" ").slice(0, 3).join(" ")}`;
+        const active = activeTab === item ? "active" : "";
+        return `<button class="tab ${active}" onclick="setTab('${item}')">${label}</button>`;
+      }).join("");
+    }
+
+    function renderOverview() {
+      const totalProblems = curriculumData.reduce((sum, w) => sum + w.problems.length, 0);
+      content.innerHTML = `
+        <div class="section">
+          <div class="week-kicker">Overview</div>
+          <h2>10 Weeks Interview Roadmap</h2>
+          <p class="desc">코딩 인터뷰 기본기, SQL, Pandas, 그리고 데이터사이언스 면접에 필요한 실전 문제 풀이를 10주 동안 순차적으로 학습합니다.</p>
+          <div class="progress-box">
+            <div class="progress-row"><span>Progress</span><span>0 / 10 Weeks</span></div>
+            <div class="bar"><span></span></div>
+          </div>
+        </div>
+        <div class="section overview-grid">
+          ${curriculumData.map(w => `
+            <div class="overview-item">
+              <strong>Week ${w.week}. ${w.title}</strong>
+              <span>${w.problems.length} problems · ${w.topics.slice(0, 2).join(", ")}</span>
+            </div>
+          `).join("")}
+        </div>
+      `;
+    }
+
+    function renderWeek(weekNumber) {
+      const week = curriculumData.find(w => w.week === Number(weekNumber));
+      content.innerHTML = `
+        <div class="section">
+          <div class="week-kicker">Week ${week.week}</div>
+          <h2>${week.title}</h2>
+          <p class="desc">${week.description}</p>
+        </div>
+        <div class="section">
+          <div class="week-kicker">Topics</div>
+          <ul class="topics">${week.topics.map(t => `<li>${t}</li>`).join("")}</ul>
+        </div>
+        <div class="section">
+          <div class="week-kicker">Problems</div>
+          <table>
+            <thead><tr><th>Problem</th><th>Difficulty</th></tr></thead>
+            <tbody>
+              ${week.problems.map(([name, diff, url]) => `
+                <tr>
+                  <td><a href="${url}" target="_blank" rel="noopener noreferrer">${name} ↗</a></td>
+                  <td><span class="badge ${diff}">${diff}</span></td>
+                </tr>
+              `).join("")}
+            </tbody>
+          </table>
+        </div>
+      `;
+    }
+
+    function setTab(tab) {
+      activeTab = tab === "overview" ? "overview" : Number(tab);
+      renderTabs();
+      activeTab === "overview" ? renderOverview() : renderWeek(activeTab);
+    }
+
+    renderTabs();
+    renderOverview();
+  </script>
+</body>
+</html>
