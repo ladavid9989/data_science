@@ -1,412 +1,680 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>10 Weeks DS / Coding Interview Intensive</title>
+  <title>Applied Data Career Bootcamp | Sam</title>
   <style>
     :root {
-      --green: #138a45;
-      --green-dark: #0b6f35;
-      --green-light: #eaf7ef;
-      --bg: #f3f5f7;
-      --card: #ffffff;
-      --text: #0f172a;
+      --green: #0f8a3f;
+      --green-dark: #0b6f32;
+      --green-light: #e9f8ef;
+      --ink: #0f172a;
       --muted: #64748b;
-      --line: #e5e7eb;
-      --easy: #00a86b;
-      --medium: #d97706;
-      --hard: #dc2626;
-      --mixed: #2563eb;
+      --line: #e2e8f0;
+      --bg: #f4f7fb;
+      --card: #ffffff;
+      --soft: #f8fafc;
+      --orange: #f59e0b;
+      --blue: #2563eb;
+      --purple: #7c3aed;
+      --shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
     }
 
     * { box-sizing: border-box; }
-
+    html { scroll-behavior: smooth; }
     body {
       margin: 0;
-      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
       background: var(--bg);
-      color: var(--text);
+      line-height: 1.55;
     }
 
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
     .hero {
-      background: linear-gradient(135deg, var(--green-dark), var(--green));
+      background: linear-gradient(135deg, #0b7333, #108d42);
       color: white;
-      padding: 54px 20px 90px;
       text-align: center;
+      padding: 74px 20px 128px;
     }
 
     .hero h1 {
-      margin: 0 0 12px;
-      font-size: clamp(28px, 5vw, 48px);
-      letter-spacing: -0.04em;
+      margin: 0;
+      font-size: clamp(2.2rem, 5vw, 4rem);
+      letter-spacing: -0.045em;
+      line-height: 1.05;
+      font-weight: 850;
     }
 
     .hero p {
-      margin: 0;
-      color: rgba(255,255,255,.82);
-      font-size: 16px;
+      margin: 18px auto 0;
+      max-width: 820px;
+      color: rgba(255,255,255,0.9);
+      font-size: 1.06rem;
     }
 
-    .wrap {
-      width: min(960px, calc(100% - 32px));
-      margin: -54px auto 64px;
+    .shell {
+      width: min(1080px, calc(100% - 32px));
+      margin: -72px auto 64px;
     }
 
-    .profile {
+    .profile-card {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      background: #f8fafc;
-      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.96);
+      border: 1px solid rgba(226,232,240,0.9);
       border-radius: 18px;
       overflow: hidden;
-      box-shadow: 0 8px 24px rgba(15,23,42,.08);
-      margin-bottom: 28px;
+      box-shadow: var(--shadow);
+      margin-bottom: 36px;
     }
 
-    .profile div {
-      padding: 20px 18px;
+    .profile-item {
+      padding: 24px 18px;
       text-align: center;
       border-right: 1px solid var(--line);
     }
-
-    .profile div:last-child { border-right: 0; }
-
+    .profile-item:last-child { border-right: 0; }
     .label {
       display: block;
-      font-size: 11px;
       color: #94a3b8;
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      letter-spacing: .12em;
       font-weight: 800;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
+    .value { font-weight: 850; color: var(--ink); }
 
-    .value { font-weight: 800; }
+    .tabs-wrap {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(244, 247, 251, 0.86);
+      backdrop-filter: blur(10px);
+      padding: 10px 0 14px;
+      margin-bottom: 18px;
+    }
 
     .tabs {
       display: flex;
       gap: 10px;
       overflow-x: auto;
-      padding: 8px 2px 20px;
-      scrollbar-width: none;
+      padding: 4px 2px 8px;
+      scrollbar-width: thin;
     }
-
-    .tabs::-webkit-scrollbar { display: none; }
 
     .tab {
       flex: 0 0 auto;
       border: 0;
       background: transparent;
-      color: var(--muted);
-      padding: 10px 16px;
-      border-radius: 999px;
+      color: #475569;
       font-weight: 800;
+      padding: 11px 18px;
+      border-radius: 999px;
       cursor: pointer;
+      white-space: nowrap;
+      transition: 0.2s ease;
     }
-
+    .tab:hover { background: #e2e8f0; color: var(--ink); }
     .tab.active {
       background: var(--green);
       color: white;
-      box-shadow: 0 6px 14px rgba(19,138,69,.22);
+      box-shadow: 0 10px 20px rgba(15, 138, 63, 0.24);
     }
 
-    .card {
+    .panel {
+      display: none;
       background: var(--card);
-      border-radius: 20px;
       border: 1px solid var(--line);
+      border-radius: 20px;
+      box-shadow: var(--shadow);
       overflow: hidden;
-      box-shadow: 0 12px 28px rgba(15,23,42,.06);
     }
+    .panel.active { display: block; }
 
-    .section { padding: 30px; }
-    .section + .section { border-top: 1px solid var(--line); }
-
-    .week-kicker {
+    .panel-header {
+      padding: 34px 36px 28px;
+      border-bottom: 1px solid var(--line);
+    }
+    .eyebrow {
       color: var(--green);
-      font-weight: 900;
-      letter-spacing: .12em;
+      font-size: 0.75rem;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
-      font-size: 12px;
-      margin-bottom: 12px;
+      font-weight: 900;
+      margin-bottom: 10px;
+    }
+    .panel h2 {
+      margin: 0;
+      font-size: clamp(1.65rem, 4vw, 2.35rem);
+      line-height: 1.15;
+      letter-spacing: -0.035em;
+    }
+    .panel-subtitle {
+      margin: 16px 0 0;
+      color: var(--muted);
+      max-width: 850px;
+      font-size: 1.02rem;
     }
 
-    h2 {
-      margin: 0 0 18px;
-      font-size: clamp(24px, 4vw, 34px);
-      letter-spacing: -0.04em;
+    .content {
+      padding: 28px 36px 36px;
     }
 
-    .desc {
-      background: #f8fafc;
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin: 22px 0 4px;
+    }
+    .info-card {
+      border: 1px solid var(--line);
+      background: var(--soft);
       border-radius: 16px;
       padding: 20px;
-      line-height: 1.7;
+    }
+    .info-card h3 {
+      margin: 0 0 10px;
+      font-size: 1rem;
+    }
+    .info-card ul {
+      padding-left: 18px;
+      margin: 0;
       color: #334155;
     }
+    .info-card li { margin: 6px 0; }
 
-    .topics {
+    .session-layout {
       display: grid;
-      gap: 10px;
-      margin: 18px 0 0;
-      padding: 0;
-      list-style: none;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 18px;
+      margin-bottom: 22px;
     }
 
-    .topics li::before {
-      content: "•";
-      color: var(--green);
+    .block {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: var(--soft);
+      padding: 20px;
+    }
+    .block h3 {
+      margin: 0 0 10px;
+      font-size: 1rem;
+    }
+    .block p { margin: 0; color: #334155; }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 0.78rem;
+      font-weight: 800;
+      background: #eef2ff;
+      color: #3730a3;
+    }
+    .tag.sql { background: var(--green-light); color: var(--green-dark); }
+    .tag.career { background: #fff7ed; color: #9a3412; }
+    .tag.python { background: #eff6ff; color: #1d4ed8; }
+    .tag.ml { background: #faf5ff; color: #6b21a8; }
+
+    .practice-card {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: white;
+      overflow: hidden;
+      margin-top: 18px;
+    }
+    .practice-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 18px 20px;
+      background: #fbfdff;
+      border-bottom: 1px solid var(--line);
+    }
+    .practice-header h3 { margin: 0; font-size: 1rem; }
+    .count-pill {
+      flex: 0 0 auto;
+      border-radius: 999px;
+      background: var(--green-light);
+      color: var(--green-dark);
       font-weight: 900;
-      margin-right: 10px;
+      padding: 7px 10px;
+      font-size: 0.78rem;
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
-      margin-top: 10px;
     }
-
     th, td {
-      text-align: left;
-      padding: 16px 12px;
+      padding: 14px 16px;
       border-bottom: 1px solid var(--line);
-      font-size: 14px;
+      text-align: left;
+      vertical-align: top;
+      font-size: 0.94rem;
     }
-
     th {
       color: #94a3b8;
       text-transform: uppercase;
-      letter-spacing: .1em;
-      font-size: 11px;
+      letter-spacing: 0.12em;
+      font-size: 0.72rem;
+      background: white;
     }
-
-    a {
-      color: #1d4ed8;
-      text-decoration: none;
-      font-weight: 700;
+    tr:last-child td { border-bottom: 0; }
+    .concept {
+      display: inline-flex;
+      border-radius: 999px;
+      background: #f1f5f9;
+      color: #334155;
+      font-size: 0.78rem;
+      font-weight: 800;
+      padding: 5px 9px;
+      margin-right: 5px;
     }
-
-    a:hover { text-decoration: underline; }
-
-    .badge {
+    .link-btn {
       display: inline-flex;
       align-items: center;
-      padding: 5px 10px;
-      border-radius: 999px;
-      font-size: 12px;
-      font-weight: 900;
-      background: #f1f5f9;
+      gap: 6px;
+      font-weight: 850;
+    }
+    .external { color: #94a3b8; font-size: 0.82rem; }
+
+    .placeholder {
+      border: 1px dashed #cbd5e1;
+      background: #fbfdff;
+      color: #475569;
+      border-radius: 16px;
+      padding: 18px 20px;
+      margin-top: 16px;
     }
 
-    .Easy { color: var(--easy); }
-    .Medium { color: var(--medium); }
-    .Hard { color: var(--hard); }
-    .Mixed { color: var(--mixed); }
-    .Placeholder { color: var(--muted); }
-
-    .overview-grid {
+    .timeline {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      grid-template-columns: repeat(2, 1fr);
       gap: 14px;
+      margin-top: 22px;
     }
-
-    .overview-item {
+    .timeline-item {
       border: 1px solid var(--line);
-      border-radius: 16px;
-      padding: 18px;
-      background: #fff;
+      border-radius: 15px;
+      padding: 16px;
+      background: white;
+    }
+    .timeline-item strong { display: block; margin-bottom: 4px; }
+    .timeline-item span { color: var(--muted); font-size: 0.92rem; }
+
+    .footer-note {
+      color: var(--muted);
+      font-size: 0.9rem;
+      text-align: center;
+      margin: 28px auto 0;
     }
 
-    .overview-item strong { display: block; margin-bottom: 6px; }
-    .overview-item span { color: var(--muted); font-size: 14px; line-height: 1.5; }
-
-    .progress-box {
-      margin-top: 18px;
-      background: #f8fafc;
-      border-radius: 16px;
-      padding: 18px;
-    }
-
-    .progress-row {
-      display: flex;
-      justify-content: space-between;
-      font-weight: 800;
-      margin-bottom: 10px;
-    }
-
-    .bar {
-      height: 9px;
-      background: #e5e7eb;
-      border-radius: 999px;
-      overflow: hidden;
-    }
-
-    .bar span {
-      display: block;
-      width: 0%;
-      height: 100%;
-      background: var(--green);
-    }
-
-    @media (max-width: 720px) {
-      .hero { padding-bottom: 76px; }
-      .profile { grid-template-columns: 1fr 1fr; }
-      .profile div { border-bottom: 1px solid var(--line); }
-      .profile div:nth-child(2) { border-right: 0; }
-      .profile div:nth-child(3), .profile div:nth-child(4) { border-bottom: 0; }
-      .section { padding: 22px; }
-      th:nth-child(2), td:nth-child(2) { text-align: right; }
+    @media (max-width: 860px) {
+      .profile-card { grid-template-columns: repeat(2, 1fr); }
+      .profile-item:nth-child(2) { border-right: 0; }
+      .profile-item:nth-child(1), .profile-item:nth-child(2) { border-bottom: 1px solid var(--line); }
+      .info-grid, .session-layout, .timeline { grid-template-columns: 1fr; }
+      .panel-header, .content { padding-left: 22px; padding-right: 22px; }
+      table, thead, tbody, th, td, tr { display: block; }
+      thead { display: none; }
+      tr { border-bottom: 1px solid var(--line); padding: 10px 0; }
+      tr:last-child { border-bottom: 0; }
+      td { border-bottom: 0; padding: 8px 16px; }
+      td::before {
+        content: attr(data-label);
+        display: block;
+        color: #94a3b8;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        font-size: 0.68rem;
+        font-weight: 900;
+        margin-bottom: 4px;
+      }
     }
   </style>
 </head>
 <body>
   <header class="hero">
-    <h1>Data Science / Coding Interview Intensive</h1>
-    <p>10주 집중 커리큘럼 · Python · SQL · Pandas · ML Interview</p>
+    <h1>Applied Data Career Bootcamp</h1>
+    <p>10-Week Compressed Program · SQL · Python · Statistics · Machine Learning · Resume · Behavioral Interview</p>
   </header>
 
-  <main class="wrap">
-    <section class="profile" aria-label="student profile">
-      <div><span class="label">Student</span><span class="value">Demo Student</span></div>
-      <div><span class="label">Background</span><span class="value">Statistics + AI</span></div>
-      <div><span class="label">Target</span><span class="value">DS / ML Interview</span></div>
-      <div><span class="label">Format</span><span class="value">10 Weeks Intensive</span></div>
+  <main class="shell">
+    <section class="profile-card" aria-label="Program profile">
+      <div class="profile-item">
+        <span class="label">Student</span>
+        <span class="value">Sam</span>
+      </div>
+      <div class="profile-item">
+        <span class="label">Program Lead</span>
+        <span class="value">David</span>
+      </div>
+      <div class="profile-item">
+        <span class="label">Target</span>
+        <span class="value">Applied Data Roles</span>
+      </div>
+      <div class="profile-item">
+        <span class="label">Format</span>
+        <span class="value">10 Sessions</span>
+      </div>
     </section>
 
-    <nav class="tabs" id="tabs"></nav>
-    <section class="card" id="content"></section>
+    <div class="tabs-wrap">
+      <nav class="tabs" id="tabs" aria-label="Curriculum tabs"></nav>
+    </div>
+
+    <section id="panels"></section>
+
+    <p class="footer-note">This curriculum page is a living document. SQL practice is populated first; Python, statistics, ML, resume, and interview modules can be added session by session.</p>
   </main>
 
   <script>
-    const curriculumData = [
+    const overview = {
+      id: "overview",
+      tab: "Overview",
+      eyebrow: "Program Overview",
+      title: "Applied Data Career Bootcamp (10-Week Compressed Program)",
+      subtitle: "A practical coaching program for early-career and graduate-level students preparing for analytics-oriented roles in the U.S. job market.",
+      type: "overview"
+    };
+
+    const sessions = [
       {
-        week: 1,
-        title: "Python Basics + Big O",
-        description: "Python 문법을 빠르게 훑고, 코딩 인터뷰에서 필요한 Big O 표기법을 익힌다.",
-        topics: ["List, dictionary, set", "조건문, 반복문, 함수", "Time complexity", "Space complexity"],
-        problems: [
-          ["Contains Duplicate", "Easy", "https://leetcode.com/problems/contains-duplicate/"],
-          ["Valid Anagram", "Easy", "https://leetcode.com/problems/valid-anagram/"],
-          ["Two Sum", "Easy", "https://leetcode.com/problems/two-sum/"]
+        id: "session-1",
+        tab: "Session 1",
+        eyebrow: "Session 1",
+        title: "Level Set, Environment Setup, and Job Search Foundations",
+        subtitle: "The first session establishes the working environment, clarifies expectations, and introduces proactive job-search routines.",
+        focus: ["Level set", "Environment setup", "Job search 101", "Study rhythm"],
+        live: "Install and verify Conda/Jupyter, Git/GitHub, PostgreSQL, and pgAdmin. Review the program structure, weekly expectations, and job-search channels such as LinkedIn and Indeed.",
+        homework: "Complete the setup checklist, create or update job alerts, and prepare accounts for LeetCode and SQL practice.",
+        sql: []
+      },
+      {
+        id: "session-2",
+        tab: "Session 2",
+        eyebrow: "Session 2",
+        title: "Position Exploration, Behavioral Foundations, and SQL Filtering",
+        subtitle: "Focus on role expectations, STAR/PAR behavioral structure, and SQL fundamentals such as WHERE, AND/OR, and basic GROUP BY.",
+        focus: ["Role exploration", "Behavioral interview", "SQL filtering", "GROUP BY basics"],
+        live: "Discuss target job descriptions, common data-role requirements, and behavioral answer structure. Introduce SQL filtering and simple aggregation logic.",
+        homework: "Practice the SQL problems below and prepare short STAR/PAR notes for one project or work experience.",
+        sql: [
+          { subject: "WHERE", concept: "AND", title: "Recyclable and Low Fat Products", url: "https://leetcode.com/problems/recyclable-and-low-fat-products/description/" },
+          { subject: "WHERE", concept: "OR", title: "Big Countries", url: "https://leetcode.com/problems/big-countries/description/" },
+          { subject: "WHERE", concept: "Basic filter", title: "Find Customer Referee", url: "https://leetcode.com/problems/find-customer-referee/description/" },
+          { subject: "GROUP BY", concept: "Aggregation", title: "Number of Unique Subjects Taught by Each Teacher", url: "https://leetcode.com/problems/number-of-unique-subjects-taught-by-each-teacher/description/" }
         ]
       },
       {
-        week: 2,
-        title: "Array & Hashing",
-        description: "배열과 해시맵을 이용해 O(n²) 풀이를 O(n)으로 줄이는 연습을 한다.",
-        topics: ["HashMap", "HashSet", "Counter", "Frequency counting"],
-        problems: [
-          ["Group Anagrams", "Medium", "https://leetcode.com/problems/group-anagrams/"],
-          ["Top K Frequent Elements", "Medium", "https://leetcode.com/problems/top-k-frequent-elements/"]
+        id: "session-3",
+        tab: "Session 3",
+        eyebrow: "Session 3",
+        title: "Descriptive Statistics and SQL Joins",
+        subtitle: "Practice describing distributions and join multiple tables to answer business questions.",
+        focus: ["Descriptive statistics", "INNER JOIN", "LEFT JOIN", "Basic subqueries"],
+        live: "Review distribution, outliers, scaling, and sampling. Introduce SQL joins and how table relationships map to business questions.",
+        homework: "Complete descriptive-statistics oral practice and the SQL join problems below.",
+        sql: [
+          { subject: "JOIN", concept: "Table join", title: "Combine Two Tables", url: "https://leetcode.com/problems/combine-two-tables/description/" },
+          { subject: "JOIN", concept: "ID mapping", title: "Replace Employee ID With The Unique Identifier", url: "https://leetcode.com/problems/replace-employee-id-with-the-unique-identifier/description/" },
+          { subject: "JOIN", concept: "Sales table", title: "Product Sales Analysis I", url: "https://leetcode.com/problems/product-sales-analysis-i/description/" },
+          { subject: "JOIN", concept: "Anti-join", title: "Customer Who Visited but Did Not Make Any Transactions", url: "https://leetcode.com/problems/customer-who-visited-but-did-not-make-any-transactions/description/" },
+          { subject: "JOIN", concept: "Aggregation", title: "Bank Account Summary II", url: "https://leetcode.com/problems/bank-account-summary-ii/description/" }
         ]
       },
       {
-        week: 3,
-        title: "Two Pointers + Sliding Window",
-        description: "정렬된 배열, 문자열, 구간 문제에서 포인터와 윈도우를 활용한다.",
-        topics: ["Two pointers", "Sliding window", "Intervals"],
-        problems: [
-          ["Two Sum II", "Medium", "https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/"],
-          ["3Sum", "Medium", "https://leetcode.com/problems/3sum/"],
-          ["Container With Most Water", "Medium", "https://leetcode.com/problems/container-with-most-water/"]
+        id: "session-4",
+        tab: "Session 4",
+        eyebrow: "Session 4",
+        title: "Inferential Statistics and SQL Aggregation Filters",
+        subtitle: "Connect inferential thinking with SQL patterns such as HAVING and join-based filters.",
+        focus: ["Confidence intervals", "p-values", "A/B design", "HAVING", "WHERE + JOIN"],
+        live: "Discuss CI, p-value interpretation, ANOVA, and A/B design. Practice SQL aggregation filters and grouped conditions.",
+        homework: "Complete inferential-statistics oral practice and the SQL problems below.",
+        sql: [
+          { subject: "HAVING", concept: "Group filter", title: "Classes With At Least 5 Students", url: "https://leetcode.com/problems/classes-with-at-least-5-students/description/" },
+          { subject: "HAVING", concept: "Complete coverage", title: "Customers Who Bought All Products", url: "https://leetcode.com/problems/customers-who-bought-all-products/description/" },
+          { subject: "HAVING", concept: "Aggregation", title: "Bank Account Summary II", url: "https://leetcode.com/problems/bank-account-summary-ii/" },
+          { subject: "WHERE & JOIN", concept: "Join filter", title: "Employee Bonus", url: "https://leetcode.com/problems/employee-bonus/description/" }
         ]
       },
       {
-        week: 4,
-        title: "SQL Interview Basics",
-        description: "데이터사이언스 면접에 자주 나오는 SQL 집계, 조인, 윈도우 함수를 연습한다.",
-        topics: ["GROUP BY", "JOIN", "Window function", "CTE"],
-        problems: [["LeetCode SQL 50", "Mixed", "https://leetcode.com/studyplan/top-sql-50/"]]
+        id: "session-5",
+        tab: "Session 5",
+        eyebrow: "Session 5",
+        title: "Resume Mapping and SQL Subqueries",
+        subtitle: "Translate job descriptions into resume bullets while strengthening SQL subquery patterns.",
+        focus: ["Resume v1", "JD keyword mapping", "Subqueries", "NOT IN"],
+        live: "Map job-description requirements to resume evidence. Practice subqueries and exclusion logic in SQL.",
+        homework: "Submit resume draft v1.0 and complete the SQL subquery problems below.",
+        sql: [
+          { subject: "Subquery", concept: "NOT IN", title: "Sales Person", url: "https://leetcode.com/problems/sales-person/" },
+          { subject: "Subquery", concept: "Comparison", title: "Employees Earning More Than Their Managers", url: "https://leetcode.com/problems/employees-earning-more-than-their-managers/description/" },
+          { subject: "Subquery", concept: "Missing orders", title: "Customers Who Never Order", url: "https://leetcode.com/problems/customers-who-never-order/description/" }
+        ]
       },
       {
-        week: 5,
-        title: "Pandas for Interviews",
-        description: "pandas로 데이터 정리, 필터링, groupby, merge를 연습한다.",
-        topics: ["DataFrame filtering", "groupby", "merge", "missing values"],
-        problems: [["LeetCode Pandas Study Plan", "Mixed", "https://leetcode.com/studyplan/30-days-of-pandas/"]]
+        id: "session-6",
+        tab: "Session 6",
+        eyebrow: "Session 6",
+        title: "Python EDA and Time-Oriented SQL Patterns",
+        subtitle: "Use Python for exploratory analysis while continuing SQL practice with date logic and early window-function ideas.",
+        focus: ["EDA", "Resume review", "Date logic", "LAG", "RANK"],
+        live: "Review EDA workflow, missing-value handling, trend analysis, and visual summaries. Introduce date-based SQL reasoning and sequence comparisons.",
+        homework: "Complete EDA assignment and the SQL practice below.",
+        sql: [
+          { subject: "Date", concept: "Review / warm-up", title: "Number of Unique Subjects Taught by Each Teacher", url: "https://leetcode.com/problems/number-of-unique-subjects-taught-by-each-teacher/description/" },
+          { subject: "Date", concept: "Activity window", title: "User Activity for the Past 30 Days I", url: "https://leetcode.com/problems/user-activity-for-the-past-30-days-i/description/" },
+          { subject: "LAG", concept: "Prior row logic", title: "Rising Temperature", url: "https://leetcode.com/problems/rising-temperature/description/" },
+          { subject: "RANK", concept: "First event", title: "Game Play Analysis I", url: "https://leetcode.com/problems/game-play-analysis-i/description/" }
+        ]
       },
-      ...Array.from({ length: 5 }, (_, i) => ({
-        week: i + 6,
-        title: `Week ${i + 6} Placeholder`,
-        description: "이 주차는 추후 실제 커리큘럼으로 교체하세요.",
-        topics: ["Topic A", "Topic B", "Topic C"],
-        problems: [["Add problem link", "Placeholder", "#"]]
-      }))
+      {
+        id: "session-7",
+        tab: "Session 7",
+        eyebrow: "Session 7",
+        title: "Predictive Modeling Basics and SQL Set Logic",
+        subtitle: "Introduce regression/classification, evaluation metrics, and SQL set operations such as UNION.",
+        focus: ["Regression", "Classification", "Metrics", "UNION", "Missing information"],
+        live: "Discuss baseline models, overfit/underfit, ROC-AUC, PR curves, RMSE, and imbalance. Use SQL set logic to combine records.",
+        homework: "Complete predictive-model oral preparation and the SQL set-logic practice below.",
+        sql: [
+          { subject: "UNION", concept: "Price history", title: "Product Price at a Given Date", url: "https://leetcode.com/problems/product-price-at-a-given-date/description/" },
+          { subject: "UNION", concept: "Warm-up", title: "Recyclable and Low Fat Products", url: "https://leetcode.com/problems/recyclable-and-low-fat-products/description/" },
+          { subject: "UNION", concept: "Missing records", title: "Employees With Missing Information", url: "https://leetcode.com/problems/employees-with-missing-information/" }
+        ]
+      },
+      {
+        id: "session-8",
+        tab: "Session 8",
+        eyebrow: "Session 8",
+        title: "ML Workflow and SQL Conditional Logic",
+        subtitle: "Practice train/validation workflow and strengthen SQL with CASE WHEN, CTE, SUM, and partitioned ranking.",
+        focus: ["ML pipeline", "GridSearchCV", "Resume review", "CASE WHEN", "CTE"],
+        live: "Discuss baseline-to-improvement workflow, train/validation split, Pipeline, GridSearchCV, and feature importance. Review SQL conditional aggregation and CTE-based decomposition.",
+        homework: "Complete ML workflow assignment, prepare behavioral stories, and solve the SQL practice below.",
+        sql: [
+          { subject: "CASE WHEN", concept: "GROUP BY", title: "Monthly Transactions I", url: "https://leetcode.com/problems/monthly-transactions-i/description/" },
+          { subject: "CASE WHEN", concept: "GROUP BY", title: "Capital Gain/Loss", url: "https://leetcode.com/problems/capital-gainloss/description/" },
+          { subject: "CTE", concept: "SUM", title: "Bank Account Summary II", url: "https://leetcode.com/problems/bank-account-summary-ii/description/" },
+          { subject: "CTE", concept: "PARTITION BY", title: "Department Top Three Salaries", url: "https://leetcode.com/problems/department-top-three-salaries/description/" }
+        ]
+      },
+      {
+        id: "session-9",
+        tab: "Session 9",
+        eyebrow: "Session 9",
+        title: "Behavioral Interview and Advanced SQL Review",
+        subtitle: "Run behavioral interview practice and review advanced SQL patterns with ranking, running totals, and mixed subqueries.",
+        focus: ["Behavioral mock", "Resume polish", "Window functions", "ROW_NUMBER", "Running total"],
+        live: "Conduct behavioral mock interview practice, review STAR/PAR structure, and pressure-test advanced SQL problem-solving logic.",
+        homework: "Prepare for the final technical interview and solve the advanced SQL review set below.",
+        sql: [
+          { subject: "Window Function", concept: "RANK", title: "Rank Scores", url: "https://leetcode.com/problems/rank-scores/description/" },
+          { subject: "ROW_NUMBER, COUNT/OVER", concept: "Consecutive Numbers", title: "Human Traffic of Stadium", url: "https://leetcode.com/problems/human-traffic-of-stadium/description/" },
+          { subject: "Window Function", concept: "Running total", title: "Last Person to Fit in the Bus", url: "https://leetcode.com/problems/last-person-to-fit-in-the-bus/description/" },
+          { subject: "UNION & Subquery", concept: "AVG", title: "Movie Rating", url: "https://leetcode.com/problems/movie-rating/description/" }
+        ]
+      },
+      {
+        id: "session-10",
+        tab: "Session 10",
+        eyebrow: "Session 10",
+        title: "Final Behavioral and Technical Mock Interview",
+        subtitle: "The final session evaluates readiness and creates a concrete four-week application plan.",
+        focus: ["Technical mock", "Behavioral mock", "Readiness checklist", "Application plan"],
+        live: "Run a final behavioral and technical mock interview, review the scorecard, and identify remaining gaps.",
+        homework: "Finalize LinkedIn updates, recruiter DM templates, and a four-week application calendar.",
+        sql: []
+      }
     ];
 
-    const tabs = document.getElementById("tabs");
-    const content = document.getElementById("content");
-    let activeTab = "overview";
-
-    function renderTabs() {
-      const items = ["overview", ...curriculumData.map(w => w.week)];
-      tabs.innerHTML = items.map(item => {
-        const label = item === "overview" ? "Overview" : `${item} ${curriculumData[item - 1].title.split(" ").slice(0, 3).join(" ")}`;
-        const active = activeTab === item ? "active" : "";
-        return `<button class="tab ${active}" onclick="setTab('${item}')">${label}</button>`;
-      }).join("");
-    }
+    const pages = [overview, ...sessions];
 
     function renderOverview() {
-      const totalProblems = curriculumData.reduce((sum, w) => sum + w.problems.length, 0);
-      content.innerHTML = `
-        <div class="section">
-          <div class="week-kicker">Overview</div>
-          <h2>10 Weeks Interview Roadmap</h2>
-          <p class="desc">코딩 인터뷰 기본기, SQL, Pandas, 그리고 데이터사이언스 면접에 필요한 실전 문제 풀이를 10주 동안 순차적으로 학습합니다.</p>
-          <div class="progress-box">
-            <div class="progress-row"><span>Progress</span><span>0 / 10 Weeks</span></div>
-            <div class="bar"><span></span></div>
-          </div>
-        </div>
-        <div class="section overview-grid">
-          ${curriculumData.map(w => `
-            <div class="overview-item">
-              <strong>Week ${w.week}. ${w.title}</strong>
-              <span>${w.problems.length} problems · ${w.topics.slice(0, 2).join(", ")}</span>
-            </div>
-          `).join("")}
-        </div>
+      return `
+        <section class="info-grid">
+          <article class="info-card">
+            <h3>Objective</h3>
+            <ul>
+              <li>Support early-career or graduate-level students pursuing analytics-oriented roles.</li>
+              <li>Build practical technical and professional readiness for the U.S. job market.</li>
+              <li>Develop structured job-search, resume, interview, SQL, Python, statistics, and ML skills.</li>
+            </ul>
+          </article>
+          <article class="info-card">
+            <h3>Program Coverage</h3>
+            <ul>
+              <li>Job search strategy and resume targeting.</li>
+              <li>Behavioral interviews using STAR/PAR responses.</li>
+              <li>Python, SQL, statistics, predictive modeling, and applied communication.</li>
+            </ul>
+          </article>
+          <article class="info-card">
+            <h3>Structure & Methods</h3>
+            <ul>
+              <li>Weekly 60-minute live sessions conducted primarily in Korean.</li>
+              <li>English used for tests, mock interviews, feedback, and job-market materials.</li>
+              <li>Weekly assignments, coding practice, mock interviews, and structured feedback.</li>
+            </ul>
+          </article>
+        </section>
+
+        <section class="timeline">
+          <div class="timeline-item"><strong>Sessions 1–2</strong><span>Level set, job search foundations, behavioral basics, SQL filtering.</span></div>
+          <div class="timeline-item"><strong>Sessions 3–4</strong><span>Statistics foundations, SQL joins, aggregation filters, and early window functions.</span></div>
+          <div class="timeline-item"><strong>Sessions 5–6</strong><span>Resume development, Python wrangling, EDA, and SQL subquery/date practice.</span></div>
+          <div class="timeline-item"><strong>Sessions 7–8</strong><span>Predictive modeling, ML workflow, resume review, and SQL CTE/CASE practice.</span></div>
+          <div class="timeline-item"><strong>Sessions 9–10</strong><span>Behavioral and technical mock interviews, scorecard, and application plan.</span></div>
+          <div class="timeline-item"><strong>Mentee Commitment</strong><span>Weekly assignments are expected. At least 2 hours of study per day is recommended.</span></div>
+        </section>
       `;
     }
 
-    function renderWeek(weekNumber) {
-      const week = curriculumData.find(w => w.week === Number(weekNumber));
-      content.innerHTML = `
-        <div class="section">
-          <div class="week-kicker">Week ${week.week}</div>
-          <h2>${week.title}</h2>
-          <p class="desc">${week.description}</p>
-        </div>
-        <div class="section">
-          <div class="week-kicker">Topics</div>
-          <ul class="topics">${week.topics.map(t => `<li>${t}</li>`).join("")}</ul>
-        </div>
-        <div class="section">
-          <div class="week-kicker">Problems</div>
+    function renderSession(session) {
+      const tags = session.focus.map(item => {
+        const lower = item.toLowerCase();
+        let cls = "";
+        if (lower.includes("sql") || lower.includes("join") || lower.includes("rank") || lower.includes("cte") || lower.includes("window") || lower.includes("union")) cls = " sql";
+        else if (lower.includes("resume") || lower.includes("behavioral") || lower.includes("job")) cls = " career";
+        else if (lower.includes("python") || lower.includes("eda")) cls = " python";
+        else if (lower.includes("model") || lower.includes("ml") || lower.includes("classification") || lower.includes("regression")) cls = " ml";
+        return `<span class="tag${cls}">${item}</span>`;
+      }).join("");
+
+      const rows = session.sql.map((p, i) => `
+        <tr>
+          <td data-label="#">${i + 1}</td>
+          <td data-label="Subject"><span class="concept">${p.subject}</span></td>
+          <td data-label="Concept">${p.concept || "—"}</td>
+          <td data-label="Practice Link"><a class="link-btn" href="${p.url}" target="_blank" rel="noopener noreferrer">${p.title} <span class="external">↗</span></a></td>
+        </tr>
+      `).join("");
+
+      const table = session.sql.length ? `
+        <div class="practice-card">
+          <div class="practice-header">
+            <h3>SQL LeetCode Practice</h3>
+            <span class="count-pill">${session.sql.length} problems</span>
+          </div>
           <table>
-            <thead><tr><th>Problem</th><th>Difficulty</th></tr></thead>
-            <tbody>
-              ${week.problems.map(([name, diff, url]) => `
-                <tr>
-                  <td><a href="${url}" target="_blank" rel="noopener noreferrer">${name} ↗</a></td>
-                  <td><span class="badge ${diff}">${diff}</span></td>
-                </tr>
-              `).join("")}
-            </tbody>
+            <thead>
+              <tr><th>#</th><th>Subject</th><th>Concept</th><th>Practice Link</th></tr>
+            </thead>
+            <tbody>${rows}</tbody>
           </table>
         </div>
+      ` : `
+        <div class="placeholder">
+          <strong>No SQL practice assigned for this session.</strong><br />
+          This session is reserved for setup, orientation, mock interviews, or final planning. Additional Python, statistics, ML, or career tasks can be added later.
+        </div>
+      `;
+
+      return `
+        <div class="session-layout">
+          <article class="block">
+            <h3>Live Session Focus</h3>
+            <p>${session.live}</p>
+            <div class="tags">${tags}</div>
+          </article>
+          <article class="block">
+            <h3>Homework / Checkpoint</h3>
+            <p>${session.homework}</p>
+            <div class="placeholder">Future sections can include Python assignments, statistics oral checks, resume checkpoints, ML notebooks, and behavioral interview tasks.</div>
+          </article>
+        </div>
+        ${table}
       `;
     }
 
-    function setTab(tab) {
-      activeTab = tab === "overview" ? "overview" : Number(tab);
-      renderTabs();
-      activeTab === "overview" ? renderOverview() : renderWeek(activeTab);
+    function renderPanels() {
+      const tabs = document.getElementById("tabs");
+      const panels = document.getElementById("panels");
+
+      tabs.innerHTML = pages.map((page, idx) => `
+        <button class="tab ${idx === 0 ? "active" : ""}" data-target="${page.id}">${page.tab}</button>
+      `).join("");
+
+      panels.innerHTML = pages.map((page, idx) => `
+        <article class="panel ${idx === 0 ? "active" : ""}" id="${page.id}">
+          <div class="panel-header">
+            <div class="eyebrow">${page.eyebrow}</div>
+            <h2>${page.title}</h2>
+            <p class="panel-subtitle">${page.subtitle}</p>
+          </div>
+          <div class="content">
+            ${page.type === "overview" ? renderOverview() : renderSession(page)}
+          </div>
+        </article>
+      `).join("");
+
+      document.querySelectorAll(".tab").forEach(btn => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll(".tab").forEach(b => b.classList.remove("active"));
+          document.querySelectorAll(".panel").forEach(p => p.classList.remove("active"));
+          btn.classList.add("active");
+          document.getElementById(btn.dataset.target).classList.add("active");
+        });
+      });
     }
 
-    renderTabs();
-    renderOverview();
+    renderPanels();
   </script>
 </body>
 </html>
