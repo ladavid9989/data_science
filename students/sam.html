@@ -6,70 +6,67 @@
   <title>Applied Data Career Bootcamp | Sam</title>
   <style>
     :root {
-      --green: #0f8a3f;
-      --green-dark: #0b6f32;
+      --green: #11833f;
+      --green-dark: #0b6b32;
       --green-light: #e9f8ef;
-      --ink: #0f172a;
-      --muted: #64748b;
-      --line: #e2e8f0;
-      --bg: #f4f7fb;
+      --navy: #06142b;
+      --muted: #65748b;
+      --line: #e5e9f0;
+      --bg: #f3f6f9;
       --card: #ffffff;
       --soft: #f8fafc;
       --orange: #f59e0b;
       --blue: #2563eb;
       --purple: #7c3aed;
-      --shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
+      --shadow: 0 18px 45px rgba(15, 23, 42, 0.08);
+      --radius: 22px;
     }
 
     * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+
     body {
       margin: 0;
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      color: var(--ink);
-      background: var(--bg);
-      line-height: 1.55;
+      color: var(--navy);
+      background: linear-gradient(180deg, #128341 0 260px, var(--bg) 260px 100%);
     }
 
     a { color: var(--blue); text-decoration: none; }
     a:hover { text-decoration: underline; }
 
     .hero {
-      background: linear-gradient(135deg, #0b7333, #108d42);
       color: white;
       text-align: center;
-      padding: 74px 20px 128px;
+      padding: 68px 20px 96px;
     }
 
     .hero h1 {
       margin: 0;
-      font-size: clamp(2.2rem, 5vw, 4rem);
-      letter-spacing: -0.045em;
-      line-height: 1.05;
-      font-weight: 850;
+      font-size: clamp(2rem, 5vw, 3.8rem);
+      letter-spacing: -0.05em;
+      font-weight: 900;
     }
 
     .hero p {
-      margin: 18px auto 0;
-      max-width: 820px;
-      color: rgba(255,255,255,0.9);
-      font-size: 1.06rem;
+      margin: 16px 0 0;
+      font-size: 1.05rem;
+      opacity: 0.95;
     }
 
-    .shell {
+    .page {
       width: min(1080px, calc(100% - 32px));
-      margin: -72px auto 64px;
+      margin: -56px auto 80px;
     }
 
     .profile-card {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
       background: rgba(255,255,255,0.96);
       border: 1px solid rgba(226,232,240,0.9);
       border-radius: 18px;
-      overflow: hidden;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
       box-shadow: var(--shadow);
-      margin-bottom: 36px;
+      overflow: hidden;
+      margin: 0 auto 36px;
     }
 
     .profile-item {
@@ -78,603 +75,517 @@
       border-right: 1px solid var(--line);
     }
     .profile-item:last-child { border-right: 0; }
-    .label {
-      display: block;
-      color: #94a3b8;
+    .profile-label {
       font-size: 0.72rem;
-      letter-spacing: 0.14em;
+      letter-spacing: 0.18em;
+      color: #9aa5b5;
+      font-weight: 900;
       text-transform: uppercase;
-      font-weight: 800;
-      margin-bottom: 6px;
+      margin-bottom: 8px;
     }
-    .value { font-weight: 850; color: var(--ink); }
+    .profile-value { font-size: 1.02rem; font-weight: 900; }
 
     .tabs-wrap {
-      position: sticky;
-      top: 0;
-      z-index: 20;
-      background: rgba(244, 247, 251, 0.86);
-      backdrop-filter: blur(10px);
-      padding: 10px 0 14px;
-      margin-bottom: 18px;
+      overflow-x: auto;
+      padding-bottom: 12px;
+      margin-bottom: 8px;
     }
 
     .tabs {
       display: flex;
       gap: 10px;
-      overflow-x: auto;
-      padding: 4px 2px 8px;
-      scrollbar-width: thin;
+      min-width: max-content;
+      align-items: center;
     }
 
-    .tab {
-      flex: 0 0 auto;
+    .tab-btn {
       border: 0;
       background: transparent;
-      color: #475569;
-      font-weight: 800;
-      padding: 11px 18px;
+      color: var(--muted);
+      padding: 12px 16px;
       border-radius: 999px;
       cursor: pointer;
+      font-weight: 900;
+      font-size: 0.94rem;
       white-space: nowrap;
-      transition: 0.2s ease;
+      transition: 0.18s ease;
     }
-    .tab:hover { background: #e2e8f0; color: var(--ink); }
-    .tab.active {
-      background: var(--green);
-      color: white;
-      box-shadow: 0 10px 20px rgba(15, 138, 63, 0.24);
-    }
+    .tab-btn:hover { background: rgba(17, 131, 63, 0.08); color: var(--green-dark); }
+    .tab-btn.active { background: var(--green); color: white; box-shadow: 0 10px 22px rgba(17, 131, 63, 0.25); }
 
-    .panel {
-      display: none;
+    .content-card {
       background: var(--card);
       border: 1px solid var(--line);
-      border-radius: 20px;
+      border-radius: var(--radius);
       box-shadow: var(--shadow);
       overflow: hidden;
     }
-    .panel.active { display: block; }
 
-    .panel-header {
-      padding: 34px 36px 28px;
+    .section {
+      padding: 36px;
       border-bottom: 1px solid var(--line);
     }
+    .section:last-child { border-bottom: 0; }
+
     .eyebrow {
       color: var(--green);
-      font-size: 0.75rem;
+      font-size: 0.76rem;
       letter-spacing: 0.16em;
       text-transform: uppercase;
-      font-weight: 900;
-      margin-bottom: 10px;
-    }
-    .panel h2 {
-      margin: 0;
-      font-size: clamp(1.65rem, 4vw, 2.35rem);
-      line-height: 1.15;
-      letter-spacing: -0.035em;
-    }
-    .panel-subtitle {
-      margin: 16px 0 0;
-      color: var(--muted);
-      max-width: 850px;
-      font-size: 1.02rem;
+      font-weight: 950;
+      margin-bottom: 12px;
     }
 
-    .content {
-      padding: 28px 36px 36px;
+    h2 {
+      margin: 0 0 18px;
+      font-size: clamp(1.7rem, 4vw, 2.45rem);
+      letter-spacing: -0.04em;
+      line-height: 1.05;
     }
 
-    .info-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-      margin: 22px 0 4px;
+    h3 {
+      margin: 0 0 14px;
+      font-size: 1.25rem;
+      letter-spacing: -0.03em;
     }
-    .info-card {
-      border: 1px solid var(--line);
+
+    .lead {
       background: var(--soft);
       border-radius: 16px;
-      padding: 20px;
-    }
-    .info-card h3 {
-      margin: 0 0 10px;
-      font-size: 1rem;
-    }
-    .info-card ul {
-      padding-left: 18px;
-      margin: 0;
+      padding: 20px 22px;
       color: #334155;
+      line-height: 1.7;
+      margin: 18px 0 0;
     }
-    .info-card li { margin: 6px 0; }
 
-    .session-layout {
+    .overview-grid {
       display: grid;
-      grid-template-columns: 1fr 1.5fr;
-      gap: 18px;
-      margin-bottom: 22px;
-    }
-
-    .block {
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      background: var(--soft);
-      padding: 20px;
-    }
-    .block h3 {
-      margin: 0 0 10px;
-      font-size: 1rem;
-    }
-    .block p { margin: 0; color: #334155; }
-
-    .tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 12px;
-    }
-    .tag {
-      display: inline-flex;
-      align-items: center;
-      border-radius: 999px;
-      padding: 6px 10px;
-      font-size: 0.78rem;
-      font-weight: 800;
-      background: #eef2ff;
-      color: #3730a3;
-    }
-    .tag.sql { background: var(--green-light); color: var(--green-dark); }
-    .tag.career { background: #fff7ed; color: #9a3412; }
-    .tag.python { background: #eff6ff; color: #1d4ed8; }
-    .tag.ml { background: #faf5ff; color: #6b21a8; }
-
-    .practice-card {
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      background: white;
-      overflow: hidden;
-      margin-top: 18px;
-    }
-    .practice-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 16px;
-      padding: 18px 20px;
-      background: #fbfdff;
-      border-bottom: 1px solid var(--line);
-    }
-    .practice-header h3 { margin: 0; font-size: 1rem; }
-    .count-pill {
-      flex: 0 0 auto;
-      border-radius: 999px;
-      background: var(--green-light);
-      color: var(--green-dark);
-      font-weight: 900;
-      padding: 7px 10px;
-      font-size: 0.78rem;
+      margin-top: 20px;
     }
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-    th, td {
-      padding: 14px 16px;
-      border-bottom: 1px solid var(--line);
-      text-align: left;
-      vertical-align: top;
-      font-size: 0.94rem;
-    }
-    th {
-      color: #94a3b8;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      font-size: 0.72rem;
+    .mini-card {
+      border: 1px solid var(--line);
       background: white;
+      border-radius: 18px;
+      padding: 20px;
     }
-    tr:last-child td { border-bottom: 0; }
-    .concept {
-      display: inline-flex;
-      border-radius: 999px;
-      background: #f1f5f9;
-      color: #334155;
-      font-size: 0.78rem;
-      font-weight: 800;
-      padding: 5px 9px;
-      margin-right: 5px;
-    }
-    .link-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-weight: 850;
-    }
-    .external { color: #94a3b8; font-size: 0.82rem; }
+    .mini-card p { margin: 0; color: var(--muted); line-height: 1.6; }
+    .mini-card ul { margin: 10px 0 0; padding-left: 18px; color: #475569; line-height: 1.75; }
 
-    .placeholder {
-      border: 1px dashed #cbd5e1;
-      background: #fbfdff;
-      color: #475569;
-      border-radius: 16px;
-      padding: 18px 20px;
-      margin-top: 16px;
-    }
-
-    .timeline {
+    .session-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 14px;
       margin-top: 22px;
     }
-    .timeline-item {
+
+    .session-summary {
       border: 1px solid var(--line);
-      border-radius: 15px;
-      padding: 16px;
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 18px;
+    }
+    .session-summary strong { display: block; margin-bottom: 8px; }
+    .session-summary span { color: var(--muted); line-height: 1.55; }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 18px 0 0;
+    }
+    .pill {
+      border-radius: 999px;
+      padding: 7px 10px;
+      background: #eef2f7;
+      color: #475569;
+      font-size: 0.78rem;
+      font-weight: 850;
+    }
+    .pill.sql { background: #eaf8f0; color: #0b6b32; }
+    .pill.python { background: #eff6ff; color: #1d4ed8; }
+
+    .practice-block {
+      margin-top: 24px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      overflow: hidden;
       background: white;
     }
-    .timeline-item strong { display: block; margin-bottom: 4px; }
-    .timeline-item span { color: var(--muted); font-size: 0.92rem; }
 
-    .footer-note {
+    .practice-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      padding: 18px 22px;
+      background: #fbfdff;
+      border-bottom: 1px solid var(--line);
+    }
+    .practice-header .title {
+      font-weight: 950;
+      letter-spacing: -0.02em;
+    }
+    .practice-header .count {
+      font-size: 0.8rem;
       color: var(--muted);
-      font-size: 0.9rem;
-      text-align: center;
-      margin: 28px auto 0;
+      font-weight: 800;
     }
 
-    @media (max-width: 860px) {
+    .table-wrap { overflow-x: auto; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.94rem;
+    }
+    th, td {
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+    th {
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #94a3b8;
+      background: #fbfdff;
+      font-weight: 950;
+    }
+    tr:last-child td { border-bottom: 0; }
+    td.topic { font-weight: 900; color: #0f172a; white-space: nowrap; }
+    td.focus { color: #475569; }
+    td.problem a { font-weight: 850; }
+
+    .empty-state {
+      border: 1px dashed #cbd5e1;
+      background: #f8fafc;
+      border-radius: 18px;
+      padding: 26px;
+      color: #475569;
+      line-height: 1.7;
+      margin-top: 20px;
+    }
+
+    .footer-note {
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.86rem;
+      margin: 24px 0 0;
+    }
+
+    @media (max-width: 840px) {
       .profile-card { grid-template-columns: repeat(2, 1fr); }
       .profile-item:nth-child(2) { border-right: 0; }
-      .profile-item:nth-child(1), .profile-item:nth-child(2) { border-bottom: 1px solid var(--line); }
-      .info-grid, .session-layout, .timeline { grid-template-columns: 1fr; }
-      .panel-header, .content { padding-left: 22px; padding-right: 22px; }
-      table, thead, tbody, th, td, tr { display: block; }
-      thead { display: none; }
-      tr { border-bottom: 1px solid var(--line); padding: 10px 0; }
-      tr:last-child { border-bottom: 0; }
-      td { border-bottom: 0; padding: 8px 16px; }
-      td::before {
-        content: attr(data-label);
-        display: block;
-        color: #94a3b8;
-        text-transform: uppercase;
-        letter-spacing: 0.1em;
-        font-size: 0.68rem;
-        font-weight: 900;
-        margin-bottom: 4px;
-      }
+      .profile-item:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+      .overview-grid, .session-grid { grid-template-columns: 1fr; }
+      .section { padding: 26px 20px; }
+      .practice-header { align-items: flex-start; flex-direction: column; }
+    }
+
+    @media (max-width: 520px) {
+      .profile-card { grid-template-columns: 1fr; }
+      .profile-item { border-right: 0; border-bottom: 1px solid var(--line); }
+      .profile-item:last-child { border-bottom: 0; }
+      .hero { padding-top: 46px; }
+      th, td { padding: 12px 14px; }
     }
   </style>
 </head>
 <body>
   <header class="hero">
     <h1>Applied Data Career Bootcamp</h1>
-    <p>10-Week Compressed Program · SQL · Python · Statistics · Machine Learning · Resume · Behavioral Interview</p>
+    <p>SQL + Python practice portal · 10-week compressed program</p>
   </header>
 
-  <main class="shell">
-    <section class="profile-card" aria-label="Program profile">
+  <main class="page">
+    <section class="profile-card" aria-label="Student profile">
       <div class="profile-item">
-        <span class="label">Student</span>
-        <span class="value">Sam</span>
+        <div class="profile-label">Student</div>
+        <div class="profile-value">Sam</div>
       </div>
       <div class="profile-item">
-        <span class="label">Program Lead</span>
-        <span class="value">David</span>
+        <div class="profile-label">Focus</div>
+        <div class="profile-value">SQL + Python</div>
       </div>
       <div class="profile-item">
-        <span class="label">Target</span>
-        <span class="value">Applied Data Roles</span>
+        <div class="profile-label">Target</div>
+        <div class="profile-value">Analytics / DS Roles</div>
       </div>
       <div class="profile-item">
-        <span class="label">Format</span>
-        <span class="value">10 Sessions</span>
+        <div class="profile-label">Format</div>
+        <div class="profile-value">10 Sessions</div>
       </div>
     </section>
 
     <div class="tabs-wrap">
-      <nav class="tabs" id="tabs" aria-label="Curriculum tabs"></nav>
+      <nav class="tabs" id="tabs" aria-label="Session navigation"></nav>
     </div>
 
-    <section id="panels"></section>
+    <article class="content-card" id="content"></article>
 
-    <p class="footer-note">This curriculum page is a living document. SQL practice is populated first; Python, statistics, ML, resume, and interview modules can be added session by session.</p>
+    <p class="footer-note">Practice links open in a new tab. Complete the assigned SQL and Python drills before each review session.</p>
   </main>
 
   <script>
-    const overview = {
-      id: "overview",
-      tab: "Overview",
-      eyebrow: "Program Overview",
-      title: "Applied Data Career Bootcamp (10-Week Compressed Program)",
-      subtitle: "A practical coaching program for early-career and graduate-level students preparing for analytics-oriented roles in the U.S. job market.",
-      type: "overview"
-    };
+    const sqlPractice = [
+      { session: 2, subject: "WHERE", focus: "AND", url: "https://leetcode.com/problems/recyclable-and-low-fat-products/description/" },
+      { session: 2, subject: "WHERE", focus: "OR", url: "https://leetcode.com/problems/big-countries/description/" },
+      { session: 2, subject: "WHERE", focus: "Basic filtering", url: "https://leetcode.com/problems/find-customer-referee/description/" },
+      { session: 2, subject: "GROUP BY", focus: "Grouped count", url: "https://leetcode.com/problems/number-of-unique-subjects-taught-by-each-teacher/description/" },
 
-    const sessions = [
-      {
-        id: "session-1",
-        tab: "Session 1",
-        eyebrow: "Session 1",
-        title: "Level Set, Environment Setup, and Job Search Foundations",
-        subtitle: "The first session establishes the working environment, clarifies expectations, and introduces proactive job-search routines.",
-        focus: ["Level set", "Environment setup", "Job search 101", "Study rhythm"],
-        live: "Install and verify Conda/Jupyter, Git/GitHub, PostgreSQL, and pgAdmin. Review the program structure, weekly expectations, and job-search channels such as LinkedIn and Indeed.",
-        homework: "Complete the setup checklist, create or update job alerts, and prepare accounts for LeetCode and SQL practice.",
-        sql: []
-      },
-      {
-        id: "session-2",
-        tab: "Session 2",
-        eyebrow: "Session 2",
-        title: "Position Exploration, Behavioral Foundations, and SQL Filtering",
-        subtitle: "Focus on role expectations, STAR/PAR behavioral structure, and SQL fundamentals such as WHERE, AND/OR, and basic GROUP BY.",
-        focus: ["Role exploration", "Behavioral interview", "SQL filtering", "GROUP BY basics"],
-        live: "Discuss target job descriptions, common data-role requirements, and behavioral answer structure. Introduce SQL filtering and simple aggregation logic.",
-        homework: "Practice the SQL problems below and prepare short STAR/PAR notes for one project or work experience.",
-        sql: [
-          { subject: "WHERE", concept: "AND", title: "Recyclable and Low Fat Products", url: "https://leetcode.com/problems/recyclable-and-low-fat-products/description/" },
-          { subject: "WHERE", concept: "OR", title: "Big Countries", url: "https://leetcode.com/problems/big-countries/description/" },
-          { subject: "WHERE", concept: "Basic filter", title: "Find Customer Referee", url: "https://leetcode.com/problems/find-customer-referee/description/" },
-          { subject: "GROUP BY", concept: "Aggregation", title: "Number of Unique Subjects Taught by Each Teacher", url: "https://leetcode.com/problems/number-of-unique-subjects-taught-by-each-teacher/description/" }
-        ]
-      },
-      {
-        id: "session-3",
-        tab: "Session 3",
-        eyebrow: "Session 3",
-        title: "Descriptive Statistics and SQL Joins",
-        subtitle: "Practice describing distributions and join multiple tables to answer business questions.",
-        focus: ["Descriptive statistics", "INNER JOIN", "LEFT JOIN", "Basic subqueries"],
-        live: "Review distribution, outliers, scaling, and sampling. Introduce SQL joins and how table relationships map to business questions.",
-        homework: "Complete descriptive-statistics oral practice and the SQL join problems below.",
-        sql: [
-          { subject: "JOIN", concept: "Table join", title: "Combine Two Tables", url: "https://leetcode.com/problems/combine-two-tables/description/" },
-          { subject: "JOIN", concept: "ID mapping", title: "Replace Employee ID With The Unique Identifier", url: "https://leetcode.com/problems/replace-employee-id-with-the-unique-identifier/description/" },
-          { subject: "JOIN", concept: "Sales table", title: "Product Sales Analysis I", url: "https://leetcode.com/problems/product-sales-analysis-i/description/" },
-          { subject: "JOIN", concept: "Anti-join", title: "Customer Who Visited but Did Not Make Any Transactions", url: "https://leetcode.com/problems/customer-who-visited-but-did-not-make-any-transactions/description/" },
-          { subject: "JOIN", concept: "Aggregation", title: "Bank Account Summary II", url: "https://leetcode.com/problems/bank-account-summary-ii/description/" }
-        ]
-      },
-      {
-        id: "session-4",
-        tab: "Session 4",
-        eyebrow: "Session 4",
-        title: "Inferential Statistics and SQL Aggregation Filters",
-        subtitle: "Connect inferential thinking with SQL patterns such as HAVING and join-based filters.",
-        focus: ["Confidence intervals", "p-values", "A/B design", "HAVING", "WHERE + JOIN"],
-        live: "Discuss CI, p-value interpretation, ANOVA, and A/B design. Practice SQL aggregation filters and grouped conditions.",
-        homework: "Complete inferential-statistics oral practice and the SQL problems below.",
-        sql: [
-          { subject: "HAVING", concept: "Group filter", title: "Classes With At Least 5 Students", url: "https://leetcode.com/problems/classes-with-at-least-5-students/description/" },
-          { subject: "HAVING", concept: "Complete coverage", title: "Customers Who Bought All Products", url: "https://leetcode.com/problems/customers-who-bought-all-products/description/" },
-          { subject: "HAVING", concept: "Aggregation", title: "Bank Account Summary II", url: "https://leetcode.com/problems/bank-account-summary-ii/" },
-          { subject: "WHERE & JOIN", concept: "Join filter", title: "Employee Bonus", url: "https://leetcode.com/problems/employee-bonus/description/" }
-        ]
-      },
-      {
-        id: "session-5",
-        tab: "Session 5",
-        eyebrow: "Session 5",
-        title: "Resume Mapping and SQL Subqueries",
-        subtitle: "Translate job descriptions into resume bullets while strengthening SQL subquery patterns.",
-        focus: ["Resume v1", "JD keyword mapping", "Subqueries", "NOT IN"],
-        live: "Map job-description requirements to resume evidence. Practice subqueries and exclusion logic in SQL.",
-        homework: "Submit resume draft v1.0 and complete the SQL subquery problems below.",
-        sql: [
-          { subject: "Subquery", concept: "NOT IN", title: "Sales Person", url: "https://leetcode.com/problems/sales-person/" },
-          { subject: "Subquery", concept: "Comparison", title: "Employees Earning More Than Their Managers", url: "https://leetcode.com/problems/employees-earning-more-than-their-managers/description/" },
-          { subject: "Subquery", concept: "Missing orders", title: "Customers Who Never Order", url: "https://leetcode.com/problems/customers-who-never-order/description/" }
-        ]
-      },
-      {
-        id: "session-6",
-        tab: "Session 6",
-        eyebrow: "Session 6",
-        title: "Python EDA and Time-Oriented SQL Patterns",
-        subtitle: "Use Python for exploratory analysis while continuing SQL practice with date logic and early window-function ideas.",
-        focus: ["EDA", "Resume review", "Date logic", "LAG", "RANK"],
-        live: "Review EDA workflow, missing-value handling, trend analysis, and visual summaries. Introduce date-based SQL reasoning and sequence comparisons.",
-        homework: "Complete EDA assignment and the SQL practice below.",
-        sql: [
-          { subject: "Date", concept: "Review / warm-up", title: "Number of Unique Subjects Taught by Each Teacher", url: "https://leetcode.com/problems/number-of-unique-subjects-taught-by-each-teacher/description/" },
-          { subject: "Date", concept: "Activity window", title: "User Activity for the Past 30 Days I", url: "https://leetcode.com/problems/user-activity-for-the-past-30-days-i/description/" },
-          { subject: "LAG", concept: "Prior row logic", title: "Rising Temperature", url: "https://leetcode.com/problems/rising-temperature/description/" },
-          { subject: "RANK", concept: "First event", title: "Game Play Analysis I", url: "https://leetcode.com/problems/game-play-analysis-i/description/" }
-        ]
-      },
-      {
-        id: "session-7",
-        tab: "Session 7",
-        eyebrow: "Session 7",
-        title: "Predictive Modeling Basics and SQL Set Logic",
-        subtitle: "Introduce regression/classification, evaluation metrics, and SQL set operations such as UNION.",
-        focus: ["Regression", "Classification", "Metrics", "UNION", "Missing information"],
-        live: "Discuss baseline models, overfit/underfit, ROC-AUC, PR curves, RMSE, and imbalance. Use SQL set logic to combine records.",
-        homework: "Complete predictive-model oral preparation and the SQL set-logic practice below.",
-        sql: [
-          { subject: "UNION", concept: "Price history", title: "Product Price at a Given Date", url: "https://leetcode.com/problems/product-price-at-a-given-date/description/" },
-          { subject: "UNION", concept: "Warm-up", title: "Recyclable and Low Fat Products", url: "https://leetcode.com/problems/recyclable-and-low-fat-products/description/" },
-          { subject: "UNION", concept: "Missing records", title: "Employees With Missing Information", url: "https://leetcode.com/problems/employees-with-missing-information/" }
-        ]
-      },
-      {
-        id: "session-8",
-        tab: "Session 8",
-        eyebrow: "Session 8",
-        title: "ML Workflow and SQL Conditional Logic",
-        subtitle: "Practice train/validation workflow and strengthen SQL with CASE WHEN, CTE, SUM, and partitioned ranking.",
-        focus: ["ML pipeline", "GridSearchCV", "Resume review", "CASE WHEN", "CTE"],
-        live: "Discuss baseline-to-improvement workflow, train/validation split, Pipeline, GridSearchCV, and feature importance. Review SQL conditional aggregation and CTE-based decomposition.",
-        homework: "Complete ML workflow assignment, prepare behavioral stories, and solve the SQL practice below.",
-        sql: [
-          { subject: "CASE WHEN", concept: "GROUP BY", title: "Monthly Transactions I", url: "https://leetcode.com/problems/monthly-transactions-i/description/" },
-          { subject: "CASE WHEN", concept: "GROUP BY", title: "Capital Gain/Loss", url: "https://leetcode.com/problems/capital-gainloss/description/" },
-          { subject: "CTE", concept: "SUM", title: "Bank Account Summary II", url: "https://leetcode.com/problems/bank-account-summary-ii/description/" },
-          { subject: "CTE", concept: "PARTITION BY", title: "Department Top Three Salaries", url: "https://leetcode.com/problems/department-top-three-salaries/description/" }
-        ]
-      },
-      {
-        id: "session-9",
-        tab: "Session 9",
-        eyebrow: "Session 9",
-        title: "Behavioral Interview and Advanced SQL Review",
-        subtitle: "Run behavioral interview practice and review advanced SQL patterns with ranking, running totals, and mixed subqueries.",
-        focus: ["Behavioral mock", "Resume polish", "Window functions", "ROW_NUMBER", "Running total"],
-        live: "Conduct behavioral mock interview practice, review STAR/PAR structure, and pressure-test advanced SQL problem-solving logic.",
-        homework: "Prepare for the final technical interview and solve the advanced SQL review set below.",
-        sql: [
-          { subject: "Window Function", concept: "RANK", title: "Rank Scores", url: "https://leetcode.com/problems/rank-scores/description/" },
-          { subject: "ROW_NUMBER, COUNT/OVER", concept: "Consecutive Numbers", title: "Human Traffic of Stadium", url: "https://leetcode.com/problems/human-traffic-of-stadium/description/" },
-          { subject: "Window Function", concept: "Running total", title: "Last Person to Fit in the Bus", url: "https://leetcode.com/problems/last-person-to-fit-in-the-bus/description/" },
-          { subject: "UNION & Subquery", concept: "AVG", title: "Movie Rating", url: "https://leetcode.com/problems/movie-rating/description/" }
-        ]
-      },
-      {
-        id: "session-10",
-        tab: "Session 10",
-        eyebrow: "Session 10",
-        title: "Final Behavioral and Technical Mock Interview",
-        subtitle: "The final session evaluates readiness and creates a concrete four-week application plan.",
-        focus: ["Technical mock", "Behavioral mock", "Readiness checklist", "Application plan"],
-        live: "Run a final behavioral and technical mock interview, review the scorecard, and identify remaining gaps.",
-        homework: "Finalize LinkedIn updates, recruiter DM templates, and a four-week application calendar.",
-        sql: []
-      }
+      { session: 3, subject: "JOIN", focus: "Basic join", url: "https://leetcode.com/problems/combine-two-tables/description/" },
+      { session: 3, subject: "JOIN", focus: "Left join with identifiers", url: "https://leetcode.com/problems/replace-employee-id-with-the-unique-identifier/description/" },
+      { session: 3, subject: "JOIN", focus: "Sales table join", url: "https://leetcode.com/problems/product-sales-analysis-i/description/" },
+      { session: 3, subject: "JOIN", focus: "Anti-join pattern", url: "https://leetcode.com/problems/customer-who-visited-but-did-not-make-any-transactions/description/" },
+      { session: 3, subject: "JOIN", focus: "Join + aggregation filter", url: "https://leetcode.com/problems/bank-account-summary-ii/description/" },
+
+      { session: 4, subject: "HAVING", focus: "Group count filter", url: "https://leetcode.com/problems/classes-with-at-least-5-students/description/" },
+      { session: 4, subject: "HAVING", focus: "All-products logic", url: "https://leetcode.com/problems/customers-who-bought-all-products/description/" },
+      { session: 4, subject: "HAVING", focus: "Aggregate threshold", url: "https://leetcode.com/problems/bank-account-summary-ii/" },
+      { session: 4, subject: "WHERE & JOIN", focus: "Join + null/filter logic", url: "https://leetcode.com/problems/employee-bonus/description/" },
+
+      { session: 5, subject: "Subquery", focus: "NOT IN", url: "https://leetcode.com/problems/sales-person/" },
+      { session: 5, subject: "Subquery", focus: "Comparison against related table", url: "https://leetcode.com/problems/employees-earning-more-than-their-managers/description/" },
+      { session: 5, subject: "Subquery", focus: "Never-order logic", url: "https://leetcode.com/problems/customers-who-never-order/description/" },
+
+      { session: 6, subject: "Date", focus: "Date-related grouping drill", url: "https://leetcode.com/problems/number-of-unique-subjects-taught-by-each-teacher/description/" },
+      { session: 6, subject: "Date", focus: "Last 30 days", url: "https://leetcode.com/problems/user-activity-for-the-past-30-days-i/description/" },
+      { session: 6, subject: "LAG", focus: "Compare with previous day", url: "https://leetcode.com/problems/rising-temperature/description/" },
+      { session: 6, subject: "RANK", focus: "First activity date", url: "https://leetcode.com/problems/game-play-analysis-i/description/" },
+
+      { session: 7, subject: "UNION", focus: "Effective-date logic", url: "https://leetcode.com/problems/product-price-at-a-given-date/description/" },
+      { session: 7, subject: "UNION", focus: "Union-style warm-up", url: "https://leetcode.com/problems/recyclable-and-low-fat-products/description/" },
+      { session: 7, subject: "UNION", focus: "Missing information", url: "https://leetcode.com/problems/employees-with-missing-information/" },
+
+      { session: 8, subject: "CASE WHEN", focus: "GROUP BY", url: "https://leetcode.com/problems/monthly-transactions-i/description/" },
+      { session: 8, subject: "CASE WHEN", focus: "GROUP BY", url: "https://leetcode.com/problems/capital-gainloss/description/" },
+      { session: 8, subject: "CTE", focus: "SUM", url: "https://leetcode.com/problems/bank-account-summary-ii/description/" },
+      { session: 8, subject: "CTE", focus: "PARTITION BY", url: "https://leetcode.com/problems/department-top-three-salaries/description/" },
+
+      { session: 9, subject: "Window Function", focus: "RANK", url: "https://leetcode.com/problems/rank-scores/description/" },
+      { session: 9, subject: "ROW_NUMBER / COUNT OVER", focus: "Consecutive Numbers", url: "https://leetcode.com/problems/human-traffic-of-stadium/description/" },
+      { session: 9, subject: "Window Function", focus: "Running total", url: "https://leetcode.com/problems/last-person-to-fit-in-the-bus/description/" },
+      { session: 9, subject: "UNION & SUBQUERY", focus: "AVG", url: "https://leetcode.com/problems/movie-rating/description/" }
     ];
 
-    const pages = [overview, ...sessions];
+    const pythonPractice = [
+      { session: 2, subject: "Pandas setup", focus: "Create DataFrame", url: "https://leetcode.com/problems/create-a-dataframe-from-list/description/" },
+      { session: 2, subject: "Pandas setup", focus: "shape", url: "https://leetcode.com/problems/get-the-size-of-a-dataframe/description/" },
+      { session: 2, subject: "Pandas setup", focus: "head()", url: "https://leetcode.com/problems/display-the-first-three-rows/description/" },
 
-    function renderOverview() {
-      return `
-        <section class="info-grid">
-          <article class="info-card">
-            <h3>Objective</h3>
-            <ul>
-              <li>Support early-career or graduate-level students pursuing analytics-oriented roles.</li>
-              <li>Build practical technical and professional readiness for the U.S. job market.</li>
-              <li>Develop structured job-search, resume, interview, SQL, Python, statistics, and ML skills.</li>
-            </ul>
-          </article>
-          <article class="info-card">
-            <h3>Program Coverage</h3>
-            <ul>
-              <li>Job search strategy and resume targeting.</li>
-              <li>Behavioral interviews using STAR/PAR responses.</li>
-              <li>Python, SQL, statistics, predictive modeling, and applied communication.</li>
-            </ul>
-          </article>
-          <article class="info-card">
-            <h3>Structure & Methods</h3>
-            <ul>
-              <li>Weekly 60-minute live sessions conducted primarily in Korean.</li>
-              <li>English used for tests, mock interviews, feedback, and job-market materials.</li>
-              <li>Weekly assignments, coding practice, mock interviews, and structured feedback.</li>
-            </ul>
-          </article>
-        </section>
+      { session: 3, subject: "List", focus: "Array construction", url: "https://leetcode.com/problems/concatenation-of-array/description/" },
+      { session: 3, subject: "Condition", focus: "If/else logic", url: "https://leetcode.com/problems/fizz-buzz/" },
+      { session: 3, subject: "String", focus: "String replacement", url: "https://leetcode.com/problems/defanging-an-ip-address/description/" },
+      { session: 3, subject: "Dict / Counter", focus: "Frequency comparison", url: "https://leetcode.com/problems/valid-anagram/description/" },
 
-        <section class="timeline">
-          <div class="timeline-item"><strong>Sessions 1–2</strong><span>Level set, job search foundations, behavioral basics, SQL filtering.</span></div>
-          <div class="timeline-item"><strong>Sessions 3–4</strong><span>Statistics foundations, SQL joins, aggregation filters, and early window functions.</span></div>
-          <div class="timeline-item"><strong>Sessions 5–6</strong><span>Resume development, Python wrangling, EDA, and SQL subquery/date practice.</span></div>
-          <div class="timeline-item"><strong>Sessions 7–8</strong><span>Predictive modeling, ML workflow, resume review, and SQL CTE/CASE practice.</span></div>
-          <div class="timeline-item"><strong>Sessions 9–10</strong><span>Behavioral and technical mock interviews, scorecard, and application plan.</span></div>
-          <div class="timeline-item"><strong>Mentee Commitment</strong><span>Weekly assignments are expected. At least 2 hours of study per day is recommended.</span></div>
-        </section>
-      `;
+      { session: 4, subject: "Set", focus: "Unique intersection", url: "https://leetcode.com/problems/intersection-of-two-arrays/description/" },
+      { session: 4, subject: "Dict / count", focus: "Majority value", url: "https://leetcode.com/problems/majority-element/description/" },
+      { session: 4, subject: "Duplicates", focus: "Drop duplicate rows", url: "https://leetcode.com/problems/drop-duplicate-rows/description/" },
+      { session: 4, subject: "Missing values", focus: "Drop missing rows", url: "https://leetcode.com/problems/drop-missing-data/description/" },
+      { session: 4, subject: "Missing values", focus: "Fill missing values", url: "https://leetcode.com/problems/fill-missing-data/description/" },
+
+      { session: 5, subject: "Column operation", focus: "Modify columns", url: "https://leetcode.com/problems/modify-columns/description/" },
+      { session: 5, subject: "Column operation", focus: "Rename columns", url: "https://leetcode.com/problems/rename-columns/description/" },
+      { session: 5, subject: "Data type", focus: "Change dtype", url: "https://leetcode.com/problems/change-data-type/description/" },
+      { session: 5, subject: "Filter", focus: "Boolean filtering", url: "https://leetcode.com/problems/big-countries/description/" },
+      { session: 5, subject: "Filter", focus: "Multiple conditions", url: "https://leetcode.com/problems/recyclable-and-low-fat-products/description/" },
+
+      { session: 6, subject: "Groupby / Having", focus: "Group count filter", url: "https://leetcode.com/problems/classes-with-at-least-5-students/description/" },
+      { session: 6, subject: "Merge", focus: "Basic left join", url: "https://leetcode.com/problems/combine-two-tables/description/" },
+      { session: 6, subject: "Merge", focus: "Join + filter", url: "https://leetcode.com/problems/employee-bonus/description/" },
+      { session: 6, subject: "Merge / exclusion", focus: "Join + NOT IN logic", url: "https://leetcode.com/problems/sales-person/" },
+      { session: 6, subject: "Merge", focus: "Product sales join", url: "https://leetcode.com/problems/product-sales-analysis-i/description/" },
+
+      { session: 7, subject: "Concatenate", focus: "Stack DataFrames", url: "https://leetcode.com/problems/reshape-data-concatenate/description/" },
+      { session: 7, subject: "Pivot", focus: "Long to wide", url: "https://leetcode.com/problems/reshape-data-pivot/description/" },
+      { session: 7, subject: "Melt", focus: "Wide to long", url: "https://leetcode.com/problems/reshape-data-melt/description/" },
+
+      { session: 8, subject: "Groupby / date filter", focus: "Product count by period", url: "https://leetcode.com/problems/list-the-products-ordered-in-a-period/description/" },
+      { session: 8, subject: "Date filter", focus: "Last 30 days", url: "https://leetcode.com/problems/user-activity-for-the-past-30-days-i/description/" },
+      { session: 8, subject: "Date", focus: "First login", url: "https://leetcode.com/problems/game-play-analysis-i/description/" },
+      { session: 8, subject: "Date", focus: "Latest login", url: "https://leetcode.com/problems/the-latest-login-in-2020/description/" },
+
+      { session: 9, subject: "Lag-like logic", focus: "Compare with previous day", url: "https://leetcode.com/problems/rising-temperature/description/" },
+      { session: 9, subject: "Groupby", focus: "Set coverage", url: "https://leetcode.com/problems/customers-who-bought-all-products/description/" },
+      { session: 9, subject: "Aggregation", focus: "Single max/min logic", url: "https://leetcode.com/problems/biggest-single-number/description/" },
+      { session: 9, subject: "Rolling window", focus: "Moving average", url: "https://leetcode.com/problems/restaurant-growth/description/" }
+    ];
+
+    const sessions = [
+      { id: "overview", label: "Overview" },
+      ...Array.from({ length: 10 }, (_, i) => ({ id: `session-${i + 1}`, label: `Session ${i + 1}` }))
+    ];
+
+    const sessionSummaries = {
+      1: { sql: "Orientation, account setup, and SQL practice workflow.", python: "Python/Jupyter/Pandas setup and level-set check." },
+      2: { sql: "WHERE, AND/OR, and basic GROUP BY.", python: "Pandas setup: DataFrame, shape, and head()." },
+      3: { sql: "JOIN fundamentals and anti-join patterns.", python: "Core Python: list, condition, string, and dictionary/counter logic." },
+      4: { sql: "HAVING, aggregate filters, and WHERE + JOIN logic.", python: "Sets, counts, duplicates, and missing-value handling." },
+      5: { sql: "Subqueries, NOT IN, and related-table comparison.", python: "Column operations, data types, and boolean filtering." },
+      6: { sql: "Dates, LAG-style comparison, and activity logic.", python: "Groupby, merge, joins, and exclusion logic." },
+      7: { sql: "UNION patterns and missing-information logic.", python: "Reshaping data with concat, pivot, and melt." },
+      8: { sql: "CASE WHEN, CTE, SUM, and partition-style thinking.", python: "Date filtering, product-period logic, and login-date problems." },
+      9: { sql: "Window functions: RANK, COUNT OVER, running total, and mixed query review.", python: "Lag-like logic, set coverage, max/min aggregation, and moving average." },
+      10: { sql: "Final SQL review and readiness check.", python: "Final Python/Pandas review and next-step practice plan." }
+    };
+
+    function titleFromUrl(url) {
+      const parts = url.replace(/\/$/, "").split("/");
+      const slug = parts.includes("description") ? parts[parts.length - 2] : parts[parts.length - 1];
+      return slug
+        .split("-")
+        .filter(Boolean)
+        .map(w => w === "ii" ? "II" : w.charAt(0).toUpperCase() + w.slice(1))
+        .join(" ")
+        .replace("Gainloss", "Gain/Loss");
     }
 
-    function renderSession(session) {
-      const tags = session.focus.map(item => {
-        const lower = item.toLowerCase();
-        let cls = "";
-        if (lower.includes("sql") || lower.includes("join") || lower.includes("rank") || lower.includes("cte") || lower.includes("window") || lower.includes("union")) cls = " sql";
-        else if (lower.includes("resume") || lower.includes("behavioral") || lower.includes("job")) cls = " career";
-        else if (lower.includes("python") || lower.includes("eda")) cls = " python";
-        else if (lower.includes("model") || lower.includes("ml") || lower.includes("classification") || lower.includes("regression")) cls = " ml";
-        return `<span class="tag${cls}">${item}</span>`;
-      }).join("");
-
-      const rows = session.sql.map((p, i) => `
-        <tr>
-          <td data-label="#">${i + 1}</td>
-          <td data-label="Subject"><span class="concept">${p.subject}</span></td>
-          <td data-label="Concept">${p.concept || "—"}</td>
-          <td data-label="Practice Link"><a class="link-btn" href="${p.url}" target="_blank" rel="noopener noreferrer">${p.title} <span class="external">↗</span></a></td>
-        </tr>
+    function renderTabs(activeId) {
+      const tabsEl = document.getElementById("tabs");
+      tabsEl.innerHTML = sessions.map(item => `
+        <button class="tab-btn ${item.id === activeId ? "active" : ""}" data-id="${item.id}">${item.label}</button>
       `).join("");
 
-      const table = session.sql.length ? `
-        <div class="practice-card">
-          <div class="practice-header">
-            <h3>SQL LeetCode Practice</h3>
-            <span class="count-pill">${session.sql.length} problems</span>
-          </div>
-          <table>
-            <thead>
-              <tr><th>#</th><th>Subject</th><th>Concept</th><th>Practice Link</th></tr>
-            </thead>
-            <tbody>${rows}</tbody>
-          </table>
-        </div>
-      ` : `
-        <div class="placeholder">
-          <strong>No SQL practice assigned for this session.</strong><br />
-          This session is reserved for setup, orientation, mock interviews, or final planning. Additional Python, statistics, ML, or career tasks can be added later.
-        </div>
-      `;
-
-      return `
-        <div class="session-layout">
-          <article class="block">
-            <h3>Live Session Focus</h3>
-            <p>${session.live}</p>
-            <div class="tags">${tags}</div>
-          </article>
-          <article class="block">
-            <h3>Homework / Checkpoint</h3>
-            <p>${session.homework}</p>
-            <div class="placeholder">Future sections can include Python assignments, statistics oral checks, resume checkpoints, ML notebooks, and behavioral interview tasks.</div>
-          </article>
-        </div>
-        ${table}
-      `;
-    }
-
-    function renderPanels() {
-      const tabs = document.getElementById("tabs");
-      const panels = document.getElementById("panels");
-
-      tabs.innerHTML = pages.map((page, idx) => `
-        <button class="tab ${idx === 0 ? "active" : ""}" data-target="${page.id}">${page.tab}</button>
-      `).join("");
-
-      panels.innerHTML = pages.map((page, idx) => `
-        <article class="panel ${idx === 0 ? "active" : ""}" id="${page.id}">
-          <div class="panel-header">
-            <div class="eyebrow">${page.eyebrow}</div>
-            <h2>${page.title}</h2>
-            <p class="panel-subtitle">${page.subtitle}</p>
-          </div>
-          <div class="content">
-            ${page.type === "overview" ? renderOverview() : renderSession(page)}
-          </div>
-        </article>
-      `).join("");
-
-      document.querySelectorAll(".tab").forEach(btn => {
-        btn.addEventListener("click", () => {
-          document.querySelectorAll(".tab").forEach(b => b.classList.remove("active"));
-          document.querySelectorAll(".panel").forEach(p => p.classList.remove("active"));
-          btn.classList.add("active");
-          document.getElementById(btn.dataset.target).classList.add("active");
-        });
+      tabsEl.querySelectorAll("button").forEach(btn => {
+        btn.addEventListener("click", () => render(btn.dataset.id));
       });
     }
 
-    renderPanels();
+    function renderOverview() {
+      const summaryCards = Array.from({ length: 10 }, (_, i) => {
+        const n = i + 1;
+        const s = sessionSummaries[n];
+        return `
+          <div class="session-summary">
+            <strong>Session ${n}</strong>
+            <span><b>SQL:</b> ${s.sql}<br><b>Python:</b> ${s.python}</span>
+          </div>
+        `;
+      }).join("");
+
+      return `
+        <section class="section">
+          <div class="eyebrow">Student Practice Portal</div>
+          <h2>SQL + Python Practice Roadmap</h2>
+          <p class="lead">
+            This page is a lightweight practice hub for the technical portion of the Applied Data Career Bootcamp. It only includes SQL and Python/Pandas drills for the student to complete independently between sessions.
+          </p>
+          <div class="overview-grid">
+            <div class="mini-card">
+              <h3>SQL Practice</h3>
+              <p>Focuses on query fluency: filtering, grouping, joins, subqueries, dates, CTEs, and window functions.</p>
+              <div class="pill-row">
+                <span class="pill sql">WHERE</span><span class="pill sql">JOIN</span><span class="pill sql">GROUP BY</span><span class="pill sql">CTE</span><span class="pill sql">Window Functions</span>
+              </div>
+            </div>
+            <div class="mini-card">
+              <h3>Python / Pandas Practice</h3>
+              <p>Focuses on practical data manipulation: core Python, DataFrames, cleaning, filtering, merging, reshaping, and date logic.</p>
+              <div class="pill-row">
+                <span class="pill python">Core Python</span><span class="pill python">Pandas</span><span class="pill python">Merge</span><span class="pill python">Pivot/Melt</span><span class="pill python">Dates</span>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="section">
+          <div class="eyebrow">10-Session Map</div>
+          <h2>What to Practice Each Session</h2>
+          <div class="session-grid">${summaryCards}</div>
+        </section>
+      `;
+    }
+
+    function renderPracticeTable(type, rows) {
+      const title = type === "sql" ? "SQL Practice" : "Python / Pandas Practice";
+      const css = type === "sql" ? "sql" : "python";
+      if (!rows.length) {
+        return `
+          <div class="practice-block">
+            <div class="practice-header">
+              <div class="title">${title}</div>
+              <div class="count">No external drill links</div>
+            </div>
+            <div class="empty-state">
+              No LeetCode drills are assigned for this session. Use this session for setup, review, live mock practice, or an individualized follow-up plan.
+            </div>
+          </div>
+        `;
+      }
+      return `
+        <div class="practice-block">
+          <div class="practice-header">
+            <div class="title">${title}</div>
+            <div class="count">${rows.length} drill${rows.length > 1 ? "s" : ""}</div>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Subject</th>
+                  <th>Focus</th>
+                  <th>Problem</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${rows.map(row => `
+                  <tr>
+                    <td class="topic"><span class="pill ${css}">${row.subject}</span></td>
+                    <td class="focus">${row.focus || "Core practice"}</td>
+                    <td class="problem"><a href="${row.url}" target="_blank" rel="noopener noreferrer">${titleFromUrl(row.url)}</a></td>
+                  </tr>
+                `).join("")}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderSession(n) {
+      const s = sessionSummaries[n];
+      const sqlRows = sqlPractice.filter(item => item.session === n);
+      const pyRows = pythonPractice.filter(item => item.session === n);
+
+      let intro = "";
+      if (n === 1) {
+        intro = "This session is for orientation, setup, and baseline readiness. No external drill links are assigned yet.";
+      } else if (n === 10) {
+        intro = "This session is for final review, live mock-style practice, feedback, and an individualized next-step plan. No new drill links are assigned.";
+      } else {
+        intro = "Complete the SQL and Python/Pandas drills assigned below. The goal is not memorization, but repeated exposure to common data interview patterns.";
+      }
+
+      return `
+        <section class="section">
+          <div class="eyebrow">Session ${n}</div>
+          <h2>Session ${n}</h2>
+          <p class="lead">${intro}</p>
+          <div class="overview-grid">
+            <div class="mini-card"><h3>SQL</h3><p>${s.sql}</p></div>
+            <div class="mini-card"><h3>Python / Pandas</h3><p>${s.python}</p></div>
+          </div>
+          ${renderPracticeTable("sql", sqlRows)}
+          ${renderPracticeTable("python", pyRows)}
+        </section>
+      `;
+    }
+
+    function render(activeId = "overview") {
+      renderTabs(activeId);
+      const content = document.getElementById("content");
+      if (activeId === "overview") {
+        content.innerHTML = renderOverview();
+      } else {
+        const n = Number(activeId.replace("session-", ""));
+        content.innerHTML = renderSession(n);
+      }
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    render("overview");
   </script>
 </body>
 </html>
