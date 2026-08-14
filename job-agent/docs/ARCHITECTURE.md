@@ -76,6 +76,8 @@ flowchart TD
     L --> M[(resume_tailoring_runs table)]
 ```
 
+For performance, the dashboard loads a lightweight ranked job list. It does not load full job descriptions for every job on every click. Full descriptions are fetched only when the user opens details or starts `Tailor Resume`.
+
 ## Module Map
 
 | File | Responsibility |

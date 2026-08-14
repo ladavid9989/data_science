@@ -8,7 +8,7 @@ from src.feedback import apply_feedback_adjustments
 from src.freshness import classify_freshness, format_freshness
 from src.llm import OllamaError, ollama_client_from_config
 from src.memory import get_feedback_events, get_feedback_version, get_latest_feedback_by_job
-from src.memory import get_active_resume, get_ranked_jobs, init_db, list_resume_versions, save_feedback
+from src.memory import get_active_resume, get_job_by_id, get_ranked_jobs_light, init_db, list_resume_versions, save_feedback
 from src.pipeline import Pipeline
 from src.reporter import _passes_location_gate
 from src.resume import load_resume_text, save_uploaded_resume, score_resume_fit
@@ -124,7 +124,7 @@ def _load_dashboard_data(
     feedback_version: tuple[int, int],
 ) -> tuple[list[dict[str, Any]], list[dict[str, Any]], dict[int, dict[str, Any]]]:
     del feedback_version
-    ranked_jobs = get_ranked_jobs(db_path)
+    ranked_jobs = get_ranked_jobs_light(db_path)
     feedback_events = get_feedback_events(db_path)
     feedback_by_job = get_latest_feedback_by_job(db_path)
     return ranked_jobs, feedback_events, feedback_by_job
@@ -243,7 +243,10 @@ def _render_job_card(
                     st.markdown(f"- {reason}")
             else:
                 st.markdown("- None")
+            full_job = _load_job_detail(db_path, job_id)
             description = clean_html_to_text(str(job.get("description_text") or ""))
+            if full_job:
+                description = clean_html_to_text(str(full_job.get("description_text") or description))
             st.markdown("**Description preview**")
             st.write(description[:4000] if description else "No description available.")
             feedback_reasons = _coerce_list(job.get("feedback_reasons", []))
@@ -251,7 +254,7 @@ def _render_job_card(
                 st.markdown("**Feedback adjustment reasons**")
                 for reason in feedback_reasons:
                     st.markdown(f"- {reason}")
-            resume_fit = score_resume_fit(job, resume_text)
+            resume_fit = score_resume_fit(full_job or job, resume_text)
             if resume_fit is not None:
                 st.markdown("**Resume fit terms**")
                 st.write("Matched:", _join(resume_fit.matched_terms))
@@ -267,13 +270,13 @@ def _render_job_card(
                         _dislike_dialog(db_path, job_id, title)
                         continue
                     save_feedback(db_path, job_id, action, notes)
-                    st.cache_data.clear()
-                    st.success(f"Saved feedback: {action}")
+                    st.toast(f"Saved feedback: {action}")
                     st.rerun()
         with action_columns[-1]:
             tailor_disabled = not active_resume or not resume_text.strip() or not app_config.get("tailoring", {}).get("enabled", True)
             if st.button("Tailor Resume", key=f"tailor-{job_id}", type="primary", disabled=tailor_disabled):
-                _tailor_resume_dialog(db_path, job, active_resume or {}, resume_text, app_config)
+                full_job = _load_job_detail(db_path, job_id) or job
+                _tailor_resume_dialog(db_path, full_job, active_resume or {}, resume_text, app_config)
 
 
 @st.dialog("Why do you dislike this job?")
@@ -285,9 +288,13 @@ def _dislike_dialog(db_path: str, job_id: int, title: str) -> None:
     )
     if st.button("Save dislike"):
         save_feedback(db_path, job_id, "dislike", reason)
-        st.cache_data.clear()
-        st.success("Saved dislike feedback.")
+        st.toast("Saved dislike feedback.")
         st.rerun()
+
+
+@st.cache_data(show_spinner=False)
+def _load_job_detail(db_path: str, job_id: int) -> dict[str, Any] | None:
+    return get_job_by_id(db_path, job_id)
 
 
 @st.dialog("Tailor Resume")

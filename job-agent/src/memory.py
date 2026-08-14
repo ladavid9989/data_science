@@ -186,12 +186,32 @@ def get_jobs(db_path: str | Path) -> list[dict[str, Any]]:
         return [dict(row) for row in rows]
 
 
-def get_ranked_jobs(db_path: str | Path) -> list[dict[str, Any]]:
+def get_ranked_jobs(db_path: str | Path, include_description: bool = True) -> list[dict[str, Any]]:
+    job_columns = (
+        "j.*"
+        if include_description
+        else """
+                j.id,
+                j.source,
+                j.source_job_id,
+                j.job_url,
+                j.title,
+                j.company,
+                j.location,
+                j.remote_type,
+                SUBSTR(COALESCE(j.description_text, ''), 1, 1200) AS description_text,
+                j.compensation_text,
+                j.posted_date,
+                j.posted_date_source,
+                j.first_seen_at,
+                j.last_seen_at
+        """
+    )
     with _connect(db_path) as conn:
         rows = conn.execute(
-            """
+            f"""
             SELECT
-                j.*,
+                {job_columns},
                 s.score,
                 s.matched_skills_json,
                 s.missing_skills_json,
@@ -218,6 +238,16 @@ def get_ranked_jobs(db_path: str | Path) -> list[dict[str, Any]]:
         ):
             row[key.replace("_json", "")] = json.loads(row.get(key) or "[]")
     return ranked
+
+
+def get_ranked_jobs_light(db_path: str | Path) -> list[dict[str, Any]]:
+    return get_ranked_jobs(db_path, include_description=False)
+
+
+def get_job_by_id(db_path: str | Path, job_id: int) -> dict[str, Any] | None:
+    with _connect(db_path) as conn:
+        row = conn.execute("SELECT * FROM jobs WHERE id = ?", (job_id,)).fetchone()
+    return dict(row) if row else None
 
 
 def save_feedback(db_path: str | Path, job_id: int, action: str, notes: str = "") -> None:
@@ -273,7 +303,7 @@ def get_feedback_events(db_path: str | Path) -> list[dict[str, Any]]:
                 j.company,
                 j.location,
                 j.remote_type,
-                j.description_text
+                SUBSTR(COALESCE(j.description_text, ''), 1, 1200) AS description_text
             FROM job_feedback jf
             JOIN jobs j ON j.id = jf.job_id
             ORDER BY jf.id ASC

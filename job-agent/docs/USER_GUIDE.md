@@ -108,6 +108,229 @@ For a different user, change:
 - salary threshold
 - negative keywords
 
+### How To Customize Your Job Search Target
+
+The current dashboard does not yet provide a form for editing the target profile. For now, customize your search target by editing YAML files directly.
+
+Use this file for the user's preferences:
+
+```text
+config/user_profile.yaml
+```
+
+Use this file for general app thresholds:
+
+```text
+config/config.yaml
+```
+
+Use this file for job boards and sources:
+
+```text
+config/sources.yaml
+```
+
+After changing YAML, rerun the pipeline:
+
+```powershell
+python run.py run-all
+```
+
+Then refresh the dashboard:
+
+```powershell
+streamlit run streamlit_app.py
+```
+
+If the dashboard is already open, click `Refresh pipeline`.
+
+#### Example: Emphasize Data Engineering More
+
+Add or move engineering roles higher in `target_titles` and `role_preferences.individual_contributor_positive`:
+
+```yaml
+target_titles:
+  - Senior Data Engineer
+  - Data Engineer
+  - Analytics Engineer
+  - Machine Learning Engineer
+  - Data Scientist
+  - Data Analyst
+
+role_preferences:
+  individual_contributor_positive:
+    - Data Engineer
+    - Senior Data Engineer
+    - Analytics Engineer
+    - Machine Learning Engineer
+    - Data Scientist
+```
+
+Then add engineering tools to `required_skills` or `preferred_skills`:
+
+```yaml
+required_skills:
+  - Python
+  - SQL
+  - Data Engineering
+
+preferred_skills:
+  - Airflow
+  - Spark
+  - dbt
+  - Snowflake
+```
+
+Use `required_skills` for skills that should strongly affect the score. Use `preferred_skills` for nice-to-have skills.
+
+#### Example: Remove AWS From Preference
+
+Remove `AWS` from `preferred_skills`:
+
+```yaml
+preferred_skills:
+  - Snowflake
+  - Tableau
+  - Power BI
+  - Spark
+  - Airflow
+```
+
+If you want cloud skills to matter less overall, keep cloud tools in `preferred_skills`, not `required_skills`.
+
+#### Example: Add Git As A Preferred Skill
+
+Add `Git` or `GitHub` to `preferred_skills`:
+
+```yaml
+preferred_skills:
+  - Snowflake
+  - Tableau
+  - Git
+  - GitHub
+```
+
+If too many jobs mention Git generically, keep it as preferred rather than required.
+
+#### Example: Remove Remote Preference
+
+If you do not want remote jobs to receive a boost, remove remote terms from `remote_positive` and `mild_positive`:
+
+```yaml
+location_preferences:
+  strong_positive:
+    - Atlanta
+    - Alpharetta
+    - Georgia
+    - GA
+
+  remote_positive: []
+
+  mild_positive:
+    - Hybrid
+    - Southeast
+    - Eastern Time
+```
+
+You can also lower or zero out `remote_us_bonus`:
+
+```yaml
+location_preferences:
+  remote_us_bonus: 0
+```
+
+#### Example: Change Target Location From Georgia To New York
+
+Replace Georgia terms with New York terms:
+
+```yaml
+location_preferences:
+  strong_positive:
+    - New York
+    - New York City
+    - NYC
+    - NY
+
+  remote_positive:
+    - Remote US
+    - Remote USA
+    - Remote, United States
+
+  unwanted_onsite:
+    - San Francisco
+    - Los Angeles
+    - Seattle
+    - Boston
+
+  preferred_location_bonus: 35
+  remote_us_bonus: 25
+  mild_location_bonus: 5
+```
+
+Then remove New York from `unwanted_onsite` if it is currently listed there.
+
+Important: the current report location gate is still Georgia / Remote US oriented in code. If you fully switch geographies, update the location gate logic in `src/reporter.py` or temporarily disable it in `config/config.yaml`:
+
+```yaml
+reporting:
+  strict_location_gate: false
+```
+
+This is a known limitation. A future dashboard settings page should generate these preferences without manual YAML edits.
+
+#### Example: Add More Negative Locations
+
+Add locations you do not want to `negative` or `unwanted_onsite`:
+
+```yaml
+location_preferences:
+  negative:
+    - Europe
+    - India
+    - Canada
+
+  unwanted_onsite:
+    - San Francisco
+    - Los Angeles
+    - Seattle
+```
+
+Use `negative` for non-target countries or regions. Use `unwanted_onsite` for US cities that are acceptable only when Remote US is also present.
+
+#### Example: Change Salary Threshold
+
+Edit:
+
+```yaml
+minimum_salary: 140000
+```
+
+Salary parsing is simple and can be noisy, so treat salary scoring as a weak signal.
+
+#### Example: Adjust Report Strictness
+
+Edit [config/config.yaml](../config/config.yaml):
+
+```yaml
+reporting:
+  min_score_to_show: 60
+  max_jobs_to_show: 50
+```
+
+Raise `min_score_to_show` to make the report stricter. Lower it to inspect more jobs.
+
+#### Recommended Customization Workflow
+
+1. Edit `config/user_profile.yaml`.
+2. Run `python run.py run-all`.
+3. Open the dashboard.
+4. Review top jobs.
+5. Use `Like`, `Dislike`, `Hide`, `Save`, and `Applied`.
+6. Add dislike reasons when possible.
+7. Repeat after tuning role, skill, and location settings.
+
+Manual YAML tuning is the current MVP approach. The long-term product direction is to move this into a dashboard settings UI.
+
 ## 5. Configure Job Sources
 
 Edit [config/sources.yaml](../config/sources.yaml).
@@ -254,6 +477,8 @@ Actions:
 - `Applied`
 
 Dislike can include a reason. These reasons become future ranking signals.
+
+Feedback clicks should be fast. The dashboard loads a lightweight job list and fetches full job descriptions only when the user opens details or clicks `Tailor Resume`.
 
 ## 12. Optional Email Report
 

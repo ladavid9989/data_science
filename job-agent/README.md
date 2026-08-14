@@ -198,6 +198,8 @@ Edit [config/sources.yaml](config/sources.yaml) to change where jobs are collect
 
 Edit [config/config.yaml](config/config.yaml) to change report thresholds, freshness windows, resume scoring weights, Ollama settings, and output paths.
 
+Detailed examples for changing preferences such as engineering emphasis, AWS removal, Git addition, Remote removal, or changing Georgia to New York are in [User Guide: Customize Your Job Search Target](docs/USER_GUIDE.md#how-to-customize-your-job-search-target).
+
 ## Dashboard Features
 
 - Refresh the full pipeline on demand.
