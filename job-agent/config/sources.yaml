@@ -1,0 +1,176 @@
+sources:
+  # ============================================================
+  # Local sample jobs - keep this for testing
+  # ============================================================
+  - name: "Sample Local Jobs"
+    type: "local_files"
+    path: "data/sample_jobs"
+
+  # ============================================================
+  # Atlanta / Georgia / Remote-friendly fintech, finance, data,
+  # analytics, AI, and technology companies
+  # ============================================================
+
+  # -------------------------
+  # Lever boards
+  # URL pattern:
+  # https://jobs.lever.co/{company}
+  # -------------------------
+
+  - name: "Greenlight Financial Technology"
+    type: "lever"
+    company: "greenlight"
+
+  - name: "FinQuery"
+    type: "lever"
+    company: "finquery"
+
+  - name: "Smarsh"
+    type: "lever"
+    company: "smarsh"
+
+  - name: "Lendbuzz"
+    type: "lever"
+    company: "lendbuzz"
+
+  - name: "Braviant Holdings"
+    type: "lever"
+    company: "braviantholdings"
+
+  - name: "Jeeves"
+    type: "lever"
+    company: "tryjeeves"
+
+  - name: "Lumin Digital"
+    type: "lever"
+    company: "LuminDigital"
+
+  - name: "Findigs"
+    type: "lever"
+    company: "findigs"
+
+  - name: "Gopuff"
+    type: "lever"
+    company: "gopuff"
+
+  - name: "Samba TV"
+    type: "lever"
+    company: "sambatv"
+
+  - name: "Kochava"
+    type: "lever"
+    company: "kochava"
+
+  - name: "Achievers"
+    type: "lever"
+    company: "achievers"
+
+  # -------------------------
+  # Greenhouse boards
+  # URL pattern:
+  # https://boards.greenhouse.io/{board_token}
+  # or
+  # https://job-boards.greenhouse.io/{board_token}
+  # -------------------------
+
+  - name: "Databricks"
+    type: "greenhouse"
+    board_token: "databricks"
+
+  - name: "FanDuel"
+    type: "greenhouse"
+    board_token: "fanduel"
+
+  - name: "Oscar Health"
+    type: "greenhouse"
+    board_token: "oscar"
+
+  - name: "Charlie Health"
+    type: "greenhouse"
+    board_token: "charliehealth"
+
+  - name: "Chime"
+    type: "greenhouse"
+    board_token: "chime"
+
+  - name: "Pipe Technologies"
+    type: "greenhouse"
+    board_token: "pipetechnologies"
+
+  - name: "C3 AI"
+    type: "greenhouse"
+    board_token: "c3iot"
+
+  - name: "Doximity"
+    type: "greenhouse"
+    board_token: "doximity"
+
+  - name: "Amplitude"
+    type: "greenhouse"
+    board_token: "amplitude"
+
+  - name: "BlueLabs Analytics"
+    type: "greenhouse"
+    board_token: "bluelabsanalyticsinc"
+
+  - name: "HiddenLayer"
+    type: "greenhouse"
+    board_token: "hiddenlayer"
+
+  - name: "Prove"
+    type: "greenhouse"
+    board_token: "prove"
+
+  - name: "Northbeam"
+    type: "greenhouse"
+    board_token: "northbeam"
+
+  - name: "Electrosoft"
+    type: "greenhouse"
+    board_token: "electrosoft"
+
+  # -------------------------
+  # Ashby boards
+  # URL pattern:
+  # https://jobs.ashbyhq.com/{board_name}
+  # -------------------------
+
+  - name: "Deduction"
+    type: "ashby"
+    board_name: "deduction"
+
+  - name: "Riveron"
+    type: "ashby"
+    board_name: "riveron"
+
+  - name: "OnePay"
+    type: "ashby"
+    board_name: "oneapp"
+
+  - name: "Sardine"
+    type: "ashby"
+    board_name: "sardine"
+
+  - name: "Tonal"
+    type: "ashby"
+    board_name: "tonal"
+
+  - name: "Checkout.com"
+    type: "ashby"
+    board_name: "checkout.com"
+
+  - name: "Clubhouse"
+    type: "ashby"
+    board_name: "clubhouse"
+
+  - name: "Profound"
+    type: "ashby"
+    board_name: "profound"
+
+  - name: "Fundamental"
+    type: "ashby"
+    board_name: "fundamental"
+
+  - name: "Reflow"
+    type: "ashby"
+    board_name: "reflow"

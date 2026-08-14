@@ -1,0 +1,8 @@
+Title: Senior Data Scientist
+Company: First Horizon Analytics
+Location: Remote - Atlanta, Georgia
+Compensation: $145,000 - $175,000 per year
+
+We are hiring a Senior Data Scientist to build machine learning models for banking and risk analytics.
+You will use Python, SQL, statistics, data analysis, and customer analytics to improve financial services products.
+Preferred experience includes AWS, Snowflake, Tableau, Spark, Airflow, risk modeling, and banking data.

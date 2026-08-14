@@ -1,0 +1,17 @@
+.env
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+
+# Local runtime data
+data/*.sqlite3
+data/**/*.sqlite3
+data/profile/
+output/
+
+# Local secrets and logs
+.env.*
+!.env.example
+*.log

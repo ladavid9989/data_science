@@ -1,0 +1,157 @@
+target_titles:
+  - Senior Data Scientist
+  - Data Scientist
+  - Data Analyst
+  - Senior Data Analyst
+  - Machine Learning Engineer
+  - Data Engineer
+  - Senior Data Engineer
+  - Analytics Engineer
+  - BI Analyst
+  - Business Intelligence Analyst
+  - Applied Scientist
+  - Decision Scientist
+  - Risk Analyst
+  - Risk Analytics
+  - Banking Analytics
+  - Quantitative Analyst
+required_skills:
+  - Python
+  - SQL
+  - Machine Learning
+  - Statistics
+  - Data Analysis
+preferred_skills:
+  - AWS
+  - Snowflake
+  - Tableau
+  - Power BI
+  - Spark
+  - Airflow
+  - Banking
+  - Risk Modeling
+  - Customer Analytics
+industries:
+  - Banking
+  - Financial Services
+  - Insurance
+  - FinTech
+role_preferences:
+  individual_contributor_positive:
+    - Data Scientist
+    - Senior Data Scientist
+    - Data Analyst
+    - Senior Data Analyst
+    - Data Engineer
+    - Senior Data Engineer
+    - Analytics Engineer
+    - BI Analyst
+    - Business Intelligence Analyst
+    - Machine Learning Engineer
+    - Applied Scientist
+    - Decision Scientist
+    - Risk Analyst
+    - Risk Analytics
+    - Quantitative Analyst
+    - Customer Analytics
+    - Marketing Analytics
+    - Product Analytics
+  acceptable_senior_ic_prefixes:
+    - Senior
+    - Sr.
+    - Staff
+    - Principal
+    - Lead
+  management_negative:
+    - Manager
+    - Director
+    - Associate Director
+    - Assistant Director
+    - Head of
+    - VP
+    - Vice President
+    - People Manager
+    - Engineering Manager
+    - Security Engineering Manager
+    - Product Manager
+    - Program Manager
+    - Project Manager
+    - Product Owner
+    - Team Lead
+  management_penalty: 45
+  product_manager_penalty: 35
+  non_data_role_penalty: 25
+  ic_role_bonus: 25
+locations:
+  - Remote
+  - Atlanta
+  - Alpharetta
+  - Georgia
+  - GA
+location_preferences:
+  strong_positive:
+    - Atlanta
+    - Alpharetta
+    - Georgia
+    - GA
+  remote_positive:
+    - Remote US
+    - Remote USA
+    - Remote, USA
+    - Remote, United States
+    - United States Remote
+    - Remote U.S.
+    - Remote - USA
+    - Remote, USA
+  mild_positive:
+    - Remote
+    - Hybrid
+    - Southeast
+    - Eastern Time
+    - EST
+  negative:
+    - Europe
+    - United Kingdom
+    - UK
+    - London
+    - Amsterdam
+    - Germany
+    - France
+    - Netherlands
+    - Ireland
+    - India
+    - Argentina
+    - Colombia
+    - Brazil
+    - Singapore
+    - Australia
+    - Canada
+    - Mexico
+  unwanted_onsite:
+    - San Francisco
+    - New York
+    - Los Angeles
+    - Seattle
+    - Boston
+    - Redwood City
+    - Jersey City
+    - Tempe
+    - Dallas
+    - Tysons
+    - Philadelphia
+    - Washington D.C.
+    - Washington DC
+  preferred_location_bonus: 35
+  remote_us_bonus: 25
+  mild_location_bonus: 5
+  broad_us_bonus: 0
+  unknown_location_penalty: 10
+  unwanted_onsite_penalty: 45
+  non_us_penalty: 70
+negative_keywords:
+  - unpaid
+  - internship
+  - junior
+  - entry level
+  - commission only
+minimum_salary: 120000

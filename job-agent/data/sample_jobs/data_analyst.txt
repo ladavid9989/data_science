@@ -1,0 +1,8 @@
+Title: Data Analyst
+Company: Insurance Insights Group
+Location: Hybrid - Columbus, Ohio
+Compensation: $95,000 - $115,000 per year
+
+This analytics role supports insurance reporting, dashboards, and business analysis.
+The team uses SQL, Python, Tableau, Power BI, statistics, and data analysis to serve operations partners.
+Experience in financial services or insurance is preferred.

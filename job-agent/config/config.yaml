@@ -1,0 +1,46 @@
+scoring:
+  notification_threshold: 75
+
+output:
+  report_path: "output/ranked_jobs.md"
+
+reporting:
+  min_score_to_show: 60
+  max_jobs_to_show: 50
+  strict_location_gate: true
+  broad_us_min_score_to_show: 95
+  hide_stale_jobs: true
+  freshness:
+    fresh_days: 7
+    recent_days: 21
+    aging_days: 45
+    first_seen_recent_days: 14
+
+resume_scoring:
+  enabled: true
+  high_fit_threshold: 70
+  low_fit_threshold: 35
+  high_fit_bonus: 8
+  moderate_fit_bonus: 4
+  low_fit_penalty: 6
+
+llm:
+  enabled: true
+  provider: "ollama"
+  base_url: "http://127.0.0.1:11434"
+  model: "qwen2.5:7b"
+  timeout_seconds: 240
+
+tailoring:
+  enabled: true
+  output_dir: "data/profile/tailored_resumes"
+  max_resume_chars: 12000
+  max_job_chars: 16000
+
+crawler:
+  timeout_seconds: 20
+  delay_seconds: 1
+  user_agent: "LocalJobAgent/0.1"
+
+database:
+  path: "data/job_agent.sqlite3"
