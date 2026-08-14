@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from pathlib import Path
 from typing import Any
 
 import streamlit as st
@@ -75,11 +76,10 @@ def _visible_jobs(
     location_filter: str,
 ) -> list[dict[str, Any]]:
     reporting_config = pipeline.config.get("reporting", {})
-    ranked_jobs, feedback_events, feedback_by_job = _load_dashboard_data(
-        pipeline.db_path,
-        get_feedback_version(pipeline.db_path),
-    )
+    ranked_jobs = _load_ranked_jobs(pipeline.db_path)
+    feedback_events, feedback_by_job = _load_feedback_data(pipeline.db_path, get_feedback_version(pipeline.db_path))
 
+    candidate_limit = max(250, max_display * 12)
     candidates: list[dict[str, Any]] = []
     for job in ranked_jobs:
         if int(job.get("score") or 0) < max(0, min_score - 20):
@@ -96,6 +96,8 @@ def _visible_jobs(
             if freshness.is_stale:
                 continue
         candidates.append(job)
+        if len(candidates) >= candidate_limit:
+            break
 
     adjusted_candidates = apply_feedback_adjustments(candidates, feedback_events)
 
@@ -119,15 +121,19 @@ def _visible_jobs(
 
 
 @st.cache_data(show_spinner=False)
-def _load_dashboard_data(
+def _load_ranked_jobs(db_path: str) -> list[dict[str, Any]]:
+    return get_ranked_jobs_light(db_path)
+
+
+@st.cache_data(show_spinner=False)
+def _load_feedback_data(
     db_path: str,
     feedback_version: tuple[int, int],
-) -> tuple[list[dict[str, Any]], list[dict[str, Any]], dict[int, dict[str, Any]]]:
+) -> tuple[list[dict[str, Any]], dict[int, dict[str, Any]]]:
     del feedback_version
-    ranked_jobs = get_ranked_jobs_light(db_path)
     feedback_events = get_feedback_events(db_path)
     feedback_by_job = get_latest_feedback_by_job(db_path)
-    return ranked_jobs, feedback_events, feedback_by_job
+    return feedback_events, feedback_by_job
 
 
 def _render_resume_panel(db_path: str) -> None:
@@ -270,8 +276,11 @@ def _render_job_card(
                         _dislike_dialog(db_path, job_id, title)
                         continue
                     save_feedback(db_path, job_id, action, notes)
+                    st.session_state[f"feedback_saved_{job_id}"] = action
                     st.toast(f"Saved feedback: {action}")
-                    st.rerun()
+        saved_action = st.session_state.pop(f"feedback_saved_{job_id}", None)
+        if saved_action:
+            st.success(f"Saved feedback: {saved_action}. Refresh or change a filter to update the ranking.")
         with action_columns[-1]:
             tailor_disabled = not active_resume or not resume_text.strip() or not app_config.get("tailoring", {}).get("enabled", True)
             if st.button("Tailor Resume", key=f"tailor-{job_id}", type="primary", disabled=tailor_disabled):
@@ -288,8 +297,9 @@ def _dislike_dialog(db_path: str, job_id: int, title: str) -> None:
     )
     if st.button("Save dislike"):
         save_feedback(db_path, job_id, "dislike", reason)
+        st.session_state[f"feedback_saved_{job_id}"] = "dislike"
         st.toast("Saved dislike feedback.")
-        st.rerun()
+        st.success("Dislike feedback saved. Close this dialog when you are ready.")
 
 
 @st.cache_data(show_spinner=False)
@@ -305,6 +315,7 @@ def _tailor_resume_dialog(
     resume_text: str,
     app_config: dict[str, Any],
 ) -> None:
+    result_key = f"tailoring_result_{int(job.get('id') or 0)}_{int(active_resume.get('id') or 0)}"
     st.write(f"{job.get('title') or 'Untitled job'} at {job.get('company') or 'Unknown company'}")
     st.caption(f"Active resume: {active_resume.get('original_filename')}")
     user_notes = st.text_area(
@@ -328,6 +339,13 @@ def _tailor_resume_dialog(
                     client,
                     app_config.get("tailoring", {}),
                 )
+            st.session_state[result_key] = {
+                "analysis_text": result.analysis_text,
+                "tailored_resume_markdown": result.tailored_resume_markdown,
+                "markdown_path": result.markdown_path,
+                "docx_path": result.docx_path,
+                "model": result.model,
+            }
         except OllamaError as exc:
             st.error(f"Ollama failed: {exc}")
             return
@@ -336,25 +354,37 @@ def _tailor_resume_dialog(
             return
 
         st.success(f"Tailored resume generated with {result.model}.")
-        st.markdown("### Fit Analysis")
-        st.markdown(result.analysis_text)
-        st.markdown("### Tailored Resume Preview")
-        st.markdown(result.tailored_resume_markdown)
-        try:
-            with open(result.docx_path, "rb") as file:
-                st.download_button(
-                    "Download DOCX",
-                    data=file.read(),
-                    file_name="tailored_resume.docx",
-                )
-            with open(result.markdown_path, "rb") as file:
-                st.download_button(
-                    "Download Markdown",
-                    data=file.read(),
-                    file_name="tailored_resume.md",
-                )
-        except OSError:
-            st.warning("Generated files were saved, but could not be opened for download.")
+
+    saved_result = st.session_state.get(result_key)
+    if saved_result:
+        _render_tailoring_result(saved_result)
+
+
+def _render_tailoring_result(result: dict[str, Any]) -> None:
+    st.markdown("### Fit Analysis")
+    st.markdown(str(result.get("analysis_text") or "No fit analysis returned."))
+    st.markdown("### Tailored Resume Preview")
+    st.markdown(str(result.get("tailored_resume_markdown") or "No tailored resume returned."))
+
+    docx_path = Path(str(result.get("docx_path") or ""))
+    markdown_path = Path(str(result.get("markdown_path") or ""))
+    try:
+        with open(docx_path, "rb") as file:
+            st.download_button(
+                "Download DOCX",
+                data=file.read(),
+                file_name=docx_path.name or "tailored_resume.docx",
+                on_click="ignore",
+            )
+        with open(markdown_path, "rb") as file:
+            st.download_button(
+                "Download Markdown",
+                data=file.read(),
+                file_name=markdown_path.name or "tailored_resume.md",
+                on_click="ignore",
+            )
+    except OSError:
+        st.warning("Generated files were saved, but could not be opened for download.")
 
 
 def _join(values: Any) -> str:
