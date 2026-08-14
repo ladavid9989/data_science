@@ -3,7 +3,7 @@ import streamlit as st
 
 st.set_page_config(page_title="Git Tutorial Toy Dashboard", layout="wide")
 
-st.title("Git Tutorial Toy Dashboard - Improved as of 8/14")
+st.title("Git Tutorial Toy Dashboard - Improved as of 8/14/2026")
 st.caption("A tiny Streamlit app for practicing Git commits, branches, and hosting.")
 
 data = pd.read_csv("data/jobs.csv")
