@@ -14,6 +14,7 @@ By the end, you should be able to explain and practice:
 - How collaboration creates conflicts and how to resolve them
 - How Codex can help run Git commands and prepare changes
 - How Streamlit hosting uses GitHub files such as `app.py` and `requirements.txt`
+- How GitHub Pages can host static interactive dashboards with HTML, CSS, JavaScript, and Plotly
 
 ## Correct Mental Starting Point
 
@@ -34,7 +35,7 @@ flowchart LR
 
 A beginner mistake is thinking that saving a file is the same as committing it. Saving changes the file on disk. Committing records a named checkpoint in Git history.
 
-## Three Practical Settings
+## Four Practical Settings
 
 ### 1. Local or JupyterLab
 
@@ -57,6 +58,19 @@ flowchart TD
     R --> A[Run Streamlit app]
 ```
 
+### 4. GitHub Pages Static Dashboards
+
+GitHub Pages can host browser-only dashboards built with HTML, CSS, JavaScript, and Plotly. This is different from Streamlit because no Python server runs after deployment.
+
+```mermaid
+flowchart TD
+    U[You edit index.html, styles.css, or app.js] --> C[Commit changes]
+    C --> P[Push to GitHub]
+    P --> G[GitHub Pages serves static files]
+    G --> B[Browser runs JavaScript]
+    B --> D[Interactive dashboard]
+```
+
 ## Recommended Learning Path
 
 1. Read [Lesson 1: Git Mental Model](lessons/01-git-mental-model.md)
@@ -66,8 +80,10 @@ flowchart TD
 5. Read [Lesson 5: Using Git with Codex](lessons/05-codex-workflow.md)
 6. Read [Lesson 6: GitHub and Streamlit Hosting](lessons/06-streamlit-hosting.md)
 7. Read [Lesson 7: Fork, Clone, and Classroom Workflow](lessons/07-fork-clone-classroom-workflow.md)
-8. Practice with the [Toy Streamlit Exercise](exercises/toy-streamlit-app/README.md)
-9. Keep the [Git Command Cheatsheet](cheatsheets/git-command-cheatsheet.md) open while practicing
+8. Read [Lesson 8: GitHub Pages and Static Interactive Dashboards](lessons/08-github-pages-static-dashboard.md)
+9. Practice with the [Toy Streamlit Exercise](exercises/toy-streamlit-app/README.md)
+10. Practice with the [GitHub Pages Model Performance Dashboard](pages/model-performance-dashboard/README.md)
+11. Keep the [Git Command Cheatsheet](cheatsheets/git-command-cheatsheet.md) open while practicing
 
 ## Minimum Commands to Learn First
 
@@ -119,4 +135,21 @@ gitGraph
 ## What This Tutorial Does Not Assume
 
 You do not need to know software engineering professionally. You do not need to understand rebase on day one. You do need to practice reading `git status`, making small commits, and reviewing changes before pushing.
+
+
+## GitHub Pages Static Dashboard Demo
+
+This branch also includes a serverless interactive dashboard demo:
+
+```text
+git-tutoring/pages/model-performance-dashboard
+```
+
+It uses HTML, CSS, JavaScript, and Plotly to show how GitHub Pages can host interactive charts, filters, sliders, metrics, and tables without running Python.
+
+Expected Pages URL after enabling Pages from branch `git_tutoring` and folder `/root`:
+
+```text
+https://ladavid9989.github.io/data_science/git-tutoring/pages/model-performance-dashboard/
+```
 

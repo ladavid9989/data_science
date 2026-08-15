@@ -1,0 +1,131 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Model Performance Dashboard</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+</head>
+<body>
+  <main class="shell">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">GitHub Pages static dashboard demo</p>
+        <h1>Customer Churn Model Performance</h1>
+        <p class="summary">Adjust model, segment, and threshold to see metrics, charts, and the confusion matrix update in the browser. No Python server is required.</p>
+      </div>
+      <div class="status-panel" aria-label="dashboard status">
+        <span class="status-dot"></span>
+        <span>Client-side JavaScript only</span>
+      </div>
+    </header>
+
+    <section class="controls" aria-label="dashboard controls">
+      <label>
+        Model
+        <select id="modelSelect">
+          <option value="xgboost">XGBoost</option>
+          <option value="randomForest">Random Forest</option>
+          <option value="logistic">Logistic Regression</option>
+        </select>
+      </label>
+      <label>
+        Segment
+        <select id="segmentSelect">
+          <option value="all">All customers</option>
+          <option value="enterprise">Enterprise</option>
+          <option value="midmarket">Mid-market</option>
+          <option value="smallBusiness">Small business</option>
+        </select>
+      </label>
+      <label class="threshold-control">
+        <span>Threshold: <strong id="thresholdValue">0.65</strong></span>
+        <input id="thresholdSlider" type="range" min="0.05" max="0.95" step="0.01" value="0.65" />
+      </label>
+    </section>
+
+    <section class="metrics" aria-label="model metrics">
+      <article>
+        <span>AUC</span>
+        <strong id="aucMetric">0.891</strong>
+      </article>
+      <article>
+        <span>Precision</span>
+        <strong id="precisionMetric">0.83</strong>
+      </article>
+      <article>
+        <span>Recall</span>
+        <strong id="recallMetric">0.78</strong>
+      </article>
+      <article>
+        <span>F1</span>
+        <strong id="f1Metric">0.80</strong>
+      </article>
+    </section>
+
+    <section class="grid two-col">
+      <article class="panel">
+        <div class="panel-heading">
+          <h2>ROC Curve</h2>
+          <p>Tradeoff between false positive rate and true positive rate.</p>
+        </div>
+        <div id="rocChart" class="chart"></div>
+      </article>
+
+      <article class="panel">
+        <div class="panel-heading">
+          <h2>Confusion Matrix</h2>
+          <p>Counts update when the threshold changes.</p>
+        </div>
+        <div class="matrix" role="table" aria-label="confusion matrix">
+          <div></div><div class="axis">Predicted no churn</div><div class="axis">Predicted churn</div>
+          <div class="axis">Actual no churn</div><div id="tnCell" class="cell good">0</div><div id="fpCell" class="cell warn">0</div>
+          <div class="axis">Actual churn</div><div id="fnCell" class="cell bad">0</div><div id="tpCell" class="cell good">0</div>
+        </div>
+      </article>
+    </section>
+
+    <section class="grid two-col">
+      <article class="panel">
+        <div class="panel-heading">
+          <h2>Precision and Recall</h2>
+          <p>The vertical marker shows the current threshold.</p>
+        </div>
+        <div id="thresholdChart" class="chart"></div>
+      </article>
+
+      <article class="panel">
+        <div class="panel-heading">
+          <h2>Regional Risk Bubbles</h2>
+          <p>Bubble size reflects average predicted churn risk.</p>
+        </div>
+        <div id="regionChart" class="chart"></div>
+      </article>
+    </section>
+
+    <section class="panel">
+      <div class="panel-heading">
+        <h2>Highest Risk Customers</h2>
+        <p>Example table for explaining filters, ranking, and frontend-only interactivity.</p>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Customer ID</th>
+              <th>Segment</th>
+              <th>Region</th>
+              <th>Risk score</th>
+              <th>Actual churn</th>
+            </tr>
+          </thead>
+          <tbody id="riskTable"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
