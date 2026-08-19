@@ -1,4 +1,5 @@
-﻿# Git and GitHub Tutoring for Beginners
+# readme test 8/19
+# Git and GitHub Tutoring for Beginners
 
 This tutorial is for learners who know some Python, SQL, or data analysis, but have not yet learned Git. It starts from the terminal and builds toward real collaboration workflows: branches, pull requests, conflicts, Codex-assisted coding, and Streamlit hosting.
 
