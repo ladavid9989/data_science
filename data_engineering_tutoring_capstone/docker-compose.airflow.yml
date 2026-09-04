@@ -1,0 +1,20 @@
+services:
+  airflow:
+    image: apache/airflow:3.3.0
+    container_name: de-capstone-airflow
+    command: standalone
+    ports:
+      - "8080:8080"
+    environment:
+      AIRFLOW__CORE__LOAD_EXAMPLES: "false"
+      AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: "false"
+      PYTHONPATH: /opt/airflow/project
+      CAPSTONE_ROOT: /opt/airflow/project
+    volumes:
+      - ./:/opt/airflow/project
+      - ./dags:/opt/airflow/dags
+      - airflow_home:/opt/airflow
+
+volumes:
+  airflow_home:
+

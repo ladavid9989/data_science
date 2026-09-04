@@ -1,0 +1,7 @@
+lab_data/
+.ipynb_checkpoints/
+__pycache__/
+.pytest_cache/
+*.pyc
+*.log
+
