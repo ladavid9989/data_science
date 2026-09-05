@@ -10,7 +10,7 @@ compliance, recovery objectives, and budget.
 
 | Lean / early-stage | Growing analytics team | Large regulated enterprise | Event-intensive product |
 |:---:|:---:|:---:|:---:|
-| **APIs + App DB**<br>↓<br>**Managed ingestion**<br>↓<br>**S3 + Athena**<br>or<br>**BigQuery**<br>↓<br>**Dashboard** | **APIs + DB CDC**<br>↓<br>**Airflow / managed scheduler**<br>↓<br>**S3 Bronze**<br>↓<br>**Spark or SQL transforms**<br>↓<br>**Warehouse + BI** | **Many domains**<br>↓<br>**Batch + CDC + streams**<br>↓<br>**Governed data lake**<br>↓<br>**EMR / Glue / lakehouse**<br>↓<br>**Redshift + BI** | **Apps + devices**<br>↓<br>**Kafka / Kinesis**<br>↓<br>**Streaming compute**<br>↓<br>**Lakehouse + serving store**<br>↓<br>**Real-time BI** |
+| **APIs + App DB**<br>↓<br>**Managed ingestion**<br>↓<br>**S3 + Athena**<br>or<br>**BigQuery**<br>↓<br>**Dashboard** | **APIs + DB CDC**<br>↓<br>**Airflow / managed scheduler**<br>↓<br>**S3 Bronze**<br>↓<br>**Spark or SQL transforms**<br>↓<br>**Warehouse + BI** | **Many domains**<br>↓<br>**Batch + CDC + streams**<br>↓<br>**Governed data lake**<br>↓<br>**EMR / Glue / lakehouse**<br>↓<br>**Redshift/Snowflake + BI** | **Apps + devices**<br>↓<br>**Kafka / Kinesis**<br>↓<br>**Streaming compute**<br>↓<br>**Lakehouse + serving store**<br>↓<br>**Real-time BI** |
 | Minimize operations and tool count | Add orchestration, testing, and reusable models | Emphasize security, lineage, isolation, audit, and recovery | Emphasize throughput, event time, replay, ordering, and low latency |
 
 The four columns are alternatives, not required stages. Use the smallest design
@@ -43,7 +43,7 @@ validated for the actual organization and jurisdiction.
 | Pattern | Most important engineering skills |
 |---|---|
 | API-to-lake analytics | Python, HTTP, pagination, retries, JSON, S3 layout, Glue Catalog, Athena SQL |
-| Warehouse-centered analytics | SQL, dimensional modeling, ELT, data tests, Redshift/BigQuery, BI serving |
+| Warehouse-centered analytics | SQL, dimensional modeling, ELT, data tests, Redshift/Snowflake/BigQuery, BI serving |
 | Spark lake processing | PySpark, schemas, partitioning, shuffle, file sizing, join strategy, EMR/Databricks operations |
 | CDC platform | Source keys, log sequence/offsets, ordering, deduplication, checkpointing, MERGE, replay |
 | Streaming platform | Kafka topics/partitions, consumer groups, offsets, event time, watermarking, idempotent sinks |
@@ -61,4 +61,3 @@ Before selecting a service, answer these questions:
 6. Which data is sensitive, and who must not be able to read it?
 7. Which cost dominates: storage, bytes scanned, always-on compute, or engineering time?
 8. What evidence proves completeness, uniqueness, freshness, and recoverability?
-

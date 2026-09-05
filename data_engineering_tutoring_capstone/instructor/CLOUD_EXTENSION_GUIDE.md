@@ -50,19 +50,21 @@ Official guide: https://docs.cloud.google.com/bigquery/docs/sandbox
 
 AWS Free Tier: https://aws.amazon.com/free/
 
-## Redshift Serverless
+## Redshift/Snowflake warehouse exercise
 
-This is not part of the required curriculum. If the account is eligible for the
-time-limited trial:
+These products serve the same warehouse category but have different SQL, loading,
+security, and operational details. This is not part of the required curriculum.
+If an account is eligible for a time-limited trial:
 
 1. Set a low maximum capacity and review usage controls.
-2. Create the reference schema from `sql/redshift_reference.sql`.
-3. Load a small Parquet dataset from S3 with `COPY`.
-4. Compare plans for queries aligned and misaligned with sort/distribution keys.
+2. For the AWS option, create the reference schema from `sql/redshift_reference.sql`.
+3. Load a small Parquet dataset with the platform's `COPY` or staged-file workflow.
+4. Compare plans using the platform's sort, distribution, clustering, or pruning behavior.
 5. Record usage, delete the workgroup/namespace and dependent storage, and
    verify billing state immediately after the lesson.
 
-Official trial page: https://aws.amazon.com/redshift/free-trial/
+Redshift/Snowflake trial options: https://aws.amazon.com/redshift/free-trial/ and
+https://signup.snowflake.com/
 
 ## EMR boundary
 
@@ -72,4 +74,3 @@ IAM, networking, release labels, bootstrap actions, instance/serverless sizing,
 logs, retries, and teardown. Do not make EMR a required junior lab when cost or
 account access is uncertain. Label it as architecture discussion unless an
 actual job is submitted and observed.
-

@@ -16,7 +16,7 @@ problem with a small serverless stack.
 | [01 — Company and industry patterns](01_company_and_industry_patterns.md) | Why do organizations choose different architectures? | Compare batch, warehouse, lakehouse, and streaming patterns. |
 | [02 — End-to-end data lifecycle](02_end_to_end_data_lifecycle.md) | What happens between a source API and a dashboard? | Trace one order through Bronze, Silver, Gold, and BI. |
 | [03 — Ingestion and structuring patterns](03_ingestion_and_structuring_patterns.md) | How do REST, JSON, S3, Athena, and CDC become tables? | Read compact Python, PySpark, and SQL patterns. |
-| [04 — Stack selection and trade-offs](04_stack_selection_and_tradeoffs.md) | When should we use Athena, EMR, Redshift, or another platform? | Use decision matrices and local-to-cloud mappings. |
+| [04 — Stack selection and trade-offs](04_stack_selection_and_tradeoffs.md) | When should we use Athena, EMR, Redshift/Snowflake, or another platform? | Use decision matrices and local-to-cloud mappings. |
 | [05 — Case studies and exercises](05_case_studies_and_exercises.md) | Can the student justify an architecture? | Design systems for commerce, SaaS, finance, and IoT. |
 | [06 — Glossary](06_glossary.md) | What do the common terms mean? | Review concise definitions before interviews. |
 
@@ -36,7 +36,7 @@ problem with a small serverless stack.
 |---|---|---|
 | Local Bronze folders | Amazon S3 raw prefixes | Google Cloud Storage, Azure Data Lake Storage |
 | Local PySpark | Spark on Amazon EMR or AWS Glue | Databricks, Google Cloud Serverless for Apache Spark |
-| DuckDB warehouse | Amazon Redshift | BigQuery, Snowflake, Databricks SQL |
+| DuckDB warehouse | Redshift/Snowflake | BigQuery, Databricks SQL |
 | Local API server | Internal application API or third-party SaaS API | Shopify, Stripe, Salesforce, partner APIs |
 | Local Kafka simulator | Amazon MSK or self-managed Kafka | Confluent Cloud, Google Cloud Managed Service for Apache Kafka |
 | Local files for state | Durable checkpoint table or object | DynamoDB, relational metadata table, streaming checkpoint storage |
@@ -58,4 +58,3 @@ same as operating a production cloud platform. State the evidence precisely:
 - “implemented locally” for code executed in these notebooks;
 - “designed a production translation” for diagrams and cloud SQL examples;
 - “deployed on AWS/GCP/Databricks” only after running the optional cloud exercise.
-

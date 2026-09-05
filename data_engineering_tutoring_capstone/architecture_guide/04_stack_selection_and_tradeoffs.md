@@ -10,13 +10,13 @@ Do not begin with “Which tool is popular?” Begin with the required behavior.
 | Database changes within minutes | CDC or frequent incremental extraction | Primary keys, sequence/log positions, deduplication, MERGE |
 | Millions of events per second | Partitioned event log and horizontally scalable consumers | Kafka, keys, partitions, offsets, backpressure, streaming compute |
 | Ad-hoc SQL over S3 | Serverless lake query | Athena, Glue Catalog, Parquet, partition pruning, scan-cost control |
-| Repeated BI queries and governed metrics | Curated warehouse and data marts | Redshift/BigQuery, dimensional modeling, SQL ELT, semantic definitions |
+| Repeated BI queries and governed metrics | Curated warehouse and data marts | Redshift/Snowflake/BigQuery, dimensional modeling, SQL ELT, semantic definitions |
 | Large joins and complex transformations | Distributed processing may be justified | Spark/PySpark, shuffle, skew, partition sizing, EMR/Databricks |
 | Strict audit and replay | Immutable landing plus control metadata | Manifests, checksums, lineage, atomic commits, retention |
 
-## Athena, EMR, and Redshift are different tools
+## Athena, EMR, and Redshift/Snowflake are different tools
 
-| Athena | EMR | Redshift |
+| Athena | EMR | Redshift/Snowflake |
 |:---:|:---:|:---:|
 | **S3 files**<br>↓<br>SQL query in place | **S3 files / streams**<br>↓<br>Spark and other distributed processing | **Loaded or managed tables**<br>↓<br>Warehouse SQL and BI workloads |
 | Best fit: exploration, serverless SQL, occasional lake queries | Best fit: large/complex ETL, custom distributed computation | Best fit: curated, repeated analytics and data marts |
@@ -28,7 +28,7 @@ They can coexist:
 ```text
                            ┌──► Athena: exploration and lake SQL
 API / DB → S3 → EMR/Glue ─┤
-                           └──► Redshift: curated marts and BI
+                           └──► Redshift/Snowflake: curated marts and BI
 ```
 
 ## Local, AWS, GCP, and Databricks mapping
@@ -40,7 +40,7 @@ API / DB → S3 → EMR/Glue ─┤
 | Catalog | File paths and explicit schemas | Glue Data Catalog | Dataplex/BigLake catalog choices | Unity Catalog |
 | Distributed transform | Local PySpark | EMR or Glue | Serverless Spark / Dataproc choices | Databricks Runtime |
 | Lake query | DuckDB/PyArrow | Athena | BigQuery external/BigLake patterns | Databricks SQL |
-| Warehouse | DuckDB | Redshift | BigQuery | Databricks SQL warehouse |
+| Warehouse | DuckDB | Redshift/Snowflake | BigQuery | Databricks SQL warehouse |
 | Orchestration | Python runner or local Airflow | MWAA, Step Functions, Glue workflows | Composer, Workflows | Databricks Workflows |
 | Streaming | Local Kafka simulator or Docker Kafka | MSK or Kinesis | Managed Kafka or Pub/Sub | Structured Streaming with Kafka or cloud sources |
 | Infrastructure as code | Local AWS CDK synthesis | CDK, CloudFormation, Terraform | Terraform and provider-native tools | Asset Bundles and Terraform |
@@ -109,9 +109,8 @@ A strong junior project should demonstrate:
 
 - [Amazon Athena documentation](https://docs.aws.amazon.com/athena/latest/ug/what-is.html)
 - [Amazon EMR documentation](https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-what-is-emr.html)
-- [Amazon Redshift documentation](https://docs.aws.amazon.com/redshift/latest/mgmt/welcome.html)
+- Redshift/Snowflake documentation: [AWS warehouse documentation](https://docs.aws.amazon.com/redshift/latest/mgmt/welcome.html) and [Snowflake key concepts](https://docs.snowflake.com/en/user-guide/intro-key-concepts)
 - [AWS DMS change data capture](https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Task.CDC.html)
 - [Databricks medallion architecture](https://docs.databricks.com/aws/en/lakehouse/medallion)
 - [BigQuery partitioned tables](https://cloud.google.com/bigquery/docs/partitioned-tables)
 - [BigQuery clustered tables](https://cloud.google.com/bigquery/docs/clustered-tables)
-

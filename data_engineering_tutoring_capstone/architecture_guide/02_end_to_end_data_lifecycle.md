@@ -4,7 +4,7 @@
 
 | Sources | Ingestion | Bronze | Processing | Silver | Warehouse / Gold | Consumption |
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| REST APIs<br>Databases<br>Files<br>Application events | Cursor pagination<br>CDC<br>Batch upload<br>Kafka | Immutable JSON<br>Source metadata<br>Run manifest | Parse<br>Validate<br>Deduplicate<br>Flatten | Typed Parquet<br>Orders<br>Order items<br>Clean logs | Fact tables<br>Dimensions<br>Daily marts | Athena<br>Redshift<br>BI dashboard<br>Data science |
+| REST APIs<br>Databases<br>Files<br>Application events | Cursor pagination<br>CDC<br>Batch upload<br>Kafka | Immutable JSON<br>Source metadata<br>Run manifest | Parse<br>Validate<br>Deduplicate<br>Flatten | Typed Parquet<br>Orders<br>Order items<br>Clean logs | Fact tables<br>Dimensions<br>Daily marts | Athena<br>Redshift/Snowflake<br>BI dashboard<br>Data science |
 | **What arrived?** | **Did we collect it safely?** | **Can we replay it?** | **Is it valid?** | **Can analysts use it?** | **Does it answer business questions?** | **Is it trusted and fast enough?** |
 
 ## One order moving through the system
@@ -113,4 +113,3 @@ Gold
 BI
   ↓ freshness timestamp, metric definition, access audit
 ```
-

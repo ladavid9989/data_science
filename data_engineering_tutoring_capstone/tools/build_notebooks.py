@@ -1246,7 +1246,7 @@ def notebook_04() -> list[dict]:
         business model.
 
         This notebook uses DuckDB as a free local columnar analytical engine. DuckDB is not
-        Redshift or BigQuery; it lets us practice ELT SQL and inspect plans before translating
+        Redshift/Snowflake or BigQuery; it lets us practice ELT SQL and inspect plans before translating
         the design to a managed warehouse.
 
         ### Learning objectives
@@ -1256,7 +1256,8 @@ def notebook_04() -> list[dict]:
         - Enforce grain and reconciliation checks.
         - Build an SCD Type 2 customer history.
         - inspect `EXPLAIN` output.
-        - Translate storage choices to BigQuery partitions/clusters and Redshift sort/dist keys.
+        - Translate storage choices to BigQuery partitions/clusters, AWS sort/dist keys,
+          and Snowflake clustering and micro-partition pruning.
         - Understand how Airflow should orchestrate these jobs.
         '''),
         code(r'''
@@ -1525,7 +1526,7 @@ def notebook_04() -> list[dict]:
         print(f"Published: {gold_path}")
         '''),
         md(r'''
-        ## Translate the design to BigQuery and Redshift
+        ## Translate the design to BigQuery and Redshift/Snowflake
 
         ### BigQuery
 
@@ -1536,15 +1537,17 @@ def notebook_04() -> list[dict]:
 
         See `sql/bigquery_reference.sql`.
 
-        ### Redshift
+        ### Redshift/Snowflake
 
-        - Start from workload evidence before choosing `DISTKEY` or `SORTKEY`.
-        - Load columnar files from S3 with `COPY`.
+        - On the AWS platform, choose `DISTKEY` or `SORTKEY` from workload evidence.
+        - On Snowflake, inspect automatic micro-partition pruning before adding clustering keys.
+        - Load columnar files through each platform's `COPY` or staged-file workflow.
         - Analyze query plans and table statistics.
-        - A local DuckDB run does not prove Redshift administration experience.
+        - A local DuckDB run does not prove Redshift/Snowflake administration experience.
 
-        See `sql/redshift_reference.sql`. Redshift Serverless is an optional, time-limited
-        exercise because eligibility and cost controls differ from the core free lab.
+        See `sql/redshift_reference.sql` for AWS-specific DDL and adapt the concepts rather
+        than copying that syntax into Snowflake. Redshift/Snowflake cloud trials are optional,
+        time-limited exercises because eligibility and cost controls differ from the core free lab.
         '''),
         md(r'''
         ## Airflow orchestration

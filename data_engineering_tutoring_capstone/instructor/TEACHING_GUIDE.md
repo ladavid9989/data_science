@@ -60,7 +60,7 @@ ask the student to identify which action (`cdk deploy`) would mutate AWS.
 6. When does partitioning reduce cost, and when does it create small files?
 7. What creates a Spark shuffle in this pipeline?
 8. Why can caching make a job slower?
-9. How would the local warehouse design change on Redshift?
+9. How would the local warehouse design change on Redshift/Snowflake?
 10. Why does at-least-once delivery require an idempotent sink?
 
 ## Resume guardrail

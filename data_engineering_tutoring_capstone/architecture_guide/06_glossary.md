@@ -46,7 +46,7 @@
 | Lakehouse | An architecture adding table-management and warehouse-like capabilities to lake storage. |
 | Athena | An AWS service that queries data in S3 with SQL without first loading it into a conventional warehouse. |
 | EMR | Amazon EMR, a managed AWS platform for running big-data frameworks such as Spark. Its name originated from Elastic MapReduce. |
-| Redshift | AWS's managed analytical data warehouse service. |
+| Redshift/Snowflake | The AWS offering and Snowflake are separate cloud platforms in the same analytical warehouse category. |
 | Glue Data Catalog | AWS metadata catalog describing datasets, schemas, tables, and locations. |
 | Fact table | A table of measurable business events at a declared grain, such as one row per order. |
 | Dimension table | Descriptive context used with facts, such as customer, product, or date. |
@@ -66,8 +66,7 @@
 | High watermark vs streaming watermark | A high watermark records committed source progress; a streaming watermark defines tolerated event-time lateness. |
 | S3 vs Athena | S3 stores objects; Athena executes SQL over cataloged data, commonly in S3. |
 | Spark vs EMR | Spark is a processing engine; EMR is an AWS platform that can run Spark. |
-| Athena vs Redshift | Athena queries lake files in place; Redshift is a managed analytical warehouse. |
+| Athena vs Redshift/Snowflake | Athena queries lake files in place; Redshift/Snowflake provide managed analytical warehouses. |
 | Partition vs Kafka partition | A data/file partition organizes analytical data; a Kafka partition is an ordered event log and unit of consumer parallelism. |
 | Retry vs replay | Retry repeats a failed operation; replay intentionally processes previously stored events again. |
 | Duplicate delivery vs duplicate final state | A message may be delivered twice while an idempotent sink still stores one correct business row. |
-

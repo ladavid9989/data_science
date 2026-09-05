@@ -1,4 +1,5 @@
--- Redshift-oriented reference DDL. This file is not executed by the DuckDB lab.
+-- Redshift/Snowflake comparison reference. The DDL below is AWS-specific and is
+-- not executed by the DuckDB lab; adapt it before using Snowflake.
 -- Choose distribution and sort keys only after understanding actual query and
 -- table-size patterns; these examples support the dominant date/customer joins.
 
@@ -22,4 +23,3 @@ SORTKEY (order_date, customer_id);
 -- FORMAT AS PARQUET;
 
 ANALYZE analytics.fact_order;
-

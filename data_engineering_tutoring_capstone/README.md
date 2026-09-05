@@ -57,8 +57,8 @@ Optional: Databricks Free Edition, BigQuery sandbox, or AWS
    - Uses DuckDB as a free local analytical warehouse.
    - Builds staging, dimensions, facts, quality checks, SCD Type 2 history, and
      business marts with SQL.
-   - Shows equivalent BigQuery and Redshift design notes without pretending
-     that DuckDB is Redshift.
+   - Shows equivalent BigQuery and Redshift/Snowflake design notes without pretending
+     that DuckDB is Redshift/Snowflake.
 
 5. `05_kafka_streaming_and_offsets.ipynb`
    - Runs in simulation mode by default so the lesson always works.
@@ -116,7 +116,7 @@ Detailed, explicitly optional cloud labs are in
 | Glue | PySpark job and explicit schema | AWS Glue |
 | Glue Catalog | Spark/DuckDB table metadata | Glue Data Catalog |
 | Athena | DuckDB queries over partitioned Parquet | Amazon Athena |
-| Redshift | DuckDB columnar warehouse concepts | Redshift Serverless |
+| Redshift/Snowflake | DuckDB columnar warehouse concepts | Managed Redshift/Snowflake trial environment |
 | EMR | Local Spark execution plans | Amazon EMR |
 | CDK | Local architecture and template exercises | `cdk synth/deploy` |
 | Databricks | Local PySpark | Databricks Free Edition |
@@ -141,7 +141,7 @@ tutoring rubric and interview prompts are in `instructor/TEACHING_GUIDE.md`.
 - Databricks Free Edition: https://docs.databricks.com/aws/en/getting-started/free-edition
 - BigQuery sandbox: https://docs.cloud.google.com/bigquery/docs/sandbox
 - AWS Free Tier: https://aws.amazon.com/free/
-- Redshift trial: https://aws.amazon.com/redshift/free-trial/
+- Redshift/Snowflake trial options: https://aws.amazon.com/redshift/free-trial/ and https://signup.snowflake.com/
 
 Cloud offers and limits can change. Verify current eligibility before a class,
 set budgets where applicable, and remove optional resources after the lab.

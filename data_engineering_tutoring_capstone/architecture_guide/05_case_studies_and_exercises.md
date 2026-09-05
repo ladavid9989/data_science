@@ -126,7 +126,7 @@ Complete this before naming services.
 | Storage | “Put it in S3” | Defines Bronze immutability, prefixes, format, retention, and metadata |
 | Transformation | “Use Spark because data is big” | Justifies engine choice and explains schema, shuffle, quality, and output layout |
 | CDC | “Use latest timestamp” | Defines key, operation, source sequence, duplicates, deletes, and committed position |
-| Serving | “Use Redshift” | Defines table grain, consumers, query pattern, and quality gates |
+| Serving | “Use Redshift/Snowflake” | Defines table grain, consumers, query pattern, and quality gates |
 | Reliability | “Airflow retries it” | Explains partial failure, idempotency, replay, alerting, and backfill scope |
 | Cost | “Partitioning is cheaper” | Names the filter pattern and the measured bytes/files avoided |
 
@@ -150,4 +150,3 @@ Measured trade-off and remaining limitation
 
 Avoid a service inventory. A strong answer connects every technology to a
 specific requirement and states what evidence was actually implemented.
-
