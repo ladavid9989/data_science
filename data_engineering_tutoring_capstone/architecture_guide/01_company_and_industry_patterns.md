@@ -62,13 +62,3 @@ Before selecting a service, answer these questions:
 7. Which cost dominates: storage, bytes scanned, always-on compute, or engineering time?
 8. What evidence proves completeness, uniqueness, freshness, and recoverability?
 
-## Common mistakes
-
-- Adding Kafka because data is “real time” without defining the latency target.
-- Adding Spark when SQL on a warehouse or Athena is sufficient.
-- Calling a local PySpark run “EMR operations experience.”
-- Treating Bronze as clean data and losing the exact source response.
-- Advancing a checkpoint before durable output is committed.
-- Partitioning by a high-cardinality identifier and producing tiny files.
-- Building separate platforms when one governed stack meets the workload.
-
