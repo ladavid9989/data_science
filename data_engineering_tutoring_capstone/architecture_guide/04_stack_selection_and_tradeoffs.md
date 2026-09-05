@@ -95,16 +95,6 @@ A strong junior project should demonstrate:
 - a fact table, a dimension, and a tested business mart;
 - unit tests and a README with exact run instructions.
 
-## Honest resume language
-
-| Evidence completed | Accurate statement |
-|---|---|
-| Local notebooks only | “Built a local production-like data engineering capstone with PySpark, Parquet, CDC, and SQL marts.” |
-| Architecture documents only | “Designed AWS and warehouse translations for the local implementation.” |
-| Docker Kafka completed | “Produced and consumed events using a local Kafka broker with manual offset commit.” |
-| Real S3 extension completed | “Uploaded immutable Bronze pages to S3 with checksum metadata.” |
-| EMR deployment completed | “Deployed and monitored a Spark job on Amazon EMR,” followed by the exact operational evidence. |
-
 ## Official references
 
 - [Amazon Athena documentation](https://docs.aws.amazon.com/athena/latest/ug/what-is.html)
