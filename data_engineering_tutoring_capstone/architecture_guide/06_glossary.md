@@ -58,6 +58,18 @@
 | Backfill | Reprocessing a historical time interval or partition. |
 | SLA/SLO | A commitment or objective for service behavior such as freshness, availability, or recovery time. |
 
+### Lakehouse at a glance
+
+```text
+Data Lake
+S3에 파일 저장
+    +
+Warehouse 기능
+테이블 · 트랜잭션 · SQL · 스키마 관리
+    =
+Lakehouse
+```
+
 ## Terms that are easy to confuse
 
 | Pair | Difference |
