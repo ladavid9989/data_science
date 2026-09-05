@@ -14,10 +14,32 @@ are compact patterns; the executable implementations are in Notebooks 01 and 02.
 | Database CDC | Transaction log or managed CDC service | Primary key, operation, source sequence/log position, commit time |
 | Kafka | Consumer polls a topic partition | Topic, partition, offset, key, event time, headers |
 
+**Kafka를 쉽게 이해하면:** Producer가 메시지를 Kafka의 topic/partition에 넣으면,
+Consumer는 새 메시지가 있는지 확인하여 가져옵니다. Offset은 Consumer가 어디까지
+처리했는지 나타내는 책갈피이며, 처리한 데이터는 S3나 warehouse 같은 sink에 저장됩니다.
+
+```text
+Producer → Kafka topic/partition → Consumer → S3 / warehouse (sink)
+                                      ↑
+                         offset으로 처리 위치를 기억
+```
+
 Athena does not fetch a REST API. An ingestion process first writes API data to
 S3; Athena then queries the data in place.
 
+**Athena 흐름을 쉽게 이해하면:** Athena가 REST API를 직접 호출하는 것이 아닙니다.
+Python, Lambda, 또는 Airflow가 API 데이터를 수집해 S3에 JSON/Parquet로 저장하고,
+Athena는 그 S3 파일을 옮기지 않은 채 SQL로 조회합니다.
+
+```text
+REST API → Python / Lambda / Airflow → Amazon S3 → Amazon Athena → BI
+              API 수집                 파일 저장       SQL 조회
+```
+
 ## Pattern A — Cursor-paginated REST extraction
+
+**한국어 설명:** API가 한 번에 모든 데이터를 주지 않을 때, cursor를 다음 페이지의
+위치표처럼 사용해 끝까지 반복 수집합니다. 받은 각 응답은 변형하기 전에 Bronze에 그대로 저장합니다.
 
 ```python
 cursor = None
@@ -57,6 +79,9 @@ successful run to the next.
 
 ## Pattern B — Atomic checkpoint commit
 
+**한국어 설명:** Checkpoint는 이전 실행에서 어디까지 성공했는지 기록하는 책갈피입니다.
+데이터 저장이 모두 끝난 뒤 임시 파일을 최종 파일로 한 번에 교체하여, 실패 시 데이터가 건너뛰어지는 일을 막습니다.
+
 ```python
 def atomic_write_json(path, payload):
     temporary_path = path.with_suffix(".tmp")
@@ -77,6 +102,9 @@ For sources where multiple records can share an update timestamp, prefer a
 composite position such as `(updated_at, order_id)` or a source log sequence.
 
 ## Pattern C — Explicit schema for nested JSON
+
+**한국어 설명:** 중첩 JSON의 필드와 데이터 타입을 미리 설계도처럼 정의합니다.
+Spark의 자동 추측에만 맡기지 않아 타입 변화나 잘못된 값을 더 쉽게 발견할 수 있습니다.
 
 ```python
 order_schema = T.StructType([
@@ -101,6 +129,9 @@ safe cast so invalid values become visible quality failures instead of crashing
 the complete batch.
 
 ## Pattern D — Normalize schema versions and validate
+
+**한국어 설명:** 서로 다른 API 버전의 필드를 하나의 표준 컬럼 구조로 통합합니다.
+필수값 누락이나 숫자 변환 실패 데이터는 버리지 않고, 이유와 함께 quarantine으로 분리합니다.
 
 ```python
 normalized = envelopes.select(
@@ -134,6 +165,9 @@ Normalized typed rows
 ```
 
 ## Pattern E — Convert one nested order into relational tables
+
+**한국어 설명:** 주문 하나에 들어 있는 `items[]` 배열을 상품 하나당 한 행으로 펼칩니다.
+그 결과 주문 테이블과 주문상품 테이블을 SQL로 분석하기 쉬운 형태로 만들 수 있습니다.
 
 ```text
 One API order
@@ -170,6 +204,9 @@ order_items = (
 
 ## Pattern F — Query S3 data through Athena
 
+**한국어 설명:** Athena는 S3 파일을 자신의 저장소로 복사하지 않고 그 자리에서 SQL로 읽습니다.
+날짜 partition과 필요한 컬럼만 조회하면 스캔 데이터가 줄어 비용과 실행 시간을 아낄 수 있습니다.
+
 Assume an external/catalog table already points to the S3 Bronze or Silver
 location. Athena queries the files; it does not move them into Athena.
 
@@ -188,6 +225,9 @@ The `event_date` filter matters when the S3 table is partitioned by that column.
 Select only required columns and inspect bytes scanned.
 
 ## Pattern G — Apply CDC deterministically
+
+**한국어 설명:** CDC의 Insert, Update, Delete 이벤트 중 각 주문의 가장 최신 변경만 선택해
+현재 테이블에 반영합니다. 중복 이벤트가 다시 와도 결과가 달라지지 않도록 순서와 키를 사용합니다.
 
 ```text
 CDC events for one order
@@ -229,6 +269,9 @@ latest event inside one batch is not sufficient to reject an older future batch.
 
 ## Pattern H — Publish a business mart
 
+**한국어 설명:** 정제된 데이터를 일별 매출처럼 비즈니스가 바로 사용할 지표로 집계합니다.
+이 Gold mart를 BI 도구가 읽으므로 dashboard마다 같은 지표 정의를 재사용할 수 있습니다.
+
 ```sql
 CREATE OR REPLACE TABLE mart_daily_sales AS
 SELECT
@@ -254,4 +297,3 @@ Gold mart
   ↓ stable metric definitions
 Dashboard / BI
 ```
-
