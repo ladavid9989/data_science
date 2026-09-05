@@ -38,7 +38,7 @@ REST API → Python / Lambda / Airflow → Amazon S3 → Amazon Athena → BI
 
 ## Pattern A — Cursor-paginated REST extraction
 
-**한국어 설명:** API가 한 번에 모든 데이터를 주지 않을 때, cursor를 다음 페이지의
+API가 한 번에 모든 데이터를 주지 않을 때, cursor를 다음 페이지의
 위치표처럼 사용해 끝까지 반복 수집합니다. 받은 각 응답은 변형하기 전에 Bronze에 그대로 저장합니다.
 
 ```python
@@ -79,7 +79,7 @@ successful run to the next.
 
 ## Pattern B — Atomic checkpoint commit
 
-**한국어 설명:** Checkpoint는 이전 실행에서 어디까지 성공했는지 기록하는 책갈피입니다.
+Checkpoint는 이전 실행에서 어디까지 성공했는지 기록하는 책갈피입니다.
 데이터 저장이 모두 끝난 뒤 임시 파일을 최종 파일로 한 번에 교체하여, 실패 시 데이터가 건너뛰어지는 일을 막습니다.
 
 ```python
@@ -103,7 +103,7 @@ composite position such as `(updated_at, order_id)` or a source log sequence.
 
 ## Pattern C — Explicit schema for nested JSON
 
-**한국어 설명:** 중첩 JSON의 필드와 데이터 타입을 미리 설계도처럼 정의합니다.
+중첩 JSON의 필드와 데이터 타입을 미리 설계도처럼 정의합니다.
 Spark의 자동 추측에만 맡기지 않아 타입 변화나 잘못된 값을 더 쉽게 발견할 수 있습니다.
 
 ```python
@@ -130,7 +130,7 @@ the complete batch.
 
 ## Pattern D — Normalize schema versions and validate
 
-**한국어 설명:** 서로 다른 API 버전의 필드를 하나의 표준 컬럼 구조로 통합합니다.
+서로 다른 API 버전의 필드를 하나의 표준 컬럼 구조로 통합합니다.
 필수값 누락이나 숫자 변환 실패 데이터는 버리지 않고, 이유와 함께 quarantine으로 분리합니다.
 
 ```python
@@ -166,7 +166,7 @@ Normalized typed rows
 
 ## Pattern E — Convert one nested order into relational tables
 
-**한국어 설명:** 주문 하나에 들어 있는 `items[]` 배열을 상품 하나당 한 행으로 펼칩니다.
+주문 하나에 들어 있는 `items[]` 배열을 상품 하나당 한 행으로 펼칩니다.
 그 결과 주문 테이블과 주문상품 테이블을 SQL로 분석하기 쉬운 형태로 만들 수 있습니다.
 
 ```text
@@ -204,7 +204,7 @@ order_items = (
 
 ## Pattern F — Query S3 data through Athena
 
-**한국어 설명:** Athena는 S3 파일을 자신의 저장소로 복사하지 않고 그 자리에서 SQL로 읽습니다.
+Athena는 S3 파일을 자신의 저장소로 복사하지 않고 그 자리에서 SQL로 읽습니다.
 날짜 partition과 필요한 컬럼만 조회하면 스캔 데이터가 줄어 비용과 실행 시간을 아낄 수 있습니다.
 
 Assume an external/catalog table already points to the S3 Bronze or Silver
@@ -226,7 +226,7 @@ Select only required columns and inspect bytes scanned.
 
 ## Pattern G — Apply CDC deterministically
 
-**한국어 설명:** CDC의 Insert, Update, Delete 이벤트 중 각 주문의 가장 최신 변경만 선택해
+CDC의 Insert, Update, Delete 이벤트 중 각 주문의 가장 최신 변경만 선택해
 현재 테이블에 반영합니다. 중복 이벤트가 다시 와도 결과가 달라지지 않도록 순서와 키를 사용합니다.
 
 ```text
@@ -269,7 +269,7 @@ latest event inside one batch is not sufficient to reject an older future batch.
 
 ## Pattern H — Publish a business mart
 
-**한국어 설명:** 정제된 데이터를 일별 매출처럼 비즈니스가 바로 사용할 지표로 집계합니다.
+정제된 데이터를 일별 매출처럼 비즈니스가 바로 사용할 지표로 집계합니다.
 이 Gold mart를 BI 도구가 읽으므로 dashboard마다 같은 지표 정의를 재사용할 수 있습니다.
 
 ```sql
