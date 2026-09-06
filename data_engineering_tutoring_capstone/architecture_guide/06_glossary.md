@@ -44,6 +44,9 @@
 | Data lake | Object-storage-based data platform supporting multiple formats and processing engines. |
 | Data warehouse | A managed analytical database designed for structured SQL workloads and BI. |
 | Lakehouse | An architecture adding table-management and warehouse-like capabilities to lake storage. |
+| Delta Lake | An open table format and transaction layer that adds ACID transactions, schema controls, `MERGE`, and time travel to Parquet data in a lake. |
+| Apache Iceberg | An open table format for large analytical datasets that supports snapshots, time travel, and schema and partition evolution across processing engines. |
+| Apache Hudi | An open lakehouse table format designed for incremental ingestion, CDC, upserts, and record-level changes in lake storage. |
 | Athena | An AWS service that queries data in S3 with SQL without first loading it into a conventional warehouse. |
 | EMR | Amazon EMR, a managed AWS platform for running big-data frameworks such as Spark. Its name originated from Elastic MapReduce. |
 | Redshift/Snowflake | The AWS offering and Snowflake are separate cloud platforms in the same analytical warehouse category. |
