@@ -48,3 +48,19 @@ Use an output directory outside the code repository. The experiment's HTML respo
 - [Zillow terms](https://www.zillow.com/corporate/terms-of-use/) still restrict automated queries. This experiment is evidence about access behavior, not permission to operate a recurring collector.
 
 No scheduled scraping, dashboard deployment, paid service, or account setup was performed.
+
+## Follow-up: Built in text and year-built coverage
+
+The user asked why only one construction year was reported. Only one detail page had been tested; that was a sample-size limitation, not evidence that other homes lack construction years.
+
+Two additional detail GET requests at approximately 22:43:36-37 UTC succeeded with HTTP 200. Three saved pages now have matching visible Built in text and structured years:
+
+| Zillow property ID | Visible text | Structured field |
+| --- | --- | --- |
+| 58607266 | Built in 2000 | property.yearBuilt |
+| 14841020 | Built in 1998 | property.resoFacts.yearBuilt |
+| 55042868 | Built in 2000 | property.resoFacts.yearBuilt |
+
+An offline cross-check matched each embedded property object's ID to the requested home and verified equality with the visible year. Reading only property.yearBuilt would incorrectly classify the latter two as missing; the nested resoFacts field is required for those page variants. These checks were saved locally as year-built-validated.json. All three inspected homes had an extractable construction year; coverage for the remaining homes has not been measured.
+
+Proposed collection behavior: enrich each newly encountered property from its detail page and preserve the construction year with its source and observation timestamp. Reuse that relatively stable attribute during daily price/inventory updates, periodically rechecking it for corrections and treating new construction separately. First-page search results alone do not establish year-built completeness. The total direct Zillow request count across the initial probe and this follow-up is seven; no challenge or retry was encountered.
