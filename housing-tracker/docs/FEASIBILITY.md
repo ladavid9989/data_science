@@ -2,6 +2,8 @@
 
 Research date: 2026-09-29. Status: discovery, not an implementation or an approved deployment plan.
 
+Subsequent evidence: a user-requested [live Zillow HTTP probe](ZILLOW_PROBE_2026-09-29.md) succeeded later the same day for a narrowed school/price/bed/bath/Houses search. Statements below about no live listing collection describe the earlier research stage. The follow-up demonstrates small-scale technical access, with operational and geographic limitations recorded separately.
+
 ## Objective and constraints
 
 Build a personal Streamlit dashboard comparing homes assigned to North Gwinnett High School (Gwinnett County Public Schools) and Johns Creek High School (Fulton County Schools), Georgia. Track listing inventory and asking prices over time with property filters. Collection should continue without a dashboard visit.
