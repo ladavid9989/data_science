@@ -1,0 +1,52 @@
+from pathlib import Path
+
+import pytest
+from streamlit.testing.v1 import AppTest
+
+from tracker.demo import seed, snapshots
+from tracker.storage import import_snapshot
+
+APP = Path(__file__).resolve().parents[1] / "streamlit_app.py"
+
+
+@pytest.fixture
+def app(tmp_path, monkeypatch):
+    db = tmp_path / "app.sqlite3"
+    monkeypatch.setenv("HOUSING_DB_PATH", str(db))
+    seed(db)
+    sample = next(snapshots())
+    sample.update(dataset="observed", quality="partial", boundary_version="unverified", scope="sample")
+    sample["coverage"]["official_zone_verified"] = False
+    import_snapshot(db, sample)
+    return AppTest.from_file(APP, default_timeout=30).run()
+
+
+def test_default_dashboard_and_filters(app):
+    assert not app.exception
+    assert app.title[0].value == "학군으로 보는 주택 시장"
+    assert len(app.tabs) == 4
+    app.toggle(key="all_prices").set_value(True).run()
+    assert not app.exception
+    app.selectbox(key="school").select("Johns Creek High School").run()
+    assert not app.exception
+    app.checkbox(key="unknown").uncheck().run()
+    assert not app.exception
+
+
+def test_observed_partial_does_not_show_market_median(app):
+    app.radio(key="mode").set_value("실제 관측 · 가져온 데이터").run()
+    assert not app.exception
+    assert app.metric[1].value == "미산출"
+    assert any("완전 수집 기록" in warning.value for warning in app.warning)
+    app.selectbox(key="school").select("Johns Creek High School").run()
+    assert not app.exception
+    assert any("데이터가 없습니다" in info.value for info in app.info)
+
+
+def test_empty_result_filters_and_invalid_price(app):
+    app.selectbox(key="beds").select(6).run()
+    assert not app.exception
+    assert app.metric[0].value == "0"
+    app.number_input(key="price_min").set_value(900000).run()
+    assert not app.exception
+    assert any("최저 가격" in error.value for error in app.error)
