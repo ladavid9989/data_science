@@ -1,0 +1,37 @@
+name: Housing dashboard cloud readiness
+on:
+  workflow_dispatch:
+  push:
+    branches: [feature/school-housing-tracker]
+    paths:
+      - .github/workflows/housing-ui-check.yml
+      - .streamlit/config.toml
+      - housing-tracker/streamlit_app.py
+      - housing-tracker/requirements.txt
+permissions:
+  contents: read
+jobs:
+  cold-start:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install -r housing-tracker/requirements.txt
+      - name: Render from repository root using a fresh database
+        env:
+          HOUSING_DB_PATH: ${{ runner.temp }}/cloud-ui.sqlite3
+        shell: python
+        run: |
+          import os, sqlite3
+          from streamlit.testing.v1 import AppTest
+          app = AppTest.from_file("housing-tracker/streamlit_app.py", default_timeout=90).run()
+          assert not app.exception, [e.message for e in app.exception]
+          assert len(app.tabs) == 4
+          assert not app.radio
+          with sqlite3.connect(os.environ["HOUSING_DB_PATH"]) as db:
+              assert db.execute("SELECT count(*) FROM runs WHERE dataset='observed'").fetchone()[0] > 0
+              assert db.execute("SELECT count(*) FROM runs WHERE dataset!='observed'").fetchone()[0] == 0
+          print("Linux cold start passed: archived real data restored and dashboard rendered.")
