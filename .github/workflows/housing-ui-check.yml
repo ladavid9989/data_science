@@ -27,7 +27,7 @@ jobs:
         run: |
           import os, sqlite3
           from streamlit.testing.v1 import AppTest
-          app = AppTest.from_file("housing-tracker/streamlit_app.py", default_timeout=90).run()
+          app = AppTest.from_file(os.path.abspath("housing-tracker/streamlit_app.py"), default_timeout=90).run()
           assert not app.exception, [e.message for e in app.exception]
           assert len(app.tabs) == 4
           assert not app.radio
