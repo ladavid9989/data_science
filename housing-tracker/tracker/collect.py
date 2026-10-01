@@ -10,6 +10,7 @@ import time
 import urllib.error
 import urllib.parse
 import urllib.request
+from email.utils import parsedate_to_datetime
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
@@ -27,7 +28,9 @@ SOURCES = {
 
 
 class AccessBlocked(RuntimeError):
-    pass
+    def __init__(self, message, wait_seconds=3600):
+        super().__init__(message)
+        self.wait_seconds = wait_seconds
 
 
 def write_json(path, value):
@@ -45,7 +48,7 @@ def read_json(path):
 
 
 class Client:
-    def __init__(self, raw_dir, delay=2, budget=100):
+    def __init__(self, raw_dir, delay=5, budget=100):
         self.raw_dir = Path(raw_dir)
         self.delay, self.budget, self.count, self.last = delay, budget, 0, 0
         self.evidence = []
@@ -62,7 +65,17 @@ class Client:
                 body = reply.read(12_000_001)
         except urllib.error.HTTPError as exc:
             if exc.code in (401, 403, 429):
-                raise AccessBlocked(f"HTTP {exc.code}: source access stopped") from exc
+                wait = 3600 if exc.code == 429 else 86400
+                retry = exc.headers.get("Retry-After", "")
+                if retry:
+                    try:
+                        wait = max(wait, int(retry))
+                    except ValueError:
+                        try:
+                            wait = max(wait, int((parsedate_to_datetime(retry) - datetime.now(timezone.utc)).total_seconds()))
+                        except (ValueError, TypeError):
+                            pass
+                raise AccessBlocked(f"HTTP {exc.code}: source access stopped", wait) from exc
             raise
         if len(body) > 12_000_000:
             raise RuntimeError("Unexpected response size")
@@ -169,6 +182,87 @@ def detail_property(html, pid):
     raise ValueError("Detail property identity mismatch")
 
 
+def enrich_school(db, school, client, snapshot, rows, zone, cache, detail_limit):
+    stamp = snapshot["observed_at"]
+    old_runs, old_rows = read_frames(db, "observed")
+    old_rows = old_rows.merge(old_runs[["run_id", "school", "observed_at"]], on="run_id")
+    prior = old_rows[old_rows.school.eq(school)].sort_values("observed_at").drop_duplicates("property_id", keep="last")
+    prior_map = {r["property_id"]: r for r in prior.to_dict("records")}
+    # Reuse earlier verified years without changing older snapshots.
+    known_years = old_rows[old_rows.school.eq(school) & old_rows.year_built.notna()].sort_values("observed_at").drop_duplicates("property_id", keep="last")
+    for record in known_years.to_dict("records"):
+        if record["property_id"] in rows and rows[record["property_id"]].get("year_built") is None:
+            rows[record["property_id"]].update(year_built=int(record["year_built"]), year_source=record["year_source"])
+    for pid, row in rows.items():
+        saved = cache.get(pid, {})
+        if saved.get("year_built"):
+            row.update(year_built=saved["year_built"], year_source=saved.get("year_source", "cached detail"))
+        if saved.get("episode_id"):
+            row["episode_id"] = saved["episode_id"]
+    candidates = list(rows)
+    missing = [pid for pid in prior_map if pid not in rows and prior_map[pid]["status"] != "sold"]
+    candidates += missing
+    def priority(pid):
+        saved = cache.get(pid, {})
+        row = rows.get(pid, {})
+        # A missing/pending listing is checked first, then unseen years, then stale detail metadata.
+        rank = 0 if pid in missing or row.get("status") in ("pending", "under_contract") else 1 if not row.get("year_built") else 2
+        return rank, saved.get("checked_at", ""), pid
+    candidates.sort(key=priority)
+    attempted = 0
+    for pid in candidates:
+        saved = cache.get(pid, {})
+        checked = datetime.fromisoformat(saved["checked_at"]) if saved.get("checked_at") else None
+        wait_days = 1 if priority(pid)[0] <= 1 else 30
+        if checked and datetime.now(timezone.utc) - checked < timedelta(days=wait_days):
+            continue
+        if attempted >= detail_limit:
+            break
+        attempted += 1
+        row = rows.get(pid)
+        url = (row or prior_map[pid]).get("url")
+        if not url:
+            continue
+        cache.setdefault(pid, {})["checked_at"] = datetime.now(timezone.utc).isoformat()
+        try:
+            prop = detail_property(client.get(url), pid)
+            year = prop.get("yearBuilt") or (prop.get("resoFacts") or {}).get("yearBuilt")
+            if year:
+                cache[pid].update(year_built=year, year_source="detail property / resoFacts.yearBuilt")
+            if row is None:
+                # Only explicit detail observations can follow a listing out of search.
+                previous = prior_map[pid]
+                row = {key: previous.get(key) for key in ("property_id", "episode_id", "address", "property_type", "url")}
+                row.update(price=prop.get("price"), bedrooms=prop.get("bedrooms"), bathrooms=prop.get("bathrooms"),
+                           square_feet=prop.get("livingArea"), status=prop.get("homeStatus"), raw_status=prop.get("homeStatus"),
+                           latitude=prop.get("latitude"), longitude=prop.get("longitude"), in_inventory=False)
+                rows[pid] = row
+            if year:
+                row.update(year_built=year, year_source=cache[pid]["year_source"])
+            if not row.get("latitude") and pid not in missing:
+                row.update(latitude=prop.get("latitude"), longitude=prop.get("longitude"))
+                row["in_inventory"] = contains(zone["geometry"], row["longitude"], row["latitude"]) is True
+            listing_id = (prop.get("attributionInfo") or {}).get("mlsId")
+            listed = prop.get("datePostedString") or prop.get("datePosted")
+            if listing_id and listed:
+                row["episode_id"] = f"{pid}:mls:{listing_id}:{listed}"
+                cache[pid]["episode_id"] = row["episode_id"]
+            row["evidence"] = "Search and/or matching detail property observed at " + stamp
+            # Do not attach an old lastSoldPrice to a current listing. Explicit dated sold events only.
+            if normalize_status(prop.get("homeStatus")) == "sold":
+                first_seen = old_rows.loc[old_rows.property_id.eq(pid), "observed_at"].min()
+                for event in prop.get("priceHistory") or []:
+                    if str(event.get("event", "")).lower() == "sold" and event.get("date") and isinstance(first_seen, str) and event["date"] >= first_seen[:10]:
+                        row.update(status="sold", sold_price=event.get("price"), sold_date=event["date"],
+                                   evidence="Explicit source sold event after tracker first observation")
+                        break
+        except AccessBlocked:
+            raise
+        except Exception as exc:
+            cache[pid]["error"] = str(exc)[:200]
+    snapshot["note"] += f" Detail checks: {attempted}; construction years are enriched incrementally."
+
+
 def collect_school(db, archive, school, client, detail_limit=25):
     stamp = datetime.now(timezone.utc).isoformat()
     snapshot = dict(schema_version=1, dataset="observed", school=school, observed_at=stamp,
@@ -227,89 +321,15 @@ def collect_school(db, archive, school, client, detail_limit=25):
         snapshot["note"] = (f"All {pages} search pages; {total} source results, {mapped_count} with coordinates inside mapped polygon. "
                             "Zillow school search is not proven exhaustive for the attendance zone; boundary school year not independently verified.")
 
-        old_runs, old_rows = read_frames(db, "observed")
-        old_rows = old_rows.merge(old_runs[["run_id", "school", "observed_at"]], on="run_id")
-        prior = old_rows[old_rows.school.eq(school)].sort_values("observed_at").drop_duplicates("property_id", keep="last")
-        prior_map = {r["property_id"]: r for r in prior.to_dict("records")}
-        # Reuse earlier verified years without changing older snapshots.
-        known_years = old_rows[old_rows.school.eq(school) & old_rows.year_built.notna()].sort_values("observed_at").drop_duplicates("property_id", keep="last")
-        for record in known_years.to_dict("records"):
-            if record["property_id"] in rows and rows[record["property_id"]].get("year_built") is None:
-                rows[record["property_id"]].update(year_built=int(record["year_built"]), year_source=record["year_source"])
-        for pid, row in rows.items():
-            saved = cache.get(pid, {})
-            if saved.get("year_built"):
-                row.update(year_built=saved["year_built"], year_source=saved.get("year_source", "cached detail"))
-            if saved.get("episode_id"):
-                row["episode_id"] = saved["episode_id"]
-        candidates = list(rows)
-        missing = [pid for pid in prior_map if pid not in rows and prior_map[pid]["status"] != "sold"]
-        candidates += missing
-        def priority(pid):
-            saved = cache.get(pid, {})
-            row = rows.get(pid, {})
-            # A missing/pending listing is checked first, then unseen years, then stale detail metadata.
-            rank = 0 if pid in missing or row.get("status") in ("pending", "under_contract") else 1 if not row.get("year_built") else 2
-            return rank, saved.get("checked_at", ""), pid
-        candidates.sort(key=priority)
-        attempted = 0
-        for pid in candidates:
-            saved = cache.get(pid, {})
-            checked = datetime.fromisoformat(saved["checked_at"]) if saved.get("checked_at") else None
-            wait_days = 1 if priority(pid)[0] <= 1 else 30
-            if checked and datetime.now(timezone.utc) - checked < timedelta(days=wait_days):
-                continue
-            if attempted >= detail_limit:
-                break
-            attempted += 1
-            row = rows.get(pid)
-            url = (row or prior_map[pid]).get("url")
-            if not url:
-                continue
-            cache.setdefault(pid, {})["checked_at"] = datetime.now(timezone.utc).isoformat()
-            try:
-                prop = detail_property(client.get(url), pid)
-                year = prop.get("yearBuilt") or (prop.get("resoFacts") or {}).get("yearBuilt")
-                if year:
-                    cache[pid].update(year_built=year, year_source="detail property / resoFacts.yearBuilt")
-                if row is None:
-                    # Only explicit detail observations can follow a listing out of search.
-                    previous = prior_map[pid]
-                    row = {key: previous.get(key) for key in ("property_id", "episode_id", "address", "property_type", "url")}
-                    row.update(price=prop.get("price"), bedrooms=prop.get("bedrooms"), bathrooms=prop.get("bathrooms"),
-                               square_feet=prop.get("livingArea"), status=prop.get("homeStatus"), raw_status=prop.get("homeStatus"),
-                               latitude=prop.get("latitude"), longitude=prop.get("longitude"), in_inventory=False)
-                    rows[pid] = row
-                if year:
-                    row.update(year_built=year, year_source=cache[pid]["year_source"])
-                if not row.get("latitude") and pid not in missing:
-                    row.update(latitude=prop.get("latitude"), longitude=prop.get("longitude"))
-                    row["in_inventory"] = contains(zone["geometry"], row["longitude"], row["latitude"]) is True
-                listing_id = (prop.get("attributionInfo") or {}).get("mlsId")
-                listed = prop.get("datePostedString") or prop.get("datePosted")
-                if listing_id and listed:
-                    row["episode_id"] = f"{pid}:mls:{listing_id}:{listed}"
-                    cache[pid]["episode_id"] = row["episode_id"]
-                row["evidence"] = "Search and/or matching detail property observed at " + stamp
-                # Do not attach an old lastSoldPrice to a current listing. Explicit dated sold events only.
-                if normalize_status(prop.get("homeStatus")) == "sold":
-                    first_seen = old_rows.loc[old_rows.property_id.eq(pid), "observed_at"].min()
-                    for event in prop.get("priceHistory") or []:
-                        if str(event.get("event", "")).lower() == "sold" and event.get("date") and isinstance(first_seen, str) and event["date"] >= first_seen[:10]:
-                            row.update(status="sold", sold_price=event.get("price"), sold_date=event["date"],
-                                       evidence="Explicit source sold event after tracker first observation")
-                            break
-            except AccessBlocked:
-                raise
-            except Exception as exc:
-                cache[pid]["error"] = str(exc)[:200]
-        snapshot["note"] += f" Detail checks: {attempted}; construction years are enriched incrementally."
+        enrich_school(db, school, client, snapshot, rows, zone, cache, detail_limit)
     except Exception as exc:
         errors.append(str(exc)[:250])
         if snapshot["quality"] != "source_complete":
             snapshot["quality"] = "partial" if rows else "failed"
         if isinstance(exc, AccessBlocked):
             snapshot["access_blocked"] = True
+            pause_until = datetime.now(timezone.utc) + timedelta(seconds=exc.wait_seconds)
+            write_json(archive / "state" / "access.json.gz", {"retry_after": pause_until.isoformat(), "reason": str(exc)})
     snapshot["listings"] = list(rows.values())
     snapshot["expected_unique_count"] = len(rows)
     snapshot["note"] += " " + "; ".join(dict.fromkeys(errors))
@@ -321,14 +341,51 @@ def collect_school(db, archive, school, client, detail_limit=25):
     return snapshot
 
 
-def collect(db, archive, detail_limit=25):
+def collect(db, archive, detail_limit=5):
     archive = Path(archive)
+    policy = archive / "state" / "access.json.gz"
+    if policy.exists():
+        pause = read_json(policy)
+        if datetime.now(timezone.utc) < datetime.fromisoformat(pause["retry_after"]):
+            print("Source cooldown until " + pause["retry_after"], flush=True)
+            return []
     client = Client(Path(db).parent / "raw", budget=2 * (detail_limit + 14))
     results = []
+    # Publish both schools' inventory before spending any requests on enrichment.
     for school in SOURCES:
-        snapshot = collect_school(db, archive, school, client, detail_limit)
+        snapshot = collect_school(db, archive, school, client, 0)
         results.append(snapshot)
         print(f"{school}: {snapshot['quality']}; {len(snapshot['listings'])} observations", flush=True)
+        if snapshot.get("access_blocked"):
+            return results
+    for i, original in enumerate(results):
+        if not detail_limit or original["quality"] != "source_complete":
+            continue
+        school = original["school"]
+        snapshot = copy.deepcopy(original)
+        snapshot["search_observed_at"] = original["observed_at"]
+        snapshot["observed_at"] = datetime.now(timezone.utc).isoformat()
+        rows = {r["property_id"]: r for r in snapshot["listings"]}
+        state_file = archive / "state" / (school + "-details.json.gz")
+        cache = read_json(state_file)
+        zone = read_json(archive / "state" / (school + "-zone.json.gz"))
+        start = len(client.evidence)
+        try:
+            enrich_school(db, school, client, snapshot, rows, zone, cache, detail_limit)
+        except AccessBlocked as exc:
+            snapshot["note"] += " " + str(exc)
+            snapshot["access_blocked"] = True
+            pause_until = datetime.now(timezone.utc) + timedelta(seconds=exc.wait_seconds)
+            write_json(policy, {"retry_after": pause_until.isoformat(), "reason": str(exc)})
+        except Exception as exc:
+            snapshot["note"] += " Detail enrichment failed: " + str(exc)[:200]
+        snapshot["evidence_files"] += client.evidence[start:]
+        snapshot["listings"] = list(rows.values())
+        snapshot["expected_unique_count"] = len(rows)
+        write_json(state_file, cache)
+        run_id, _ = import_snapshot(db, snapshot)
+        write_json(archive / "snapshots" / snapshot["observed_at"][:10] / f"{school}-{run_id}.json.gz", snapshot)
+        results[i] = snapshot
         if snapshot.get("access_blocked"):
             break
     return results

@@ -20,7 +20,7 @@ Collection covers Houses, 3+ bedrooms, 2+ bathrooms, all asking prices, includin
 The workflow saves observations even when collection fails. Access challenges stop requests without bypass. Actions schedules can be delayed/dropped or disabled after 60 days of repository inactivity; check the Actions page and collection ledger. Source access success does not establish permission for recurring use under Zillow's terms.
 
 ```powershell
-python -m tracker.cli collect --archive C:/private/history --detail-limit 25
+python -m tracker.cli collect --archive C:/private/history --detail-limit 5
 python -m tracker.cli rebuild C:/private/history
 python -m tracker.cli backup C:/private/backups/housing.sqlite3
 python -m pip install -r requirements-dev.txt

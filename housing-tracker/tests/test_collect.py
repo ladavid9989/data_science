@@ -58,3 +58,37 @@ def test_source_scope_not_mixed_across_boundary_versions(tmp_path):
     import_snapshot(db, second)
     runs = canonical_runs(read_frames(db, "observed")[0])
     assert len(runs) == 1 and runs.iloc[0].boundary_version == "zone-b"
+
+
+def test_inventory_precedes_enrichment_and_rate_limit_stops_details(tmp_path, monkeypatch):
+    from tracker import collect as module
+    order = []
+    archive = tmp_path / "archive"
+
+    class NoNetwork:
+        def __init__(self, *args, **kwargs):
+            self.evidence = []
+
+    def search(db, folder, school, client, detail_limit):
+        assert detail_limit == 0
+        order.append("search:" + school)
+        sample = next(snapshots())
+        sample.update(school=school, quality="source_complete", scope=SOURCE_SCOPE + ":test", evidence_files=[])
+        write_json(folder / "state" / (school + "-details.json.gz"), {})
+        write_json(folder / "state" / (school + "-zone.json.gz"), {})
+        return sample
+
+    def enrich(db, school, *args):
+        order.append("detail:" + school)
+        raise AccessBlocked("HTTP 429", 3600)
+
+    monkeypatch.setattr(module, "Client", NoNetwork)
+    monkeypatch.setattr(module, "collect_school", search)
+    monkeypatch.setattr(module, "enrich_school", enrich)
+    result = module.collect(tmp_path / "x.sqlite3", archive)
+    assert len(result) == 2
+    assert order == ["search:north_gwinnett", "search:johns_creek", "detail:north_gwinnett"]
+    assert result[0]["access_blocked"]
+    order.clear()
+    assert module.collect(tmp_path / "x.sqlite3", archive) == []
+    assert not order

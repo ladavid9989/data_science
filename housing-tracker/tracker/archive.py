@@ -2,6 +2,7 @@
 import hashlib
 import json
 import re
+import time
 import urllib.request
 from pathlib import Path
 
@@ -35,7 +36,7 @@ def index_archive(archive):
 def sync(db):
     import gzip
     initialize(db)
-    with urllib.request.urlopen(REMOTE + "index.json", timeout=20) as reply:
+    with urllib.request.urlopen(REMOTE + f"index.json?t={time.time_ns()}", timeout=20) as reply:
         index = json.load(reply)
     with connection(db) as conn:
         existing = {row[0] for row in conn.execute("SELECT run_id FROM runs")}

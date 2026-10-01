@@ -16,7 +16,7 @@ def main():
     commands.add_parser("sync")
     collection = commands.add_parser("collect")
     collection.add_argument("--archive", type=Path, required=True)
-    collection.add_argument("--detail-limit", type=int, default=25)
+    collection.add_argument("--detail-limit", type=int, default=5)
     restore = commands.add_parser("rebuild")
     restore.add_argument("archive", type=Path)
     index = commands.add_parser("index")
