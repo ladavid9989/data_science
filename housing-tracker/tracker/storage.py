@@ -16,7 +16,8 @@ import pandas as pd
 
 SCHOOLS = {"north_gwinnett": "North Gwinnett High School", "johns_creek": "Johns Creek High School"}
 SCOPE = "houses_3bed_2bath_all_prices_v1"
-DATASETS = {"demo", "observed"}
+SOURCE_SCOPE = "zillow_school_search_houses_3bed_2bath_all_prices_v1"
+DATASETS = {"observed"}
 STATUSES = {"active", "under_contract", "pending", "sold", "withdrawn", "off_market_unknown"}
 
 
@@ -59,12 +60,16 @@ def initialize(path):
         CREATE INDEX IF NOT EXISTS run_lookup ON runs(dataset, school, market_date, observed_at);
         CREATE INDEX IF NOT EXISTS property_lookup ON observations(property_id, episode_id);
         """)
+        columns = {row[1] for row in db.execute("PRAGMA table_info(observations)")}
+        if "in_inventory" not in columns:
+            db.execute("ALTER TABLE observations ADD COLUMN in_inventory INTEGER NOT NULL DEFAULT 1")
 
 
 def normalize_status(value):
     text = str(value or "").strip().lower().replace("_", " ")
     return {
-        "active": "active", "for sale": "active", "house for sale": "active",
+        "active": "active", "for sale": "active", "house for sale": "active", "forsale": "active",
+        "for sale by owner": "active",
         "active under contract": "under_contract", "under contract": "under_contract",
         "pending": "pending", "sold": "sold", "recently sold": "sold",
         "withdrawn": "withdrawn", "off market": "off_market_unknown",
@@ -99,13 +104,20 @@ def validate(snapshot):
     stamp = observed.astimezone(timezone.utc).isoformat()
     day = observed.astimezone(ZoneInfo("America/New_York")).date().isoformat()
     quality = snapshot.get("quality")
-    if quality not in {"complete", "partial", "failed"}:
-        raise ValueError("quality must be complete, partial or failed")
+    if quality not in {"complete", "source_complete", "partial", "failed"}:
+        raise ValueError("Unknown quality")
     rows = snapshot.get("listings")
     if not isinstance(rows, list):
         raise ValueError("listings must be an array")
     if quality == "failed" and rows:
         raise ValueError("Failed runs cannot contain observations; use partial")
+    if quality == "source_complete":
+        coverage = snapshot.get("coverage", {})
+        if not str(snapshot.get("scope", "")).startswith(SOURCE_SCOPE + ":") or not all(
+                coverage.get(k) is True for k in ("all_pages", "all_prices", "query_validated")):
+            raise ValueError("Source publication requires validated all-price pagination")
+        if number(snapshot.get("expected_unique_count"), "expected_unique_count", integer=True) != len(rows):
+            raise ValueError("Source publication must reconcile rows")
     if quality == "complete":
         coverage = snapshot.get("coverage", {})
         if snapshot.get("scope") != SCOPE or not all(coverage.get(k) is True for k in
@@ -150,7 +162,7 @@ def validate(snapshot):
                        number(row.get("latitude"), "latitude", -90, 90),
                        number(row.get("longitude"), "longitude", -180, 180), url,
                        str(row.get("year_source") or ""), sold_price, sold_date,
-                       str(row.get("evidence") or "")))
+                       str(row.get("evidence") or ""), int(bool(row.get("in_inventory", True)))))
     return stamp, day, parsed
 
 
@@ -173,7 +185,7 @@ def import_snapshot(path, snapshot):
             snapshot.get("boundary_version", "unverified"), snapshot.get("note", ""),
             snapshot.get("source", "manual import"), datetime.now(timezone.utc).isoformat(),
             gzip.compress(raw, mtime=0)))
-        db.executemany("INSERT INTO observations VALUES (" + ",".join(["?"] * 19) + ")",
+        db.executemany("INSERT INTO observations VALUES (" + ",".join(["?"] * 20) + ")",
                        [(run_id, *row) for row in rows])
     return run_id, True
 

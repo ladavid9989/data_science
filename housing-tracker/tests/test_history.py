@@ -5,7 +5,7 @@ import sqlite3
 
 import pytest
 
-from tracker.demo import snapshots
+from tests.scenarios import snapshots
 from tracker.metrics import canonical_runs, daily_metrics, filter_rows, joined, property_history
 from tracker.probe import detail_year
 from tracker.storage import backup, export_snapshot, import_snapshot, read_frames
@@ -25,11 +25,11 @@ def test_reimport_is_idempotent_and_payload_can_be_restored(tmp_path, sample):
     copy = tmp_path / "backup.sqlite3"
     assert len(backup(db, copy)) == 64
     assert export_snapshot(copy, run_id) == sample
-    runs, rows = read_frames(copy, "demo")
+    runs, rows = read_frames(copy, "observed")
     assert len(runs) == 1 and len(rows) == len(sample["listings"])
     replay = tmp_path / "replay.sqlite3"
     assert import_snapshot(replay, export_snapshot(copy, run_id)) == (run_id, True)
-    assert len(read_frames(replay, "demo")[1]) == len(rows)
+    assert len(read_frames(replay, "observed")[1]) == len(rows)
     with pytest.raises(ValueError, match="new backup"):
         backup(db, copy)
 
@@ -42,7 +42,7 @@ def test_invalid_batch_does_not_modify_database(tmp_path, sample):
     invalid["listings"][1]["property_id"] = invalid["listings"][0]["property_id"]
     with pytest.raises(ValueError, match="duplicate"):
         import_snapshot(db, invalid)
-    assert len(read_frames(db, "demo")[0]) == 1
+    assert len(read_frames(db, "observed")[0]) == 1
 
 
 @pytest.mark.parametrize("missing", ["all_pages", "all_prices", "official_zone_verified", "query_validated"])
@@ -62,7 +62,7 @@ def test_market_day_is_eastern_and_conflicting_import_rejected(tmp_path, sample)
     db = tmp_path / "x.sqlite3"
     sample["observed_at"] = "2026-09-02T01:00:00Z"
     import_snapshot(db, sample)
-    assert read_frames(db, "demo")[0].iloc[0].market_date == "2026-09-01"
+    assert read_frames(db, "observed")[0].iloc[0].market_date == "2026-09-01"
     sample["note"] = "Different content at the exact same time"
     with pytest.raises(ValueError, match="Conflicting"):
         import_snapshot(db, sample)
@@ -76,7 +76,7 @@ def test_gap_is_not_zero_and_failed_retry_does_not_replace_complete(tmp_path, sa
     import_snapshot(db, failed)
     failed["observed_at"] = "2026-09-01T10:00:00Z"
     import_snapshot(db, failed)
-    runs, rows = read_frames(db, "demo")
+    runs, rows = read_frames(db, "observed")
     assert len(canonical_runs(runs)) == 1
     metrics = daily_metrics(runs, rows, ["north_gwinnett"], "2026-08-31", "2026-09-02", price=None)
     assert metrics.iloc[0].active > 0
@@ -94,7 +94,7 @@ def test_price_band_uses_historical_price(tmp_path, sample):
     later["observed_at"] = "2026-09-01T10:17:00Z"
     later["listings"][0]["price"] = 690000
     import_snapshot(db, later)
-    runs, rows = read_frames(db, "demo")
+    runs, rows = read_frames(db, "observed")
     filtered = filter_rows(joined(runs, rows))
     assert filtered[filtered.property_id == pid].market_date.tolist() == ["2026-09-01"]
 
@@ -107,7 +107,7 @@ def test_disappearance_never_becomes_sold(tmp_path, sample):
     later.update(observed_at="2026-09-01T10:17:00Z", listings=sample["listings"][1:])
     later["expected_unique_count"] -= 1
     import_snapshot(db, later)
-    runs, rows = read_frames(db, "demo")
+    runs, rows = read_frames(db, "observed")
     history = property_history(runs, rows, pid, "north_gwinnett")
     assert "미관측" in history.iloc[-1].availability
     assert history.iloc[-1].status != "sold"

@@ -20,8 +20,8 @@ if (-not $PythonExecutable) {
 if ($DatabasePath) { $env:HOUSING_DB_PATH = $DatabasePath }
 Push-Location $projectRoot
 try {
-    & $PythonExecutable -m tracker.cli seed-demo
-    if ($LASTEXITCODE -ne 0) { throw 'Environment setup failed. Install requirements.txt first.' }
+    & $PythonExecutable -m tracker.cli sync
+    if ($LASTEXITCODE -ne 0) { Write-Warning 'Cloud sync unavailable; opening existing local observations.' }
     Write-Host "Open http://127.0.0.1:$Port"
     & $PythonExecutable -m streamlit run streamlit_app.py --server.address 127.0.0.1 --server.port $Port --server.headless true --browser.gatherUsageStats false
 } finally {

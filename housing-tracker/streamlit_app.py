@@ -1,13 +1,14 @@
 """Run with: streamlit run streamlit_app.py. Reads saved observations only."""
 from datetime import date
 from html import escape
+import os
 
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 import streamlit as st
 
-from tracker.demo import seed
+from tracker.archive import sync
 from tracker.metrics import INVENTORY, canonical_runs, changes_between, daily_metrics, filter_rows, joined, property_history
 from tracker.storage import SCHOOLS, default_db, read_frames
 
@@ -55,16 +56,24 @@ def line_chart(frame, column, currency=False):
 
 
 db = default_db()
-# Seed only fictional data once; never performs source requests or imports real files.
-runs_demo, _ = read_frames(db, "demo")
-if runs_demo.empty:
-    seed(db)
+dataset = "observed"
+
+
+@st.cache_data(ttl=300, show_spinner=False)
+def refresh_cloud(path):
+    try:
+        sync(path)
+        return ""
+    except Exception as exc:
+        return str(exc)
+
+
+sync_error = refresh_cloud(str(db)) if os.environ.get("HOUSING_OFFLINE") != "1" else ""
 
 with st.sidebar:
     st.markdown("### 🏡 Schoolside")
     st.caption("GEORGIA · HOUSING OBSERVATORY")
-    mode = st.radio("데이터", ["시뮬레이션 · 가상 30일", "실제 관측 · 가져온 데이터"], key="mode")
-    dataset = "demo" if mode.startswith("시뮬레이션") else "observed"
+    st.caption("실제 관측 · GitHub 일일 수집")
     st.divider()
     school_choice = st.selectbox("고등학교 통학구역", ["두 학군 비교", *SCHOOLS.values()], key="school")
     schools = list(SCHOOLS) if school_choice == "두 학군 비교" else [k for k, v in SCHOOLS.items() if v == school_choice]
@@ -89,16 +98,12 @@ observations = observations[observations.run_id.isin(runs.run_id)]
 st.markdown('<div class="eyebrow">SCHOOLSIDE / MARKET TRACKER</div>', unsafe_allow_html=True)
 st.title("학군으로 보는 주택 시장")
 st.markdown("가격이 어떻게 바뀌고, 어떤 집이 시장에 남아 있는지 살펴보세요.")
-if dataset == "demo":
-    st.markdown('<span class="badge">SIMULATION · 가상 매물과 가상 이력</span>', unsafe_allow_html=True)
-    st.caption("아래 가격·주소·좌표·계약·판매 기록은 기능 확인용 예시입니다. 실제 시장 분석에 사용할 수 없습니다.")
-else:
-    st.info("저장된 실제 관측입니다. 기존 Zillow 샘플은 첫 페이지 일부이며, 공식 통학구역 배정과 전체 매물 수를 검증하지 않았습니다.")
+st.caption("Zillow 학교 검색에서 관측한 매물입니다. 지도 경계 안의 매물을 구분하지만, 실제 통학구역 전체를 빠짐없이 포함하는지는 아직 검증되지 않았습니다.")
+if sync_error:
+    st.warning("클라우드 기록 동기화에 실패해 기존 로컬 기록을 표시합니다. 수집 상태에서 마지막 관측일을 확인하세요.")
 
 if runs.empty:
-    st.info("이 학군에 가져온 관측 데이터가 없습니다. 실제 Johns Creek 수집은 아직 진행하지 않았습니다." if dataset == "observed"
-            else "선택한 데이터가 없습니다.")
-    st.caption("관측 JSON 또는 기존 probe 폴더를 CLI로 가져오면 이 화면에 나타납니다. 실행 방법은 README를 참고하세요.")
+    st.info("이 학군에 아직 관측 기록이 없습니다. 첫 수집이 완료되면 표시됩니다.")
     st.stop()
 
 with st.sidebar:
@@ -111,6 +116,7 @@ with st.sidebar:
     st.divider()
     st.caption("화면을 열어도 새 수집은 실행되지 않습니다.")
     if st.button("저장된 기록 새로고침", width="stretch"):
+        refresh_cloud.clear()
         st.rerun()
 
 start, end = dates
@@ -123,14 +129,14 @@ asof = max(common_dates) if common_dates else None
 full = joined(range_runs, observations)
 if asof:
     latest_rows = full[full.market_date == asof]
-    scope_label = f"공통 완전 수집일 {asof}"
+    scope_label = f"두 학군의 공통 수집일 {asof} · 검증된 검색 범위 기준"
 else:
-    candidates = canonical_runs(range_runs, complete_only=False).sort_values("observed_at").drop_duplicates("school", keep="last")
+    candidates = canonical_runs(range_runs[range_runs.quality.ne("failed")], complete_only=False).sort_values("observed_at").drop_duplicates("school", keep="last")
     latest_rows = observations.merge(candidates, on="run_id")
     scope_label = "가장 최근 관측 샘플 · 시장 전체 통계 미제공"
 current = filter_rows(latest_rows, **filters)
-inventory = current[current.status.isin(INVENTORY)]
-active = current[current.status == "active"]
+inventory = current[current.status.isin(INVENTORY) & current.in_inventory.eq(1)]
+active = current[current.status.eq("active") & current.in_inventory.eq(1)]
 coverage = inventory.year_built.notna().mean() * 100 if len(inventory) else 0
 st.caption(f"{scope_label}  ·  {'전체 가격대' if price is None else f'${price[0]:,}–${price[1]:,}'}  ·  Houses / {beds}+ bd / {baths:g}+ ba")
 cards = st.columns(4)
@@ -144,7 +150,7 @@ with overview:
     if not asof:
         st.warning("비교 가능한 완전 수집 기록이 없습니다. 일부 매물로 전체 매물 수나 가격 추이를 계산하지 않습니다.")
         st.markdown("**지금 볼 수 있는 것:** 매물 탐색, 확인된 건축연도, 실제 관측 시점과 수집 범위.")
-        st.markdown("**추이가 필요하면:** 가상 30일 모드에서 화면을 확인하거나, 검증된 날짜별 전체 관측을 가져오세요.")
+        st.markdown("날짜별 수집이 누적되면 비교 가능한 검색 범위의 추이가 표시됩니다.")
     else:
         metrics = daily_metrics(range_runs, observations, schools, start, end, **filters)
         left, right = st.columns(2)
@@ -217,7 +223,7 @@ with listings_tab:
     st.download_button("현재 목록 CSV", display.to_csv(index=False).encode("utf-8-sig"),
                        file_name=f"{dataset}_listings.csv", mime="text/csv")
     with st.expander("지도 보기"):
-        st.caption("가상 좌표입니다. 실제 학교 배정 지도가 아닙니다." if dataset == "demo" else "매물 좌표입니다. 학교 배정은 아직 검증되지 않았습니다.")
+        st.caption("매물 좌표입니다. 실제 학교 배정은 교육청에서 최종 확인해야 합니다.")
         coordinates = table[["latitude", "longitude"]].dropna()
         if coordinates.empty:
             st.info("표시할 좌표가 없습니다.")
@@ -243,7 +249,7 @@ with history_tab:
         st.caption(f"마지막 실제 관측: {home.observed_at} · 등록 건 ID: {home.episode_id}")
         if history.iloc[-1].availability != "관측됨":
             st.warning(f"최근 수집일: {history.iloc[-1].availability}. 이전 상태를 현재 상태로 단정하지 않습니다.")
-        if dataset == "observed":
+        if home.episode_id.endswith(":unknown"):
             st.caption("등록 건 ID가 확인되지 않은 샘플입니다. 재등록 여부나 정확한 가격 변경 이벤트를 단정하지 않습니다.")
         fig = go.Figure()
         for episode, _ in history.dropna(subset=["episode_id"]).groupby("episode_id", sort=False):
@@ -266,7 +272,8 @@ with history_tab:
 
 with health_tab:
     st.subheader("기록의 범위와 신뢰도")
-    st.caption("가격·건축연도 필터와 무관한 수집 기록입니다. 실제 클라우드 예약 수집은 아직 연결되지 않았습니다.")
+    st.caption("가격·건축연도 필터와 무관한 수집 기록입니다. GitHub Actions가 매일 수집하며, PC가 꺼져 있어도 실행됩니다.")
+    st.link_button("GitHub 수집 실행 기록", "https://github.com/ladavid9989/data_science/actions/workflows/housing-collect.yml")
     for school in schools:
         subset = runs[runs.school == school]
         if subset.empty:
@@ -278,7 +285,7 @@ with health_tab:
     health = range_runs[["market_date", "school", "quality", "row_count", "reported_count", "boundary_version", "note"]].copy()
     health["school"] = health.school.map(SHORT)
     st.dataframe(health.sort_values(["market_date", "school"], ascending=[False, True]), hide_index=True, width="stretch")
-    st.info("Complete: 전체 가격대·전체 페이지·학군 경계·쿼리가 검증된 스냅샷. Partial/Failed: 시장 통계에서 제외. 가상 모드의 검증 상태도 가상 시나리오입니다.")
+    st.info("Source complete: Zillow 학교 검색의 전체 페이지·전체 가격대를 확인한 기록입니다. 학군 전체 시장을 보장하지 않습니다. Partial/Failed는 추이 통계에서 제외됩니다.")
     with st.expander("로컬 저장소와 가져오기"):
         st.code(str(db), language=None)
         st.markdown("관측 JSON과 원본 체크섬을 SQLite에 보관합니다. 기존 probe 원본은 DB 옆 raw 폴더에 압축 저장합니다. "

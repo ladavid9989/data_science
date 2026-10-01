@@ -1,4 +1,4 @@
-"""Deterministic fictional scenarios, never derived price histories for real houses."""
+"""Isolated test fixtures; never imported by the application or collector."""
 from datetime import date, datetime, time, timedelta, timezone
 from random import Random
 
@@ -52,7 +52,7 @@ def snapshots():
             elif quality == "partial":
                 rows = rows[:9]
             yield {
-                "schema_version": 1, "dataset": "demo", "school": school, "scope": SCOPE,
+                "schema_version": 1, "dataset": "observed", "school": school, "scope": SCOPE,
                 "observed_at": datetime.combine(day, time(10, 17), tzinfo=timezone.utc).isoformat(),
                 "quality": quality, "reported_count": expected, "expected_unique_count": expected,
                 "boundary_version": "synthetic-boundary-not-an-assignment-map",
