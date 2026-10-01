@@ -4,14 +4,11 @@ on:
     inputs:
       detail_limit:
         description: Maximum detail requests per school (0-100)
-        default: '25'
+        default: '5'
         required: false
   schedule:
     - cron: '17 6 * * *'
       timezone: America/New_York
-  push:
-    branches: [main]
-    paths: [.github/workflows/housing-collect.yml]
 permissions:
   contents: write
 concurrency:
@@ -44,7 +41,7 @@ jobs:
         continue-on-error: true
         working-directory: code/housing-tracker
         env:
-          DETAIL_LIMIT: ${{ inputs.detail_limit || '25' }}
+          DETAIL_LIMIT: ${{ inputs.detail_limit || '5' }}
         run: python -m tracker.cli --db "$RUNNER_TEMP/housing.sqlite3" collect --archive "$GITHUB_WORKSPACE/archive" --detail-limit "$DETAIL_LIMIT"
       - name: Persist observations and failure records
         if: always() && steps.collect.outcome != 'skipped'
