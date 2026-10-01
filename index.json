@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "snapshots": [
+    {
+      "path": "snapshots/2026-10-01/johns_creek-89147c037fc58b4d3093f4056527eb0f996cd135f5de9c7f25e350014f4161b1.json.gz",
+      "run_id": "89147c037fc58b4d3093f4056527eb0f996cd135f5de9c7f25e350014f4161b1",
+      "school": "johns_creek",
+      "observed_at": "2026-10-01T19:51:04.761248+00:00",
+      "quality": "partial",
+      "rows": 95
+    },
+    {
+      "path": "snapshots/2026-10-01/north_gwinnett-e9cfe5e0b7519a3e7db92e729d8768fd7f34ed680b4b542fc7dac2cd64769fad.json.gz",
+      "run_id": "e9cfe5e0b7519a3e7db92e729d8768fd7f34ed680b4b542fc7dac2cd64769fad",
+      "school": "north_gwinnett",
+      "observed_at": "2026-10-01T19:50:52.239079+00:00",
+      "quality": "source_complete",
+      "rows": 176
+    }
+  ]
+}
