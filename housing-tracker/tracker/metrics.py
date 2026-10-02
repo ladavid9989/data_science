@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import pandas as pd
 
-from tracker.storage import SCOPE, SOURCE_SCOPE
+from tracker.storage import SCOPE, SOURCE_SCOPE, BAND_SCOPE
 
 INVENTORY = ["active", "under_contract", "pending"]
 
@@ -11,8 +11,12 @@ INVENTORY = ["active", "under_contract", "pending"]
 def canonical_runs(runs, complete_only=True):
     data = runs.copy()
     if complete_only:
+        recognized = data[data.scope.eq(SCOPE) | data.scope.str.startswith((SOURCE_SCOPE + ':', BAND_SCOPE + ':'))]
+        # A newly restricted collection cannot inherit an older all-price market series.
+        latest_scope = recognized.sort_values('observed_at').drop_duplicates('school', keep='last')
+        data = data.merge(latest_scope[['school', 'scope', 'boundary_version']], on=['school', 'scope', 'boundary_version'])
         data = data[((data.quality == "complete") & (data.scope == SCOPE)) |
-                    (data.quality.eq("source_complete") & data.scope.str.startswith(SOURCE_SCOPE + ":"))]
+                    (data.quality.eq("source_complete") & data.scope.str.startswith((SOURCE_SCOPE + ":", BAND_SCOPE + ":")))]
         # Never compare different geographic/query versions in one historical series.
         latest = data.sort_values("observed_at").drop_duplicates("school", keep="last")
         data = data.merge(latest[["school", "scope", "boundary_version"]],
@@ -87,3 +91,26 @@ def changes_between(previous, current):
     both = both[~both.episode_id.str.endswith(":unknown")].copy()
     both["price_change"] = both.price_after - both.price_before
     return both[both.price_change.ne(0) & both.price_change.notna()]
+
+
+def rank_price_cuts(current, history, order='percent'):
+    """Use explicit source cuts or observed reductions in the same known listing episode."""
+    result = current.copy()
+    result['cut_amount'] = pd.to_numeric(result.get('price_cut'), errors='coerce')
+    result['cut_basis'] = result.get('cut_source', pd.Series(index=result.index, dtype=str))
+    result['cut_date'] = result.get('price_cut_date', pd.Series(index=result.index, dtype=str))
+    for index, row in result.iterrows():
+        if not pd.isna(row.cut_amount) and row.cut_amount > 0:
+            continue
+        if str(row.episode_id).endswith(':unknown') or history.empty:
+            continue
+        prior = history[(history.property_id == row.property_id) & (history.episode_id == row.episode_id) &
+                        (history.school == row.school) & (history.observed_at < row.observed_at)]
+        prior = prior.sort_values('observed_at')
+        if not prior.empty and prior.iloc[-1].price > row.price:
+            result.at[index, 'cut_amount'] = prior.iloc[-1].price - row.price
+            result.at[index, 'cut_basis'] = '동일 등록 건 관측 비교'
+            result.at[index, 'cut_date'] = row.market_date
+    result['cut_percent'] = result.cut_amount / (result.price + result.cut_amount) * 100
+    key = {'percent': 'cut_percent', 'amount': 'cut_amount', 'price': 'price'}[order]
+    return result.sort_values([key, 'price', 'property_id'], ascending=[order == 'price', True, True], na_position='last')

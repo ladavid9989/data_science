@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 
 from tracker.archive import rebuild, index_archive, sync
-from tracker.collect import collect
+from tracker.batch import collect_batch, replay_details
 from tracker.probe import import_probe
 from tracker.storage import backup, default_db, export_snapshot, import_snapshot
 
@@ -16,7 +16,12 @@ def main():
     commands.add_parser("sync")
     collection = commands.add_parser("collect")
     collection.add_argument("--archive", type=Path, required=True)
-    collection.add_argument("--detail-limit", type=int, default=5)
+    collection.add_argument("--detail-limit", type=int, default=2)
+    collection.add_argument("--request-limit", type=int, default=3)
+    replay = commands.add_parser('replay-details')
+    replay.add_argument('--archive', type=Path, required=True)
+    replay.add_argument('--manifest', type=Path, required=True)
+    replay.add_argument('--raw-dir', type=Path, required=True)
     restore = commands.add_parser("rebuild")
     restore.add_argument("archive", type=Path)
     index = commands.add_parser("index")
@@ -34,10 +39,17 @@ def main():
     if args.command == "collect":
         if not 0 <= args.detail_limit <= 100:
             parser.error("detail-limit must be between 0 and 100")
-        results = collect(args.db, args.archive, args.detail_limit)
-        index_archive(args.archive)
-        if len(results) != 2 or any(r["quality"] not in {"complete", "source_complete"} for r in results):
+        if not 1 <= args.request_limit <= 6:
+            parser.error('request-limit must be between 1 and 6')
+        try:
+            result = collect_batch(args.db, args.archive, args.request_limit, args.detail_limit)
+            print(json.dumps(result))
+        finally:
+            index_archive(args.archive)
+        if result['status'] in ('blocked', 'error'):
             raise SystemExit(1)
+    elif args.command == 'replay-details':
+        print(f'Reparsed {replay_details(args.db, args.archive, args.manifest, args.raw_dir)} saved details')
     elif args.command == "sync":
         print(f"Imported {sync(args.db)} cloud snapshots")
     elif args.command == "rebuild":

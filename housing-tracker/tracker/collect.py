@@ -5,6 +5,7 @@ import copy
 import gzip
 import hashlib
 import json
+import os
 import re
 import time
 import urllib.error
@@ -39,7 +40,10 @@ def write_json(path, value):
     body = json.dumps(value, ensure_ascii=False, sort_keys=True, allow_nan=False).encode()
     encoded = gzip.compress(body, mtime=0)
     temporary = path.with_suffix(path.suffix + ".tmp")
-    temporary.write_bytes(encoded)
+    with temporary.open('wb') as handle:
+        handle.write(encoded)
+        handle.flush()
+        os.fsync(handle.fileno())
     temporary.replace(path)
 
 
@@ -86,7 +90,12 @@ class Client:
         self.raw_dir.mkdir(parents=True, exist_ok=True)
         path = self.raw_dir / (digest + ".gz")
         if not path.exists():
-            path.write_bytes(gzip.compress(body, mtime=0))
+            temporary = path.with_suffix('.tmp')
+            with temporary.open('wb') as handle:
+                handle.write(gzip.compress(body, mtime=0))
+                handle.flush()
+                os.fsync(handle.fileno())
+            temporary.replace(path)
         self.evidence.append({"url": url, "sha256": digest, "observed_at": datetime.now(timezone.utc).isoformat()})
         return text
 
@@ -133,8 +142,8 @@ def zone_for(school, archive, client):
     return value
 
 
-def filters():
-    result = {"beds": {"min": 3}, "baths": {"min": 2}, "price": {"min": None, "max": None},
+def filters(price_min=None, price_max=None):
+    result = {"beds": {"min": 3}, "baths": {"min": 2}, "price": {"min": price_min, "max": price_max},
               "isSingleFamily": {"value": True}, "isForRent": {"value": False},
               "isRecentlySold": {"value": False}, "isPendingListingsSelected": {"value": True},
               "isAcceptingBackupOffersSelected": {"value": True},

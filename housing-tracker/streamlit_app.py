@@ -9,7 +9,7 @@ import plotly.graph_objects as go
 import streamlit as st
 
 from tracker.archive import sync
-from tracker.metrics import INVENTORY, canonical_runs, changes_between, daily_metrics, filter_rows, joined, property_history
+from tracker.metrics import INVENTORY, canonical_runs, changes_between, daily_metrics, filter_rows, joined, property_history, rank_price_cuts
 from tracker.storage import SCHOOLS, default_db, read_frames
 
 st.set_page_config(page_title="Schoolside · 주택 시장 트래커", page_icon="🏡", layout="wide")
@@ -77,7 +77,8 @@ with st.sidebar:
     st.divider()
     school_choice = st.selectbox("고등학교 통학구역", ["두 학군 비교", *SCHOOLS.values()], key="school")
     schools = list(SCHOOLS) if school_choice == "두 학군 비교" else [k for k, v in SCHOOLS.items() if v == school_choice]
-    st.caption("수집 대상: Houses · 침실 3+ · 욕실 2+ · 전체 가격대")
+    st.caption("현재 수집: Houses · 침실 3+ · 욕실 2+ · $400k–$700k")
+    st.caption("가격 범위를 벗어난 매물은 새로 수집하지 않습니다. 과거 전체 가격대 기록은 보존됩니다.")
     all_prices = st.toggle("전체 가격대 보기", value=False, key="all_prices")
     price = None
     if not all_prices:
@@ -202,22 +203,29 @@ with overview:
                            file_name=f"{dataset}_daily_metrics.csv", mime="text/csv")
 
 with listings_tab:
+    order = st.selectbox('매물 정렬', ['가격 인하율 큰 순', '가격 인하액 큰 순', '낮은 가격순'], key='listing_order')
     status_options = st.multiselect("목록에 표시할 상태", list(STATUS), default=INVENTORY,
                                    format_func=lambda x: STATUS[x], key="listing_status")
     search = st.text_input("주소 또는 매물 ID 검색", key="search", placeholder="예: Summit Gate")
     table = current[current.status.isin(status_options)].copy()
+    table = rank_price_cuts(table, observations.merge(runs, on='run_id'),
+                            {'가격 인하율 큰 순': 'percent', '가격 인하액 큰 순': 'amount', '낮은 가격순': 'price'}[order])
     if search:
         table = table[table.address.str.contains(search, case=False, regex=False) | table.property_id.str.contains(search, case=False, regex=False)]
     st.caption(f"{len(table)}개 매물 · {scope_label}")
+    st.caption('인하는 Zillow가 표시한 최근 인하 또는 동일 등록 건의 관측 비교입니다. 오늘 발생한 인하라는 뜻은 아닙니다. 인하율 = 인하액 ÷ 인하 전 가격.')
     display = table.copy()
     display["school"] = display.school.map(SHORT)
     display["status"] = display.status.map(STATUS)
-    columns = {"address": "매물", "school": "학군", "price": "호가 ($)", "year_built": "건축연도",
+    display['year_status'] = display.year_status.fillna('not_requested').map({'verified': '확인', 'not_requested': '상세 조회 대기', 'not_in_response': '응답에 없음', 'parse_failed': '추출 실패', 'conflict': '값 충돌'})
+    columns = {"address": "매물", "school": "학군", "price": "호가 ($)", 'cut_amount': '인하액 ($)', 'cut_percent': '인하율 (%)', 'cut_date': '인하일', 'cut_basis': '인하 근거', "year_built": "건축연도", 'year_status': '연도 확인 상태',
                "bedrooms": "침실", "bathrooms": "욕실", "square_feet": "면적 (sqft)", "status": "상태", "url": "원문"}
     display = display[list(columns)].rename(columns=columns)
     st.dataframe(display, hide_index=True, width="stretch", height=390, column_config={
         "호가 ($)": st.column_config.NumberColumn(format="$%d"),
         "건축연도": st.column_config.NumberColumn(format="%d"),
+        '인하액 ($)': st.column_config.NumberColumn(format='$%d'),
+        '인하율 (%)': st.column_config.NumberColumn(format='%.2f%%'),
         "원문": st.column_config.LinkColumn(display_text="Zillow ↗"),
     })
     st.download_button("현재 목록 CSV", display.to_csv(index=False).encode("utf-8-sig"),
@@ -272,7 +280,7 @@ with history_tab:
 
 with health_tab:
     st.subheader("기록의 범위와 신뢰도")
-    st.caption("가격·건축연도 필터와 무관한 수집 기록입니다. GitHub Actions가 매일 수집하며, PC가 꺼져 있어도 실행됩니다.")
+    st.caption("GitHub Actions가 매시간 작은 배치를 실행합니다. 미완료 페이지와 건축연도를 이어서 확인하며, 접근 제한 중에는 대기합니다. PC가 꺼져 있어도 실행됩니다.")
     st.link_button("GitHub 수집 실행 기록", "https://github.com/ladavid9989/data_science/actions/workflows/housing-collect.yml")
     for school in schools:
         subset = runs[runs.school == school]
@@ -285,7 +293,7 @@ with health_tab:
     health = range_runs[["market_date", "school", "quality", "row_count", "reported_count", "boundary_version", "note"]].copy()
     health["school"] = health.school.map(SHORT)
     st.dataframe(health.sort_values(["market_date", "school"], ascending=[False, True]), hide_index=True, width="stretch")
-    st.info("Source complete: Zillow 학교 검색의 전체 페이지·전체 가격대를 확인한 기록입니다. 학군 전체 시장을 보장하지 않습니다. Partial/Failed는 추이 통계에서 제외됩니다.")
+    st.info("Source complete: 해당 수집 가격 범위의 검색 페이지와 매물 수를 대조한 기록입니다. 배치 사이 시점 차이가 있으며, 학군 전체 시장을 보장하지 않습니다. Partial/Failed는 추이 통계에서 제외됩니다. 가격 범위를 벗어나 검색에서 사라진 집을 판매 완료로 보지 않습니다.")
     with st.expander("로컬 저장소와 가져오기"):
         st.code(str(db), language=None)
         st.markdown("관측 JSON과 원본 체크섬을 SQLite에 보관합니다. 기존 probe 원본은 DB 옆 raw 폴더에 압축 저장합니다. "

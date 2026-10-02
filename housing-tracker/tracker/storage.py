@@ -17,6 +17,9 @@ import pandas as pd
 SCHOOLS = {"north_gwinnett": "North Gwinnett High School", "johns_creek": "Johns Creek High School"}
 SCOPE = "houses_3bed_2bath_all_prices_v1"
 SOURCE_SCOPE = "zillow_school_search_houses_3bed_2bath_all_prices_v1"
+BAND_SCOPE = "zillow_school_search_houses_3bed_2bath_400k_700k_v2"
+EXTRAS = {'year_status': 'TEXT', 'year_observed_at': 'TEXT', 'price_observed_at': 'TEXT',
+          'price_cut': 'REAL', 'price_cut_date': 'TEXT', 'cut_source': 'TEXT', 'facts_hash': 'TEXT'}
 DATASETS = {"observed"}
 STATUSES = {"active", "under_contract", "pending", "sold", "withdrawn", "off_market_unknown"}
 
@@ -63,6 +66,9 @@ def initialize(path):
         columns = {row[1] for row in db.execute("PRAGMA table_info(observations)")}
         if "in_inventory" not in columns:
             db.execute("ALTER TABLE observations ADD COLUMN in_inventory INTEGER NOT NULL DEFAULT 1")
+        for column, kind in EXTRAS.items():
+            if column not in columns:
+                db.execute(f'ALTER TABLE observations ADD COLUMN {column} {kind}')
 
 
 def normalize_status(value):
@@ -103,6 +109,11 @@ def validate(snapshot):
         raise ValueError("observed_at must contain an explicit timezone")
     stamp = observed.astimezone(timezone.utc).isoformat()
     day = observed.astimezone(ZoneInfo("America/New_York")).date().isoformat()
+    if snapshot.get('search_observed_at'):
+        search_time = datetime.fromisoformat(snapshot['search_observed_at'])
+        if search_time.tzinfo is None or search_time > observed:
+            raise ValueError('Invalid search observation time')
+        day = search_time.astimezone(ZoneInfo('America/New_York')).date().isoformat()
     quality = snapshot.get("quality")
     if quality not in {"complete", "source_complete", "partial", "failed"}:
         raise ValueError("Unknown quality")
@@ -113,9 +124,11 @@ def validate(snapshot):
         raise ValueError("Failed runs cannot contain observations; use partial")
     if quality == "source_complete":
         coverage = snapshot.get("coverage", {})
-        if not str(snapshot.get("scope", "")).startswith(SOURCE_SCOPE + ":") or not all(
-                coverage.get(k) is True for k in ("all_pages", "all_prices", "query_validated")):
-            raise ValueError("Source publication requires validated all-price pagination")
+        band = str(snapshot.get('scope', '')).startswith(BAND_SCOPE + ':')
+        scope_ok = band or str(snapshot.get('scope', '')).startswith(SOURCE_SCOPE + ':')
+        price_ok = coverage.get('price_range') == [400000, 700000] if band else coverage.get('all_prices') is True
+        if not scope_ok or not price_ok or not all(coverage.get(k) is True for k in ('all_pages', 'query_validated')):
+            raise ValueError('Source publication requires validated query and pagination')
         if number(snapshot.get("expected_unique_count"), "expected_unique_count", integer=True) != len(rows):
             raise ValueError("Source publication must reconcile rows")
     if quality == "complete":
@@ -185,8 +198,15 @@ def import_snapshot(path, snapshot):
             snapshot.get("boundary_version", "unverified"), snapshot.get("note", ""),
             snapshot.get("source", "manual import"), datetime.now(timezone.utc).isoformat(),
             gzip.compress(raw, mtime=0)))
-        db.executemany("INSERT INTO observations VALUES (" + ",".join(["?"] * 20) + ")",
+        columns = 'run_id,property_id,episode_id,address,price,bedrooms,bathrooms,square_feet,year_built,property_type,status,raw_status,latitude,longitude,url,year_source,sold_price,sold_date,evidence,in_inventory'
+        db.executemany("INSERT INTO observations (" + columns + ") VALUES (" + ",".join(["?"] * 20) + ")",
                        [(run_id, *row) for row in rows])
+        for row in snapshot['listings']:
+            values = [row.get(k) for k in EXTRAS]
+            if row.get('price_cut') is not None:
+                number(row['price_cut'], 'price_cut')
+            db.execute('UPDATE observations SET ' + ','.join(k + '=?' for k in EXTRAS) +
+                       ' WHERE run_id=? AND property_id=?', [*values, run_id, row['property_id']])
     return run_id, True
 
 
@@ -199,7 +219,7 @@ def read_frames(path, dataset):
         observations = pd.read_sql_query("SELECT o.* FROM observations o JOIN runs r USING(run_id) "
             "WHERE r.dataset=?", db, params=(dataset,))
     for column in ("price", "bedrooms", "bathrooms", "square_feet", "year_built", "sold_price",
-                   "latitude", "longitude"):
+                   "latitude", "longitude", "price_cut"):
         observations[column] = pd.to_numeric(observations[column], errors="coerce")
     return runs, observations
 
