@@ -100,6 +100,26 @@ def test_cooldown_performs_no_requests_and_budget_persists(tmp_path):
     assert sum(restored.state['requests'].values()) == 1
 
 
+def test_delayed_wakeups_do_not_burst_requests_or_skip_school(tmp_path, monkeypatch):
+    from tracker import batch as module
+    batch, _ = ready(tmp_path, FakeClient([]))
+    started = utcnow()
+    batch.state['last_batch_started_at'] = started.isoformat()
+    batch.state['turn'] = 1
+    batch.save()
+    monkeypatch.setattr(module, 'utcnow', lambda: started + timedelta(minutes=59))
+    restored = Batch(batch.db, batch.root, client=FakeClient([]))
+    assert restored.run()['status'] == 'interval_wait'
+    assert restored.client.urls == [] and restored.state['turn'] == 1
+    monkeypatch.setattr(module, 'utcnow', lambda: started + timedelta(hours=1))
+    visited = []
+    monkeypatch.setattr(restored, 'search', lambda school, job: (visited.append(school), job.update(finished_at=module.utcnow().isoformat())))
+    monkeypatch.setattr(restored, 'details', lambda *args: None)
+    assert restored.run()['status'] == 'complete'
+    assert visited == ['johns_creek']
+    assert read_json(restored.path)['turn'] == 2
+
+
 def test_structured_resofacts_and_visible_year_with_identity():
     payload = dict(props=dict(pageProps=dict(componentProps=dict(gdpClientCache=json.dumps({'x': {'property': {
         'zpid': 123, 'yearBuilt': None, 'resoFacts': {'yearBuilt': 2014}}}})))))

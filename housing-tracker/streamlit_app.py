@@ -280,7 +280,7 @@ with history_tab:
 
 with health_tab:
     st.subheader("기록의 범위와 신뢰도")
-    st.caption("GitHub Actions가 매시간 작은 배치를 실행합니다. 미완료 페이지와 건축연도를 이어서 확인하며, 접근 제한 중에는 대기합니다. PC가 꺼져 있어도 실행됩니다.")
+    st.caption("GitHub Actions에 30분 간격 실행을 예약합니다. 실제 수집은 최소 1시간 간격이며, GitHub 예약은 지연·누락될 수 있습니다. 미완료 작업은 다음 배치에서 재개하고, 접근 제한 중에는 대기합니다.")
     st.link_button("GitHub 수집 실행 기록", "https://github.com/ladavid9989/data_science/actions/workflows/housing-collect.yml")
     for school in schools:
         subset = runs[runs.school == school]

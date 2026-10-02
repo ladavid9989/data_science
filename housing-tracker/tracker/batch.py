@@ -242,8 +242,15 @@ class Batch:
         policy = self.root / 'state/access.json.gz'
         if policy.exists() and utcnow() < datetime.fromisoformat(read_json(policy)['retry_after']):
             return {'status': 'cooldown', 'requests': 0, **read_json(policy)}
+        now = utcnow()
+        last_batch = self.state.get('last_batch_started_at')
+        if last_batch:
+            due = datetime.fromisoformat(last_batch) + timedelta(hours=1)
+            if now < due:
+                return dict(status='interval_wait', requests=0, next_batch_at=due.isoformat())
         school = list(SOURCES)[self.state['turn'] % len(SOURCES)]
         self.state['turn'] += 1
+        self.state['last_batch_started_at'] = now.isoformat()
         self.save()
         stamp = utcnow().isoformat()
         job = self.state['jobs'].get(school)
