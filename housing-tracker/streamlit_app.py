@@ -79,7 +79,7 @@ with st.sidebar:
     schools = list(SCHOOLS) if school_choice == "두 학군 비교" else [k for k, v in SCHOOLS.items() if v == school_choice]
     st.caption("현재 수집: Houses · 침실 3+ · 욕실 2+ · $400k–$700k")
     st.caption("가격 범위를 벗어난 매물은 새로 수집하지 않습니다. 과거 전체 가격대 기록은 보존됩니다.")
-    all_prices = st.toggle("전체 가격대 보기", value=False, key="all_prices")
+    all_prices = st.toggle("저장된 범위 전체 보기", value=False, key="all_prices")
     price = None
     if not all_prices:
         low = st.number_input("최저 가격 ($)", min_value=0, max_value=20000000, value=400000, step=25000, key="price_min")
@@ -139,7 +139,7 @@ current = filter_rows(latest_rows, **filters)
 inventory = current[current.status.isin(INVENTORY) & current.in_inventory.eq(1)]
 active = current[current.status.eq("active") & current.in_inventory.eq(1)]
 coverage = inventory.year_built.notna().mean() * 100 if len(inventory) else 0
-st.caption(f"{scope_label}  ·  {'전체 가격대' if price is None else f'${price[0]:,}–${price[1]:,}'}  ·  Houses / {beds}+ bd / {baths:g}+ ba")
+st.caption(f"{scope_label}  ·  {'추가 가격 필터 없음 (저장된 범위)' if price is None else f'${price[0]:,}–${price[1]:,}'}  ·  Houses / {beds}+ bd / {baths:g}+ ba")
 cards = st.columns(4)
 cards[0].metric("판매 중 매물" if asof else "필터에 맞는 관측 매물", f"{len(active) if asof else len(current):,}")
 cards[1].metric("호가 중앙값" if asof else "시장 중앙값", money(active.loc[active.price > 0, "price"].median()) if asof else "미산출")
@@ -219,7 +219,7 @@ with listings_tab:
     display["status"] = display.status.map(STATUS)
     display['year_status'] = display.year_status.fillna('not_requested').map({'verified': '확인', 'not_requested': '상세 조회 대기', 'not_in_response': '응답에 없음', 'parse_failed': '추출 실패', 'conflict': '값 충돌'})
     columns = {"address": "매물", "school": "학군", "price": "호가 ($)", 'cut_amount': '인하액 ($)', 'cut_percent': '인하율 (%)', 'cut_date': '인하일', 'cut_basis': '인하 근거', "year_built": "건축연도", 'year_status': '연도 확인 상태',
-               "bedrooms": "침실", "bathrooms": "욕실", "square_feet": "면적 (sqft)", "status": "상태", "url": "원문"}
+               "bedrooms": "침실", "bathrooms": "욕실", "square_feet": "면적 (sqft)", "status": "상태", 'price_observed_at': '호가 확인 시각 (UTC)', "url": "원문"}
     display = display[list(columns)].rename(columns=columns)
     st.dataframe(display, hide_index=True, width="stretch", height=390, column_config={
         "호가 ($)": st.column_config.NumberColumn(format="$%d"),
