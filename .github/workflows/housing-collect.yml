@@ -7,7 +7,8 @@ on:
         default: '2'
         required: false
   schedule:
-    - cron: '17 * * * *'
+    # Best-effort wakeups; the persisted collector gate enforces >= 1h between batches.
+    - cron: '17,47 * * * *'
       timezone: America/New_York
 permissions:
   contents: write
