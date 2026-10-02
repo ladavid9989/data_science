@@ -1,13 +1,13 @@
-name: Daily school housing observations
+name: Hourly school housing batches
 on:
   workflow_dispatch:
     inputs:
       detail_limit:
-        description: Maximum detail requests per school (0-100)
-        default: '5'
+        description: Maximum detail requests in this batch
+        default: '2'
         required: false
   schedule:
-    - cron: '17 6 * * *'
+    - cron: '17 * * * *'
       timezone: America/New_York
 permissions:
   contents: write
@@ -36,20 +36,21 @@ jobs:
       - name: Restore prior observations
         working-directory: code/housing-tracker
         run: python -m tracker.cli --db "$RUNNER_TEMP/housing.sqlite3" rebuild "$GITHUB_WORKSPACE/archive"
-      - name: Collect today's source observations
+      - name: Resume bounded collection batch
         id: collect
         continue-on-error: true
         working-directory: code/housing-tracker
         env:
-          DETAIL_LIMIT: ${{ inputs.detail_limit || '5' }}
-        run: python -m tracker.cli --db "$RUNNER_TEMP/housing.sqlite3" collect --archive "$GITHUB_WORKSPACE/archive" --detail-limit "$DETAIL_LIMIT"
+          DETAIL_LIMIT: ${{ inputs.detail_limit || '2' }}
+        run: python -m tracker.cli --db "$RUNNER_TEMP/housing.sqlite3" collect --archive "$GITHUB_WORKSPACE/archive" --request-limit 3 --detail-limit "$DETAIL_LIMIT"
       - name: Persist observations and failure records
         if: always() && steps.collect.outcome != 'skipped'
         working-directory: archive
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add snapshots state index.json
+          mkdir -p snapshots state raw
+          git add snapshots state raw index.json
           if ! git diff --cached --quiet; then
             git commit -m "Record housing observations $(date -u +%F)"
             git push origin HEAD:data/school-housing-tracker
