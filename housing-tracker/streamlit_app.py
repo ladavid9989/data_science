@@ -9,6 +9,7 @@ import plotly.graph_objects as go
 import streamlit as st
 
 from tracker.archive import sync
+from tracker.band import PRICE_RANGE, prune_database
 from tracker.metrics import INVENTORY, canonical_runs, changes_between, daily_metrics, filter_rows, joined, property_history, rank_price_cuts
 from tracker.storage import SCHOOLS, default_db, read_frames
 
@@ -62,13 +63,15 @@ dataset = "observed"
 @st.cache_data(ttl=300, show_spinner=False)
 def refresh_cloud(path):
     try:
-        sync(path)
+        prune_database(path)
+        if os.environ.get('HOUSING_OFFLINE') != '1':
+            sync(path)
         return ""
     except Exception as exc:
         return str(exc)
 
 
-sync_error = refresh_cloud(str(db)) if os.environ.get("HOUSING_OFFLINE") != "1" else ""
+sync_error = refresh_cloud(str(db))
 
 with st.sidebar:
     st.markdown("### 🏡 Schoolside")
@@ -78,16 +81,7 @@ with st.sidebar:
     school_choice = st.selectbox("고등학교 통학구역", ["두 학군 비교", *SCHOOLS.values()], key="school")
     schools = list(SCHOOLS) if school_choice == "두 학군 비교" else [k for k, v in SCHOOLS.items() if v == school_choice]
     st.caption("현재 수집: Houses · 침실 3+ · 욕실 2+ · $400k–$700k")
-    st.caption("가격 범위를 벗어난 매물은 새로 수집하지 않습니다. 과거 전체 가격대 기록은 보존됩니다.")
-    all_prices = st.toggle("저장된 범위 전체 보기", value=False, key="all_prices")
-    price = None
-    if not all_prices:
-        low = st.number_input("최저 가격 ($)", min_value=0, max_value=20000000, value=400000, step=25000, key="price_min")
-        high = st.number_input("최고 가격 ($)", min_value=0, max_value=20000000, value=700000, step=25000, key="price_max")
-        if low > high:
-            st.error("최저 가격은 최고 가격 이하여야 합니다.")
-            st.stop()
-        price = (low, high)
+    price = PRICE_RANGE
     years = st.slider("건축연도", 1600, 2031, (1600, 2031), key="years")
     include_unknown = st.checkbox("건축연도 미확인 포함", value=True, key="unknown")
     beds = st.selectbox("최소 침실", [3, 4, 5, 6], key="beds")
@@ -95,7 +89,7 @@ with st.sidebar:
 
 runs, observations = read_frames(db, dataset)
 runs = runs[runs.school.isin(schools)]
-observations = observations[observations.run_id.isin(runs.run_id)]
+observations = observations[observations.run_id.isin(runs.run_id) & observations.price.between(*PRICE_RANGE)]
 st.markdown('<div class="eyebrow">SCHOOLSIDE / MARKET TRACKER</div>', unsafe_allow_html=True)
 st.title("학군으로 보는 주택 시장")
 st.markdown("가격이 어떻게 바뀌고, 어떤 집이 시장에 남아 있는지 살펴보세요.")
@@ -239,7 +233,7 @@ with listings_tab:
             st.map(coordinates, latitude="latitude", longitude="longitude", color="#177568", size=50)
 
 with history_tab:
-    st.caption("개별 집의 전체 관측 이력입니다. 왼쪽 가격·건축연도·조회 기간 필터를 벗어난 기록도 유지합니다.")
+    st.caption("관심 가격대 $400k–$700k 안에서 기록된 집별 이력입니다. 건축연도·조회 기간 필터와 별도로 확인할 수 있습니다.")
     catalog = observations.merge(runs[["run_id", "school", "observed_at"]], on="run_id").sort_values("observed_at").drop_duplicates("property_id", keep="last")
     labels = {row.property_id: f"{row.address} · {SHORT[row.school]}" for row in catalog.itertuples()}
     if catalog.empty:

@@ -5,6 +5,7 @@ from pathlib import Path
 
 from tracker.archive import rebuild, index_archive, sync
 from tracker.batch import collect_batch, replay_details
+from tracker.band import prune_archive, prune_database
 from tracker.probe import import_probe
 from tracker.storage import backup, default_db, export_snapshot, import_snapshot
 
@@ -14,6 +15,8 @@ def main():
     parser.add_argument("--db", type=Path, default=default_db())
     commands = parser.add_subparsers(dest="command", required=True)
     commands.add_parser("sync")
+    prune = commands.add_parser('prune-price-scope')
+    prune.add_argument('--archive', type=Path, required=True)
     collection = commands.add_parser("collect")
     collection.add_argument("--archive", type=Path, required=True)
     collection.add_argument("--detail-limit", type=int, default=2)
@@ -36,7 +39,11 @@ def main():
     back = commands.add_parser("backup")
     back.add_argument("destination", type=Path)
     args = parser.parse_args()
-    if args.command == "collect":
+    if args.command == 'prune-price-scope':
+        print(json.dumps(dict(archive_observations_removed=prune_archive(args.archive),
+                              database_observations_removed=prune_database(args.db))))
+        index_archive(args.archive)
+    elif args.command == "collect":
         if not 0 <= args.detail_limit <= 100:
             parser.error("detail-limit must be between 0 and 100")
         if not 1 <= args.request_limit <= 6:

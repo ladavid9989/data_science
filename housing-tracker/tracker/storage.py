@@ -180,33 +180,39 @@ def validate(snapshot):
 
 
 def import_snapshot(path, snapshot):
+    validate(snapshot)
+    initialize(path)
+    with connection(path) as db, db:
+        return insert_snapshot(db, snapshot)
+
+
+def insert_snapshot(db, snapshot):
+    """Insert inside the caller's transaction; also used by atomic scope migration."""
     stamp, day, rows = validate(snapshot)
     raw = json.dumps(snapshot, sort_keys=True, ensure_ascii=False, allow_nan=False).encode("utf-8")
     run_id = hashlib.sha256(raw).hexdigest()
-    initialize(path)
-    with connection(path) as db, db:
-        if db.execute("SELECT 1 FROM runs WHERE run_id=?", (run_id,)).fetchone():
-            return run_id, False
-        # Equal-time conflicting versions require a deliberate new observed_at.
-        if db.execute("SELECT 1 FROM runs WHERE dataset=? AND school=? AND observed_at=?",
-                      (snapshot["dataset"], snapshot["school"], stamp)).fetchone():
-            raise ValueError("Conflicting snapshot for the same school/dataset/observation time")
-        db.execute("INSERT INTO runs VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)", (
-            run_id, snapshot["dataset"], snapshot["school"], stamp, day,
-            snapshot.get("scope", "unknown"), snapshot["quality"],
-            number(snapshot.get("reported_count"), "reported_count", integer=True), len(rows),
-            snapshot.get("boundary_version", "unverified"), snapshot.get("note", ""),
-            snapshot.get("source", "manual import"), datetime.now(timezone.utc).isoformat(),
-            gzip.compress(raw, mtime=0)))
-        columns = 'run_id,property_id,episode_id,address,price,bedrooms,bathrooms,square_feet,year_built,property_type,status,raw_status,latitude,longitude,url,year_source,sold_price,sold_date,evidence,in_inventory'
-        db.executemany("INSERT INTO observations (" + columns + ") VALUES (" + ",".join(["?"] * 20) + ")",
-                       [(run_id, *row) for row in rows])
-        for row in snapshot['listings']:
-            values = [row.get(k) for k in EXTRAS]
-            if row.get('price_cut') is not None:
-                number(row['price_cut'], 'price_cut')
-            db.execute('UPDATE observations SET ' + ','.join(k + '=?' for k in EXTRAS) +
-                       ' WHERE run_id=? AND property_id=?', [*values, run_id, row['property_id']])
+    if db.execute("SELECT 1 FROM runs WHERE run_id=?", (run_id,)).fetchone():
+        return run_id, False
+    # Equal-time conflicting versions require a deliberate new observed_at.
+    if db.execute("SELECT 1 FROM runs WHERE dataset=? AND school=? AND observed_at=?",
+                  (snapshot["dataset"], snapshot["school"], stamp)).fetchone():
+        raise ValueError("Conflicting snapshot for the same school/dataset/observation time")
+    db.execute("INSERT INTO runs VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)", (
+        run_id, snapshot["dataset"], snapshot["school"], stamp, day,
+        snapshot.get("scope", "unknown"), snapshot["quality"],
+        number(snapshot.get("reported_count"), "reported_count", integer=True), len(rows),
+        snapshot.get("boundary_version", "unverified"), snapshot.get("note", ""),
+        snapshot.get("source", "manual import"), datetime.now(timezone.utc).isoformat(),
+        gzip.compress(raw, mtime=0)))
+    columns = 'run_id,property_id,episode_id,address,price,bedrooms,bathrooms,square_feet,year_built,property_type,status,raw_status,latitude,longitude,url,year_source,sold_price,sold_date,evidence,in_inventory'
+    db.executemany("INSERT INTO observations (" + columns + ") VALUES (" + ",".join(["?"] * 20) + ")",
+                   [(run_id, *row) for row in rows])
+    for row in snapshot['listings']:
+        values = [row.get(k) for k in EXTRAS]
+        if row.get('price_cut') is not None:
+            number(row['price_cut'], 'price_cut')
+        db.execute('UPDATE observations SET ' + ','.join(k + '=?' for k in EXTRAS) +
+                   ' WHERE run_id=? AND property_id=?', [*values, run_id, row['property_id']])
     return run_id, True
 
 

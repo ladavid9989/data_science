@@ -7,15 +7,17 @@ import urllib.request
 from pathlib import Path
 
 from tracker.collect import read_json
+from tracker.band import restrict_snapshot, prune_database
 from tracker.storage import connection, import_snapshot, initialize
 
 REMOTE = "https://raw.githubusercontent.com/ladavid9989/data_science/data/school-housing-tracker/"
 
 
 def rebuild(db, archive):
+    prune_database(db)
     count = 0
     for path in sorted(Path(archive).glob("snapshots/*/*.json.gz")):
-        count += import_snapshot(db, read_json(path))[1]
+        count += import_snapshot(db, restrict_snapshot(read_json(path)))[1]
     return count
 
 
@@ -36,6 +38,7 @@ def index_archive(archive):
 def sync(db):
     import gzip
     initialize(db)
+    prune_database(db)
     with urllib.request.urlopen(REMOTE + f"index.json?t={time.time_ns()}", timeout=20) as reply:
         index = json.load(reply)
     with connection(db) as conn:
@@ -51,5 +54,5 @@ def sync(db):
         digest = hashlib.sha256(json.dumps(payload, sort_keys=True, ensure_ascii=False, allow_nan=False).encode()).hexdigest()
         if digest != entry["run_id"] or payload.get("dataset") != "observed":
             raise ValueError("Archive checksum or dataset mismatch")
-        count += import_snapshot(db, payload)[1]
+        count += import_snapshot(db, restrict_snapshot(payload))[1]
     return count

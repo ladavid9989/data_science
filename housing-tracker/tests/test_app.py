@@ -23,8 +23,8 @@ def test_default_dashboard_and_filters(app):
     assert app.title[0].value == "학군으로 보는 주택 시장"
     assert len(app.tabs) == 4
     assert not app.radio
-    app.toggle(key="all_prices").set_value(True).run()
-    assert not app.exception
+    assert not app.toggle
+    assert not app.number_input
     app.selectbox(key="school").select("Johns Creek High School").run()
     assert not app.exception
     app.checkbox(key="unknown").uncheck().run()
@@ -59,10 +59,7 @@ def test_failed_runs_render_without_invented_inventory(tmp_path, monkeypatch):
     assert app.metric[1].value == "미산출"
 
 
-def test_empty_result_filters_and_invalid_price(app):
+def test_empty_result_filters(app):
     app.selectbox(key="beds").select(6).run()
     assert not app.exception
     assert app.metric[0].value == "0"
-    app.number_input(key="price_min").set_value(900000).run()
-    assert not app.exception
-    assert any("최저 가격" in error.value for error in app.error)

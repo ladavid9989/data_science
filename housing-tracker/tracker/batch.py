@@ -13,6 +13,7 @@ from tracker.collect import (AccessBlocked, Client, SOURCES, contains, filters, 
 from tracker.extraction import extract_detail, extract_search, facts_hash
 from tracker.probe import next_data
 from tracker.storage import BAND_SCOPE, import_snapshot, normalize_status
+from tracker.band import in_band, restrict_snapshot
 
 PRICE_RANGE = [400000, 700000]
 
@@ -84,6 +85,7 @@ class Batch:
         return text, job['response']['observed_at']
 
     def publish(self, snapshot):
+        snapshot = restrict_snapshot(snapshot)
         # Outbox is saved first; crash/replay uses the identical run ID and timestamp.
         self.state['outbox'] = snapshot
         self.save()
@@ -191,6 +193,8 @@ class Batch:
         candidates = []
         available = {**job.get('watch', {}), **job['rows']}
         for pid, row in available.items():
+            if not in_band(row.get('price')):
+                continue
             saved = self.state['details'].get(pid, {})
             if saved.get('next_check') and now < datetime.fromisoformat(saved['next_check']):
                 continue
@@ -230,7 +234,11 @@ class Batch:
                         if str(event.get('event', '')).lower() == 'sold' and event.get('date', '') >= row.get('first_seen', job['started_at'])[:10]:
                             row.update(sold_price=event.get('price'), sold_date=event['date'], evidence='Explicit source sold event observed at ' + stamp)
                             break
-                job.setdefault('followed', {})[pid] = copy.deepcopy(row)
+                if in_band(row.get('price')):
+                    job.setdefault('followed', {})[pid] = copy.deepcopy(row)
+                else:
+                    job['watch'].pop(pid, None)
+                    job.setdefault('followed', {}).pop(pid, None)
             # Search price/status remain tied to their own observation timestamp.
             job['evidence'].append(job.pop('response'))
             job.pop('detail_pid', None)
