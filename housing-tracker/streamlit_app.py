@@ -35,6 +35,11 @@ def money(value):
     return "—" if pd.isna(value) else f"${value:,.0f}"
 
 
+def eastern_time(value):
+    stamp = pd.to_datetime(value, utc=True, errors="coerce")
+    return "—" if pd.isna(stamp) else stamp.tz_convert("America/New_York").strftime("%Y-%m-%d %I:%M %p %Z")
+
+
 def chart_style(fig, height=300):
     fig.update_layout(height=height, margin=dict(l=8, r=12, t=20, b=10), paper_bgcolor="rgba(0,0,0,0)",
                       plot_bgcolor="rgba(0,0,0,0)", font=dict(color="#3D5361"),
@@ -76,7 +81,7 @@ sync_error = refresh_cloud(str(db))
 with st.sidebar:
     st.markdown("### 🏡 Schoolside")
     st.caption("GEORGIA · HOUSING OBSERVATORY")
-    st.caption("실제 관측 · GitHub 일일 수집")
+    st.caption("실제 관측 · 미국 동부시간(ET)")
     st.divider()
     school_choice = st.selectbox("고등학교 통학구역", ["두 학군 비교", *SCHOOLS.values()], key="school")
     schools = list(SCHOOLS) if school_choice == "두 학군 비교" else [k for k, v in SCHOOLS.items() if v == school_choice]
@@ -209,11 +214,12 @@ with listings_tab:
     st.caption(f"{len(table)}개 매물 · {scope_label}")
     st.caption('인하는 Zillow가 표시한 최근 인하 또는 동일 등록 건의 관측 비교입니다. 오늘 발생한 인하라는 뜻은 아닙니다. 인하율 = 인하액 ÷ 인하 전 가격.')
     display = table.copy()
+    display['price_observed_at'] = display.price_observed_at.map(eastern_time)
     display["school"] = display.school.map(SHORT)
     display["status"] = display.status.map(STATUS)
     display['year_status'] = display.year_status.fillna('not_requested').map({'verified': '확인', 'not_requested': '상세 조회 대기', 'not_in_response': '응답에 없음', 'parse_failed': '추출 실패', 'conflict': '값 충돌'})
     columns = {"address": "매물", "school": "학군", "price": "호가 ($)", 'cut_amount': '인하액 ($)', 'cut_percent': '인하율 (%)', 'cut_date': '인하일', 'cut_basis': '인하 근거', "year_built": "건축연도", 'year_status': '연도 확인 상태',
-               "bedrooms": "침실", "bathrooms": "욕실", "square_feet": "면적 (sqft)", "status": "상태", 'price_observed_at': '호가 확인 시각 (UTC)', "url": "원문"}
+               "bedrooms": "침실", "bathrooms": "욕실", "square_feet": "면적 (sqft)", "status": "상태", 'price_observed_at': '호가 확인 시각 (미국 동부)', "url": "원문"}
     display = display[list(columns)].rename(columns=columns)
     st.dataframe(display, hide_index=True, width="stretch", height=390, column_config={
         "호가 ($)": st.column_config.NumberColumn(format="$%d"),
@@ -248,7 +254,7 @@ with history_tab:
         detail_cards[1].metric("건축연도", "미확인" if pd.isna(home.year_built) else str(int(home.year_built)))
         detail_cards[2].metric("마지막 확인 상태", STATUS[home.status])
         detail_cards[3].metric("확인된 거래가격", money(home.sold_price))
-        st.caption(f"마지막 실제 관측: {home.observed_at} · 등록 건 ID: {home.episode_id}")
+        st.caption(f"마지막 실제 관측: {eastern_time(home.observed_at)} · 등록 건 ID: {home.episode_id}")
         if history.iloc[-1].availability != "관측됨":
             st.warning(f"최근 수집일: {history.iloc[-1].availability}. 이전 상태를 현재 상태로 단정하지 않습니다.")
         if home.episode_id.endswith(":unknown"):
@@ -282,7 +288,7 @@ with health_tab:
             st.warning(f"{SHORT[school]}: 관측 없음")
         else:
             last = subset.sort_values("observed_at").iloc[-1]
-            st.write(f"**{SHORT[school]}** · 마지막 관측 {last.observed_at} · {last.quality} · {last.row_count}건")
+            st.write(f"**{SHORT[school]}** · 마지막 관측 {eastern_time(last.observed_at)} · {last.quality} · {last.row_count}건")
             st.caption(last.note)
     health = range_runs[["market_date", "school", "quality", "row_count", "reported_count", "boundary_version", "note"]].copy()
     health["school"] = health.school.map(SHORT)
