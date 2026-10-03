@@ -2,28 +2,28 @@
   "version": 1,
   "snapshots": [
     {
-      "path": "snapshots/2026-10-01/johns_creek-89147c037fc58b4d3093f4056527eb0f996cd135f5de9c7f25e350014f4161b1.json.gz",
-      "run_id": "89147c037fc58b4d3093f4056527eb0f996cd135f5de9c7f25e350014f4161b1",
+      "path": "snapshots/2026-10-01/johns_creek-477ae9a677c2ae753397bca468d470e695444241156b2a5bd7337a1b7b81d0c2.json.gz",
+      "run_id": "477ae9a677c2ae753397bca468d470e695444241156b2a5bd7337a1b7b81d0c2",
       "school": "johns_creek",
       "observed_at": "2026-10-01T19:51:04.761248+00:00",
       "quality": "partial",
-      "rows": 95
+      "rows": 13
     },
     {
-      "path": "snapshots/2026-10-01/north_gwinnett-e9cfe5e0b7519a3e7db92e729d8768fd7f34ed680b4b542fc7dac2cd64769fad.json.gz",
-      "run_id": "e9cfe5e0b7519a3e7db92e729d8768fd7f34ed680b4b542fc7dac2cd64769fad",
+      "path": "snapshots/2026-10-01/north_gwinnett-54442ec98b6b00b4304ed1ecf5689635f3ee397c54f20dec4e8fe541105c9f3b.json.gz",
+      "run_id": "54442ec98b6b00b4304ed1ecf5689635f3ee397c54f20dec4e8fe541105c9f3b",
       "school": "north_gwinnett",
       "observed_at": "2026-10-01T19:50:52.239079+00:00",
-      "quality": "source_complete",
-      "rows": 176
+      "quality": "partial",
+      "rows": 78
     },
     {
-      "path": "snapshots/2026-10-01/north_gwinnett-fee775bf7dde960c5a78621d212e2990b1540ef47c3f4489d47b184a610f5f09.json.gz",
-      "run_id": "fee775bf7dde960c5a78621d212e2990b1540ef47c3f4489d47b184a610f5f09",
+      "path": "snapshots/2026-10-01/north_gwinnett-ff00f5762d1e777574c13fe60d0f6a435217c84e8b62d9b557ccbc33510459e7.json.gz",
+      "run_id": "ff00f5762d1e777574c13fe60d0f6a435217c84e8b62d9b557ccbc33510459e7",
       "school": "north_gwinnett",
       "observed_at": "2026-10-01T19:54:13.802903+00:00",
-      "quality": "source_complete",
-      "rows": 176
+      "quality": "partial",
+      "rows": 78
     },
     {
       "path": "snapshots/2026-10-02/johns_creek-85b904e1c70a48913f9f8d068f21237efc649e59c51aa799e17b18f69ace50bb.json.gz",
