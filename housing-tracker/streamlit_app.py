@@ -280,7 +280,7 @@ with history_tab:
 
 with health_tab:
     st.subheader("기록의 범위와 신뢰도")
-    st.caption("GitHub Actions에 30분 간격 실행을 예약합니다. 실제 수집은 최소 1시간 간격이며, GitHub 예약은 지연·누락될 수 있습니다. 미완료 작업은 다음 배치에서 재개하고, 접근 제한 중에는 대기합니다.")
+    st.caption("30분 간격 호출에서 남은 작업을 이어갑니다. 건축연도 미확인 매물을 우선 조회하고, 완료된 학군은 건너뜁니다. 하루 요청 한도나 접근 제한에 도달하면 대기합니다. 실행 성공 횟수가 상세 조회 횟수를 뜻하지는 않습니다.")
     st.link_button("GitHub 수집 실행 기록", "https://github.com/ladavid9989/data_science/actions/workflows/housing-collect.yml")
     for school in schools:
         subset = runs[runs.school == school]
@@ -288,11 +288,17 @@ with health_tab:
             st.warning(f"{SHORT[school]}: 관측 없음")
         else:
             last = subset.sort_values("observed_at").iloc[-1]
-            st.write(f"**{SHORT[school]}** · 마지막 관측 {eastern_time(last.observed_at)} · {last.quality} · {last.row_count}건")
-            st.caption(last.note)
-    health = range_runs[["market_date", "school", "quality", "row_count", "reported_count", "boundary_version", "note"]].copy()
+            latest_rows = observations[observations.run_id.eq(last.run_id)]
+            known = int(latest_rows.year_built.notna().sum())
+            waiting = int(latest_rows.year_built.isna().sum())
+            quality = "검색 목록 대조 완료" if last.quality == 'source_complete' else last.quality
+            st.write(f"**{SHORT[school]}** · 마지막 기록 {eastern_time(last.observed_at)} · {quality} · {len(latest_rows)}건")
+            st.caption(f"건축연도 확인 {known}/{len(latest_rows)} · 미확인 {waiting}건. 검색 목록 완료와 상세정보 보완 완료는 별개입니다.")
+    health = range_runs.sort_values('observed_at').drop_duplicates(['market_date', 'school'], keep='last')
+    health = health[["market_date", "school", "quality", "row_count", "reported_count"]].copy()
     health["school"] = health.school.map(SHORT)
     st.dataframe(health.sort_values(["market_date", "school"], ascending=[False, True]), hide_index=True, width="stretch")
+    st.caption("학군별 하루의 마지막 저장 기록입니다. 같은 검색 목록에 건축연도를 보완한 중간 기록은 합쳐 표시합니다.")
     st.info("Source complete: 해당 수집 가격 범위의 검색 페이지와 매물 수를 대조한 기록입니다. 배치 사이 시점 차이가 있으며, 학군 전체 시장을 보장하지 않습니다. Partial/Failed는 추이 통계에서 제외됩니다. 가격 범위를 벗어나 검색에서 사라진 집을 판매 완료로 보지 않습니다.")
     with st.expander("로컬 저장소와 가져오기"):
         st.code(str(db), language=None)

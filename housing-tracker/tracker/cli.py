@@ -1,6 +1,7 @@
 """Explicit local ingestion; opening the dashboard never scrapes a website."""
 import argparse
 import json
+import os
 from pathlib import Path
 
 from tracker.archive import rebuild, index_archive, sync
@@ -51,6 +52,13 @@ def main():
         try:
             result = collect_batch(args.db, args.archive, args.request_limit, args.detail_limit)
             print(json.dumps(result))
+            if os.environ.get('GITHUB_STEP_SUMMARY'):
+                lines = [f"Batch: **{result['status']}**", "",
+                         f"Source requests: {result.get('requests', 0)}; newly verified years: {result.get('years_added', 0)}.", ""]
+                for school, progress in result.get('enrichment', {}).items():
+                    lines.append(f"- {school}: {progress['known']}/{progress['total']} years verified; {progress['missing']} missing.")
+                with open(os.environ['GITHUB_STEP_SUMMARY'], 'a', encoding='utf-8') as summary:
+                    summary.write('\n'.join(lines) + '\n')
         finally:
             index_archive(args.archive)
         if result['status'] in ('blocked', 'error'):

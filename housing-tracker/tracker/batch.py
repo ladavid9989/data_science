@@ -16,6 +16,9 @@ from tracker.storage import BAND_SCOPE, import_snapshot, normalize_status
 from tracker.band import in_band, restrict_snapshot
 
 PRICE_RANGE = [400000, 700000]
+# Allow a 30-minute scheduler's small start-time jitter, while rejecting duplicate wakeups.
+MIN_BATCH_INTERVAL = timedelta(minutes=25)
+DAILY_REQUEST_LIMIT = 48
 
 
 def utcnow():
@@ -37,6 +40,7 @@ class Batch:
         self.state = read_json(self.path) if self.path.exists() else dict(turn=0, jobs={}, details={}, requests={})
         self.client = client or Client(self.root / 'raw', delay=delay, budget=request_limit)
         self.limit, self.detail_limit, self.used = request_limit, detail_limit, 0
+        self.detail_requests = self.years_added = 0
         if not self.path.exists():
             for old in (self.root / 'state').glob('*-details.json.gz'):
                 for pid, saved in read_json(old).items():
@@ -51,7 +55,7 @@ class Batch:
     def get(self, url):
         today = day(utcnow().isoformat())
         count = self.state['requests'].get(today, 0)
-        if self.used >= self.limit or count >= 48:
+        if self.used >= self.limit or count >= DAILY_REQUEST_LIMIT:
             raise BatchFull()
         self.used += 1
         self.state['requests'] = {today: count + 1}
@@ -121,7 +125,7 @@ class Batch:
                     coverage=dict(all_pages=quality == 'source_complete', all_prices=False,
                                   price_range=PRICE_RANGE, query_validated=quality == 'source_complete',
                                   official_zone_verified=False, point_in_time_consistent=False),
-                    source='Zillow school search / bounded hourly batches', listings=rows,
+                    source='Zillow school search / bounded resumable batches', listings=rows,
                     reported_count=job.get('total'), expected_unique_count=len(rows),
                     evidence_files=job.get('evidence', []),
                     note=f"$400k-$700k; collection window {job['started_at']} to {job.get('finished_at', 'in progress')}. "
@@ -188,27 +192,60 @@ class Batch:
             self.publish(self.snapshot(school, job, 'source_complete', 'All pages and unique source count reconciled.'))
             self.save()
 
-    def details(self, school, job):
+    def detail_candidates(self, job):
         now = utcnow()
         candidates = []
-        available = {**job.get('watch', {}), **job['rows']}
+        available = {**job.get('watch', {}), **job.get('rows', {})}
         for pid, row in available.items():
             if not in_band(row.get('price')):
                 continue
             saved = self.state['details'].get(pid, {})
             if saved.get('next_check') and now < datetime.fromisoformat(saved['next_check']):
                 continue
-            # Complete unknown years fairly; failed attempts go to the back of the queue.
-            candidates.append((int(bool(saved.get('year_built'))), saved.get('attempted_at', ''), pid))
+            # Unattempted, missing years first; among them prioritize the largest price cuts.
+            cut = max(0, row.get('price_cut') or 0)
+            impact = cut / (row['price'] + cut)
+            candidates.append((int(bool(saved.get('year_built') or row.get('year_built'))),
+                               saved.get('attempted_at', ''), -impact, pid))
         if job.get('response') and job.get('detail_pid'):
             pid = job['detail_pid']
-            candidates = [(-1, '', pid)] + [x for x in candidates if x[2] != pid]
-        for _, _, pid in sorted(candidates)[:self.detail_limit]:
+            candidates = [(-1, '', 0, pid)] + [x for x in candidates if x[-1] != pid]
+        return sorted(candidates)
+
+    def enrichment_progress(self):
+        result = {}
+        for school, job in self.state['jobs'].items():
+            rows = [r for r in job.get('rows', {}).values() if in_band(r.get('price'))]
+            known = sum(bool(self.state['details'].get(r['property_id'], {}).get('year_built') or
+                             r.get('year_built')) for r in rows)
+            result[school] = dict(total=len(rows), known=known, missing=len(rows) - known,
+                                 eligible=len(self.detail_candidates(job)))
+        return result
+
+    def choose_school(self, stamp):
+        schools = list(SOURCES)
+        offset = self.state['turn'] % len(schools)
+        schools = schools[offset:] + schools[:offset]
+        # Refresh both inventories daily; then give capacity only to schools with work.
+        for school in schools:
+            job = self.state['jobs'].get(school)
+            if not job or job.get('restart') or not job.get('finished_at') or day(job['finished_at']) < day(stamp):
+                return school
+        eligible = [(self.detail_candidates(self.state['jobs'][school]), school) for school in schools]
+        eligible = [(queue, school) for queue, school in eligible if queue and self.detail_limit > 0]
+        return min(eligible, key=lambda pair: pair[0][0])[1] if eligible else None
+
+    def details(self, school, job):
+        now = utcnow()
+        available = {**job.get('watch', {}), **job['rows']}
+        for _, _, _, pid in self.detail_candidates(job)[:self.detail_limit]:
             row = available[pid]
             saved = self.state['details'].setdefault(pid, {})
             job['detail_pid'] = pid
             try:
+                before = self.used
                 html, stamp = self.response(job, row['url'])
+                self.detail_requests += self.used - before
                 prop = extract_detail(html, pid)
             except (AccessBlocked, BatchFull):
                 raise
@@ -222,6 +259,7 @@ class Batch:
                          next_check=(now + timedelta(days=7 if pid in job.get('watch', {}) or row.get('status') in ('pending', 'under_contract') else 90 if year else 7)).isoformat(),
                          raw=job['response'])
             if year:
+                self.years_added += int(not (saved.get('year_built') or row.get('year_built')))
                 saved.update(year_built=year, year_source=prop['year_source'], year_observed_at=stamp)
             self.cached_year(row)
             if pid in job.get('watch', {}):
@@ -242,21 +280,35 @@ class Batch:
             # Search price/status remain tied to their own observation timestamp.
             job['evidence'].append(job.pop('response'))
             job.pop('detail_pid', None)
+            job['enrichment_dirty'] = True
             self.save()
-            self.publish(self.snapshot(school, job, 'source_complete', 'Year enrichment; prices retain search timestamps.'))
+
+    def publish_enrichment(self, school, job):
+        if job.get('enrichment_dirty') and job.get('finished_at'):
+            snapshot = self.snapshot(school, job, 'source_complete', 'Year enrichment; prices retain search timestamps.')
+            # Clearing the flag and saving the outbox use the same atomic state write.
+            job.pop('enrichment_dirty', None)
+            self.publish(snapshot)
 
     def run(self):
         self.flush_outbox()
+        # Recover cached detail facts saved before a crash, even during a network cooldown.
+        for school, job in self.state['jobs'].items():
+            self.publish_enrichment(school, job)
         policy = self.root / 'state/access.json.gz'
         if policy.exists() and utcnow() < datetime.fromisoformat(read_json(policy)['retry_after']):
-            return {'status': 'cooldown', 'requests': 0, **read_json(policy)}
+            return {'status': 'cooldown', 'requests': 0, 'enrichment': self.enrichment_progress(), **read_json(policy)}
         now = utcnow()
         last_batch = self.state.get('last_batch_started_at')
         if last_batch:
-            due = datetime.fromisoformat(last_batch) + timedelta(hours=1)
+            due = datetime.fromisoformat(last_batch) + MIN_BATCH_INTERVAL
             if now < due:
-                return dict(status='interval_wait', requests=0, next_batch_at=due.isoformat())
-        school = list(SOURCES)[self.state['turn'] % len(SOURCES)]
+                return dict(status='interval_wait', requests=0, next_batch_at=due.isoformat(), enrichment=self.enrichment_progress())
+        if self.state['requests'].get(day(now.isoformat()), 0) >= DAILY_REQUEST_LIMIT:
+            return dict(status='daily_budget_wait', requests=0, enrichment=self.enrichment_progress())
+        school = self.choose_school(now.isoformat())
+        if school is None:
+            return dict(status='idle', requests=0, enrichment=self.enrichment_progress())
         self.state['turn'] += 1
         self.state['last_batch_started_at'] = now.isoformat()
         self.save()
@@ -291,11 +343,14 @@ class Batch:
             if 'Pagination' in str(exc) or 'criteria' in str(exc) or 'filter mismatch' in str(exc):
                 job['restart'] = True
             self.save()
+        self.publish_enrichment(school, job)
         if not job.get('finished_at'):
             self.publish(self.snapshot(school, job, 'partial' if job['rows'] else 'failed',
                                        f"{result}; next page {job['next_page']}. {job.get('error', '')}"))
         return dict(status=result, school=school, requests=self.used, next_page=job['next_page'],
                     years=sum(bool(v.get('year_built')) for v in self.state['details'].values()),
+                    detail_requests=self.detail_requests, years_added=self.years_added,
+                    enrichment=self.enrichment_progress(),
                     error=job.get('error'))
 
 

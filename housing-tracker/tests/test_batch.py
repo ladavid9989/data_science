@@ -107,11 +107,11 @@ def test_delayed_wakeups_do_not_burst_requests_or_skip_school(tmp_path, monkeypa
     batch.state['last_batch_started_at'] = started.isoformat()
     batch.state['turn'] = 1
     batch.save()
-    monkeypatch.setattr(module, 'utcnow', lambda: started + timedelta(minutes=59))
+    monkeypatch.setattr(module, 'utcnow', lambda: started + timedelta(minutes=24))
     restored = Batch(batch.db, batch.root, client=FakeClient([]))
     assert restored.run()['status'] == 'interval_wait'
     assert restored.client.urls == [] and restored.state['turn'] == 1
-    monkeypatch.setattr(module, 'utcnow', lambda: started + timedelta(hours=1))
+    monkeypatch.setattr(module, 'utcnow', lambda: started + timedelta(minutes=29, seconds=55))
     visited = []
     monkeypatch.setattr(restored, 'search', lambda school, job: (visited.append(school), job.update(finished_at=module.utcnow().isoformat())))
     monkeypatch.setattr(restored, 'details', lambda *args: None)
@@ -206,3 +206,77 @@ def test_unknown_listing_episode_does_not_invent_observed_cut():
     prior = dict(row, price=650000, observed_at='2026-10-01T12:00:00Z')
     result = rank_price_cuts(pd.DataFrame([row]), pd.DataFrame([prior]))
     assert pd.isna(result.iloc[0].cut_amount)
+
+
+def completed_schools(batch, job):
+    stamp = utcnow().isoformat()
+    job.update(finished_at=stamp, published=True, total=2, next_page=3,
+               rows={f'zillow:{pid}': extract_search(item(pid), stamp) for pid in (1, 2)})
+    other = copy.deepcopy(job)
+    other['rows'] = {'zillow:3': dict(extract_search(item(3), stamp), year_built=2005)}
+    batch.state['jobs']['johns_creek'] = other
+    batch.state['details']['zillow:3'] = dict(year_built=2005, next_check=(utcnow() + timedelta(days=90)).isoformat())
+    batch.state['turn'] = 1  # Previously this wasted a batch on the completed school.
+    return other
+
+
+def detail_html(pid, year):
+    return f'<link rel="canonical" href="https://www.zillow.com/homedetails/{pid}_zpid/"><div>Built in {year}</div>'
+
+
+def test_finished_school_yields_to_missing_years_and_publishes_one_batch(tmp_path):
+    client = FakeClient([detail_html(2, 2000), detail_html(1, 2016)])
+    batch, job = ready(tmp_path, client, limit=2)
+    completed_schools(batch, job)
+    batch.detail_limit = 2
+    job['rows']['zillow:2']['price_cut'] = 30000
+    result = batch.run()
+    assert result['school'] == 'north_gwinnett'
+    assert result['detail_requests'] == result['years_added'] == 2
+    assert result['enrichment']['north_gwinnett']['missing'] == 0
+    assert client.urls[0].endswith('/2_zpid/')
+    assert len(list(batch.root.glob('snapshots/*/*'))) == 1
+    assert set(read_frames(batch.db, 'observed')[1].year_built) == {2000, 2016}
+
+
+def test_idle_does_not_consume_a_batch_slot(tmp_path):
+    batch, job = ready(tmp_path, FakeClient([]))
+    completed_schools(batch, job)
+    job['rows'] = {}
+    batch.detail_limit = 2
+    assert batch.run()['status'] == 'idle'
+    assert 'last_batch_started_at' not in batch.state
+    assert batch.state['turn'] == 1
+
+
+def test_enrichment_checkpoint_survives_request_budget(tmp_path):
+    batch, job = ready(tmp_path, FakeClient([detail_html(1, 2000)]), limit=1)
+    completed_schools(batch, job)
+    batch.detail_limit = 2
+    result = batch.run()
+    assert result['status'] == 'checkpointed'
+    assert result['enrichment']['north_gwinnett']['known'] == 1
+    assert len(list(batch.root.glob('snapshots/*/*'))) == 1
+    assert batch.state['details']['zillow:1']['year_built'] == 2000
+
+
+def test_daily_budget_still_limits_more_frequent_batches(tmp_path):
+    from tracker.batch import day, DAILY_REQUEST_LIMIT
+    batch, job = ready(tmp_path, FakeClient([]))
+    completed_schools(batch, job)
+    batch.state['requests'] = {day(utcnow().isoformat()): DAILY_REQUEST_LIMIT}
+    assert batch.run()['status'] == 'daily_budget_wait'
+    assert not batch.client.urls
+
+
+def test_cached_details_publish_after_crash_without_new_request(tmp_path):
+    batch, job = ready(tmp_path, FakeClient([detail_html(1, 2000)]))
+    completed_schools(batch, job)
+    batch.detail_limit = 1
+    batch.details('north_gwinnett', job)
+    assert not list(batch.root.glob('snapshots/*/*'))
+    resumed = Batch(batch.db, batch.root, client=FakeClient([]))
+    resumed.state['last_batch_started_at'] = utcnow().isoformat()
+    assert resumed.run()['status'] == 'interval_wait'
+    assert len(list(batch.root.glob('snapshots/*/*'))) == 1
+    assert not resumed.client.urls

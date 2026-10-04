@@ -1,4 +1,4 @@
-name: Hourly school housing batches
+name: Half-hourly school housing batches
 on:
   workflow_dispatch:
     inputs:
@@ -7,7 +7,7 @@ on:
         default: '2'
         required: false
   schedule:
-    # Best-effort wakeups; the persisted collector gate enforces >= 1h between batches.
+    # Best-effort wakeups; the collector suppresses duplicates and enforces a daily budget.
     - cron: '17,47 * * * *'
       timezone: America/New_York
 permissions:
