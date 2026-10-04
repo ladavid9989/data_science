@@ -44,6 +44,15 @@ jobs:
         env:
           DETAIL_LIMIT: ${{ inputs.detail_limit || '2' }}
         run: python -m tracker.cli --db "$RUNNER_TEMP/housing.sqlite3" collect --archive "$GITHUB_WORKSPACE/archive" --request-limit 3 --detail-limit "$DETAIL_LIMIT"
+      - name: Email newly observed daily price changes
+        id: alerts
+        if: always() && steps.collect.outcome != 'skipped'
+        continue-on-error: true
+        working-directory: code/housing-tracker
+        env:
+          HOUSING_SMTP_USERNAME: ladavid9989@gmail.com
+          HOUSING_SMTP_PASSWORD: ${{ secrets.HOUSING_SMTP_PASSWORD }}
+        run: python -m tracker.cli --db "$RUNNER_TEMP/housing.sqlite3" email-price-changes --archive "$GITHUB_WORKSPACE/archive" --to ladavid9989@gmail.com
       - name: Persist observations and failure records
         if: always() && steps.collect.outcome != 'skipped'
         working-directory: archive
@@ -60,4 +69,9 @@ jobs:
         if: steps.collect.outcome != 'success'
         run: |
           echo 'Collection incomplete. Saved observations/failure records remain available; no missing day is filled with zero inventory.'
+          exit 1
+      - name: Report email failure
+        if: always() && steps.alerts.outcome == 'failure'
+        run: |
+          echo 'Price alert delivery failed; saved observations are retained.'
           exit 1
