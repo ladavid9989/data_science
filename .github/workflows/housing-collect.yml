@@ -52,7 +52,7 @@ jobs:
         env:
           HOUSING_SMTP_USERNAME: ladavid9989@gmail.com
           HOUSING_SMTP_PASSWORD: ${{ secrets.HOUSING_SMTP_PASSWORD }}
-        run: python -m tracker.cli --db "$RUNNER_TEMP/housing.sqlite3" email-price-changes --archive "$GITHUB_WORKSPACE/archive" --to ladavid9989@gmail.com
+        run: python -m tracker.cli --db "$RUNNER_TEMP/housing.sqlite3" email-price-changes --archive "$GITHUB_WORKSPACE/archive" --to ladavid9989@gmail.com shyoon2357@gmail.com
       - name: Persist observations and failure records
         if: always() && steps.collect.outcome != 'skipped'
         working-directory: archive

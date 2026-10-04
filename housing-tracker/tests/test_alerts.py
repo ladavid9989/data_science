@@ -95,3 +95,35 @@ def test_eastern_day_boundary(tmp_path):
     # 00:00 UTC Oct 4 is still Oct 3 in Georgia: not a new comparison day.
     put(db, 4, [570000], hour=0)
     assert price_changes(db, TODAY)[0] == []
+
+
+def test_new_recipient_gets_alert_without_resending_to_existing_recipient(tmp_path, monkeypatch):
+    db, archive = tmp_path / 'db', tmp_path / 'archive'
+    monkeypatch.setenv('HOUSING_SMTP_PASSWORD', 'test-only')
+    monkeypatch.setenv('HOUSING_SMTP_USERNAME', 'sender@example.com')
+    put(db, 3, [600000])
+    put(db, 4, [570000])
+    sent = []
+    def send(message, username, password):
+        assert username == 'sender@example.com'
+        sent.append(message['To'])
+    for recipient in ('first@example.com', 'first@example.com', 'second@example.com', 'second@example.com'):
+        notify(db, archive, recipient, today=TODAY, sender=send)
+    assert sent == ['first@example.com', 'second@example.com']
+
+
+def test_cli_continues_to_second_recipient_when_first_fails(tmp_path, monkeypatch):
+    from tracker import alerts, cli
+    visited = []
+    def deliver(db, archive, recipient, **kwargs):
+        visited.append(recipient)
+        if recipient == 'first@example.com':
+            raise OSError('test failure')
+        return dict(status='sent', changes=1)
+    monkeypatch.setattr(alerts, 'notify', deliver)
+    monkeypatch.setattr('sys.argv', ['tracker', 'email-price-changes', '--archive', str(tmp_path),
+                                   '--to', 'first@example.com', 'second@example.com'])
+    with pytest.raises(SystemExit) as result:
+        cli.main()
+    assert result.value.code == 1
+    assert visited == ['first@example.com', 'second@example.com']

@@ -18,7 +18,7 @@ def main():
     commands.add_parser("sync")
     alerts = commands.add_parser('email-price-changes')
     alerts.add_argument('--archive', type=Path, required=True)
-    alerts.add_argument('--to', required=True)
+    alerts.add_argument('--to', required=True, nargs='+')
     alerts.add_argument('--dry-run', action='store_true')
     prune = commands.add_parser('prune-price-scope')
     prune.add_argument('--archive', type=Path, required=True)
@@ -46,18 +46,23 @@ def main():
     args = parser.parse_args()
     if args.command == 'email-price-changes':
         from tracker.alerts import notify
-        try:
-            result = notify(args.db, args.archive, args.to, dry_run=args.dry_run)
-        except Exception as exc:
-            # Do not print SMTP payloads or credentials into public Actions logs.
-            print(json.dumps(dict(status='email_failed', error=type(exc).__name__)))
+        failed = False
+        for recipient in dict.fromkeys(address.strip().lower() for address in args.to):
+            try:
+                result = notify(args.db, args.archive, recipient, dry_run=args.dry_run)
+            except Exception as exc:
+                # One failed recipient must not prevent delivery to the others.
+                print(json.dumps(dict(status='email_failed', recipient=recipient, error=type(exc).__name__)))
+                failed = True
+                continue
+            print(json.dumps(dict(result, recipient=recipient)))
+            if os.environ.get('GITHUB_STEP_SUMMARY'):
+                with open(os.environ['GITHUB_STEP_SUMMARY'], 'a', encoding='utf-8') as summary:
+                    summary.write(f"\nPrice email ({recipient}): **{result['status']}**; price changes: {result['changes']}.\n")
+            if result['status'] == 'not_configured':
+                print('::warning::Price email requires the HOUSING_SMTP_PASSWORD repository secret.')
+        if failed:
             raise SystemExit(1)
-        print(json.dumps(result))
-        if os.environ.get('GITHUB_STEP_SUMMARY'):
-            with open(os.environ['GITHUB_STEP_SUMMARY'], 'a', encoding='utf-8') as summary:
-                summary.write(f"\nPrice email: **{result['status']}**; unsent changes: {result['changes']}.\n")
-        if result['status'] == 'not_configured':
-            print('::warning::Price email requires the HOUSING_SMTP_PASSWORD repository secret.')
     elif args.command == 'prune-price-scope':
         print(json.dumps(dict(archive_observations_removed=prune_archive(args.archive),
                               database_observations_removed=prune_database(args.db))))
