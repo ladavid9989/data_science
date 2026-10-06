@@ -8,7 +8,7 @@ from tracker.storage import SCOPE, SOURCE_SCOPE, BAND_SCOPE
 INVENTORY = ["active", "under_contract", "pending"]
 
 
-def canonical_runs(runs, complete_only=True):
+def canonical_runs(runs, complete_only=True, *, daily=True):
     data = runs.copy()
     if complete_only:
         recognized = data[data.scope.eq(SCOPE) | data.scope.str.startswith((SOURCE_SCOPE + ':', BAND_SCOPE + ':'))]
@@ -22,8 +22,10 @@ def canonical_runs(runs, complete_only=True):
         data = data.merge(latest[["school", "scope", "boundary_version"]],
                           on=["school", "scope", "boundary_version"])
     data = data.assign(_priority=data.quality.map({"failed": 0, "partial": 1, "source_complete": 2, "complete": 3}))
-    return data.sort_values(["_priority", "observed_at", "run_id"]).drop_duplicates(
-        ["school", "market_date"], keep="last").drop(columns="_priority")
+    data = data.sort_values(["_priority", "observed_at", "run_id"])
+    if daily:
+        data = data.drop_duplicates(["school", "market_date"], keep="last")
+    return data.drop(columns="_priority")
 
 
 def joined(runs, observations, complete_only=True):
@@ -90,13 +92,43 @@ def changes_between(previous, current):
     """Observed property-price differences, with explicit relistings excluded."""
     keys = ['property_id'] + (['school'] if 'school' in previous and 'school' in current else [])
     both = previous.merge(current, on=keys, suffixes=("_before", "_after"))
-    known = ~both.episode_id_before.str.endswith(':unknown') & ~both.episode_id_after.str.endswith(':unknown')
+    return _price_differences(both)
+
+
+def _price_differences(both):
+    known = (both.episode_id_before.notna() & both.episode_id_after.notna() &
+             ~both.episode_id_before.str.endswith(':unknown', na=True) &
+             ~both.episode_id_after.str.endswith(':unknown', na=True))
     both = both[~known | both.episode_id_before.eq(both.episode_id_after)].copy()
     both['comparison_basis'] = '같은 매물 ID의 관측 호가 비교'
     both.loc[known.reindex(both.index), 'comparison_basis'] = '같은 등록 건의 관측 호가 비교'
     both["price_change"] = both.price_after - both.price_before
     both['price_change_percent'] = both.price_change / both.price_before * 100
     return both[both.price_change.ne(0) & both.price_change.notna()]
+
+
+def price_change_history(runs, observations, start, end, **filters):
+    """Each observed price transition, including intraday moves and a pre-window baseline."""
+    start, end = pd.Timestamp(start).date(), pd.Timestamp(end).date()
+    valid = canonical_runs(runs[runs.market_date.le(end.isoformat())], daily=False)
+    rows = observations.merge(valid, on='run_id', how='inner')
+    # Enrichment snapshots may be new, but their price timestamp remains unchanged.
+    rows['_stamp'] = pd.to_datetime(rows.price_observed_at, utc=True, errors='coerce', format='mixed')
+    rows = rows[rows['_stamp'].notna() & rows.price.gt(0)].copy()
+    rows = rows[rows['_stamp'].dt.tz_convert('America/New_York').dt.date.le(end)]
+    keys = ['school', 'property_id']
+    rows = rows.sort_values(keys + ['_stamp', 'observed_at', 'run_id']).drop_duplicates(
+        keys + ['_stamp'], keep='last')
+    before = rows.groupby(keys, sort=False).shift(1)
+    columns = [column for column in rows.columns if column not in keys]
+    paired = pd.concat([rows[keys], before[columns].add_suffix('_before'),
+                        rows[columns].add_suffix('_after')], axis=1)
+    changes = _price_differences(paired)
+    changes['change_date'] = changes['_stamp_after'].dt.tz_convert('America/New_York').dt.date
+    # Apply the viewer's filters to the facts at the time of the change, not today's inventory.
+    eligible = filter_rows(rows, **filters).index
+    return changes[changes.change_date.between(start, end) & changes.index.isin(eligible)].sort_values(
+        ['_stamp_after', 'price_change', 'school', 'property_id'], ascending=[False, True, True, True])
 
 
 def rank_price_cuts(current, history, order='percent'):

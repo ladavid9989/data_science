@@ -1,5 +1,5 @@
 """Run with: streamlit run streamlit_app.py. Reads saved observations only."""
-from datetime import date
+from datetime import date, timedelta
 from html import escape
 import os
 
@@ -10,7 +10,7 @@ import streamlit as st
 
 from tracker.archive import sync
 from tracker.band import PRICE_RANGE, prune_database
-from tracker.metrics import INVENTORY, canonical_runs, changes_between, daily_metrics, filter_rows, joined, property_history, rank_price_cuts
+from tracker.metrics import INVENTORY, canonical_runs, daily_metrics, filter_rows, joined, price_change_history, property_history, rank_price_cuts
 from tracker.storage import SCHOOLS, default_db, read_frames
 
 st.set_page_config(page_title="Schoolside · 주택 시장 트래커", page_icon="🏡", layout="wide")
@@ -186,20 +186,35 @@ with overview:
             st.caption(f"건축연도 미확인 {inventory.year_built.isna().sum()}건은 분포에서 제외했습니다.")
         with right:
             st.subheader("관측 호가 변화")
-            if len(common_dates) < 2:
-                st.info("비교할 이전 완전 수집일이 없습니다.")
+            change_window = st.selectbox("가격변화 조회 기간", ["최근 1일", "최근 7일", "최근 30일", "선택 기간 전체"],
+                                         index=1, key="change_window")
+            window_days = {"최근 1일": 1, "최근 7일": 7, "최근 30일": 30}.get(change_window)
+            change_start = max(start, end - timedelta(days=window_days - 1)) if window_days else start
+            changes = price_change_history(runs, observations, change_start, end, **filters)
+            st.caption(f"{change_start} ~ {end} · 미국 동부시간 기준 확인일 · 왼쪽 조회 기간의 종료일 기준이며, 선택 기간 안으로 제한됩니다.")
+            st.caption("수집할 때마다 직전 관측 호가와 비교합니다. 기간 시작 전 기록도 비교 기준으로 사용하며, 같은 날 여러 번 확인된 변동도 각각 남깁니다.")
+            if changes.empty:
+                st.info("이 기간의 저장된 관측에서 확인된 가격변화 이력이 없습니다. 비교할 이전 관측이 없거나 수집 사이에 발생한 변동은 확인할 수 없습니다.")
             else:
-                prior = sorted(common_dates)[-2]
-                changes = changes_between(full[full.market_date == prior], full[full.market_date == asof])
-                changes = changes[changes.property_id.isin(current.property_id)]
-                st.caption(f"{prior} → {asof} · 두 날짜에 관측된 같은 매물 ID를 비교합니다. 등록 건 ID가 다르다고 확인된 재등록은 제외합니다.")
-                if changes.empty:
-                    st.info("두 날짜에 모두 관측된 비교 대상 매물에서 호가 차이가 발견되지 않았습니다. 미수집 기간의 변동까지 없다는 뜻은 아닙니다.")
-                else:
-                    st.dataframe(changes.sort_values('price_change')[["address_after", "price_before", "price_after", "price_change", 'price_change_percent', 'comparison_basis']].rename(columns={
-                        "address_after": "매물", "price_before": "이전 호가", "price_after": "현재 호가", "price_change": "변화 ($)",
-                        'price_change_percent': '변화 (%)', 'comparison_basis': '비교 근거'}),
-                        hide_index=True, width="stretch")
+                st.caption(f"인하 {int(changes.price_change.lt(0).sum())}건 · 인상 {int(changes.price_change.gt(0).sum())}건 · {changes.property_id.nunique()}개 매물")
+                change_table = changes.copy()
+                change_table['school'] = change_table.school.map(SHORT)
+                for column in ['price_observed_at_before', 'price_observed_at_after']:
+                    change_table[column] = change_table[column].map(eastern_time)
+                change_table = change_table[["price_observed_at_after", "address_after", "school", "price_before", "price_after",
+                                             "price_change", "price_change_percent", "price_observed_at_before", "comparison_basis"]].rename(columns={
+                    "price_observed_at_after": "변동 확인 시각 (ET)", "address_after": "매물", "school": "학군",
+                    "price_before": "이전 호가", "price_after": "변동 후 호가", "price_change": "변화 ($)",
+                    "price_change_percent": "변화 (%)", "price_observed_at_before": "이전 확인 시각 (ET)", "comparison_basis": "비교 근거"})
+                st.dataframe(change_table, hide_index=True, width="stretch", key="price_changes", column_config={
+                    "이전 호가": st.column_config.NumberColumn(format="$%d"),
+                    "변동 후 호가": st.column_config.NumberColumn(format="$%d"),
+                    "변화 ($)": st.column_config.NumberColumn(format="$%d"),
+                    "변화 (%)": st.column_config.NumberColumn(format="%.2f%%"),
+                })
+                st.download_button("가격변화 이력 CSV", change_table.to_csv(index=False).encode("utf-8-sig"),
+                                   file_name=f"price_changes_{change_start}_{end}.csv", mime="text/csv")
+            st.caption("변동 확인 시각은 실제 가격 변경 시각과 다를 수 있습니다. 변동 당시 필터에 맞는 매물을 포함하며, 현재 목록에서 사라져도 이력은 유지합니다. 확인된 재등록은 제외합니다.")
         st.download_button("일별 통계 CSV", metrics.to_csv(index=False).encode("utf-8-sig"),
                            file_name=f"{dataset}_daily_metrics.csv", mime="text/csv")
 
