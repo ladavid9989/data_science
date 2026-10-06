@@ -137,7 +137,9 @@ def test_smtp_connection_fallback_and_no_quit_failure(monkeypatch):
     from tracker.alerts import send_message
     calls = []
     class Connection:
-        def login(self, *args): calls.append('login')
+        def login(self, *args, **kwargs):
+            assert kwargs['initial_response_ok'] is False
+            calls.append('login')
         def send_message(self, message): calls.append('accepted')
         def close(self): calls.append('closed')
         def quit(self): raise smtplib.SMTPServerDisconnected('QUIT after acceptance')
@@ -156,7 +158,7 @@ def test_smtp_send_disconnect_is_not_immediately_resent(monkeypatch):
     class Connection:
         def ehlo(self): pass
         def starttls(self, **kwargs): pass
-        def login(self, *args): pass
+        def login(self, *args, **kwargs): pass
         def send_message(self, message): raise smtplib.SMTPServerDisconnected('ambiguous acceptance')
         def close(self): pass
     monkeypatch.setattr(smtplib, 'SMTP', lambda *a, **k: Connection())

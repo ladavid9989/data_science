@@ -121,14 +121,17 @@ def send_message(message, username, password):
             else:
                 smtp = smtplib.SMTP_SSL('smtp.gmail.com', port, timeout=30, context=ssl.create_default_context())
             stage = 'authenticate'
-            smtp.login(username, password.replace(' ', ''))
+            # Use the server's AUTH challenge instead of placing credentials in
+            # the initial AUTH command; both are supported by SMTP providers.
+            smtp.login(username, password.replace(' ', ''), initial_response_ok=False)
             stage = 'send'
             smtp.send_message(message)
             # A later QUIT disconnect cannot turn an accepted message into a failure.
             return
         except (OSError, smtplib.SMTPException) as exc:
             attempts.append(dict(port=port, stage=stage, error=type(exc).__name__,
-                                 smtp_code=getattr(exc, 'smtp_code', None)))
+                                 smtp_code=getattr(exc, 'smtp_code', None),
+                                 auth_advertised=(getattr(smtp, 'esmtp_features', {}) or {}).get('auth', '')))
             if stage == 'send' or isinstance(exc, smtplib.SMTPAuthenticationError):
                 break  # Do not immediately resend when acceptance is ambiguous.
         finally:
