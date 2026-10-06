@@ -52,7 +52,12 @@ def main():
                 result = notify(args.db, args.archive, recipient, dry_run=args.dry_run)
             except Exception as exc:
                 # One failed recipient must not prevent delivery to the others.
-                print(json.dumps(dict(status='email_failed', recipient=recipient, error=type(exc).__name__)))
+                diagnostic = dict(status='email_failed', recipient=recipient, error=type(exc).__name__,
+                                  attempts=getattr(exc, 'attempts', []))
+                print(json.dumps(diagnostic))
+                if os.environ.get('GITHUB_STEP_SUMMARY'):
+                    with open(os.environ['GITHUB_STEP_SUMMARY'], 'a', encoding='utf-8') as summary:
+                        summary.write(f"\nPrice email ({recipient}): **delivery failed; retained for retry**. {diagnostic['attempts']}\n")
                 failed = True
                 continue
             print(json.dumps(dict(result, recipient=recipient)))

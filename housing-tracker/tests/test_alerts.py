@@ -76,8 +76,11 @@ def test_failed_send_retries_and_preview_never_sends(tmp_path, monkeypatch):
     assert notify(db, archive, 'owner@example.com', today=TODAY, dry_run=True, sender=fail)['changes'] == 1
     with pytest.raises(OSError):
         notify(db, archive, 'owner@example.com', today=TODAY, sender=fail)
-    assert not (archive / 'state/price-alerts.json.gz').exists()
-    assert notify(db, archive, 'owner@example.com', today=TODAY, sender=lambda *a: None)['status'] == 'sent'
+    from tracker.collect import read_json
+    ledger = read_json(archive / 'state/price-alerts.json.gz')
+    assert ledger['pending'] and not ledger['sent']
+    # Retry remains possible after midnight even when no new price snapshot is available.
+    assert notify(db, archive, 'owner@example.com', today=date(2026, 10, 5), sender=lambda *a: None)['status'] == 'sent'
 
 
 def test_missing_credentials_are_visible_without_marking_sent(tmp_path, monkeypatch):
@@ -127,3 +130,37 @@ def test_cli_continues_to_second_recipient_when_first_fails(tmp_path, monkeypatc
         cli.main()
     assert result.value.code == 1
     assert visited == ['first@example.com', 'second@example.com']
+
+
+def test_smtp_connection_fallback_and_no_quit_failure(monkeypatch):
+    import smtplib
+    from tracker.alerts import send_message
+    calls = []
+    class Connection:
+        def login(self, *args): calls.append('login')
+        def send_message(self, message): calls.append('accepted')
+        def close(self): calls.append('closed')
+        def quit(self): raise smtplib.SMTPServerDisconnected('QUIT after acceptance')
+    def disconnected(*args, **kwargs):
+        calls.append('587')
+        raise smtplib.SMTPServerDisconnected('connect failed')
+    monkeypatch.setattr(smtplib, 'SMTP', disconnected)
+    monkeypatch.setattr(smtplib, 'SMTP_SSL', lambda *a, **k: Connection())
+    send_message(None, 'sender@example.com', 'test-only')
+    assert calls == ['587', 'login', 'accepted', 'closed']
+
+
+def test_smtp_send_disconnect_is_not_immediately_resent(monkeypatch):
+    import smtplib
+    from tracker.alerts import send_message, DeliveryFailure
+    class Connection:
+        def ehlo(self): pass
+        def starttls(self, **kwargs): pass
+        def login(self, *args): pass
+        def send_message(self, message): raise smtplib.SMTPServerDisconnected('ambiguous acceptance')
+        def close(self): pass
+    monkeypatch.setattr(smtplib, 'SMTP', lambda *a, **k: Connection())
+    monkeypatch.setattr(smtplib, 'SMTP_SSL', lambda *a, **k: pytest.fail('must not resend immediately'))
+    with pytest.raises(DeliveryFailure) as exc:
+        send_message(None, 'sender@example.com', 'test-only')
+    assert exc.value.attempts[0]['stage'] == 'send'

@@ -53,7 +53,7 @@ def daily_metrics(runs, observations, schools, start, end, **filters):
             day = stamp.date().isoformat()
             run = valid[(valid.school == school) & (valid.market_date == day)]
             record = {"date": day, "school": school, "active": None, "contract": None,
-                      "median_price": None, "year_coverage": None, "matched": None,
+                      "median_price": None, "mean_price": None, "year_coverage": None, "matched": None,
                       "complete": not run.empty}
             if not run.empty:
                 rows = selected[(selected.school == school) & (selected.market_date == day)]
@@ -63,6 +63,7 @@ def daily_metrics(runs, observations, schools, start, end, **filters):
                 positive = active.loc[active.price > 0, "price"]
                 record.update(active=len(active), contract=int(rows.status.isin(["under_contract", "pending"]).sum()),
                               matched=len(inventory), median_price=positive.median() if len(positive) else None,
+                              mean_price=positive.mean() if len(positive) else None,
                               year_coverage=inventory.year_built.notna().mean() * 100 if len(inventory) else None)
             records.append(record)
     return pd.DataFrame(records)
@@ -86,10 +87,15 @@ def property_history(runs, observations, property_id, school):
 
 
 def changes_between(previous, current):
-    """Only comparable identified episodes; unknown episode IDs cannot prove a price change."""
-    both = previous.merge(current, on=["property_id", "episode_id"], suffixes=("_before", "_after"))
-    both = both[~both.episode_id.str.endswith(":unknown")].copy()
+    """Observed property-price differences, with explicit relistings excluded."""
+    keys = ['property_id'] + (['school'] if 'school' in previous and 'school' in current else [])
+    both = previous.merge(current, on=keys, suffixes=("_before", "_after"))
+    known = ~both.episode_id_before.str.endswith(':unknown') & ~both.episode_id_after.str.endswith(':unknown')
+    both = both[~known | both.episode_id_before.eq(both.episode_id_after)].copy()
+    both['comparison_basis'] = '같은 매물 ID의 관측 호가 비교'
+    both.loc[known.reindex(both.index), 'comparison_basis'] = '같은 등록 건의 관측 호가 비교'
     both["price_change"] = both.price_after - both.price_before
+    both['price_change_percent'] = both.price_change / both.price_before * 100
     return both[both.price_change.ne(0) & both.price_change.notna()]
 
 

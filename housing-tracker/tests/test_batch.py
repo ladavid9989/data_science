@@ -280,3 +280,33 @@ def test_cached_details_publish_after_crash_without_new_request(tmp_path):
     assert resumed.run()['status'] == 'interval_wait'
     assert len(list(batch.root.glob('snapshots/*/*'))) == 1
     assert not resumed.client.urls
+
+
+def test_same_day_search_refresh_discovers_new_listings_and_changed_prices(tmp_path, monkeypatch):
+    from tracker import batch as module
+    start = utcnow()
+    client = FakeClient([page(1, 2).replace('590000', '500000'), page(2, 4)])
+    batch, job = ready(tmp_path, client, limit=2)
+    completed_schools(batch, job)
+    batch.detail_limit = 0
+    batch.state['turn'] = 0
+    monkeypatch.setattr(module, 'utcnow', lambda: start + timedelta(hours=1, minutes=1))
+    monkeypatch.setattr(module, 'zone_for', lambda *a: job['zone'])
+    result = batch.run()
+    fresh = batch.state['jobs']['north_gwinnett']
+    assert result['school'] == 'north_gwinnett'
+    assert set(fresh['rows']) == {'zillow:2', 'zillow:4'}
+    assert fresh['rows']['zillow:2']['price'] == 500000
+    assert 'zillow:1' in fresh['watch']
+    assert len(client.urls) == 2
+
+
+def test_property_comparison_shows_cut_without_listing_episode_id():
+    from tracker.metrics import changes_between
+    row = dict(property_id='zillow:58608398', episode_id='zillow:58608398:unknown', school='north_gwinnett')
+    before = pd.DataFrame([dict(row, price=599000)])
+    after = pd.DataFrame([dict(row, price=500000)])
+    result = changes_between(before, after)
+    assert len(result) == 1 and result.iloc[0].price_change == -99000
+    assert result.iloc[0].price_change_percent == pytest.approx(-16.5275459)
+    assert changes_between(before.assign(episode_id='first'), after.assign(episode_id='second')).empty

@@ -50,7 +50,7 @@ def price_changes(db, today):
                      rows.price.between(*PRICE_RANGE) & rows.status.isin(INVENTORY) &
                      rows.in_inventory.eq(1)].copy()
         # Search timestamps, not the later date a missing construction year was filled.
-        frame['price_day'] = pd.to_datetime(frame.price_observed_at, utc=True, errors='coerce').dt.tz_convert(EASTERN).dt.strftime('%Y-%m-%d')
+        frame['price_day'] = pd.to_datetime(frame.price_observed_at, utc=True, errors='coerce', format='mixed').dt.tz_convert(EASTERN).dt.strftime('%Y-%m-%d')
         left = frame[frame.run_id.eq(before.run_id) & frame.price_day.eq(yesterday)]
         right = frame[frame.run_id.eq(after.run_id) & frame.price_day.eq(current_day)]
         paired = left.merge(right, on='property_id', suffixes=('_before', '_after'))
@@ -70,6 +70,7 @@ def price_changes(db, today):
                                 change=float(delta), percent=float(delta / row.price_before * 100),
                                 before_observed_at=row.price_observed_at_before,
                                 after_observed_at=row.price_observed_at_after,
+                                source_change_date=row.price_cut_date_after if pd.notna(row.price_cut_date_after) else None,
                                 url=row.url_after))
     return sorted(changes, key=lambda r: (r['change'] >= 0, -abs(r['percent']), r['property_id'])), coverage
 
@@ -77,14 +78,17 @@ def price_changes(db, today):
 def message_for(events, recipient, sender):
     message = EmailMessage()
     message['From'], message['To'] = sender, recipient
-    message['Subject'] = f"[Schoolside] 전일 대비 호가 변동 {len(events)}건 — {events[0]['date']} (ET)"
+    message['Subject'] = f"[Schoolside] 관측 호가 변동 {len(events)}건 — {events[-1]['date']} (ET)"
     identity = hashlib.sha256('|'.join(sorted(event_key(e, recipient) for e in events)).encode()).hexdigest()
     message['Message-ID'] = f'<housing-{identity}@schoolside.local>'
-    lines = [f"미국 동부시간 기준 {events[0]['previous_date']} → {events[0]['date']} 관측 호가 비교", '']
+    lines = ['미국 동부시간 기준 관측 호가 비교. 발송 지연 시 이전 날짜의 미발송 알림도 포함합니다.', '']
     for event in events:
-        lines.extend([f"{event['address']} · {SCHOOLS[event['school']]}",
+        lines.extend([f"{event['previous_date']} → {event['date']}",
+                      f"{event['address']} · {SCHOOLS[event['school']]}",
                       f"${event['before']:,.0f} → ${event['after']:,.0f}",
                       f"변동: {event['change']:+,.0f}달러 ({event['percent']:+.2f}%)"])
+        if event.get('source_change_date'):
+            lines.append(f"Zillow 표시 가격 인하일: {event['source_change_date']}")
         for label, field in [('이전 확인', 'before_observed_at'), ('현재 확인', 'after_observed_at')]:
             stamp = datetime.fromisoformat(event[field].replace('Z', '+00:00')).astimezone(EASTERN)
             lines.append(f"{label}: {stamp:%Y-%m-%d %I:%M %p %Z}")
@@ -97,10 +101,43 @@ def message_for(events, recipient, sender):
     return message
 
 
+class DeliveryFailure(RuntimeError):
+    def __init__(self, attempts):
+        self.attempts = attempts
+        super().__init__('SMTP delivery failed; see sanitized stage diagnostics')
+
+
 def send_message(message, username, password):
-    with smtplib.SMTP_SSL('smtp.gmail.com', 465, timeout=30, context=ssl.create_default_context()) as smtp:
-        smtp.login(username, password.replace(' ', ''))
-        smtp.send_message(message)
+    attempts = []
+    for port in (587, 465):
+        smtp, stage = None, 'connect'
+        try:
+            if port == 587:
+                smtp = smtplib.SMTP('smtp.gmail.com', port, timeout=30)
+                stage = 'starttls'
+                smtp.ehlo()
+                smtp.starttls(context=ssl.create_default_context())
+                smtp.ehlo()
+            else:
+                smtp = smtplib.SMTP_SSL('smtp.gmail.com', port, timeout=30, context=ssl.create_default_context())
+            stage = 'authenticate'
+            smtp.login(username, password.replace(' ', ''))
+            stage = 'send'
+            smtp.send_message(message)
+            # A later QUIT disconnect cannot turn an accepted message into a failure.
+            return
+        except (OSError, smtplib.SMTPException) as exc:
+            attempts.append(dict(port=port, stage=stage, error=type(exc).__name__,
+                                 smtp_code=getattr(exc, 'smtp_code', None)))
+            if stage == 'send' or isinstance(exc, smtplib.SMTPAuthenticationError):
+                break  # Do not immediately resend when acceptance is ambiguous.
+        finally:
+            if smtp is not None:
+                try:
+                    smtp.close()
+                except OSError:
+                    pass
+    raise DeliveryFailure(attempts)
 
 
 def notify(db, archive, recipient, *, dry_run=False, today=None, sender=send_message):
@@ -108,10 +145,21 @@ def notify(db, archive, recipient, *, dry_run=False, today=None, sender=send_mes
     events, coverage = price_changes(db, today)
     ledger_path = archive / 'state/price-alerts.json.gz'
     ledger = read_json(ledger_path) if ledger_path.exists() else {'version': 1, 'sent': {}}
-    events = [e for e in events if event_key(e, recipient) not in ledger['sent']]
+    pending = ledger.setdefault('pending', {})
+    recipient_key = hashlib.sha256(recipient.strip().lower().encode()).hexdigest()
+    queued = dict(pending.get(recipient_key, {}))
+    for event in events:
+        key = event_key(event, recipient)
+        if key not in ledger['sent']:
+            queued[key] = event
+    queued = {key: event for key, event in queued.items() if key not in ledger['sent']}
+    events = sorted(queued.values(), key=lambda event: (event['date'], event['change'] >= 0, -abs(event['percent'])))
     result = dict(status='no_new_changes', changes=len(events), date=today.isoformat(), coverage=coverage)
     if dry_run:
         return dict(result, status='preview', events=events)
+    if queued != pending.get(recipient_key, {}):
+        pending[recipient_key] = queued
+        write_json(ledger_path, ledger)  # Persist before attempting delivery, including missing credentials.
     password = os.environ.get('HOUSING_SMTP_PASSWORD', '')
     if not password:
         return dict(result, status='not_configured', missing='HOUSING_SMTP_PASSWORD')
@@ -124,5 +172,6 @@ def notify(db, archive, recipient, *, dry_run=False, today=None, sender=send_mes
     stamp = datetime.now(EASTERN).isoformat()
     for event in events:
         ledger['sent'][event_key(event, recipient)] = {'sent_at': stamp, 'date': event['date']}
+    pending.pop(recipient_key, None)
     write_json(ledger_path, ledger)
     return dict(result, status='sent')

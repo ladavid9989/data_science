@@ -160,8 +160,9 @@ with overview:
             st.plotly_chart(line_chart(metrics, "active"), width="stretch", key="inventory_chart")
         with right:
             st.subheader("호가 중앙값")
-            st.caption("매물 구성에 따라 변합니다. 개별 집의 가치 상승률이 아닙니다.")
-            st.plotly_chart(line_chart(metrics, "median_price", True), width="stretch", key="price_chart")
+            price_stat = st.selectbox('가격 통계', ['중앙값', '평균'], key='price_stat')
+            st.caption(f"현재 판매 중 매물의 평균 호가: {money(active.price.mean())}. 개별 매물의 가격이 내려도 중앙값은 그대로일 수 있습니다.")
+            st.plotly_chart(line_chart(metrics, 'median_price' if price_stat == '중앙값' else 'mean_price', True), width="stretch", key="price_chart")
         st.caption("그래프의 끊긴 구간은 수집 실패 또는 불완전한 기록입니다. 0건으로 대체하지 않습니다.")
         activity = filter_rows(full, **filters)
         sold_activity = activity[activity.status.eq("sold") & activity.sold_date.notna()].sort_values("observed_at").drop_duplicates(
@@ -184,19 +185,20 @@ with overview:
                 st.plotly_chart(chart_style(fig, 260), width="stretch", key="year_chart")
             st.caption(f"건축연도 미확인 {inventory.year_built.isna().sum()}건은 분포에서 제외했습니다.")
         with right:
-            st.subheader("같은 등록 건의 가격 변화")
+            st.subheader("관측 호가 변화")
             if len(common_dates) < 2:
                 st.info("비교할 이전 완전 수집일이 없습니다.")
             else:
                 prior = sorted(common_dates)[-2]
                 changes = changes_between(full[full.market_date == prior], full[full.market_date == asof])
                 changes = changes[changes.property_id.isin(current.property_id)]
-                st.caption(f"{prior} → {asof} · 현재 필터에 해당하는 매물 · 등록 건이 확인된 경우만 비교")
+                st.caption(f"{prior} → {asof} · 두 날짜에 관측된 같은 매물 ID를 비교합니다. 등록 건 ID가 다르다고 확인된 재등록은 제외합니다.")
                 if changes.empty:
-                    st.info("이 구간에서 확인된 동일 등록 건의 가격 변화가 없습니다.")
+                    st.info("두 날짜에 모두 관측된 비교 대상 매물에서 호가 차이가 발견되지 않았습니다. 미수집 기간의 변동까지 없다는 뜻은 아닙니다.")
                 else:
-                    st.dataframe(changes[["address_after", "price_before", "price_after", "price_change"]].rename(columns={
-                        "address_after": "매물", "price_before": "이전 호가", "price_after": "현재 호가", "price_change": "변화 ($)"}),
+                    st.dataframe(changes.sort_values('price_change')[["address_after", "price_before", "price_after", "price_change", 'price_change_percent', 'comparison_basis']].rename(columns={
+                        "address_after": "매물", "price_before": "이전 호가", "price_after": "현재 호가", "price_change": "변화 ($)",
+                        'price_change_percent': '변화 (%)', 'comparison_basis': '비교 근거'}),
                         hide_index=True, width="stretch")
         st.download_button("일별 통계 CSV", metrics.to_csv(index=False).encode("utf-8-sig"),
                            file_name=f"{dataset}_daily_metrics.csv", mime="text/csv")
@@ -280,7 +282,7 @@ with history_tab:
 
 with health_tab:
     st.subheader("기록의 범위와 신뢰도")
-    st.caption("30분 간격 호출에서 남은 작업을 이어갑니다. 건축연도 미확인 매물을 우선 조회하고, 완료된 학군은 건너뜁니다. 하루 요청 한도나 접근 제한에 도달하면 대기합니다. 실행 성공 횟수가 상세 조회 횟수를 뜻하지는 않습니다.")
+    st.caption("30분 간격으로 실행하고 학군별 전체 검색은 약 1시간마다 갱신합니다. 건축연도가 모두 확인돼도 새 매물과 가격을 다시 조회합니다. 실행 지연·하루 요청 한도·접근 제한 중에는 더 늦어질 수 있습니다.")
     st.link_button("GitHub 수집 실행 기록", "https://github.com/ladavid9989/data_science/actions/workflows/housing-collect.yml")
     for school in schools:
         subset = runs[runs.school == school]
@@ -294,6 +296,9 @@ with health_tab:
             quality = "검색 목록 대조 완료" if last.quality == 'source_complete' else last.quality
             st.write(f"**{SHORT[school]}** · 마지막 기록 {eastern_time(last.observed_at)} · {quality} · {len(latest_rows)}건")
             st.caption(f"건축연도 확인 {known}/{len(latest_rows)} · 미확인 {waiting}건. 검색 목록 완료와 상세정보 보완 완료는 별개입니다.")
+            stamps = pd.to_datetime(latest_rows.price_observed_at, utc=True, errors='coerce', format='mixed').dropna()
+            if not stamps.empty:
+                st.caption(f"호가 조회 시각: {eastern_time(stamps.min())} ~ {eastern_time(stamps.max())}")
     health = range_runs.sort_values('observed_at').drop_duplicates(['market_date', 'school'], keep='last')
     health = health[["market_date", "school", "quality", "row_count", "reported_count"]].copy()
     health["school"] = health.school.map(SHORT)

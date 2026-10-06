@@ -18,7 +18,8 @@ from tracker.band import in_band, restrict_snapshot
 PRICE_RANGE = [400000, 700000]
 # Allow a 30-minute scheduler's small start-time jitter, while rejecting duplicate wakeups.
 MIN_BATCH_INTERVAL = timedelta(minutes=25)
-DAILY_REQUEST_LIMIT = 48
+DAILY_REQUEST_LIMIT = 96
+SEARCH_REFRESH_INTERVAL = timedelta(hours=1)
 
 
 def utcnow():
@@ -226,14 +227,19 @@ class Batch:
         schools = list(SOURCES)
         offset = self.state['turn'] % len(schools)
         schools = schools[offset:] + schools[:offset]
-        # Refresh both inventories daily; then give capacity only to schools with work.
+        # Re-query the entire inventory even after every construction year is known.
         for school in schools:
             job = self.state['jobs'].get(school)
-            if not job or job.get('restart') or not job.get('finished_at') or day(job['finished_at']) < day(stamp):
+            if not job or job.get('restart') or self.search_due(job, stamp):
                 return school
         eligible = [(self.detail_candidates(self.state['jobs'][school]), school) for school in schools]
         eligible = [(queue, school) for queue, school in eligible if queue and self.detail_limit > 0]
         return min(eligible, key=lambda pair: pair[0][0])[1] if eligible else None
+
+    @staticmethod
+    def search_due(job, stamp):
+        return (not job.get('finished_at') or day(job['finished_at']) < day(stamp) or
+                datetime.fromisoformat(stamp) - datetime.fromisoformat(job['started_at']) >= SEARCH_REFRESH_INTERVAL)
 
     def details(self, school, job):
         now = utcnow()
@@ -317,7 +323,7 @@ class Batch:
         if job and not job.get('finished_at') and utcnow() - datetime.fromisoformat(job['started_at']) > timedelta(hours=24):
             self.publish(self.snapshot(school, job, 'partial' if job['rows'] else 'failed', 'Expired 24-hour incomplete cycle.'))
             job = None
-        if job is None or job.get('restart') or (job.get('finished_at') and day(job['finished_at']) < day(stamp)):
+        if job is None or job.get('restart') or (job.get('finished_at') and self.search_due(job, stamp)):
             previous = {**job.get('watch', {}), **job.get('rows', {})} if job else {}
             seed = {k: copy.deepcopy(job[k]) for k in ('query', 'defaults') if k in job} if job else {}
             job = dict(started_at=stamp, next_page=1, rows={}, ids=[], evidence=[], previous=previous)
