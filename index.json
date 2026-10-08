@@ -1162,6 +1162,14 @@
       "rows": 79
     },
     {
+      "path": "snapshots/2026-10-08/north_gwinnett-12ce4df39b5ec0ffb9b9df9d273479a0f2ea074a808da14d4c4f136b2cf5360d.json.gz",
+      "run_id": "12ce4df39b5ec0ffb9b9df9d273479a0f2ea074a808da14d4c4f136b2cf5360d",
+      "school": "north_gwinnett",
+      "observed_at": "2026-10-08T21:31:06.829339+00:00",
+      "quality": "source_complete",
+      "rows": 82
+    },
+    {
       "path": "snapshots/2026-10-08/north_gwinnett-3619ef82cf2af500098aa3aabce555125c8da3d820b7ef6e23b729773ae3bb50.json.gz",
       "run_id": "3619ef82cf2af500098aa3aabce555125c8da3d820b7ef6e23b729773ae3bb50",
       "school": "north_gwinnett",
