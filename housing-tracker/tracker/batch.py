@@ -34,6 +34,10 @@ class BatchFull(Exception):
     pass
 
 
+class PaginationDrift(ValueError):
+    """The live search changed while its pages were being collected."""
+
+
 class Batch:
     def __init__(self, db, archive, request_limit=3, detail_limit=2, delay=30, client=None):
         self.db, self.root = db, Path(archive)
@@ -156,8 +160,10 @@ class Batch:
             validate_page(data, school_id, filters(*PRICE_RANGE), job['defaults'], page)
             result = data['cat1']
             total, pages = int(result['searchList']['totalResultCount']), max(1, int(result['searchList']['totalPages']))
-            if pages > 10 or ('total' in job and (total != job['total'] or pages != job['pages'])):
-                raise ValueError('Pagination drift: changed count/pages; restart required')
+            if pages > 10:
+                raise ValueError('Search exceeds supported pagination limit')
+            if 'total' in job and (total != job['total'] or pages != job['pages']):
+                raise PaginationDrift('Pagination drift: changed count/pages; restart required')
             incoming, ids = {}, []
             for item in result['searchResults']['listResults']:
                 if item.get('relaxed') or item.get('isHomeRec'):
@@ -169,14 +175,14 @@ class Batch:
                 pid = row['property_id']
                 row['first_seen'] = job.get('previous', {}).get(pid, {}).get('first_seen', stamp)
                 if pid in ids or pid in job['ids']:
-                    raise ValueError('Pagination drift: duplicate property across pages')
+                    raise PaginationDrift('Pagination drift: duplicate property across pages')
                 ids.append(pid)
                 member = contains(job['zone']['geometry'], row['longitude'], row['latitude'])
                 if member is not False:
                     row['in_inventory'] = member is True
                     incoming[pid] = row
             if page >= pages and len(job['ids']) + len(ids) != total:
-                raise ValueError('Pagination reconciliation failed')
+                raise PaginationDrift('Pagination reconciliation failed')
             # Commit records and the next-page bookmark in ONE atomic replacement.
             job['rows'].update(incoming)
             job['ids'].extend(ids)
@@ -303,6 +309,17 @@ class Batch:
             job.pop('enrichment_dirty', None)
             self.publish(snapshot)
 
+    def reset_search(self, school, old, stamp, *, same_batch=False):
+        old = old or {}
+        previous = {**old.get('previous', {}), **old.get('watch', {}), **old.get('rows', {})}
+        keys = ('query', 'defaults', 'zone') if same_batch else ('query', 'defaults')
+        seed = {key: copy.deepcopy(old[key]) for key in keys if key in old}
+        job = dict(started_at=stamp, next_page=1, rows={}, ids=[], evidence=[], previous=previous)
+        job.update(seed)
+        self.state['jobs'][school] = job
+        self.save()
+        return job
+
     def run(self):
         self.flush_outbox()
         # Recover cached detail facts saved before a crash, even during a network cooldown.
@@ -331,14 +348,23 @@ class Batch:
             self.publish(self.snapshot(school, job, 'partial' if job['rows'] else 'failed', 'Expired 24-hour incomplete cycle.'))
             job = None
         if job is None or job.get('restart') or (job.get('finished_at') and self.search_due(job, stamp)):
-            previous = {**job.get('watch', {}), **job.get('rows', {})} if job else {}
-            seed = {k: copy.deepcopy(job[k]) for k in ('query', 'defaults') if k in job} if job else {}
-            job = dict(started_at=stamp, next_page=1, rows={}, ids=[], evidence=[], previous=previous)
-            job.update(seed)
-            self.state['jobs'][school] = job
-            self.save()
+            job = self.reset_search(school, job, stamp)
         try:
-            self.search(school, job)
+            for attempt in range(2):
+                try:
+                    self.search(school, job)
+                    break
+                except PaginationDrift as exc:
+                    # Preserve the incomplete evidence, then discard the stale page bookmark.
+                    # A bounded fresh pass may fit in the remaining request budget.
+                    if job.get('response'):
+                        job['evidence'].append(job.pop('response'))
+                    self.publish(self.snapshot(school, job, 'partial', str(exc)))
+                    job = self.reset_search(school, job, utcnow().isoformat(), same_batch=True)
+                    job['recovery_reason'] = str(exc)
+                    self.save()
+                    if attempt == 1:
+                        raise BatchFull()
             self.details(school, job)
             result = 'complete'
         except BatchFull:
@@ -364,7 +390,7 @@ class Batch:
                     years=sum(bool(v.get('year_built')) for v in self.state['details'].values()),
                     detail_requests=self.detail_requests, years_added=self.years_added,
                     enrichment=self.enrichment_progress(),
-                    error=job.get('error'))
+                    error=job.get('error'), recovery_reason=job.get('recovery_reason'))
 
 
 def collect_batch(db, archive, request_limit=3, detail_limit=2):

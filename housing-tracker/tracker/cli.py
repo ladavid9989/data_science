@@ -83,6 +83,8 @@ def main():
             if os.environ.get('GITHUB_STEP_SUMMARY'):
                 lines = [f"Batch: **{result['status']}**", "",
                          f"Source requests: {result.get('requests', 0)}; newly verified years: {result.get('years_added', 0)}.", ""]
+                if result.get('recovery_reason'):
+                    lines.append(f"Search changed during pagination; restarted from page 1 within the request budget. {result['recovery_reason']}")
                 for school, progress in result.get('enrichment', {}).items():
                     lines.append(f"- {school}: {progress['known']}/{progress['total']} years verified; {progress['missing']} missing.")
                 with open(os.environ['GITHUB_STEP_SUMMARY'], 'a', encoding='utf-8') as summary:

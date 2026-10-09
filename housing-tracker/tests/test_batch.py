@@ -244,6 +244,51 @@ def test_existing_checkpoint_bootstraps_new_school_without_reset(tmp_path, schoo
     assert restored.choose_school(later) == school
 
 
+def interrupted_page_one(tmp_path):
+    batch, job = ready(tmp_path, FakeClient([page(1, 1)]))
+    original = copy.deepcopy(job)
+    completed_schools(batch, job)
+    batch.state['jobs']['north_gwinnett'] = original
+    with pytest.raises(BatchFull):
+        batch.search('north_gwinnett', original)
+    return batch
+
+
+@pytest.mark.parametrize('changed', [page(2, 1), page(2, 2, 3)])
+def test_live_pagination_change_restarts_and_reconciles_within_budget(tmp_path, changed):
+    old = interrupted_page_one(tmp_path)
+    client = FakeClient([changed, page(1, 3), page(2, 4)])
+    resumed = Batch(old.db, old.root, 3, 0, client=client)
+    result = resumed.run()
+    assert result['status'] == 'complete' and result['requests'] == 3
+    assert result['recovery_reason'].startswith('Pagination')
+    job = resumed.state['jobs']['north_gwinnett']
+    assert set(job['rows']) == {'zillow:3', 'zillow:4'}
+    assert job['next_page'] == 3 and job['finished_at']
+    runs, rows = read_frames(old.db, 'observed')
+    selected = canonical_runs(runs)
+    assert selected.iloc[0].row_count == 2
+    assert set(rows[rows.run_id.isin(selected.run_id)].property_id) == {'zillow:3', 'zillow:4'}
+    assert runs.quality.eq('partial').any()
+
+
+def test_drift_at_budget_limit_saves_fresh_bookmark_then_resumes(tmp_path, monkeypatch):
+    from tracker import batch as module
+    old = interrupted_page_one(tmp_path)
+    resumed = Batch(old.db, old.root, 1, 0, client=FakeClient([page(2, 2, 3)]))
+    result = resumed.run()
+    assert result['status'] == 'checkpointed' and result['error'] is None
+    checkpoint = read_json(resumed.path)['jobs']['north_gwinnett']
+    assert checkpoint['next_page'] == 1 and not checkpoint['rows']
+    assert 'response' not in checkpoint and 'total' not in checkpoint
+    assert not canonical_runs(read_frames(old.db, 'observed')[0]).shape[0]
+    later = utcnow() + timedelta(minutes=26)
+    monkeypatch.setattr(module, 'utcnow', lambda: later)
+    fresh = Batch(old.db, old.root, 2, 0, client=FakeClient([page(1, 3), page(2, 4)]))
+    assert fresh.run()['status'] == 'complete'
+    assert set(fresh.state['jobs']['north_gwinnett']['rows']) == {'zillow:3', 'zillow:4'}
+
+
 def test_finished_school_yields_to_missing_years_and_publishes_one_batch(tmp_path):
     client = FakeClient([detail_html(2, 2000), detail_html(1, 2016)])
     batch, job = ready(tmp_path, client, limit=2)
