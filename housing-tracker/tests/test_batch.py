@@ -215,6 +215,7 @@ def completed_schools(batch, job):
     other = copy.deepcopy(job)
     other['rows'] = {'zillow:3': dict(extract_search(item(3), stamp), year_built=2005)}
     batch.state['jobs']['johns_creek'] = other
+    batch.state['jobs']['chattahoochee'] = dict(copy.deepcopy(other), rows={})
     batch.state['details']['zillow:3'] = dict(year_built=2005, next_check=(utcnow() + timedelta(days=90)).isoformat())
     batch.state['turn'] = 1  # Previously this wasted a batch on the completed school.
     return other
@@ -222,6 +223,18 @@ def completed_schools(batch, job):
 
 def detail_html(pid, year):
     return f'<link rel="canonical" href="https://www.zillow.com/homedetails/{pid}_zpid/"><div>Built in {year}</div>'
+
+
+def test_existing_checkpoint_bootstraps_new_school_without_reset(tmp_path):
+    batch, job = ready(tmp_path, FakeClient([]))
+    completed_schools(batch, job)
+    batch.state['jobs'].pop('chattahoochee')
+    batch.state['turn'] = 0
+    before = copy.deepcopy(batch.state)
+    batch.save()
+    restored = Batch(batch.db, batch.root, client=FakeClient([]))
+    assert restored.choose_school(utcnow().isoformat()) == 'chattahoochee'
+    assert restored.state == before
 
 
 def test_finished_school_yields_to_missing_years_and_publishes_one_batch(tmp_path):

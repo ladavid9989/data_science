@@ -94,7 +94,7 @@ def message_for(events, recipient, sender):
             lines.append(f"{label}: {stamp:%Y-%m-%d %I:%M %p %Z}")
         lines.extend([event['url'], ''])
     lines.extend([f'대시보드: {DASHBOARD}', '',
-                  '두 학군 · Houses · 침실 3+ · 욕실 2+ · $400k–$700k',
+                  f'{len(SCHOOLS)}개 학군 · Houses · 침실 3+ · 욕실 2+ · $400k–$700k',
                   '두 날짜에 실제 수집한 호가의 차이입니다. 정확한 가격 변경 시각이나 거래가격을 뜻하지 않습니다.',
                   '전날 기록이 없거나 검색 수집이 불완전한 학군은 비교에서 제외합니다.'])
     message.set_content('\n'.join(lines))

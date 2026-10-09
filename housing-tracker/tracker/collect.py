@@ -25,6 +25,9 @@ SOURCES = {
     "johns_creek": (164559, "johns-creek-high-school",
         "https://www4.fultonschools.org/arcgisserver/rest/services/AttendanceZones/CombinedAttendanceZones/FeatureServer/22",
         "name_1633352979610 LIKE '%Johns Creek%' AND zonetype='High School Attendance Zone'"),
+    "chattahoochee": (102362, "chattahoochee-high-school",
+        "https://www4.fultonschools.org/arcgisserver/rest/services/AttendanceZones/CombinedAttendanceZones/FeatureServer/22",
+        "name_1633352979610 = 'Chattahoochee High School' AND zonetype='High School Attendance Zone'"),
 }
 
 

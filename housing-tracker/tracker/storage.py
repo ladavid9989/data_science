@@ -14,7 +14,8 @@ from zoneinfo import ZoneInfo
 
 import pandas as pd
 
-SCHOOLS = {"north_gwinnett": "North Gwinnett High School", "johns_creek": "Johns Creek High School"}
+SCHOOLS = {"north_gwinnett": "North Gwinnett High School", "johns_creek": "Johns Creek High School",
+           "chattahoochee": "Chattahoochee High School"}
 SCOPE = "houses_3bed_2bath_all_prices_v1"
 SOURCE_SCOPE = "zillow_school_search_houses_3bed_2bath_all_prices_v1"
 BAND_SCOPE = "zillow_school_search_houses_3bed_2bath_400k_700k_v2"

@@ -8,14 +8,14 @@ from tracker.storage import BAND_SCOPE, import_snapshot
 TODAY = date(2026, 10, 4)
 
 
-def put(db, day, prices, *, quality='source_complete', hour=13, price_day=None, episode='unknown', boundary='zone'):
+def put(db, day, prices, *, quality='source_complete', hour=13, price_day=None, episode='unknown', boundary='zone', school='north_gwinnett'):
     rows = [dict(property_id=f'zillow:{i}', episode_id=f'zillow:{i}:{episode}',
                  address=f'{i} Test St', price=price, bedrooms=3, bathrooms=2,
                  property_type='SINGLE_FAMILY', status='active', year_built=None,
                  price_observed_at=f'2026-10-{price_day or day:02d}T13:00:00+00:00',
                  url=f'https://www.zillow.com/homedetails/{i}_zpid/')
             for i, price in enumerate(prices, 1)]
-    return import_snapshot(db, dict(schema_version=1, dataset='observed', school='north_gwinnett',
+    return import_snapshot(db, dict(schema_version=1, dataset='observed', school=school,
         observed_at=f'2026-10-{day:02d}T{hour:02d}:00:00+00:00', quality=quality,
         scope=BAND_SCOPE + ':' + boundary, boundary_version=boundary, reported_count=len(rows),
         expected_unique_count=len(rows), coverage=dict(price_range=[400000, 700000],
@@ -30,6 +30,20 @@ def test_observed_property_prices_support_unknown_episodes_and_both_directions(t
     events, _ = price_changes(db, TODAY)
     assert [e['change'] for e in events] == [-30000, 10000]
     assert events[0]['percent'] == -5
+
+
+def test_new_school_waits_for_baseline_then_joins_price_alerts(tmp_path):
+    db = tmp_path / 'db'
+    put(db, 3, [600000])
+    put(db, 4, [570000])
+    put(db, 4, [510000], school='chattahoochee')
+    events, coverage = price_changes(db, TODAY)
+    assert len(events) == 1
+    assert coverage['chattahoochee'] == 'waiting_for_consecutive_complete_days'
+    put(db, 3, [530000], school='chattahoochee')
+    events, coverage = price_changes(db, TODAY)
+    assert {(e['school'], e['change']) for e in events} == {('north_gwinnett', -30000), ('chattahoochee', -20000)}
+    assert coverage['chattahoochee'] == 'compared'
 
 
 @pytest.mark.parametrize('prior_day,quality,boundary', [(2, 'source_complete', 'zone'),

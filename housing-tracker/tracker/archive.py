@@ -8,7 +8,7 @@ from pathlib import Path
 
 from tracker.collect import read_json
 from tracker.band import restrict_snapshot, prune_database
-from tracker.storage import connection, import_snapshot, initialize
+from tracker.storage import SCHOOLS, connection, import_snapshot, initialize
 
 REMOTE = "https://raw.githubusercontent.com/ladavid9989/data_science/data/school-housing-tracker/"
 
@@ -47,7 +47,8 @@ def sync(db):
     for entry in index["snapshots"]:
         if entry["run_id"] in existing:
             continue
-        if not re.fullmatch(r"snapshots/\d{4}-\d{2}-\d{2}/(?:north_gwinnett|johns_creek)-[a-f0-9]{64}\.json\.gz", entry["path"]):
+        schools = '|'.join(re.escape(school) for school in SCHOOLS)
+        if not re.fullmatch(r"snapshots/\d{4}-\d{2}-\d{2}/(?:" + schools + r")-[a-f0-9]{64}\.json\.gz", entry["path"]):
             raise ValueError("Invalid archive path")
         with urllib.request.urlopen(REMOTE + entry["path"], timeout=20) as reply:
             payload = json.loads(gzip.decompress(reply.read()))

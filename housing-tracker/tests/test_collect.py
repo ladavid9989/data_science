@@ -60,6 +60,35 @@ def test_source_scope_not_mixed_across_boundary_versions(tmp_path):
     assert len(runs) == 1 and runs.iloc[0].boundary_version == "zone-b"
 
 
+def test_cloud_sync_accepts_new_school_and_rejects_unknown_paths(tmp_path, monkeypatch):
+    import gzip
+    import io
+    import json
+    from tracker import archive as module
+    sample = next(snapshots())
+    sample['school'] = 'chattahoochee'
+    archive = tmp_path / 'archive'
+    run_id, _ = import_snapshot(tmp_path / 'source.db', sample)
+    relative = f'snapshots/2026-08-31/chattahoochee-{run_id}.json.gz'
+    write_json(archive / relative, sample)
+    index = {'version': 1, 'snapshots': index_archive(archive)}
+
+    def reply(url, **kwargs):
+        if 'index.json' in url:
+            return io.BytesIO(json.dumps(index).encode())
+        assert url.endswith(relative)
+        return io.BytesIO(gzip.compress(json.dumps(sample).encode()))
+
+    monkeypatch.setattr(module.urllib.request, 'urlopen', reply)
+    target = tmp_path / 'cloud.db'
+    assert module.sync(target) == 1
+    assert read_frames(target, 'observed')[0].school.tolist() == ['chattahoochee']
+    assert module.sync(target) == 0
+    index['snapshots'][0]['path'] = relative.replace('chattahoochee', 'unknown_school')
+    with pytest.raises(ValueError, match='Invalid archive path'):
+        module.sync(tmp_path / 'invalid.db')
+
+
 def test_inventory_precedes_enrichment_and_rate_limit_stops_details(tmp_path, monkeypatch):
     from tracker import collect as module
     order = []
@@ -86,8 +115,8 @@ def test_inventory_precedes_enrichment_and_rate_limit_stops_details(tmp_path, mo
     monkeypatch.setattr(module, "collect_school", search)
     monkeypatch.setattr(module, "enrich_school", enrich)
     result = module.collect(tmp_path / "x.sqlite3", archive)
-    assert len(result) == 2
-    assert order == ["search:north_gwinnett", "search:johns_creek", "detail:north_gwinnett"]
+    assert len(result) == len(module.SOURCES)
+    assert order == ['search:' + school for school in module.SOURCES] + ["detail:north_gwinnett"]
     assert result[0]["access_blocked"]
     order.clear()
     assert module.collect(tmp_path / "x.sqlite3", archive) == []

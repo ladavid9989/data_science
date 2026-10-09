@@ -14,8 +14,8 @@ from tracker.metrics import INVENTORY, canonical_runs, daily_metrics, filter_row
 from tracker.storage import SCHOOLS, default_db, read_frames
 
 st.set_page_config(page_title="Schoolside · 주택 시장 트래커", page_icon="🏡", layout="wide")
-COLORS = {"North Gwinnett": "#177568", "Johns Creek": "#6577C8"}
-SHORT = {"north_gwinnett": "North Gwinnett", "johns_creek": "Johns Creek"}
+COLORS = {"North Gwinnett": "#177568", "Johns Creek": "#6577C8", "Chattahoochee": "#C17C23"}
+SHORT = {school: name.removesuffix(' High School') for school, name in SCHOOLS.items()}
 STATUS = {"active": "판매 중", "under_contract": "계약 진행", "pending": "Pending",
           "sold": "판매 완료", "withdrawn": "등록 철회", "off_market_unknown": "상태 미확인"}
 st.markdown("""<style>
@@ -83,8 +83,8 @@ with st.sidebar:
     st.caption("GEORGIA · HOUSING OBSERVATORY")
     st.caption("실제 관측 · 미국 동부시간(ET)")
     st.divider()
-    school_choice = st.selectbox("고등학교 통학구역", ["두 학군 비교", *SCHOOLS.values()], key="school")
-    schools = list(SCHOOLS) if school_choice == "두 학군 비교" else [k for k, v in SCHOOLS.items() if v == school_choice]
+    school_choice = st.selectbox("고등학교 통학구역", ["전체 학군 비교", *SCHOOLS.values()], key="school")
+    schools = list(SCHOOLS) if school_choice == "전체 학군 비교" else [k for k, v in SCHOOLS.items() if v == school_choice]
     st.caption("현재 수집: Houses · 침실 3+ · 욕실 2+ · $400k–$700k")
     price = PRICE_RANGE
     years = st.slider("건축연도", 1600, 2031, (1600, 2031), key="years")
@@ -129,7 +129,7 @@ asof = max(common_dates) if common_dates else None
 full = joined(range_runs, observations)
 if asof:
     latest_rows = full[full.market_date == asof]
-    scope_label = f"두 학군의 공통 수집일 {asof} · 검증된 검색 범위 기준"
+    scope_label = f"{'선택 학군의 공통 수집일' if len(schools) > 1 else '수집일'} {asof} · 검증된 검색 범위 기준"
 else:
     candidates = canonical_runs(range_runs[range_runs.quality.ne("failed")], complete_only=False).sort_values("observed_at").drop_duplicates("school", keep="last")
     latest_rows = observations.merge(candidates, on="run_id")
@@ -297,7 +297,7 @@ with history_tab:
 
 with health_tab:
     st.subheader("기록의 범위와 신뢰도")
-    st.caption("30분 간격으로 실행하고 학군별 전체 검색은 약 1시간마다 갱신합니다. 건축연도가 모두 확인돼도 새 매물과 가격을 다시 조회합니다. 실행 지연·하루 요청 한도·접근 제한 중에는 더 늦어질 수 있습니다.")
+    st.caption(f"30분 간격으로 실행하고 {len(SCHOOLS)}개 학군을 순차 수집합니다. 정상 실행 시 학군별 전체 검색은 약 {30 * len(SCHOOLS)}분마다 갱신합니다. 건축연도가 모두 확인돼도 새 매물과 가격을 다시 조회합니다. 실행 지연·하루 요청 한도·접근 제한 중에는 더 늦어질 수 있습니다.")
     st.link_button("GitHub 수집 실행 기록", "https://github.com/ladavid9989/data_science/actions/workflows/housing-collect.yml")
     for school in schools:
         subset = runs[runs.school == school]
