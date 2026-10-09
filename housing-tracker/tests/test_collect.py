@@ -60,16 +60,17 @@ def test_source_scope_not_mixed_across_boundary_versions(tmp_path):
     assert len(runs) == 1 and runs.iloc[0].boundary_version == "zone-b"
 
 
-def test_cloud_sync_accepts_new_school_and_rejects_unknown_paths(tmp_path, monkeypatch):
+@pytest.mark.parametrize('school', ['chattahoochee', 'northview'])
+def test_cloud_sync_accepts_new_school_and_rejects_unknown_paths(tmp_path, monkeypatch, school):
     import gzip
     import io
     import json
     from tracker import archive as module
     sample = next(snapshots())
-    sample['school'] = 'chattahoochee'
+    sample['school'] = school
     archive = tmp_path / 'archive'
     run_id, _ = import_snapshot(tmp_path / 'source.db', sample)
-    relative = f'snapshots/2026-08-31/chattahoochee-{run_id}.json.gz'
+    relative = f'snapshots/2026-08-31/{school}-{run_id}.json.gz'
     write_json(archive / relative, sample)
     index = {'version': 1, 'snapshots': index_archive(archive)}
 
@@ -82,9 +83,9 @@ def test_cloud_sync_accepts_new_school_and_rejects_unknown_paths(tmp_path, monke
     monkeypatch.setattr(module.urllib.request, 'urlopen', reply)
     target = tmp_path / 'cloud.db'
     assert module.sync(target) == 1
-    assert read_frames(target, 'observed')[0].school.tolist() == ['chattahoochee']
+    assert read_frames(target, 'observed')[0].school.tolist() == [school]
     assert module.sync(target) == 0
-    index['snapshots'][0]['path'] = relative.replace('chattahoochee', 'unknown_school')
+    index['snapshots'][0]['path'] = relative.replace(school, 'unknown_school')
     with pytest.raises(ValueError, match='Invalid archive path'):
         module.sync(tmp_path / 'invalid.db')
 

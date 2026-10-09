@@ -32,18 +32,19 @@ def test_observed_property_prices_support_unknown_episodes_and_both_directions(t
     assert events[0]['percent'] == -5
 
 
-def test_new_school_waits_for_baseline_then_joins_price_alerts(tmp_path):
+@pytest.mark.parametrize('school', ['chattahoochee', 'northview'])
+def test_new_school_waits_for_baseline_then_joins_price_alerts(tmp_path, school):
     db = tmp_path / 'db'
     put(db, 3, [600000])
     put(db, 4, [570000])
-    put(db, 4, [510000], school='chattahoochee')
+    put(db, 4, [510000], school=school)
     events, coverage = price_changes(db, TODAY)
     assert len(events) == 1
-    assert coverage['chattahoochee'] == 'waiting_for_consecutive_complete_days'
-    put(db, 3, [530000], school='chattahoochee')
+    assert coverage[school] == 'waiting_for_consecutive_complete_days'
+    put(db, 3, [530000], school=school)
     events, coverage = price_changes(db, TODAY)
-    assert {(e['school'], e['change']) for e in events} == {('north_gwinnett', -30000), ('chattahoochee', -20000)}
-    assert coverage['chattahoochee'] == 'compared'
+    assert {(e['school'], e['change']) for e in events} == {('north_gwinnett', -30000), (school, -20000)}
+    assert coverage[school] == 'compared'
 
 
 @pytest.mark.parametrize('prior_day,quality,boundary', [(2, 'source_complete', 'zone'),

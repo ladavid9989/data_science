@@ -4,7 +4,7 @@ import pytest
 from streamlit.testing.v1 import AppTest
 
 from tests.scenarios import seed, snapshots
-from tracker.storage import import_snapshot
+from tracker.storage import SCHOOLS, import_snapshot
 
 APP = Path(__file__).resolve().parents[1] / "streamlit_app.py"
 
@@ -34,15 +34,16 @@ def test_default_dashboard_and_filters(app):
     assert int(app.metric[0].value) > 0
 
 
-def test_new_school_complete_search_has_metrics_and_price_history(tmp_path, monkeypatch):
+@pytest.mark.parametrize('school', ['chattahoochee', 'northview'])
+def test_new_school_complete_search_has_metrics_and_price_history(tmp_path, monkeypatch, school):
     from tests.test_alerts import put
     db = tmp_path / 'new-school.sqlite3'
-    put(db, 3, [600000], school='chattahoochee')
-    put(db, 4, [570000], school='chattahoochee')
+    put(db, 3, [600000], school=school)
+    put(db, 4, [570000], school=school)
     monkeypatch.setenv('HOUSING_DB_PATH', str(db))
     monkeypatch.setenv('HOUSING_OFFLINE', '1')
     app = AppTest.from_file(APP, default_timeout=30).run()
-    app.selectbox(key='school').select('Chattahoochee High School').run()
+    app.selectbox(key='school').select(SCHOOLS[school]).run()
     assert not app.exception
     assert app.metric[0].value == '1'
     assert app.metric[1].value == '$570,000'

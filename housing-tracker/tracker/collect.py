@@ -28,6 +28,9 @@ SOURCES = {
     "chattahoochee": (102362, "chattahoochee-high-school",
         "https://www4.fultonschools.org/arcgisserver/rest/services/AttendanceZones/CombinedAttendanceZones/FeatureServer/22",
         "name_1633352979610 = 'Chattahoochee High School' AND zonetype='High School Attendance Zone'"),
+    "northview": (102378, "northview-high-school",
+        "https://www4.fultonschools.org/arcgisserver/rest/services/AttendanceZones/CombinedAttendanceZones/FeatureServer/22",
+        "name_1633352979610 = 'Northview High School' AND zonetype='High School Attendance Zone'"),
 }
 
 

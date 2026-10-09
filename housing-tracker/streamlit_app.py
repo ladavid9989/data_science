@@ -14,7 +14,8 @@ from tracker.metrics import INVENTORY, canonical_runs, daily_metrics, filter_row
 from tracker.storage import SCHOOLS, default_db, read_frames
 
 st.set_page_config(page_title="Schoolside · 주택 시장 트래커", page_icon="🏡", layout="wide")
-COLORS = {"North Gwinnett": "#177568", "Johns Creek": "#6577C8", "Chattahoochee": "#C17C23"}
+COLORS = {"North Gwinnett": "#177568", "Johns Creek": "#6577C8", "Chattahoochee": "#C17C23",
+          "Northview": "#AD5276"}
 SHORT = {school: name.removesuffix(' High School') for school, name in SCHOOLS.items()}
 STATUS = {"active": "판매 중", "under_contract": "계약 진행", "pending": "Pending",
           "sold": "판매 완료", "withdrawn": "등록 철회", "off_market_unknown": "상태 미확인"}

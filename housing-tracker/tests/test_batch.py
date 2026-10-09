@@ -6,7 +6,7 @@ import pandas as pd
 import pytest
 
 from tracker.batch import Batch, BatchFull, PRICE_RANGE, utcnow
-from tracker.collect import AccessBlocked, filters, read_json, write_json
+from tracker.collect import AccessBlocked, SOURCES, filters, read_json, write_json
 from tracker.extraction import extract_detail, extract_search, facts_hash
 from tracker.metrics import canonical_runs, rank_price_cuts
 from tracker.storage import read_frames
@@ -215,7 +215,9 @@ def completed_schools(batch, job):
     other = copy.deepcopy(job)
     other['rows'] = {'zillow:3': dict(extract_search(item(3), stamp), year_built=2005)}
     batch.state['jobs']['johns_creek'] = other
-    batch.state['jobs']['chattahoochee'] = dict(copy.deepcopy(other), rows={})
+    for school in SOURCES:
+        if school not in batch.state['jobs']:
+            batch.state['jobs'][school] = dict(copy.deepcopy(other), rows={})
     batch.state['details']['zillow:3'] = dict(year_built=2005, next_check=(utcnow() + timedelta(days=90)).isoformat())
     batch.state['turn'] = 1  # Previously this wasted a batch on the completed school.
     return other
@@ -225,20 +227,21 @@ def detail_html(pid, year):
     return f'<link rel="canonical" href="https://www.zillow.com/homedetails/{pid}_zpid/"><div>Built in {year}</div>'
 
 
-def test_existing_checkpoint_bootstraps_new_school_without_reset(tmp_path):
+@pytest.mark.parametrize('school', ['chattahoochee', 'northview'])
+def test_existing_checkpoint_bootstraps_new_school_without_reset(tmp_path, school):
     batch, job = ready(tmp_path, FakeClient([]))
     completed_schools(batch, job)
-    batch.state['jobs'].pop('chattahoochee')
+    batch.state['jobs'].pop(school)
     batch.state['turn'] = 0
     before = copy.deepcopy(batch.state)
     batch.save()
     restored = Batch(batch.db, batch.root, client=FakeClient([]))
-    assert restored.choose_school(utcnow().isoformat()) == 'chattahoochee'
+    assert restored.choose_school(utcnow().isoformat()) == school
     assert restored.state == before
     # Once started, finish its saved pages before refreshing an older full search.
-    restored.state['jobs']['chattahoochee'] = dict(started_at=utcnow().isoformat(), next_page=2)
+    restored.state['jobs'][school] = dict(started_at=utcnow().isoformat(), next_page=2)
     later = (utcnow() + timedelta(hours=2)).isoformat()
-    assert restored.choose_school(later) == 'chattahoochee'
+    assert restored.choose_school(later) == school
 
 
 def test_finished_school_yields_to_missing_years_and_publishes_one_batch(tmp_path):
