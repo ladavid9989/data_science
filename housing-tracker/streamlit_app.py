@@ -123,13 +123,18 @@ start, end = dates
 filters = dict(price=price, years=years, include_unknown=include_unknown, beds=beds, baths=baths)
 range_runs = runs[runs.market_date.between(start.isoformat(), end.isoformat())]
 canonical = canonical_runs(range_runs)
+ready_schools = [school for school in schools if school in set(canonical.school)]
+waiting_schools = [school for school in schools if school not in ready_schools]
+if waiting_schools and ready_schools:
+    st.info(f"{', '.join(SHORT[school] for school in waiting_schools)}: 선택 기간의 완전 수집을 기다리고 있습니다. "
+            f"현재 합계는 {', '.join(SHORT[school] for school in ready_schools)} 기준이며, 기존 학군의 기록은 계속 표시합니다.")
 common = canonical.groupby("market_date").school.nunique()
-common_dates = common[common == len(schools)].index.tolist()
+common_dates = common[common == len(ready_schools)].index.tolist() if ready_schools else []
 asof = max(common_dates) if common_dates else None
 full = joined(range_runs, observations)
 if asof:
     latest_rows = full[full.market_date == asof]
-    scope_label = f"{'선택 학군의 공통 수집일' if len(schools) > 1 else '수집일'} {asof} · 검증된 검색 범위 기준"
+    scope_label = f"{'수집 완료 학군의 공통 수집일' if len(schools) > 1 else '수집일'} {asof} · 검증된 검색 범위 기준"
 else:
     candidates = canonical_runs(range_runs[range_runs.quality.ne("failed")], complete_only=False).sort_values("observed_at").drop_duplicates("school", keep="last")
     latest_rows = observations.merge(candidates, on="run_id")

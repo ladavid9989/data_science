@@ -51,6 +51,23 @@ def test_new_school_complete_search_has_metrics_and_price_history(tmp_path, monk
     assert changes['변화 ($)'].tolist() == [-30000]
 
 
+def test_new_school_partial_does_not_hide_existing_market_history(tmp_path, monkeypatch):
+    from tests.test_alerts import put
+    db = tmp_path / 'partial-new-school.sqlite3'
+    for school in ('north_gwinnett', 'johns_creek'):
+        put(db, 3, [600000], school=school)
+        put(db, 4, [570000], school=school)
+    put(db, 4, [500000], school='chattahoochee', quality='partial')
+    monkeypatch.setenv('HOUSING_DB_PATH', str(db))
+    monkeypatch.setenv('HOUSING_OFFLINE', '1')
+    app = AppTest.from_file(APP, default_timeout=30).run()
+    assert not app.exception
+    assert app.metric[0].value == '2'
+    assert app.metric[1].value == '$570,000'
+    assert any('Chattahoochee' in info.value for info in app.info)
+    assert app.selectbox(key='change_window').value == '최근 7일'
+
+
 def test_observed_partial_does_not_show_market_median(tmp_path, monkeypatch):
     db = tmp_path / "partial.sqlite3"
     monkeypatch.setenv("HOUSING_DB_PATH", str(db))

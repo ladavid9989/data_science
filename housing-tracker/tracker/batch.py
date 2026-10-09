@@ -231,6 +231,9 @@ class Batch:
         for school in schools:
             if school not in self.state['jobs']:
                 return school
+        for school in schools:
+            if not self.state['jobs'][school].get('finished_at'):
+                return school
         # Re-query the entire inventory even after every construction year is known.
         for school in schools:
             job = self.state['jobs'].get(school)

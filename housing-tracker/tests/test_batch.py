@@ -235,6 +235,10 @@ def test_existing_checkpoint_bootstraps_new_school_without_reset(tmp_path):
     restored = Batch(batch.db, batch.root, client=FakeClient([]))
     assert restored.choose_school(utcnow().isoformat()) == 'chattahoochee'
     assert restored.state == before
+    # Once started, finish its saved pages before refreshing an older full search.
+    restored.state['jobs']['chattahoochee'] = dict(started_at=utcnow().isoformat(), next_page=2)
+    later = (utcnow() + timedelta(hours=2)).isoformat()
+    assert restored.choose_school(later) == 'chattahoochee'
 
 
 def test_finished_school_yields_to_missing_years_and_publishes_one_batch(tmp_path):
