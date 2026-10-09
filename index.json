@@ -1362,6 +1362,14 @@
       "rows": 11
     },
     {
+      "path": "snapshots/2026-10-09/johns_creek-2bd45a1682be2823d1376eeff54c9f9f4450dd78a8fa1af40baa2901e42976fc.json.gz",
+      "run_id": "2bd45a1682be2823d1376eeff54c9f9f4450dd78a8fa1af40baa2901e42976fc",
+      "school": "johns_creek",
+      "observed_at": "2026-10-09T18:00:40.463975+00:00",
+      "quality": "source_complete",
+      "rows": 12
+    },
+    {
       "path": "snapshots/2026-10-09/johns_creek-2fb547f5dbf66f24112e53dcd6fb86273fbf64cff16704289bdce19c6852c567.json.gz",
       "run_id": "2fb547f5dbf66f24112e53dcd6fb86273fbf64cff16704289bdce19c6852c567",
       "school": "johns_creek",
