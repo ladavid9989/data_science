@@ -20,6 +20,7 @@ SCOPE = "houses_3bed_2bath_all_prices_v1"
 SOURCE_SCOPE = "zillow_school_search_houses_3bed_2bath_all_prices_v1"
 BAND_SCOPE = "zillow_school_search_houses_3bed_2bath_400k_700k_v2"
 EXTRAS = {'year_status': 'TEXT', 'year_observed_at': 'TEXT', 'price_observed_at': 'TEXT',
+          'status_observed_at': 'TEXT',
           'price_cut': 'REAL', 'price_cut_date': 'TEXT', 'cut_source': 'TEXT', 'facts_hash': 'TEXT'}
 DATASETS = {"observed"}
 STATUSES = {"active", "under_contract", "pending", "sold", "withdrawn", "off_market_unknown"}
@@ -78,7 +79,7 @@ def normalize_status(value):
         "active": "active", "for sale": "active", "house for sale": "active", "forsale": "active",
         "for sale by owner": "active",
         "active under contract": "under_contract", "under contract": "under_contract",
-        "pending": "pending", "sold": "sold", "recently sold": "sold",
+        "pending": "pending", "sold": "sold", "recently sold": "sold", "closed": "sold",
         "withdrawn": "withdrawn", "off market": "off_market_unknown",
         "off market unknown": "off_market_unknown",
     }.get(text, "off_market_unknown")

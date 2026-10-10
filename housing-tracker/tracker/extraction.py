@@ -80,7 +80,7 @@ def extract_search(item, stamp):
             cut = float(match[1].replace(',', '')) * {'': 1, 'K': 1000, 'M': 1000000}[match[2].upper()]
     changed = info.get('datePriceChanged')
     cut_date = datetime.fromtimestamp(changed / 1000, timezone.utc).date().isoformat() if cut and isinstance(changed, (int, float)) else None
-    row.update(price_observed_at=stamp, year_status='verified' if row['year_built'] else 'not_requested',
+    row.update(price_observed_at=stamp, status_observed_at=stamp, year_status='verified' if row['year_built'] else 'not_requested',
                price_cut=cut, price_cut_date=cut_date, cut_source='Zillow reported price cut' if cut else None)
     row['facts_hash'] = facts_hash(row)
     return row

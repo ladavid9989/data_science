@@ -347,6 +347,53 @@ def test_cached_details_publish_after_crash_without_new_request(tmp_path):
     assert not resumed.client.urls
 
 
+def test_disappearance_status_check_does_not_wait_for_year_refresh(tmp_path):
+    batch, job = ready(tmp_path, FakeClient([]))
+    row = extract_search(item(1), utcnow().isoformat())
+    job['watch'] = {'zillow:1': row}
+    batch.state['details']['zillow:1'] = dict(year_built=2000, next_check=(utcnow() + timedelta(days=90)).isoformat())
+    assert batch.detail_candidates(job)[0][-1] == 'zillow:1'
+    batch.state['details']['zillow:1']['status_next_check'] = (utcnow() + timedelta(days=1)).isoformat()
+    assert batch.detail_candidates(job) == []
+
+
+def test_closed_followup_retains_last_asking_price_and_sale_evidence(tmp_path, monkeypatch):
+    from tracker import batch as module
+    stamp = utcnow().isoformat()
+    batch, job = ready(tmp_path, FakeClient(['fixture detail']))
+    batch.detail_limit = 1
+    asking_stamp = (utcnow() - timedelta(days=2)).isoformat()
+    row = extract_search(item(1, price=690000), asking_stamp)
+    row['first_seen'] = asking_stamp
+    job['watch'] = {'zillow:1': row}
+    monkeypatch.setattr(module, 'extract_detail', lambda *args: dict(homeStatus='CLOSED', price=720000,
+        extracted_year=2000, year_status='verified', year_source='fixture',
+        priceHistory=[dict(event='Sold', price=720000, date=stamp[:10])]))
+    batch.details('north_gwinnett', job)
+    saved = job['followed']['zillow:1']
+    assert saved['price'] == 690000 and saved['sold_price'] == 720000
+    assert saved['sold_date'] == stamp[:10] and saved['status'] == 'sold'
+    assert saved['price_observed_at'] == asking_stamp
+    assert saved['status_observed_at'] > asking_stamp
+    assert 'Explicit source sold event' in saved['evidence']
+    assert batch.detail_candidates(job) == []
+
+
+def test_missing_off_market_price_keeps_status_followup_eligible(tmp_path, monkeypatch):
+    from tracker import batch as module
+    batch, job = ready(tmp_path, FakeClient(['fixture detail']))
+    batch.detail_limit = 1
+    original_stamp = (utcnow() - timedelta(days=2)).isoformat()
+    job['watch'] = {'zillow:1': extract_search(item(1), original_stamp)}
+    monkeypatch.setattr(module, 'extract_detail', lambda *args: dict(homeStatus='OTHER', price=None,
+        extracted_year=2000, year_status='verified', year_source='fixture'))
+    batch.details('north_gwinnett', job)
+    saved = job['followed']['zillow:1']
+    assert saved['status'] == 'off_market_unknown' and saved['price'] == 590000
+    assert saved['price_observed_at'] == original_stamp
+    assert 'zillow:1' in job['watch']
+
+
 def test_same_day_search_refresh_discovers_new_listings_and_changed_prices(tmp_path, monkeypatch):
     from tracker import batch as module
     start = utcnow()

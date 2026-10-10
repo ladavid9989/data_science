@@ -10,6 +10,7 @@ import streamlit as st
 
 from tracker.archive import sync
 from tracker.band import PRICE_RANGE, prune_database
+from tracker.flows import FLOW_REASONS, confirmed_sales, listing_flows
 from tracker.metrics import INVENTORY, canonical_runs, daily_metrics, filter_rows, joined, price_change_history, property_history, rank_price_cuts, rolling_market_metrics
 from tracker.storage import SCHOOLS, default_db, read_frames
 
@@ -216,15 +217,60 @@ with overview:
             price_stat = st.selectbox('가격 통계', ['중앙값', '평균'], key='price_stat')
             st.caption('매물 구성과 가격대 진입·이탈에 영향을 받는 값입니다. 같은 집의 가격 변화는 위 7일 지표로 확인하세요.')
             st.plotly_chart(line_chart(metrics, 'median_price' if price_stat == '중앙값' else 'mean_price', True), width='stretch', key='composition_chart')
-        activity = filter_rows(full, **filters)
-        sold_activity = activity[activity.status.eq("sold") & activity.sold_date.notna()].sort_values("observed_at").drop_duplicates(
-            ["property_id", "episode_id", "sold_date"], keep="last")
-        sold_activity = sold_activity[sold_activity.sold_date.between(start.isoformat(), end.isoformat())]
-        activity_cards = st.columns(3)
-        activity_cards[0].metric("기간 내 거래일이 확인된 판매", str(len(sold_activity)))
-        activity_cards[1].metric("거래가격까지 확인", str(sold_activity.sold_price.notna().sum()))
-        activity_cards[2].metric("확인된 거래가격 중앙값", money(sold_activity.sold_price.median()))
-        st.caption("위 판매 지표는 확인된 거래일 기준이며, 가격 필터는 기록된 호가에 적용됩니다. 뒤늦게 공개된 거래가격은 이후 집계에서 추가될 수 있습니다.")
+        st.subheader('매물 진입·이탈과 판매 완료')
+        flow_window = st.selectbox('매물 흐름 조회 기간', ['최근 1일', '최근 7일', '최근 30일', '선택 기간 전체'], index=1, key='flow_window')
+        flow_days = {'최근 1일': 1, '최근 7일': 7, '최근 30일': 30}.get(flow_window)
+        flow_start = max(start, end - timedelta(days=flow_days - 1)) if flow_days else start
+        flows, flow_events = listing_flows(runs, observations, schools, start, end, **filters)
+        metrics = metrics.merge(flows.drop(columns=['active', 'contract']), on=['date', 'school'], how='left')
+        flow_school = '__all__' if len(schools) > 1 else schools[0]
+        flow_period = flows[flows.school.eq(flow_school) & flows.date.between(str(flow_start), str(end))]
+        compared = flow_period[flow_period.flow_complete]
+        period_events = flow_events[flow_events.school.eq(flow_school) & flow_events.date.between(str(flow_start), str(end))].copy()
+        sales = confirmed_sales(runs, observations, schools, end, **filters)
+        sales['confirmed_date'] = sales.groupby(['property_id', '_sale_key']).confirmed_date.transform('min')
+        sales = sales.sort_values('observed_at').drop_duplicates(['property_id', '_sale_key'], keep='last')
+        sales = sales[sales.confirmed_date.between(str(flow_start), str(end))]
+        st.caption(f'{flow_start} ~ {end} · 미국 동부시간 · 전일과 비교 가능한 {len(compared)}/{len(flow_period)}일의 합계. 각 날짜의 마지막 완전 수집끼리 비교합니다.')
+        if len(compared) != len(flow_period):
+            st.info('첫 수집일·수집 누락·검색 범위 변경·오래된 관측은 진입·이탈 비교에서 제외합니다. 아래 수치는 비교 가능한 날짜의 부분 합계이며, 빠진 날을 0건으로 처리하지 않습니다.')
+        flow_cards = st.columns(5)
+        for card, label, key in zip(flow_cards[:3], ['판매 중 목록 진입', '판매 중 목록 이탈', '매물 순증감'], ['entered', 'left', 'net']):
+            card.metric(label, f'{compared[key].sum():+.0f}' if key == 'net' and len(compared) else
+                        (f'{compared[key].sum():.0f}' if len(compared) else '미산출'))
+        flow_cards[3].metric('현재 계약 진행 / Pending', str(inventory[inventory.status.ne('active')].property_id.nunique()))
+        flow_cards[4].metric('기간 내 판매 완료 확인', str(len(sales)))
+        st.caption(f'현재 계약 진행은 {asof} 기준 보유 건수입니다. 진입·이탈은 날짜별 이동 횟수로, 같은 집의 재진입·재이탈은 각각 셉니다. 전체 학군 합계에서는 중복 매물을 한 번만 셉니다.')
+        st.caption('판매 완료는 원문에서 확인한 건수이며 최초 확인일 기준입니다. 0건이어도 실제 거래가 없다는 뜻은 아닙니다. 실제 거래일과 근거는 아래 판매 완료 내역에서 확인할 수 있습니다.')
+        if len(compared):
+            st.caption(f"진입 중 처음 관측 {compared.first_observed.sum():.0f}건 · 재관측 {compared.reappeared.sum():.0f}건 · 계약 진행에서 판매 중으로 복귀 {compared.reactivated.sum():.0f}건 · 필터 편입 {compared.filter_entered.sum():.0f}건. "
+                       f"이탈 중 계약 진행 전환 {compared.to_contract.sum():.0f}건 · 판매 완료 확인 {compared.to_sold.sum():.0f}건 · 등록 철회 {compared.withdrawn.sum():.0f}건 · 필터 이탈 {compared.filter_left.sum():.0f}건 · 사유 미확인 {compared.unexplained_left.sum():.0f}건.")
+        fig = go.Figure()
+        fig.add_trace(go.Bar(x=flow_period.date, y=flow_period.entered, name='진입', marker_color='#177568'))
+        fig.add_trace(go.Bar(x=flow_period.date, y=-pd.to_numeric(flow_period.left), name='이탈', marker_color='#AD5276'))
+        fig.add_trace(go.Scatter(x=flow_period.date, y=flow_period.net, name='순증감', mode='lines+markers', connectgaps=False, line_color='#6577C8'))
+        fig.update_layout(barmode='relative')
+        st.plotly_chart(chart_style(fig, 260), width='stretch', key='flow_chart')
+        st.caption('처음 관측된 집도 새로 등록된 집이라고 단정하지 않습니다. 가격대 진입이나 필터 정보 보완으로 포함될 수 있습니다. 검색 이탈도 판매 완료를 뜻하지 않습니다. 같은 날 들어왔다가 사라진 매물은 일별 마지막 목록 비교에 잡히지 않을 수 있습니다.')
+        with st.expander('진입·이탈 내역과 CSV'):
+            flow_display = period_events[['date', 'address', 'direction', 'reason', 'previous_status', 'current_status', 'price', 'url']].copy()
+            flow_display['direction'] = flow_display.direction.map({'entered': '진입', 'left': '이탈'})
+            flow_display['reason'] = flow_display.reason.map(FLOW_REASONS)
+            for column in ['previous_status', 'current_status']:
+                flow_display[column] = flow_display[column].map(STATUS).fillna('미관측')
+            flow_display = flow_display.rename(columns={'date': '비교일 (ET)', 'address': '매물', 'direction': '이동', 'reason': '분류',
+                'previous_status': '전일 관측 상태', 'current_status': '당일 관측 상태', 'price': '관측 호가 ($)', 'url': '원문'})
+            st.dataframe(flow_display, hide_index=True, width='stretch', column_config={'원문': st.column_config.LinkColumn(display_text='Zillow ↗')})
+            st.download_button('진입·이탈 이력 CSV', flow_display.to_csv(index=False).encode('utf-8-sig'), file_name=f'listing_flows_{flow_start}_{end}.csv', mime='text/csv')
+            st.dataframe(flow_period[['date', 'flow_complete', 'entered', 'left', 'net']].rename(columns={
+                'date': '날짜', 'flow_complete': '전일 비교 가능', 'entered': '진입', 'left': '이탈', 'net': '순증감'}), hide_index=True, width='stretch')
+        with st.expander('판매 완료 확인 내역 · Closed / Sold'):
+            st.caption('Closed와 Sold는 같은 판매 완료로 한 번만 셉니다. 위 건수는 최초 확인일 기준이고 실제 거래일은 아래에 별도로 표시합니다. 0건은 저장된 확인 기록이 없다는 뜻이며 실제 거래가 없다는 뜻은 아닙니다. 이탈 사유의 판매 완료와 중복될 수 있으므로 서로 더하지 않습니다.')
+            st.caption('추적하던 관심 매물에서 원문이 판매 완료로 명시한 기록만 집계합니다. 검색에서 사라진 집의 상태 확인은 지연되거나 누락될 수 있으며, 날짜·가격 미확인 항목은 비워 둡니다.')
+            sales_display = sales[['confirmed_date', 'sold_date', 'address', 'sold_price', 'evidence', 'url']].rename(columns={
+                'confirmed_date': '최초 확인일 (ET)', 'sold_date': '거래일', 'address': '매물', 'sold_price': '확인된 거래가격 ($)', 'evidence': '확인 근거', 'url': '원문'})
+            st.dataframe(sales_display, hide_index=True, width='stretch', column_config={'원문': st.column_config.LinkColumn(display_text='Zillow ↗')})
+            st.download_button('판매 완료 확인 CSV', sales_display.to_csv(index=False).encode('utf-8-sig'), file_name=f'confirmed_sales_{flow_start}_{end}.csv', mime='text/csv')
         left, right = st.columns(2)
         with left:
             st.subheader("건축연도 분포")

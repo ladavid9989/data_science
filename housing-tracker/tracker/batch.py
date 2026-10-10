@@ -207,16 +207,18 @@ class Batch:
             if not in_band(row.get('price')):
                 continue
             saved = self.state['details'].get(pid, {})
-            if saved.get('next_check') and now < datetime.fromisoformat(saved['next_check']):
+            watching = pid in job.get('watch', {})
+            next_check = saved.get('status_next_check' if watching else 'next_check')
+            if next_check and now < datetime.fromisoformat(next_check):
                 continue
             # Unattempted, missing years first; among them prioritize the largest price cuts.
             cut = max(0, row.get('price_cut') or 0)
             impact = cut / (row['price'] + cut)
-            candidates.append((int(bool(saved.get('year_built') or row.get('year_built'))),
+            candidates.append((-1 if watching else int(bool(saved.get('year_built') or row.get('year_built'))),
                                saved.get('attempted_at', ''), -impact, pid))
         if job.get('response') and job.get('detail_pid'):
             pid = job['detail_pid']
-            candidates = [(-1, '', 0, pid)] + [x for x in candidates if x[-1] != pid]
+            candidates = [(-2, '', 0, pid)] + [x for x in candidates if x[-1] != pid]
         return sorted(candidates)
 
     def enrichment_progress(self):
@@ -271,6 +273,8 @@ class Batch:
             except Exception as exc:
                 saved.update(attempted_at=utcnow().isoformat(), year_status='parse_failed', error=str(exc)[:200],
                              next_check=(utcnow() + timedelta(days=3)).isoformat())
+                if pid in job.get('watch', {}):
+                    saved['status_next_check'] = saved['next_check']
                 self.save()
                 raise  # Keep raw response for offline reprocessing after parser repair.
             year = prop.get('extracted_year')
@@ -283,12 +287,18 @@ class Batch:
             self.cached_year(row)
             if pid in job.get('watch', {}):
                 status = normalize_status(prop.get('homeStatus'))
+                saved['status_next_check'] = (now + timedelta(days=1)).isoformat()
+                preserve_asking = status == 'sold' or not prop.get('price')
                 row.update(in_inventory=False, status=status, raw_status=prop.get('homeStatus'),
-                           price=prop.get('price'), price_observed_at=stamp,
+                           # A closing price is not the last asking price. Keep the
+                           # tracked price band while storing the transaction separately.
+                           price=row.get('price') if preserve_asking else prop.get('price'),
+                           price_observed_at=row.get('price_observed_at') if preserve_asking else stamp, status_observed_at=stamp,
                            price_cut=None, price_cut_date=None, cut_source=None)
+                row['evidence'] = 'Explicit source status ' + str(prop.get('homeStatus')) + ' observed at ' + stamp
                 if status == 'sold':
                     for event in prop.get('priceHistory') or []:
-                        if str(event.get('event', '')).lower() == 'sold' and event.get('date', '') >= row.get('first_seen', job['started_at'])[:10]:
+                        if normalize_status(event.get('event')) == 'sold' and event.get('date', '') >= row.get('first_seen', job['started_at'])[:10]:
                             row.update(sold_price=event.get('price'), sold_date=event['date'], evidence='Explicit source sold event observed at ' + stamp)
                             break
                 if in_band(row.get('price')):

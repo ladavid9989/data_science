@@ -124,7 +124,8 @@ def rolling_market_metrics(runs, observations, schools, start, end, **filters):
     rows['_stamp'] = pd.to_datetime(rows.price_observed_at, utc=True, errors='coerce', format='mixed')
     rows['_price_day'] = rows['_stamp'].dt.tz_convert('America/New_York').dt.strftime('%Y-%m-%d')
     # A year-enrichment snapshot is not a new observation of price or inventory.
-    stale = set(map(tuple, rows.loc[rows._price_day.ne(rows.market_date), ['school', 'market_date']].values))
+    stale = set(map(tuple, rows.loc[rows.in_inventory.eq(1) & rows.status.isin(INVENTORY) &
+        rows._price_day.ne(rows.market_date), ['school', 'market_date']].values))
     complete = set(map(tuple, daily[['school', 'market_date']].values)) - stale
     eligible = filter_rows(rows, **filters)
     eligible = eligible[eligible.status.eq('active') & eligible.in_inventory.eq(1)]
