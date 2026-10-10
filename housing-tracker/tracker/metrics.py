@@ -1,6 +1,8 @@
 """Historical filters use the facts on each observation date."""
 from __future__ import annotations
 
+from datetime import timedelta
+
 import pandas as pd
 
 from tracker.storage import SCOPE, SOURCE_SCOPE, BAND_SCOPE
@@ -95,7 +97,7 @@ def changes_between(previous, current):
     return _price_differences(both)
 
 
-def _price_differences(both):
+def _price_differences(both, *, include_unchanged=False):
     known = (both.episode_id_before.notna() & both.episode_id_after.notna() &
              ~both.episode_id_before.str.endswith(':unknown', na=True) &
              ~both.episode_id_after.str.endswith(':unknown', na=True))
@@ -104,7 +106,73 @@ def _price_differences(both):
     both.loc[known.reindex(both.index), 'comparison_basis'] = '같은 등록 건의 관측 호가 비교'
     both["price_change"] = both.price_after - both.price_before
     both['price_change_percent'] = both.price_change / both.price_before * 100
-    return both[both.price_change.ne(0) & both.price_change.notna()]
+    valid = both.price_before.gt(0) & both.price_after.gt(0) & both.price_change.notna()
+    return both[valid & (include_unchanged | both.price_change.ne(0))]
+
+
+def rolling_market_metrics(runs, observations, schools, start, end, **filters):
+    """Seven-calendar-day matched active cohorts; no carried-forward price baselines.
+
+    Each property has one weight, including unchanged prices. Cut incidence and
+    cut size describe observed transitions of that same endpoint cohort, not
+    historical source badges. An aggregate row deduplicates overlapping schools.
+    """
+    runs = runs[runs.market_date.le(str(end)) & runs.school.isin(schools)]
+    daily = canonical_runs(runs)
+    rows = observations.merge(daily, on='run_id')
+    rows['_stamp'] = pd.to_datetime(rows.price_observed_at, utc=True, errors='coerce', format='mixed')
+    rows['_price_day'] = rows['_stamp'].dt.tz_convert('America/New_York').dt.strftime('%Y-%m-%d')
+    # A year-enrichment snapshot is not a new observation of price or inventory.
+    stale = set(map(tuple, rows.loc[rows._price_day.ne(rows.market_date), ['school', 'market_date']].values))
+    complete = set(map(tuple, daily[['school', 'market_date']].values)) - stale
+    eligible = filter_rows(rows, **filters)
+    eligible = eligible[eligible.status.eq('active') & eligible.in_inventory.eq(1)]
+    transitions = price_change_history(runs, observations, pd.Timestamp(start).date() - timedelta(days=6), end, **filters)
+    all_rows = observations.merge(canonical_runs(runs, daily=False), on='run_id')
+    all_rows['_stamp'] = pd.to_datetime(all_rows.price_observed_at, utc=True, errors='coerce', format='mixed')
+    groups = [(school, [school]) for school in schools]
+    if len(schools) > 1:
+        groups.append(('__all__', schools))
+    records = []
+    for stamp in pd.date_range(start, end):
+        day = stamp.date().isoformat()
+        baseline = (stamp.date() - timedelta(days=7)).isoformat()
+        days = pd.date_range(baseline, day).strftime('%Y-%m-%d')
+        for name, members in groups:
+            before = eligible[eligible.school.isin(members) & eligible.market_date.eq(baseline)]
+            after = eligible[eligible.school.isin(members) & eligible.market_date.eq(day)]
+            ready = all((school, date) in complete for school in members for date in (baseline, day))
+            covered_days = sum(all((school, date) in complete for school in members) for date in days)
+            record = dict(date=day, school=name, baseline_date=baseline, weekly_ready=ready,
+                          observed_days=covered_days, active=after.property_id.nunique(), active_change_7d=None,
+                          comparable_count=0, comparison_coverage=None, mean_change_7d=None,
+                          cut_count=None, cut_share_7d=None, cut_event_count=None, median_cut_percent=None)
+            if ready:
+                record['active_change_7d'] = after.property_id.nunique() - before.property_id.nunique()
+                pairs = _price_differences(before.merge(after, on=['school', 'property_id'],
+                    suffixes=('_before', '_after')), include_unchanged=True)
+                # Unknown endpoints must not conceal a known relisting inside the window.
+                period = all_rows[all_rows.school.isin(members) & all_rows.market_date.between(baseline, day)]
+                known = period[period.episode_id.notna() & ~period.episode_id.str.endswith(':unknown', na=True)]
+                relisted = known.groupby(['school', 'property_id']).episode_id.nunique()
+                blocked = set(relisted[relisted.gt(1)].index)
+                pairs = pairs[[key not in blocked for key in zip(pairs.school, pairs.property_id)]] if len(pairs) else pairs
+                pairs = pairs.sort_values(['_stamp_after', '_stamp_before', 'school']).drop_duplicates('property_id', keep='last')
+                n = len(pairs)
+                record.update(comparable_count=n,
+                              comparison_coverage=n / record['active'] * 100 if record['active'] else None,
+                              mean_change_7d=pairs.price_change_percent.mean() if n else None)
+                if n:
+                    cuts = transitions[transitions.school.isin(members) & transitions.price_change.lt(0)].merge(
+                        pairs[['school', 'property_id', '_stamp_before', '_stamp_after']].rename(
+                            columns={'_stamp_before': '_baseline', '_stamp_after': '_endpoint'}),
+                        on=['school', 'property_id'])
+                    cuts = cuts[cuts._stamp_before.ge(cuts._baseline) & cuts._stamp_after.le(cuts._endpoint)]
+                    record.update(cut_count=cuts.property_id.nunique(), cut_share_7d=cuts.property_id.nunique() / n * 100,
+                                  cut_event_count=len(cuts),
+                                  median_cut_percent=-cuts.price_change_percent.median() if len(cuts) else None)
+            records.append(record)
+    return pd.DataFrame(records)
 
 
 def price_change_history(runs, observations, start, end, **filters):

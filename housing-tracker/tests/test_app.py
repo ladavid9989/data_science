@@ -46,7 +46,8 @@ def test_new_school_complete_search_has_metrics_and_price_history(tmp_path, monk
     app.selectbox(key='school').select(SCHOOLS[school]).run()
     assert not app.exception
     assert app.metric[0].value == '1'
-    assert app.metric[1].value == '$570,000'
+    assert app.metric[1].value == '미산출'
+    assert any(metric.label == '현재 호가 중앙값' and metric.value == '$570,000' for metric in app.metric)
     assert app.selectbox(key='change_window').value == '최근 7일'
     changes = next(d.value for d in app.dataframe if '변화 ($)' in d.value.columns)
     assert changes['변화 ($)'].tolist() == [-30000]
@@ -63,8 +64,8 @@ def test_new_school_partial_does_not_hide_existing_market_history(tmp_path, monk
     monkeypatch.setenv('HOUSING_OFFLINE', '1')
     app = AppTest.from_file(APP, default_timeout=30).run()
     assert not app.exception
-    assert app.metric[0].value == '2'
-    assert app.metric[1].value == '$570,000'
+    assert app.metric[0].value == '1'  # The fixture has the same property ID in both schools.
+    assert app.metric[1].value == '미산출'
     assert any('Chattahoochee' in info.value for info in app.info)
     assert app.selectbox(key='change_window').value == '최근 7일'
 

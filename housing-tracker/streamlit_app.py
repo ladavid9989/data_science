@@ -10,7 +10,7 @@ import streamlit as st
 
 from tracker.archive import sync
 from tracker.band import PRICE_RANGE, prune_database
-from tracker.metrics import INVENTORY, canonical_runs, daily_metrics, filter_rows, joined, price_change_history, property_history, rank_price_cuts
+from tracker.metrics import INVENTORY, canonical_runs, daily_metrics, filter_rows, joined, price_change_history, property_history, rank_price_cuts, rolling_market_metrics
 from tracker.storage import SCHOOLS, default_db, read_frames
 
 st.set_page_config(page_title="Schoolside · 주택 시장 트래커", page_icon="🏡", layout="wide")
@@ -50,15 +50,18 @@ def chart_style(fig, height=300):
     return fig
 
 
-def line_chart(frame, column, currency=False):
+def line_chart(frame, column, currency=False, percent=False):
     fig = go.Figure()
     for school, values in frame.groupby("school", sort=False):
         label = SHORT[school]
         fig.add_trace(go.Scatter(x=values.date, y=values[column], mode="lines+markers",
                                 name=label, connectgaps=False, line=dict(color=COLORS[label], width=2.5),
-                                marker=dict(size=4), hovertemplate="%{x}<br>%{y:,.0f}<extra>%{fullData.name}</extra>"))
+                                marker=dict(size=4), hovertemplate="%{x}<br>" +
+                                ("%{y:.2f}%" if percent else "%{y:,.0f}") + "<extra>%{fullData.name}</extra>"))
     if currency:
         fig.update_yaxes(tickprefix="$", tickformat=",.0f")
+    if percent:
+        fig.update_yaxes(ticksuffix="%", tickformat=".2f", zeroline=True)
     return chart_style(fig)
 
 
@@ -146,10 +149,27 @@ active = current[current.status.eq("active") & current.in_inventory.eq(1)]
 coverage = inventory.year_built.notna().mean() * 100 if len(inventory) else 0
 st.caption(f"{scope_label}  ·  {'추가 가격 필터 없음 (저장된 범위)' if price is None else f'${price[0]:,}–${price[1]:,}'}  ·  Houses / {beds}+ bd / {baths:g}+ ba")
 cards = st.columns(4)
-cards[0].metric("판매 중 매물" if asof else "필터에 맞는 관측 매물", f"{len(active) if asof else len(current):,}")
-cards[1].metric("호가 중앙값" if asof else "시장 중앙값", money(active.loc[active.price > 0, "price"].median()) if asof else "미산출")
-cards[2].metric("계약 진행 / Pending", f"{int(current.status.isin(['under_contract', 'pending']).sum()):,}")
-cards[3].metric("건축연도 확인", f"{inventory.year_built.notna().sum()} / {len(inventory)}", f"{coverage:.0f}% 확인", delta_color="off")
+weekly = rolling_market_metrics(runs, observations, ready_schools, start, end, **filters) if asof else pd.DataFrame()
+headline = weekly[(weekly.date == asof) & weekly.school.eq('__all__' if len(ready_schools) > 1 else ready_schools[0])].iloc[0] if asof else None
+count_delta = f"{headline.active_change_7d:+.0f}개 · 7일 전 대비" if asof and pd.notna(headline.active_change_7d) else None
+cards[0].metric("현재 판매 중 매물" if asof else "필터에 맞는 관측 매물",
+                f"{active.property_id.nunique() if asof else current.property_id.nunique():,}", count_delta, delta_color="off")
+for card, label, column in zip(cards[1:], ['7일간 관측된 가격 인하 비율', '동일 매물 7일 호가 변화율', '관측 인하폭 중앙값 · 1회당'],
+                               ['cut_share_7d', 'mean_change_7d', 'median_cut_percent']):
+    value = headline[column] if asof else None
+    card.metric(label, f"{value:+.2f}%" if column == 'mean_change_7d' and pd.notna(value) else
+                (f"{value:.2f}%" if pd.notna(value) else '미산출'))
+if asof:
+    comparison_label = f'동일 매물 {headline.comparable_count}개 / 현재 판매 중 {active.property_id.nunique()}개' if headline.weekly_ready else '비교 기록 부족'
+    st.caption(f"7일 비교: {headline.baseline_date} → {asof} · {comparison_label}. "
+               "전체 학군 합계에서는 중복 매물을 한 번만 셉니다.")
+    st.caption('인하폭 중앙값은 비교 대상에서 관측된 인하 1회당 감소율의 중앙값입니다. 인하 관측이 없으면 미산출로 표시합니다.')
+    if not headline.weekly_ready:
+        st.info('7일 비교 기록 부족: 선택 학군 모두에 7일 전과 기준일의 완전한 새 가격 관측이 있어야 합계를 계산합니다. 계산 가능한 학군은 아래 표에서 확인할 수 있습니다.')
+    elif headline.comparable_count == 0:
+        st.info('양쪽 날짜의 조건을 모두 충족하는 동일 매물이 없어 7일 가격 지표를 계산하지 않습니다.')
+    elif headline.observed_days < 8:
+        st.info(f'비교 구간 8개 날짜 중 {headline.observed_days}일에 완전한 새 관측이 있습니다. 인하 비율은 저장된 관측에서 확인한 값이며, 수집 사이의 변동은 놓칠 수 있습니다.')
 
 overview, listings_tab, history_tab, health_tab = st.tabs(["시장 흐름", "매물 탐색", "집별 타임라인", "수집 상태"])
 with overview:
@@ -158,18 +178,44 @@ with overview:
         st.markdown("**지금 볼 수 있는 것:** 매물 탐색, 확인된 건축연도, 실제 관측 시점과 수집 범위.")
         st.markdown("날짜별 수집이 누적되면 비교 가능한 검색 범위의 추이가 표시됩니다.")
     else:
-        metrics = daily_metrics(range_runs, observations, schools, start, end, **filters)
+        metrics = daily_metrics(runs, observations, schools, start, end, **filters)
+        metrics = metrics.merge(weekly.drop(columns='active'), on=['date', 'school'], how='left')
         left, right = st.columns(2)
         with left:
-            st.subheader("매일의 판매 중 매물")
-            st.caption("그날의 가격·건축연도 조건에 맞는 매물 수")
+            st.subheader("일별 매물 수")
+            st.caption("각 날짜의 마지막 완전 수집에서 확인한 판매 중 매물 수입니다. 계약 진행·Pending은 제외하며, 거래량을 뜻하지 않습니다.")
             st.plotly_chart(line_chart(metrics, "active"), width="stretch", key="inventory_chart")
         with right:
-            st.subheader("호가 중앙값")
+            st.subheader("동일 매물의 7일 호가 변화")
+            st.caption("각 날짜와 7일 전 모두 판매 중이고 필터에 맞는 집을 비교합니다. 집마다 변화율을 계산한 뒤 동일 비중으로 평균하며, 가격이 그대로인 집도 포함합니다.")
+            st.plotly_chart(line_chart(metrics, 'mean_change_7d', percent=True), width="stretch", key="price_chart")
+        left, right = st.columns(2)
+        with left:
+            st.subheader('7일간 관측된 가격 인하 비율')
+            st.caption('위와 같은 비교 대상 중 한 번 이상 인하가 관측된 매물의 비율입니다. 한 집이 여러 번 내려도 매물 수는 한 번만 셉니다.')
+            st.plotly_chart(line_chart(metrics, 'cut_share_7d', percent=True), width='stretch', key='cut_share_chart')
+        with right:
+            st.subheader('비교 대상과 기록 범위')
+            audit = weekly[weekly.date.eq(asof) & weekly.school.ne('__all__')].copy()
+            audit['school'] = audit.school.map(SHORT)
+            audit['비교 상태'] = audit.apply(lambda row: '7일 비교 기록 부족' if not row.weekly_ready else
+                ('동일 매물 없음' if not row.comparable_count else '비교 가능'), axis=1)
+            audit = audit[['school', 'active', 'comparable_count', 'comparison_coverage', 'cut_count', 'mean_change_7d',
+                           'cut_share_7d', 'cut_event_count', 'observed_days', '비교 상태']].rename(columns={
+                'school': '학군', 'active': '판매 중', 'comparable_count': '동일 매물', 'comparison_coverage': '비교 포함률 (%)',
+                'cut_count': '인하 매물', 'mean_change_7d': '7일 변화율 (%)', 'cut_share_7d': '인하 비율 (%)',
+                'cut_event_count': '관측 인하 횟수', 'observed_days': '관측 일수 / 8'})
+            st.dataframe(audit, hide_index=True, width='stretch')
+            st.caption('7일 전 기록이 없는 새 학군은 미산출입니다. 중간 관측이 빠진 날의 변동은 확인할 수 없습니다. 날짜는 미국 동부시간 기준입니다.')
+        st.caption('신규 관측·검색 이탈·확인된 재등록은 동일 매물 비교에서 제외합니다. 이 지표는 $400k–$700k 관심 매물의 관측 호가 흐름이며, 전체 시장의 거래가격 지수가 아닙니다. 그래프의 빈 구간은 비교 기록 부족이며 0으로 채우지 않습니다.')
+        with st.expander('보조 지표 · 현재 매물의 가격대와 구성'):
+            secondary = st.columns(3)
+            secondary[0].metric('현재 호가 중앙값', money(active.drop_duplicates('property_id').price.median()))
+            secondary[1].metric('계약 진행 / Pending', str(inventory[inventory.status.ne('active')].property_id.nunique()))
+            secondary[2].metric('건축연도 확인', f'{inventory.year_built.notna().sum()} / {len(inventory)}', f'{coverage:.0f}% 확인', delta_color='off')
             price_stat = st.selectbox('가격 통계', ['중앙값', '평균'], key='price_stat')
-            st.caption(f"현재 판매 중 매물의 평균 호가: {money(active.price.mean())}. 개별 매물의 가격이 내려도 중앙값은 그대로일 수 있습니다.")
-            st.plotly_chart(line_chart(metrics, 'median_price' if price_stat == '중앙값' else 'mean_price', True), width="stretch", key="price_chart")
-        st.caption("그래프의 끊긴 구간은 수집 실패 또는 불완전한 기록입니다. 0건으로 대체하지 않습니다.")
+            st.caption('매물 구성과 가격대 진입·이탈에 영향을 받는 값입니다. 같은 집의 가격 변화는 위 7일 지표로 확인하세요.')
+            st.plotly_chart(line_chart(metrics, 'median_price' if price_stat == '중앙값' else 'mean_price', True), width='stretch', key='composition_chart')
         activity = filter_rows(full, **filters)
         sold_activity = activity[activity.status.eq("sold") & activity.sold_date.notna()].sort_values("observed_at").drop_duplicates(
             ["property_id", "episode_id", "sold_date"], keep="last")
