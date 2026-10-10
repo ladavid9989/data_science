@@ -48,6 +48,7 @@ def filter_rows(data, price=(400000, 700000), years=(1600, 2100), include_unknow
 
 
 def daily_metrics(runs, observations, schools, start, end, **filters):
+    runs = runs[runs.market_date.le(str(end))]
     valid = canonical_runs(runs)
     all_rows = joined(runs, observations)
     selected = filter_rows(all_rows, **filters)

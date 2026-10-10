@@ -7,7 +7,7 @@ from streamlit.testing.v1 import AppTest
 from tests.test_alerts import put
 from tests.test_app import APP
 from tests.test_price_windows import record
-from tracker.metrics import rolling_market_metrics
+from tracker.metrics import daily_metrics, rolling_market_metrics
 from tracker.storage import read_frames
 
 
@@ -120,6 +120,17 @@ def test_historical_source_badge_and_prebaseline_cut_are_not_weekly_cuts(tmp_pat
     result = rolling_market_metrics(runs, obs, ['north_gwinnett'], '2026-10-10', '2026-10-10').iloc[0]
     assert result.mean_change_7d == 0 and result.cut_share_7d == 0
     assert result.cut_event_count == 0
+
+
+def test_historical_range_does_not_use_a_future_search_scope(tmp_path):
+    db = tmp_path / 'db'
+    put(db, 3, [600000])
+    put(db, 10, [570000])
+    put(db, 11, [500000], boundary='new-zone')
+    runs, obs = read_frames(db, 'observed')
+    daily = daily_metrics(runs, obs, ['north_gwinnett'], '2026-10-10', '2026-10-10').iloc[0]
+    assert daily.active == 1 and daily.median_price == 570000
+    assert weekly(db).iloc[0].mean_change_7d == -5
 
 
 def test_eastern_dates_and_weekly_baseline_outside_visible_range(tmp_path, monkeypatch):
