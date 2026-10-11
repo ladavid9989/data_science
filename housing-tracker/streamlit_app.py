@@ -300,15 +300,16 @@ with overview:
                 for column in ['price_observed_at_before', 'price_observed_at_after']:
                     change_table[column] = change_table[column].map(eastern_time)
                 change_table = change_table[["price_observed_at_after", "address_after", "school", "price_before", "price_after",
-                                             "price_change", "price_change_percent", "price_observed_at_before", "comparison_basis"]].rename(columns={
+                                             "price_change", "price_change_percent", "price_observed_at_before", "comparison_basis", "url_after"]].rename(columns={
                     "price_observed_at_after": "변동 확인 시각 (ET)", "address_after": "매물", "school": "학군",
                     "price_before": "이전 호가", "price_after": "변동 후 호가", "price_change": "변화 ($)",
-                    "price_change_percent": "변화 (%)", "price_observed_at_before": "이전 확인 시각 (ET)", "comparison_basis": "비교 근거"})
+                    "price_change_percent": "변화 (%)", "price_observed_at_before": "이전 확인 시각 (ET)", "comparison_basis": "비교 근거", "url_after": "Zillow 링크"})
                 st.dataframe(change_table, hide_index=True, width="stretch", key="price_changes", column_config={
                     "이전 호가": st.column_config.NumberColumn(format="$%d"),
                     "변동 후 호가": st.column_config.NumberColumn(format="$%d"),
                     "변화 ($)": st.column_config.NumberColumn(format="$%d"),
                     "변화 (%)": st.column_config.NumberColumn(format="%.2f%%"),
+                    "Zillow 링크": st.column_config.LinkColumn(display_text="Zillow ↗"),
                 })
                 st.download_button("가격변화 이력 CSV", change_table.to_csv(index=False).encode("utf-8-sig"),
                                    file_name=f"price_changes_{change_start}_{end}.csv", mime="text/csv")
