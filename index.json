@@ -3538,6 +3538,14 @@
       "rows": 82
     },
     {
+      "path": "snapshots/2026-10-13/northview-3de8f22a6982124d0b42c2b5adce6fae8eedd7845626edeeedee1198a739df12.json.gz",
+      "run_id": "3de8f22a6982124d0b42c2b5adce6fae8eedd7845626edeeedee1198a739df12",
+      "school": "northview",
+      "observed_at": "2026-10-13T16:27:36.200167+00:00",
+      "quality": "source_complete",
+      "rows": 19
+    },
+    {
       "path": "snapshots/2026-10-13/northview-5585aa693027f1c7cceafd73303e7c6f5669a4127ed8cef5ca8e4ab49bb9855c.json.gz",
       "run_id": "5585aa693027f1c7cceafd73303e7c6f5669a4127ed8cef5ca8e4ab49bb9855c",
       "school": "northview",
@@ -3550,6 +3558,14 @@
       "run_id": "6074d8ad7fbab4a59c292dc107d226cbb8612d6c8074bd3aeebc4d5c36fcead5",
       "school": "northview",
       "observed_at": "2026-10-13T14:30:49.080062+00:00",
+      "quality": "source_complete",
+      "rows": 20
+    },
+    {
+      "path": "snapshots/2026-10-13/northview-9904ab2b77ae2af272077e69b070c105da0febea15aa05fdf813ed2491aac440.json.gz",
+      "run_id": "9904ab2b77ae2af272077e69b070c105da0febea15aa05fdf813ed2491aac440",
+      "school": "northview",
+      "observed_at": "2026-10-13T16:28:06.172933+00:00",
       "quality": "source_complete",
       "rows": 20
     },
