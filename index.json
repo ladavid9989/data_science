@@ -4378,6 +4378,14 @@
       "rows": 12
     },
     {
+      "path": "snapshots/2026-10-15/johns_creek-f0df665ba3ec37b76b539ef02854f117c50e873f6baf067a7c18d1de785a7289.json.gz",
+      "run_id": "f0df665ba3ec37b76b539ef02854f117c50e873f6baf067a7c18d1de785a7289",
+      "school": "johns_creek",
+      "observed_at": "2026-10-15T11:27:26.250250+00:00",
+      "quality": "source_complete",
+      "rows": 12
+    },
+    {
       "path": "snapshots/2026-10-15/north_gwinnett-0280103f969e7296c613c16240defa9945fe4a57778b6e2da66897e2d56a3edf.json.gz",
       "run_id": "0280103f969e7296c613c16240defa9945fe4a57778b6e2da66897e2d56a3edf",
       "school": "north_gwinnett",
