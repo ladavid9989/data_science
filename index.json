@@ -5208,6 +5208,14 @@
       "observed_at": "2026-10-16T06:30:41.471123+00:00",
       "quality": "source_complete",
       "rows": 18
+    },
+    {
+      "path": "snapshots/2026-10-17/chattahoochee-d4cbd4ab221785e7bed64fbd0c2ac856268194fca2a83a36b79452159e8e3165.json.gz",
+      "run_id": "d4cbd4ab221785e7bed64fbd0c2ac856268194fca2a83a36b79452159e8e3165",
+      "school": "chattahoochee",
+      "observed_at": "2026-10-17T00:01:17.147599+00:00",
+      "quality": "source_complete",
+      "rows": 53
     }
   ]
 }
