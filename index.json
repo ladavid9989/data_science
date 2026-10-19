@@ -6130,12 +6130,28 @@
       "rows": 13
     },
     {
+      "path": "snapshots/2026-10-19/north_gwinnett-3924d2db6aa4676aeec731bb77d0ea039c27c9bec60ede0cd5e2496a0c1e0438.json.gz",
+      "run_id": "3924d2db6aa4676aeec731bb77d0ea039c27c9bec60ede0cd5e2496a0c1e0438",
+      "school": "north_gwinnett",
+      "observed_at": "2026-10-19T22:01:27.160699+00:00",
+      "quality": "source_complete",
+      "rows": 82
+    },
+    {
       "path": "snapshots/2026-10-19/north_gwinnett-e3fadeb76e811ca874085fd32db59a55af106739c2ec57b084eb983088c86572.json.gz",
       "run_id": "e3fadeb76e811ca874085fd32db59a55af106739c2ec57b084eb983088c86572",
       "school": "north_gwinnett",
       "observed_at": "2026-10-19T20:56:52.530549+00:00",
       "quality": "source_complete",
       "rows": 82
+    },
+    {
+      "path": "snapshots/2026-10-19/north_gwinnett-f4d8d121d68a5308c3d9c6bf1ae053fb90669c88b375e9ccc7ed8b7cc892d47d.json.gz",
+      "run_id": "f4d8d121d68a5308c3d9c6bf1ae053fb90669c88b375e9ccc7ed8b7cc892d47d",
+      "school": "north_gwinnett",
+      "observed_at": "2026-10-19T22:01:57.152695+00:00",
+      "quality": "source_complete",
+      "rows": 83
     },
     {
       "path": "snapshots/2026-10-19/northview-ac1e91506e3514749b2a5227fb1cbd03ca14dd02dfe08a45946f1488005eedb3.json.gz",
