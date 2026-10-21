@@ -6682,6 +6682,14 @@
       "rows": 20
     },
     {
+      "path": "snapshots/2026-10-21/chattahoochee-542308d3b8a31f5f0f9322e6e0697cff95c991926242156b1edfa6e466a77cad.json.gz",
+      "run_id": "542308d3b8a31f5f0f9322e6e0697cff95c991926242156b1edfa6e466a77cad",
+      "school": "chattahoochee",
+      "observed_at": "2026-10-21T05:01:57.972966+00:00",
+      "quality": "source_complete",
+      "rows": 53
+    },
+    {
       "path": "snapshots/2026-10-21/chattahoochee-7a3b06ad28c4821d0db6f6baf8ee357399d691ad9ea128cd519e4b7665f10c49.json.gz",
       "run_id": "7a3b06ad28c4821d0db6f6baf8ee357399d691ad9ea128cd519e4b7665f10c49",
       "school": "chattahoochee",
@@ -6694,6 +6702,14 @@
       "run_id": "9bb63f38d8840e55bf8b898e5b8c74a5a7e19bf347c4729123c812babbd9e6df",
       "school": "chattahoochee",
       "observed_at": "2026-10-21T03:01:07.814606+00:00",
+      "quality": "source_complete",
+      "rows": 53
+    },
+    {
+      "path": "snapshots/2026-10-21/chattahoochee-a503d300e8b1302ca2f637f474d43ac2d82c569ded2a3d0ea9fb6a1efafdfeda.json.gz",
+      "run_id": "a503d300e8b1302ca2f637f474d43ac2d82c569ded2a3d0ea9fb6a1efafdfeda",
+      "school": "chattahoochee",
+      "observed_at": "2026-10-21T05:01:27.742174+00:00",
       "quality": "source_complete",
       "rows": 53
     },
