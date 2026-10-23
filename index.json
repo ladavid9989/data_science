@@ -7818,6 +7818,14 @@
       "rows": 21
     },
     {
+      "path": "snapshots/2026-10-23/northview-c0f8272bdbc30ec3cdd81fab0a5446b162de61e2e94ad5b9f2c37432331ccf94.json.gz",
+      "run_id": "c0f8272bdbc30ec3cdd81fab0a5446b162de61e2e94ad5b9f2c37432331ccf94",
+      "school": "northview",
+      "observed_at": "2026-10-23T10:00:51.302792+00:00",
+      "quality": "source_complete",
+      "rows": 21
+    },
+    {
       "path": "snapshots/2026-10-23/northview-fe6fa396c556027227aeca5d5667082dfc88adcdab68fa9d63c3db3f0e4e3994.json.gz",
       "run_id": "fe6fa396c556027227aeca5d5667082dfc88adcdab68fa9d63c3db3f0e4e3994",
       "school": "northview",
