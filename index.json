@@ -7736,6 +7736,14 @@
       "observed_at": "2026-10-23T04:00:48.689508+00:00",
       "quality": "source_complete",
       "rows": 21
+    },
+    {
+      "path": "snapshots/2026-10-23/northview-fe6fa396c556027227aeca5d5667082dfc88adcdab68fa9d63c3db3f0e4e3994.json.gz",
+      "run_id": "fe6fa396c556027227aeca5d5667082dfc88adcdab68fa9d63c3db3f0e4e3994",
+      "school": "northview",
+      "observed_at": "2026-10-23T06:01:16.170389+00:00",
+      "quality": "source_complete",
+      "rows": 21
     }
   ]
 }
