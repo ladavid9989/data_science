@@ -7626,12 +7626,28 @@
       "rows": 51
     },
     {
+      "path": "snapshots/2026-10-23/johns_creek-2f59a69958b26974cd6407ae7a276d499a1d53f477c319dfcc65aeccc88cb2d0.json.gz",
+      "run_id": "2f59a69958b26974cd6407ae7a276d499a1d53f477c319dfcc65aeccc88cb2d0",
+      "school": "johns_creek",
+      "observed_at": "2026-10-23T03:01:07.824195+00:00",
+      "quality": "source_complete",
+      "rows": 14
+    },
+    {
       "path": "snapshots/2026-10-23/johns_creek-bcaf36d15a03c857559cafb6da88e853a0b25f42f567f19c0f011bed3b12cbb7.json.gz",
       "run_id": "bcaf36d15a03c857559cafb6da88e853a0b25f42f567f19c0f011bed3b12cbb7",
       "school": "johns_creek",
       "observed_at": "2026-10-23T01:01:13.348532+00:00",
       "quality": "source_complete",
       "rows": 14
+    },
+    {
+      "path": "snapshots/2026-10-23/johns_creek-f78119b8316f8c29336ddd5f918817c618cc94260bebb234b87bad5da5daeda0.json.gz",
+      "run_id": "f78119b8316f8c29336ddd5f918817c618cc94260bebb234b87bad5da5daeda0",
+      "school": "johns_creek",
+      "observed_at": "2026-10-23T03:01:24.801930+00:00",
+      "quality": "source_complete",
+      "rows": 15
     },
     {
       "path": "snapshots/2026-10-23/north_gwinnett-5d2b3d6fc1edef84ec507edb553bd45d583415927f0ebb35f4116cc4fe8cf991.json.gz",
