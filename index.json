@@ -8538,6 +8538,14 @@
       "rows": 21
     },
     {
+      "path": "snapshots/2026-10-25/chattahoochee-c060fbbddab43c8f37c7cdeccb8889fda071af40c872012a432fc460b0f4752a.json.gz",
+      "run_id": "c060fbbddab43c8f37c7cdeccb8889fda071af40c872012a432fc460b0f4752a",
+      "school": "chattahoochee",
+      "observed_at": "2026-10-25T01:31:13.665637+00:00",
+      "quality": "source_complete",
+      "rows": 49
+    },
+    {
       "path": "snapshots/2026-10-25/johns_creek-1c0d984e0b232bd4db60d2c9cef17305d7c8dde3ef119eb48ea55e84e5ac7f42.json.gz",
       "run_id": "1c0d984e0b232bd4db60d2c9cef17305d7c8dde3ef119eb48ea55e84e5ac7f42",
       "school": "johns_creek",
