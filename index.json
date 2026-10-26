@@ -9330,6 +9330,14 @@
       "rows": 21
     },
     {
+      "path": "snapshots/2026-10-26/northview-89f54cf0448be366eddff915ec402d49d20b39aedd82251f23edee55be1d9fbe.json.gz",
+      "run_id": "89f54cf0448be366eddff915ec402d49d20b39aedd82251f23edee55be1d9fbe",
+      "school": "northview",
+      "observed_at": "2026-10-26T22:00:58.318311+00:00",
+      "quality": "source_complete",
+      "rows": 21
+    },
+    {
       "path": "snapshots/2026-10-26/northview-9142cb72ad6a881c665ad2691be00a0845a8f6cbcc0be30a3fbc3c3e21cbce3a.json.gz",
       "run_id": "9142cb72ad6a881c665ad2691be00a0845a8f6cbcc0be30a3fbc3c3e21cbce3a",
       "school": "northview",
@@ -9379,24 +9387,27 @@
     }
   ],
   "collection_status": {
-    "status": "interval_wait",
-    "requests": 0,
-    "next_batch_at": "2026-10-26T21:55:52.887271+00:00",
+    "status": "complete",
+    "requests": 1,
+    "school": "northview",
+    "error": null,
     "version": 1,
-    "checked_at": "2026-10-26T21:43:40.630455+00:00",
-    "last_source_attempt_at": "2026-10-26T21:30:52.887271+00:00",
+    "checked_at": "2026-10-26T22:00:58.755200+00:00",
+    "last_source_attempt_at": "2026-10-26T22:00:56.640410+00:00",
     "last_access_failure": {
-      "reason": "HTTP 403: source access stopped",
-      "retry_after": "2026-10-19T20:52:23.6705118Z",
-      "strikes": 1,
+      "manual_retry_requested_at": "2026-10-19T20:52:24.6685116Z",
       "previous_retry_after": "2026-10-19T21:30:44.857328+00:00",
-      "manual_retry_requested_at": "2026-10-19T20:52:24.6685116Z"
+      "reason": "HTTP 403: source access stopped",
+      "resolved_at": "2026-10-26T22:00:58.646522+00:00",
+      "retry_after": "2026-10-19T20:52:23.6705118Z",
+      "review_required": false,
+      "strikes": 0
     },
     "last_success_by_school": {
       "johns_creek": "2026-10-26T21:00:56.533181+00:00",
       "north_gwinnett": "2026-10-26T20:31:52.237370+00:00",
       "chattahoochee": "2026-10-26T21:31:23.781191+00:00",
-      "northview": "2026-10-26T20:00:59.579539+00:00"
+      "northview": "2026-10-26T22:00:58.067803+00:00"
     }
   }
 }
