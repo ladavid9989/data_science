@@ -13,6 +13,7 @@ from tracker.band import PRICE_RANGE, prune_database
 from tracker.flows import FLOW_REASONS, confirmed_sales, listing_flows
 from tracker.metrics import INVENTORY, canonical_runs, daily_metrics, filter_rows, joined, price_change_history, property_history, rank_price_cuts, rolling_market_metrics
 from tracker.storage import SCHOOLS, default_db, read_frames
+from tracker.health import local_status_path, read_status, status_notice, status_stale
 
 st.set_page_config(page_title="Schoolside · 주택 시장 트래커", page_icon="🏡", layout="wide")
 COLORS = {"North Gwinnett": "#177568", "Johns Creek": "#6577C8", "Chattahoochee": "#C17C23",
@@ -82,6 +83,8 @@ def refresh_cloud(path):
 
 
 sync_error = refresh_cloud(str(db))
+collection_status = read_status(local_status_path(db))
+collection_level, collection_message = status_notice(collection_status)
 
 with st.sidebar:
     st.markdown("### 🏡 Schoolside")
@@ -106,6 +109,10 @@ st.markdown("가격이 어떻게 바뀌고, 어떤 집이 시장에 남아 있�
 st.caption("Zillow 학교 검색에서 관측한 매물입니다. 지도 경계 안의 매물을 구분하지만, 실제 통학구역 전체를 빠짐없이 포함하는지는 아직 검증되지 않았습니다.")
 if sync_error:
     st.warning("클라우드 기록 동기화에 실패해 기존 로컬 기록을 표시합니다. 수집 상태에서 마지막 관측일을 확인하세요.")
+if collection_status.get('status') in ('blocked', 'cooldown', 'error', 'daily_budget_wait'):
+    getattr(st, collection_level)(collection_message)
+if status_stale(collection_status):
+    st.warning(f"수집 상태 보고가 2시간 이상 갱신되지 않았습니다. 마지막 보고: {eastern_time(collection_status.get('checked_at'))}. 현재 수집이 정상이라는 뜻은 아닙니다.")
 
 if runs.empty:
     st.info("이 학군에 아직 관측 기록이 없습니다. 첫 수집이 완료되면 표시됩니다.")
@@ -396,10 +403,22 @@ with history_tab:
 
 with health_tab:
     st.subheader("기록의 범위와 신뢰도")
+    getattr(st, collection_level)(collection_message)
+    st.caption(f"수집기 상태 확인: {eastern_time(collection_status.get('checked_at'))} · 마지막 원본 요청 배치 시작: {eastern_time(collection_status.get('last_source_attempt_at'))}")
+    if collection_status.get('review_required'):
+        st.warning(f"반복 접근 거부 {collection_status.get('strikes')}회 · 원인 확인 필요. 응답 단서만으로 Zillow의 내부 차단 기준을 확정할 수는 없습니다.")
+    if collection_status.get('diagnostics'):
+        with st.expander('접근 거부 진단'):
+            st.json(collection_status['diagnostics'])
     st.caption(f"30분 간격으로 실행하고 {len(SCHOOLS)}개 학군을 순차 수집합니다. 정상 실행 시 학군별 전체 검색은 약 {30 * len(SCHOOLS)}분마다 갱신합니다. 건축연도가 모두 확인돼도 새 매물과 가격을 다시 조회합니다. 실행 지연·하루 요청 한도·접근 제한 중에는 더 늦어질 수 있습니다.")
     st.link_button("GitHub 수집 실행 기록", "https://github.com/ladavid9989/data_science/actions/workflows/housing-collect.yml")
     for school in schools:
         subset = runs[runs.school == school]
+        saved_success = collection_status.get('last_success_by_school', {}).get(school)
+        successful = subset[subset.quality.eq('source_complete')]
+        if not saved_success and not successful.empty:
+            saved_success = successful.observed_at.max()
+        st.write(f"**{SHORT[school]} · 마지막 검색 성공: {eastern_time(saved_success)}**")
         if subset.empty:
             st.warning(f"{SHORT[school]}: 관측 없음")
         else:

@@ -381,16 +381,32 @@ class Batch:
             result = 'checkpointed'
         except AccessBlocked as exc:
             old = read_json(policy) if policy.exists() else {}
-            strikes = min(old.get('strikes', 0) + 1, 5)
-            wait = max(exc.wait_seconds, min(86400, 3600 * 2 ** (strikes - 1)))
-            write_json(policy, dict(reason=str(exc), strikes=strikes,
-                                    retry_after=(utcnow() + timedelta(seconds=wait)).isoformat()))
+            strikes = old.get('strikes', 0) + 1
+            # 403 has an explicit three-hour floor, not an additional hidden backoff.
+            wait = exc.wait_seconds if exc.diagnostics.get('http_status') == 403 else max(
+                exc.wait_seconds, min(86400, 3600 * 2 ** min(strikes - 1, 5)))
+            failure = dict(reason=str(exc), strikes=strikes, blocked_at=utcnow().isoformat(),
+                           retry_after=(utcnow() + timedelta(seconds=wait)).isoformat(),
+                           diagnostics=exc.diagnostics, review_required=strikes >= 2)
+            write_json(policy, failure)
+            history_path = self.root / 'state/access-events.json.gz'
+            history = read_json(history_path) if history_path.exists() else []
+            write_json(history_path, (history + [failure])[-20:])
+            job['error'] = str(exc)
             result = 'blocked'
         except Exception as exc:
             result = 'error'
             job['error'] = str(exc)[:250]
             if 'Pagination' in str(exc) or 'criteria' in str(exc) or 'filter mismatch' in str(exc):
                 job['restart'] = True
+            self.save()
+        if result in ('complete', 'checkpointed') and self.used and policy.exists():
+            prior = read_json(policy)
+            if prior.get('strikes'):
+                prior.update(strikes=0, review_required=False, resolved_at=utcnow().isoformat())
+                write_json(policy, prior)
+        if result == 'complete':
+            job.pop('error', None)
             self.save()
         self.publish_enrichment(school, job)
         if not job.get('finished_at'):
@@ -404,7 +420,26 @@ class Batch:
 
 
 def collect_batch(db, archive, request_limit=3, detail_limit=2):
-    return Batch(db, archive, request_limit, detail_limit).run()
+    from tracker.health import write_status
+    batch = Batch(db, archive, request_limit, detail_limit)
+    result = dict(status='error', requests=0, error='Collection did not finish')
+    try:
+        result = batch.run()
+        return result
+    except Exception as exc:
+        result.update(error=f'{type(exc).__name__}: {exc}'[:250], requests=batch.used)
+        raise
+    finally:
+        status = {key: result[key] for key in ('status', 'requests', 'school', 'error', 'next_batch_at') if key in result}
+        status.update(version=1, checked_at=utcnow().isoformat(),
+                      last_source_attempt_at=batch.state.get('last_batch_started_at'))
+        policy = batch.root / 'state/access.json.gz'
+        if policy.exists():
+            saved = read_json(policy)
+            status['last_access_failure'] = saved
+            if result['status'] in ('blocked', 'cooldown'):
+                status.update(saved)
+        write_status(batch.root / 'state/collection-status.json', status)
 
 
 def replay_details(db, archive, manifest, raw_dir):

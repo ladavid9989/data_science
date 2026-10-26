@@ -35,9 +35,45 @@ SOURCES = {
 
 
 class AccessBlocked(RuntimeError):
-    def __init__(self, message, wait_seconds=3600):
+    def __init__(self, message, wait_seconds=3600, *, diagnostics=None):
         super().__init__(message)
         self.wait_seconds = wait_seconds
+        self.diagnostics = diagnostics or {}
+
+
+def access_failure(exc, url):
+    """A 403 uses a three-hour floor; a server's longer Retry-After wins."""
+    now = datetime.now(timezone.utc)
+    base_wait = {401: 86400, 403: 10800, 429: 3600}[exc.code]
+    retry = (exc.headers.get('Retry-After', '') if exc.headers else '')[:128]
+    server_wait = None
+    if retry:
+        try:
+            server_wait = max(0, int(retry))
+        except ValueError:
+            try:
+                deadline = parsedate_to_datetime(retry)
+                if deadline.tzinfo is None:
+                    deadline = deadline.replace(tzinfo=timezone.utc)
+                server_wait = max(0, (deadline - now).total_seconds())
+            except (ValueError, TypeError, OverflowError):
+                pass
+    parsed = urllib.parse.urlsplit(url)
+    diagnostics = dict(http_status=exc.code, request_path=parsed.scheme + '://' + parsed.netloc + parsed.path,
+                       retry_after_header=retry, server_wait_seconds=server_wait,
+                       base_wait_seconds=base_wait)
+    if exc.headers:
+        diagnostics['response_headers'] = {name: exc.headers[name][:256] for name in
+            ('Server', 'Content-Type', 'X-Request-ID', 'CF-Ray', 'X-Amz-Cf-Id', 'X-Amzn-RequestId') if exc.headers.get(name)}
+    try:
+        excerpt = exc.read(4096).decode('utf-8', errors='replace')
+        diagnostics['response_kind'] = ('human_verification' if re.search(r'captcha|verify you are human', excerpt, re.I)
+                                        else 'access_denied' if re.search(r'access denied|forbidden', excerpt, re.I)
+                                        else 'unspecified')
+    except Exception:
+        diagnostics['response_kind'] = 'unavailable'
+    return AccessBlocked(f'HTTP {exc.code}: source access stopped', max(base_wait, server_wait or 0),
+                         diagnostics=diagnostics)
 
 
 def write_json(path, value):
@@ -75,23 +111,15 @@ class Client:
                 body = reply.read(12_000_001)
         except urllib.error.HTTPError as exc:
             if exc.code in (401, 403, 429):
-                wait = 3600 if exc.code == 429 else 86400
-                retry = exc.headers.get("Retry-After", "")
-                if retry:
-                    try:
-                        wait = max(wait, int(retry))
-                    except ValueError:
-                        try:
-                            wait = max(wait, int((parsedate_to_datetime(retry) - datetime.now(timezone.utc)).total_seconds()))
-                        except (ValueError, TypeError):
-                            pass
-                raise AccessBlocked(f"HTTP {exc.code}: source access stopped", wait) from exc
+                raise access_failure(exc, url) from exc
             raise
         if len(body) > 12_000_000:
             raise RuntimeError("Unexpected response size")
         text = body.decode("utf-8-sig")
         if re.search(r"px-captcha|verify you are human|Access to this page has been denied", text, re.I):
-            raise AccessBlocked("Source challenge: stopped without bypass")
+            parsed = urllib.parse.urlsplit(url)
+            raise AccessBlocked("Source challenge: stopped without bypass", diagnostics=dict(
+                response_kind='human_verification', request_path=parsed.scheme + '://' + parsed.netloc + parsed.path))
         digest = hashlib.sha256(body).hexdigest()
         self.raw_dir.mkdir(parents=True, exist_ok=True)
         path = self.raw_dir / (digest + ".gz")

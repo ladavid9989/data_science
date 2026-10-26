@@ -9,6 +9,33 @@ from tracker.batch import collect_batch, replay_details
 from tracker.band import prune_archive, prune_database
 from tracker.probe import import_probe
 from tracker.storage import backup, default_db, export_snapshot, import_snapshot
+from tracker.health import FAILURE_STATUSES, eastern, read_status, status_notice
+
+
+def report_collection(archive, result):
+    status = read_status(Path(archive) / 'index.json').get('collection_status', {})
+    _, notice = status_notice(status)
+    lines = [f"Batch: **{result['status']}**", '', notice, '',
+             f"Source requests: {result.get('requests', 0)}; newly verified years: {result.get('years_added', 0)}.",
+             f"상태 확인 시각: {eastern(status.get('checked_at'))}", '', '학군별 마지막 검색 성공 (ET):']
+    from tracker.storage import SCHOOLS
+    for school, name in SCHOOLS.items():
+        lines.append(f"- {name}: {eastern(status.get('last_success_by_school', {}).get(school))}")
+    if status.get('diagnostics'):
+        lines.extend(['', '접근 거부 진단 (응답 본문·인증 정보는 저장하지 않음):',
+                      '```json', json.dumps(status['diagnostics'], ensure_ascii=False, indent=2), '```'])
+    if status.get('review_required'):
+        lines.append(f"반복 접근 거부 {status.get('strikes')}회: 원인 확인 필요. state/access-events.json.gz에 최근 진단을 보관합니다.")
+        print('::warning::Repeated source refusal; inspect saved response diagnostics before changing access settings.')
+    if result.get('recovery_reason'):
+        lines.append(f"Search changed during pagination; restarted from page 1 within the request budget. {result['recovery_reason']}")
+    for school, progress in result.get('enrichment', {}).items():
+        lines.append(f"- {school}: {progress['known']}/{progress['total']} years verified; {progress['missing']} missing.")
+    if os.environ.get('GITHUB_STEP_SUMMARY'):
+        with open(os.environ['GITHUB_STEP_SUMMARY'], 'a', encoding='utf-8') as summary:
+            summary.write('\n'.join(lines) + '\n')
+    if result['status'] in FAILURE_STATUSES:
+        print('::error::Source collection unavailable; see retry time and last successful searches in the job summary.')
 
 
 def main():
@@ -80,18 +107,10 @@ def main():
         try:
             result = collect_batch(args.db, args.archive, args.request_limit, args.detail_limit)
             print(json.dumps(result))
-            if os.environ.get('GITHUB_STEP_SUMMARY'):
-                lines = [f"Batch: **{result['status']}**", "",
-                         f"Source requests: {result.get('requests', 0)}; newly verified years: {result.get('years_added', 0)}.", ""]
-                if result.get('recovery_reason'):
-                    lines.append(f"Search changed during pagination; restarted from page 1 within the request budget. {result['recovery_reason']}")
-                for school, progress in result.get('enrichment', {}).items():
-                    lines.append(f"- {school}: {progress['known']}/{progress['total']} years verified; {progress['missing']} missing.")
-                with open(os.environ['GITHUB_STEP_SUMMARY'], 'a', encoding='utf-8') as summary:
-                    summary.write('\n'.join(lines) + '\n')
         finally:
             index_archive(args.archive)
-        if result['status'] in ('blocked', 'error'):
+        report_collection(args.archive, result)
+        if result['status'] in FAILURE_STATUSES:
             raise SystemExit(1)
     elif args.command == 'replay-details':
         print(f'Reparsed {replay_details(args.db, args.archive, args.manifest, args.raw_dir)} saved details')
