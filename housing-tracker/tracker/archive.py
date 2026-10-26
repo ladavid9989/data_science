@@ -4,11 +4,12 @@ import json
 import re
 import time
 import urllib.request
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 from tracker.collect import read_json
 from tracker.band import restrict_snapshot, prune_database
-from tracker.storage import SCHOOLS, connection, import_snapshot, initialize
+from tracker.storage import SCHOOLS, connection, import_snapshot, initialize, insert_snapshot
 from tracker.health import read_status, write_status, local_status_path
 
 REMOTE = "https://raw.githubusercontent.com/ladavid9989/data_science/data/school-housing-tracker/"
@@ -52,17 +53,27 @@ def sync(db):
     write_status(local_status_path(db), index.get('collection_status') or {})
     with connection(db) as conn:
         existing = {row[0] for row in conn.execute("SELECT run_id FROM runs")}
-    count = 0
-    for entry in index["snapshots"]:
-        if entry["run_id"] in existing:
-            continue
-        schools = '|'.join(re.escape(school) for school in SCHOOLS)
+    pending = [entry for entry in index['snapshots'] if entry['run_id'] not in existing]
+    schools = '|'.join(re.escape(school) for school in SCHOOLS)
+    for entry in pending:
         if not re.fullmatch(r"snapshots/\d{4}-\d{2}-\d{2}/(?:" + schools + r")-[a-f0-9]{64}\.json\.gz", entry["path"]):
             raise ValueError("Invalid archive path")
+
+    def download(entry):
         with urllib.request.urlopen(REMOTE + entry["path"], timeout=20) as reply:
             payload = json.loads(gzip.decompress(reply.read()))
         digest = hashlib.sha256(json.dumps(payload, sort_keys=True, ensure_ascii=False, allow_nan=False).encode()).hexdigest()
         if digest != entry["run_id"] or payload.get("dataset") != "observed":
             raise ValueError("Archive checksum or dataset mismatch")
-        count += import_snapshot(db, restrict_snapshot(payload))[1]
+        return restrict_snapshot(payload)
+
+    count = 0
+    # Only immutable files from our GitHub archive are fetched concurrently.
+    # Zillow collection limits remain unchanged. Keep memory and writes bounded.
+    with ThreadPoolExecutor(max_workers=8) as downloads:
+        for offset in range(0, len(pending), 32):
+            payloads = list(downloads.map(download, pending[offset:offset + 32]))
+            with connection(db) as conn, conn:
+                for payload in payloads:
+                    count += insert_snapshot(conn, payload)[1]
     return count

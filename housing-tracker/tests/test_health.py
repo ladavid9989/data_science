@@ -92,6 +92,38 @@ def test_status_sync_works_without_new_market_snapshots(tmp_path, monkeypatch):
     assert read_status(local_status_path(db)) == status
 
 
+def test_parallel_archive_restore_checks_hashes_and_commits_in_order(tmp_path, monkeypatch):
+    import gzip
+    import hashlib
+    from tracker import archive
+    from tracker.storage import connection
+    from tests.scenarios import snapshots
+    payloads = [next(snapshots())]
+    second = json.loads(json.dumps(payloads[0]))
+    second['observed_at'] = '2026-09-01T10:17:00+00:00'
+    payloads.append(second)
+    entries, files = [], {}
+    for payload in payloads:
+        digest = hashlib.sha256(json.dumps(payload, sort_keys=True, ensure_ascii=False, allow_nan=False).encode()).hexdigest()
+        path = f"snapshots/{payload['observed_at'][:10]}/{payload['school']}-{digest}.json.gz"
+        entries.append(dict(run_id=digest, path=path))
+        files[archive.REMOTE + path] = gzip.compress(json.dumps(payload).encode())
+    index = dict(version=1, snapshots=entries)
+    def reply(url, **kwargs):
+        return io.BytesIO(json.dumps(index).encode() if 'index.json' in url else files[url])
+    monkeypatch.setattr(archive.urllib.request, 'urlopen', reply)
+    db = tmp_path / 'parallel.sqlite3'
+    assert archive.sync(db) == 2
+    with connection(db) as conn:
+        assert conn.execute('SELECT count(*) FROM runs').fetchone()[0] == 2
+    files[archive.REMOTE + entries[1]['path']] = gzip.compress(json.dumps(payloads[0]).encode())
+    bad_db = tmp_path / 'invalid.sqlite3'
+    with pytest.raises(ValueError, match='checksum'):
+        archive.sync(bad_db)
+    with connection(bad_db) as conn:
+        assert conn.execute('SELECT count(*) FROM runs').fetchone()[0] == 0
+
+
 def test_last_success_uses_search_time_not_year_enrichment_time(tmp_path):
     from tracker.archive import index_archive
     snapshot = dict(school='northview', observed_at='2026-10-26T23:00:00+00:00',
