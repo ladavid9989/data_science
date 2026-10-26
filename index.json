@@ -9042,6 +9042,14 @@
       "rows": 50
     },
     {
+      "path": "snapshots/2026-10-26/chattahoochee-b0c8e59d30e40dec6af6ab15de57ed54cb9431ff4693b5cf42befe801e8a6e36.json.gz",
+      "run_id": "b0c8e59d30e40dec6af6ab15de57ed54cb9431ff4693b5cf42befe801e8a6e36",
+      "school": "chattahoochee",
+      "observed_at": "2026-10-26T17:31:27.161071+00:00",
+      "quality": "source_complete",
+      "rows": 48
+    },
+    {
       "path": "snapshots/2026-10-26/chattahoochee-c3fba8c026681ecb7ad79dadcea330c9e93baf8041f11dd47ab937fbdce789a3.json.gz",
       "run_id": "c3fba8c026681ecb7ad79dadcea330c9e93baf8041f11dd47ab937fbdce789a3",
       "school": "chattahoochee",
