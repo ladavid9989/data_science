@@ -9418,6 +9418,22 @@
       "rows": 21
     },
     {
+      "path": "snapshots/2026-10-27/johns_creek-1820179e33d44fbc3ed23b2c9fd54818568ad7f74179ca11bb67c740f1025e4d.json.gz",
+      "run_id": "1820179e33d44fbc3ed23b2c9fd54818568ad7f74179ca11bb67c740f1025e4d",
+      "school": "johns_creek",
+      "observed_at": "2026-10-27T01:01:22.042907+00:00",
+      "quality": "source_complete",
+      "rows": 15
+    },
+    {
+      "path": "snapshots/2026-10-27/johns_creek-5b97557293afaffbf6329e1863b90a500d5c440ab31e2c2cdace2f86ba0fbaf8.json.gz",
+      "run_id": "5b97557293afaffbf6329e1863b90a500d5c440ab31e2c2cdace2f86ba0fbaf8",
+      "school": "johns_creek",
+      "observed_at": "2026-10-27T01:01:02.962321+00:00",
+      "quality": "source_complete",
+      "rows": 15
+    },
+    {
       "path": "snapshots/2026-10-27/north_gwinnett-3f68e6619b071c18cdecd15485477e46770cd5f4ad8dd2ba2e42b8e4319bfb95.json.gz",
       "run_id": "3f68e6619b071c18cdecd15485477e46770cd5f4ad8dd2ba2e42b8e4319bfb95",
       "school": "north_gwinnett",
@@ -9443,13 +9459,13 @@
     }
   ],
   "collection_status": {
-    "status": "checkpointed",
-    "requests": 3,
-    "school": "north_gwinnett",
+    "status": "complete",
+    "requests": 2,
+    "school": "johns_creek",
     "error": null,
     "version": 1,
-    "checked_at": "2026-10-27T00:32:17.510407+00:00",
-    "last_source_attempt_at": "2026-10-27T00:31:15.924675+00:00",
+    "checked_at": "2026-10-27T01:01:22.200151+00:00",
+    "last_source_attempt_at": "2026-10-27T01:00:50.918609+00:00",
     "last_access_failure": {
       "manual_retry_requested_at": "2026-10-19T20:52:24.6685116Z",
       "previous_retry_after": "2026-10-19T21:30:44.857328+00:00",
@@ -9460,7 +9476,7 @@
       "strikes": 0
     },
     "last_success_by_school": {
-      "johns_creek": "2026-10-26T23:01:00.662433+00:00",
+      "johns_creek": "2026-10-27T01:01:02.802617+00:00",
       "north_gwinnett": "2026-10-27T00:32:16.944710+00:00",
       "chattahoochee": "2026-10-26T23:31:21.360645+00:00",
       "northview": "2026-10-27T00:00:54.608341+00:00"
