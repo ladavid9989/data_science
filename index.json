@@ -9850,6 +9850,14 @@
       "rows": 21
     },
     {
+      "path": "snapshots/2026-10-27/northview-8ce76ef9beb04672faa0416c06edac70281b9c43fd3cedda5c86844d79d595cc.json.gz",
+      "run_id": "8ce76ef9beb04672faa0416c06edac70281b9c43fd3cedda5c86844d79d595cc",
+      "school": "northview",
+      "observed_at": "2026-10-27T22:00:57.691954+00:00",
+      "quality": "source_complete",
+      "rows": 18
+    },
+    {
       "path": "snapshots/2026-10-27/northview-b4819edcd50e0f6e096a9798f041fc90d48d5c231ceab68eb456be91bf1718a1.json.gz",
       "run_id": "b4819edcd50e0f6e096a9798f041fc90d48d5c231ceab68eb456be91bf1718a1",
       "school": "northview",
@@ -9888,16 +9896,24 @@
       "observed_at": "2026-10-27T00:01:25.059836+00:00",
       "quality": "source_complete",
       "rows": 21
+    },
+    {
+      "path": "snapshots/2026-10-27/northview-f5e68f333caed245005858acc4653fd7540ed0e78b0aaa28d73f69abd0273f0b.json.gz",
+      "run_id": "f5e68f333caed245005858acc4653fd7540ed0e78b0aaa28d73f69abd0273f0b",
+      "school": "northview",
+      "observed_at": "2026-10-27T22:01:27.907150+00:00",
+      "quality": "source_complete",
+      "rows": 19
     }
   ],
   "collection_status": {
     "status": "complete",
     "requests": 2,
-    "school": "chattahoochee",
+    "school": "northview",
     "error": null,
     "version": 1,
-    "checked_at": "2026-10-27T21:31:29.534800+00:00",
-    "last_source_attempt_at": "2026-10-27T21:30:57.632369+00:00",
+    "checked_at": "2026-10-27T22:01:28.126712+00:00",
+    "last_source_attempt_at": "2026-10-27T22:00:56.374078+00:00",
     "last_access_failure": {
       "manual_retry_requested_at": "2026-10-19T20:52:24.6685116Z",
       "previous_retry_after": "2026-10-19T21:30:44.857328+00:00",
@@ -9911,7 +9927,7 @@
       "johns_creek": "2026-10-27T21:01:03.332751+00:00",
       "north_gwinnett": "2026-10-27T20:31:33.993166+00:00",
       "chattahoochee": "2026-10-27T21:31:28.686205+00:00",
-      "northview": "2026-10-27T20:01:12.362044+00:00"
+      "northview": "2026-10-27T22:00:57.470451+00:00"
     }
   }
 }
