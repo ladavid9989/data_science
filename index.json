@@ -9418,6 +9418,22 @@
       "rows": 21
     },
     {
+      "path": "snapshots/2026-10-27/chattahoochee-0a68695a2f8384c37ae44003bd888238aaeaac1f630af560551e70f1c0a330f6.json.gz",
+      "run_id": "0a68695a2f8384c37ae44003bd888238aaeaac1f630af560551e70f1c0a330f6",
+      "school": "chattahoochee",
+      "observed_at": "2026-10-27T01:31:22.900799+00:00",
+      "quality": "source_complete",
+      "rows": 47
+    },
+    {
+      "path": "snapshots/2026-10-27/chattahoochee-373a4efab67e264b375b378b6a1f78034d4d32f7e6255b7eb8ba6f3e33837eaf.json.gz",
+      "run_id": "373a4efab67e264b375b378b6a1f78034d4d32f7e6255b7eb8ba6f3e33837eaf",
+      "school": "chattahoochee",
+      "observed_at": "2026-10-27T01:31:53.099152+00:00",
+      "quality": "source_complete",
+      "rows": 48
+    },
+    {
       "path": "snapshots/2026-10-27/johns_creek-1820179e33d44fbc3ed23b2c9fd54818568ad7f74179ca11bb67c740f1025e4d.json.gz",
       "run_id": "1820179e33d44fbc3ed23b2c9fd54818568ad7f74179ca11bb67c740f1025e4d",
       "school": "johns_creek",
@@ -9459,13 +9475,13 @@
     }
   ],
   "collection_status": {
-    "status": "complete",
-    "requests": 2,
-    "school": "johns_creek",
+    "status": "checkpointed",
+    "requests": 3,
+    "school": "chattahoochee",
     "error": null,
     "version": 1,
-    "checked_at": "2026-10-27T01:01:22.200151+00:00",
-    "last_source_attempt_at": "2026-10-27T01:00:50.918609+00:00",
+    "checked_at": "2026-10-27T01:31:53.391507+00:00",
+    "last_source_attempt_at": "2026-10-27T01:30:51.675927+00:00",
     "last_access_failure": {
       "manual_retry_requested_at": "2026-10-19T20:52:24.6685116Z",
       "previous_retry_after": "2026-10-19T21:30:44.857328+00:00",
@@ -9478,7 +9494,7 @@
     "last_success_by_school": {
       "johns_creek": "2026-10-27T01:01:02.802617+00:00",
       "north_gwinnett": "2026-10-27T00:32:16.944710+00:00",
-      "chattahoochee": "2026-10-26T23:31:21.360645+00:00",
+      "chattahoochee": "2026-10-27T01:31:22.628161+00:00",
       "northview": "2026-10-27T00:00:54.608341+00:00"
     }
   }
