@@ -9859,12 +9859,11 @@
     }
   ],
   "collection_status": {
-    "status": "complete",
-    "requests": 1,
-    "school": "northview",
-    "error": null,
+    "status": "interval_wait",
+    "requests": 0,
+    "next_batch_at": "2026-10-27T20:26:11.142026+00:00",
     "version": 1,
-    "checked_at": "2026-10-27T20:01:12.874310+00:00",
+    "checked_at": "2026-10-27T20:06:07.724101+00:00",
     "last_source_attempt_at": "2026-10-27T20:01:11.142026+00:00",
     "last_access_failure": {
       "manual_retry_requested_at": "2026-10-19T20:52:24.6685116Z",
