@@ -9970,6 +9970,22 @@
       "rows": 14
     },
     {
+      "path": "snapshots/2026-10-28/johns_creek-443496851923ed098edabb549d847289f06e353dde95dbb4a97ae5c9ff3e3286.json.gz",
+      "run_id": "443496851923ed098edabb549d847289f06e353dde95dbb4a97ae5c9ff3e3286",
+      "school": "johns_creek",
+      "observed_at": "2026-10-28T05:01:29.242881+00:00",
+      "quality": "source_complete",
+      "rows": 15
+    },
+    {
+      "path": "snapshots/2026-10-28/johns_creek-72b11b4518c8cbcf19398b0356d5c1bc46a22b679a5d41562ea6cf94d66e8192.json.gz",
+      "run_id": "72b11b4518c8cbcf19398b0356d5c1bc46a22b679a5d41562ea6cf94d66e8192",
+      "school": "johns_creek",
+      "observed_at": "2026-10-28T05:00:59.046285+00:00",
+      "quality": "source_complete",
+      "rows": 14
+    },
+    {
       "path": "snapshots/2026-10-28/johns_creek-8e55ca1a173d661cdd8c38b35d468e92ccce151cdb5dea83d6865cfae424e673.json.gz",
       "run_id": "8e55ca1a173d661cdd8c38b35d468e92ccce151cdb5dea83d6865cfae424e673",
       "school": "johns_creek",
@@ -10059,13 +10075,13 @@
     }
   ],
   "collection_status": {
-    "status": "checkpointed",
-    "requests": 3,
-    "school": "north_gwinnett",
+    "status": "complete",
+    "requests": 2,
+    "school": "johns_creek",
     "error": null,
     "version": 1,
-    "checked_at": "2026-10-28T04:31:55.370192+00:00",
-    "last_source_attempt_at": "2026-10-28T04:30:53.809906+00:00",
+    "checked_at": "2026-10-28T05:01:29.493569+00:00",
+    "last_source_attempt_at": "2026-10-28T05:00:57.779525+00:00",
     "last_access_failure": {
       "manual_retry_requested_at": "2026-10-19T20:52:24.6685116Z",
       "previous_retry_after": "2026-10-19T21:30:44.857328+00:00",
@@ -10076,7 +10092,7 @@
       "strikes": 0
     },
     "last_success_by_school": {
-      "johns_creek": "2026-10-28T03:01:02.494837+00:00",
+      "johns_creek": "2026-10-28T05:00:58.791197+00:00",
       "north_gwinnett": "2026-10-28T04:31:24.785559+00:00",
       "chattahoochee": "2026-10-28T03:31:27.567711+00:00",
       "northview": "2026-10-28T04:00:58.453564+00:00"
