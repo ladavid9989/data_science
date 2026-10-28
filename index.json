@@ -9938,6 +9938,14 @@
       "rows": 19
     },
     {
+      "path": "snapshots/2026-10-28/chattahoochee-0a578075e4019ef47dd0648d648b3882882d23ca2b7f0d3579f73a501530a5bf.json.gz",
+      "run_id": "0a578075e4019ef47dd0648d648b3882882d23ca2b7f0d3579f73a501530a5bf",
+      "school": "chattahoochee",
+      "observed_at": "2026-10-28T15:31:32.321447+00:00",
+      "quality": "source_complete",
+      "rows": 48
+    },
+    {
       "path": "snapshots/2026-10-28/chattahoochee-2068e9bb3ad158fefc5dedff3a2a7ac8ec05ccde498bf40b8d5e4feeda837f00.json.gz",
       "run_id": "2068e9bb3ad158fefc5dedff3a2a7ac8ec05ccde498bf40b8d5e4feeda837f00",
       "school": "chattahoochee",
@@ -10000,6 +10008,14 @@
       "observed_at": "2026-10-28T13:31:27.032540+00:00",
       "quality": "source_complete",
       "rows": 47
+    },
+    {
+      "path": "snapshots/2026-10-28/chattahoochee-8a93bc58e7a857d21a9771a8e948aaca5a5ec2928317fda667b4a211404c2968.json.gz",
+      "run_id": "8a93bc58e7a857d21a9771a8e948aaca5a5ec2928317fda667b4a211404c2968",
+      "school": "chattahoochee",
+      "observed_at": "2026-10-28T15:32:02.392395+00:00",
+      "quality": "source_complete",
+      "rows": 48
     },
     {
       "path": "snapshots/2026-10-28/chattahoochee-947249ee27be9a748cd428b16300006aa52d68ed15ff3750a11e67fbd216d68d.json.gz",
@@ -10315,13 +10331,13 @@
     }
   ],
   "collection_status": {
-    "status": "complete",
-    "requests": 1,
-    "school": "johns_creek",
+    "status": "checkpointed",
+    "requests": 3,
+    "school": "chattahoochee",
     "error": null,
     "version": 1,
-    "checked_at": "2026-10-28T15:01:06.015428+00:00",
-    "last_source_attempt_at": "2026-10-28T15:01:04.456595+00:00",
+    "checked_at": "2026-10-28T15:32:02.646708+00:00",
+    "last_source_attempt_at": "2026-10-28T15:31:01.156271+00:00",
     "last_access_failure": {
       "manual_retry_requested_at": "2026-10-19T20:52:24.6685116Z",
       "previous_retry_after": "2026-10-19T21:30:44.857328+00:00",
@@ -10334,7 +10350,7 @@
     "last_success_by_school": {
       "johns_creek": "2026-10-28T15:01:05.358600+00:00",
       "north_gwinnett": "2026-10-28T14:31:34.367264+00:00",
-      "chattahoochee": "2026-10-28T13:31:26.778250+00:00",
+      "chattahoochee": "2026-10-28T15:31:32.066755+00:00",
       "northview": "2026-10-28T14:00:56.861545+00:00"
     }
   }
