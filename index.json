@@ -9938,6 +9938,22 @@
       "rows": 19
     },
     {
+      "path": "snapshots/2026-10-28/north_gwinnett-79e23338a5445c155a46ee111ea93aa7bc4ccac0b4e74c7d54fa1e611f7d8d78.json.gz",
+      "run_id": "79e23338a5445c155a46ee111ea93aa7bc4ccac0b4e74c7d54fa1e611f7d8d78",
+      "school": "north_gwinnett",
+      "observed_at": "2026-10-28T00:31:49.621272+00:00",
+      "quality": "source_complete",
+      "rows": 81
+    },
+    {
+      "path": "snapshots/2026-10-28/north_gwinnett-bdce33e27871b52b41f012c9bbcf2d87f8714a5b25b5da95cff33204718525e0.json.gz",
+      "run_id": "bdce33e27871b52b41f012c9bbcf2d87f8714a5b25b5da95cff33204718525e0",
+      "school": "north_gwinnett",
+      "observed_at": "2026-10-28T00:31:19.478979+00:00",
+      "quality": "source_complete",
+      "rows": 80
+    },
+    {
       "path": "snapshots/2026-10-28/northview-abf5a569eae87b7c4c0cc1bad7ca160e737deaaae28987f39f2e129578d462de.json.gz",
       "run_id": "abf5a569eae87b7c4c0cc1bad7ca160e737deaaae28987f39f2e129578d462de",
       "school": "northview",
@@ -9947,13 +9963,13 @@
     }
   ],
   "collection_status": {
-    "status": "complete",
-    "requests": 1,
-    "school": "northview",
+    "status": "checkpointed",
+    "requests": 3,
+    "school": "north_gwinnett",
     "error": null,
     "version": 1,
-    "checked_at": "2026-10-28T00:00:58.453934+00:00",
-    "last_source_attempt_at": "2026-10-28T00:00:56.389987+00:00",
+    "checked_at": "2026-10-28T00:31:49.796108+00:00",
+    "last_source_attempt_at": "2026-10-28T00:30:48.398772+00:00",
     "last_access_failure": {
       "manual_retry_requested_at": "2026-10-19T20:52:24.6685116Z",
       "previous_retry_after": "2026-10-19T21:30:44.857328+00:00",
@@ -9965,7 +9981,7 @@
     },
     "last_success_by_school": {
       "johns_creek": "2026-10-27T23:01:06.483426+00:00",
-      "north_gwinnett": "2026-10-27T22:31:20.758081+00:00",
+      "north_gwinnett": "2026-10-28T00:31:19.289130+00:00",
       "chattahoochee": "2026-10-27T23:31:33.525626+00:00",
       "northview": "2026-10-28T00:00:57.712070+00:00"
     }
