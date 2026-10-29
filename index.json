@@ -10498,6 +10498,14 @@
       "rows": 18
     },
     {
+      "path": "snapshots/2026-10-29/johns_creek-0389be76febcdf589e7492e2006f6812c89c376a0497d6fb6f4d9f996f8dbfa9.json.gz",
+      "run_id": "0389be76febcdf589e7492e2006f6812c89c376a0497d6fb6f4d9f996f8dbfa9",
+      "school": "johns_creek",
+      "observed_at": "2026-10-29T01:01:01.319156+00:00",
+      "quality": "failed",
+      "rows": 0
+    },
+    {
       "path": "snapshots/2026-10-29/north_gwinnett-924a6192db4a0a057ae7c01fa2b748588f2460b49012a5b05ad4c49e97ad0823.json.gz",
       "run_id": "924a6192db4a0a057ae7c01fa2b748588f2460b49012a5b05ad4c49e97ad0823",
       "school": "north_gwinnett",
@@ -10523,12 +10531,13 @@
     }
   ],
   "collection_status": {
-    "status": "interval_wait",
-    "requests": 0,
-    "next_batch_at": "2026-10-29T00:55:55.848854+00:00",
+    "status": "error",
+    "requests": 1,
+    "school": "johns_creek",
+    "error": "HTTP Error 503: Service Unavailable",
     "version": 1,
-    "checked_at": "2026-10-29T00:55:00.606550+00:00",
-    "last_source_attempt_at": "2026-10-29T00:30:55.848854+00:00",
+    "checked_at": "2026-10-29T01:01:01.566043+00:00",
+    "last_source_attempt_at": "2026-10-29T01:01:00.507293+00:00",
     "last_access_failure": {
       "manual_retry_requested_at": "2026-10-19T20:52:24.6685116Z",
       "previous_retry_after": "2026-10-19T21:30:44.857328+00:00",
