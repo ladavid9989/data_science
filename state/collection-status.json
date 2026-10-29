@@ -1,11 +1,11 @@
 {
-  "status": "error",
+  "status": "complete",
   "requests": 1,
   "school": "johns_creek",
-  "error": "HTTP Error 503: Service Unavailable",
+  "error": null,
   "version": 1,
-  "checked_at": "2026-10-29T01:01:01.566043+00:00",
-  "last_source_attempt_at": "2026-10-29T01:01:00.507293+00:00",
+  "checked_at": "2026-10-29T01:30:59.087846+00:00",
+  "last_source_attempt_at": "2026-10-29T01:30:57.265837+00:00",
   "last_access_failure": {
     "manual_retry_requested_at": "2026-10-19T20:52:24.6685116Z",
     "previous_retry_after": "2026-10-19T21:30:44.857328+00:00",
