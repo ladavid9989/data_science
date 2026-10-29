@@ -10963,12 +10963,11 @@
     }
   ],
   "collection_status": {
-    "status": "complete",
-    "requests": 3,
-    "school": "chattahoochee",
-    "error": null,
+    "status": "interval_wait",
+    "requests": 0,
+    "next_batch_at": "2026-10-29T19:55:49.824636+00:00",
     "version": 1,
-    "checked_at": "2026-10-29T19:31:51.421361+00:00",
+    "checked_at": "2026-10-29T19:41:51.919014+00:00",
     "last_source_attempt_at": "2026-10-29T19:30:49.824636+00:00",
     "last_access_failure": {
       "manual_retry_requested_at": "2026-10-19T20:52:24.6685116Z",
