@@ -10523,12 +10523,11 @@
     }
   ],
   "collection_status": {
-    "status": "checkpointed",
-    "requests": 3,
-    "school": "north_gwinnett",
-    "error": null,
+    "status": "interval_wait",
+    "requests": 0,
+    "next_batch_at": "2026-10-29T00:55:55.848854+00:00",
     "version": 1,
-    "checked_at": "2026-10-29T00:31:57.477171+00:00",
+    "checked_at": "2026-10-29T00:55:00.606550+00:00",
     "last_source_attempt_at": "2026-10-29T00:30:55.848854+00:00",
     "last_access_failure": {
       "manual_retry_requested_at": "2026-10-19T20:52:24.6685116Z",
