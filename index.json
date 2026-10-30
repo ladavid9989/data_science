@@ -11050,6 +11050,22 @@
       "rows": 45
     },
     {
+      "path": "snapshots/2026-10-30/chattahoochee-b14eb9c40159d5beda612381f46e6b7ec1ec11ff7fa6438f5a2955f954c95497.json.gz",
+      "run_id": "b14eb9c40159d5beda612381f46e6b7ec1ec11ff7fa6438f5a2955f954c95497",
+      "school": "chattahoochee",
+      "observed_at": "2026-10-30T07:31:17.669962+00:00",
+      "quality": "source_complete",
+      "rows": 45
+    },
+    {
+      "path": "snapshots/2026-10-30/chattahoochee-fdefcaa5b926b305462c74ab8f46dc8fead798d1414976170d694f8220c983ae.json.gz",
+      "run_id": "fdefcaa5b926b305462c74ab8f46dc8fead798d1414976170d694f8220c983ae",
+      "school": "chattahoochee",
+      "observed_at": "2026-10-30T07:31:47.866163+00:00",
+      "quality": "source_complete",
+      "rows": 46
+    },
+    {
       "path": "snapshots/2026-10-30/johns_creek-307217a0cd9e6fd95e6a27dd73ee965cb836b6e715a9d717573ec4ba5f8ef4e2.json.gz",
       "run_id": "307217a0cd9e6fd95e6a27dd73ee965cb836b6e715a9d717573ec4ba5f8ef4e2",
       "school": "johns_creek",
@@ -11155,13 +11171,13 @@
     }
   ],
   "collection_status": {
-    "status": "complete",
+    "status": "checkpointed",
     "requests": 3,
-    "school": "johns_creek",
+    "school": "chattahoochee",
     "error": null,
     "version": 1,
-    "checked_at": "2026-10-30T07:01:57.329830+00:00",
-    "last_source_attempt_at": "2026-10-30T07:00:55.731621+00:00",
+    "checked_at": "2026-10-30T07:31:48.154874+00:00",
+    "last_source_attempt_at": "2026-10-30T07:30:46.370569+00:00",
     "last_access_failure": {
       "manual_retry_requested_at": "2026-10-19T20:52:24.6685116Z",
       "previous_retry_after": "2026-10-19T21:30:44.857328+00:00",
@@ -11174,7 +11190,7 @@
     "last_success_by_school": {
       "johns_creek": "2026-10-30T07:00:56.693917+00:00",
       "north_gwinnett": "2026-10-30T06:31:46.686506+00:00",
-      "chattahoochee": "2026-10-30T05:31:15.152975+00:00",
+      "chattahoochee": "2026-10-30T07:31:17.382589+00:00",
       "northview": "2026-10-30T06:00:48.557725+00:00"
     }
   }
