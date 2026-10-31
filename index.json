@@ -11730,6 +11730,14 @@
       "rows": 19
     },
     {
+      "path": "snapshots/2026-10-31/northview-1307bebb4d805cd64c81d623229b0f81083314afcc82d553a1afdd5516f9a4cb.json.gz",
+      "run_id": "1307bebb4d805cd64c81d623229b0f81083314afcc82d553a1afdd5516f9a4cb",
+      "school": "northview",
+      "observed_at": "2026-10-31T18:00:51.331992+00:00",
+      "quality": "source_complete",
+      "rows": 19
+    },
+    {
       "path": "snapshots/2026-10-31/northview-1c94d7da32f92d2e9a8adb37d129495f0573792c6702f24fe7bcfeb535832e08.json.gz",
       "run_id": "1c94d7da32f92d2e9a8adb37d129495f0573792c6702f24fe7bcfeb535832e08",
       "school": "northview",
@@ -11795,12 +11803,13 @@
     }
   ],
   "collection_status": {
-    "status": "interval_wait",
-    "requests": 0,
-    "next_batch_at": "2026-10-31T17:55:53.143661+00:00",
+    "status": "complete",
+    "requests": 1,
+    "school": "northview",
+    "error": null,
     "version": 1,
-    "checked_at": "2026-10-31T17:43:22.926880+00:00",
-    "last_source_attempt_at": "2026-10-31T17:30:53.143661+00:00",
+    "checked_at": "2026-10-31T18:00:51.830751+00:00",
+    "last_source_attempt_at": "2026-10-31T18:00:50.071083+00:00",
     "last_access_failure": {
       "manual_retry_requested_at": "2026-10-19T20:52:24.6685116Z",
       "previous_retry_after": "2026-10-19T21:30:44.857328+00:00",
@@ -11814,7 +11823,7 @@
       "johns_creek": "2026-10-31T17:00:46.988911+00:00",
       "north_gwinnett": "2026-10-31T16:31:50.993614+00:00",
       "chattahoochee": "2026-10-31T17:31:23.967851+00:00",
-      "northview": "2026-10-31T16:00:48.423509+00:00"
+      "northview": "2026-10-31T18:00:51.074728+00:00"
     }
   }
 }
