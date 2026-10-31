@@ -11482,6 +11482,22 @@
       "rows": 45
     },
     {
+      "path": "snapshots/2026-10-31/chattahoochee-afc6b4829d63b4e1ab6025a0715f8fc31720c65fc11b344448cb8ca21ce00e62.json.gz",
+      "run_id": "afc6b4829d63b4e1ab6025a0715f8fc31720c65fc11b344448cb8ca21ce00e62",
+      "school": "chattahoochee",
+      "observed_at": "2026-10-31T11:31:49.929115+00:00",
+      "quality": "source_complete",
+      "rows": 46
+    },
+    {
+      "path": "snapshots/2026-10-31/chattahoochee-c6d31bbd9f1bdfc51ccbc044b1c8bc639005631e64860134a2848054d3cbad5e.json.gz",
+      "run_id": "c6d31bbd9f1bdfc51ccbc044b1c8bc639005631e64860134a2848054d3cbad5e",
+      "school": "chattahoochee",
+      "observed_at": "2026-10-31T11:31:19.741990+00:00",
+      "quality": "source_complete",
+      "rows": 45
+    },
+    {
       "path": "snapshots/2026-10-31/chattahoochee-c9f670bd3dfb68a9aa00223a9f078d703434c46e68c6e94e31949e28f67a645f.json.gz",
       "run_id": "c9f670bd3dfb68a9aa00223a9f078d703434c46e68c6e94e31949e28f67a645f",
       "school": "chattahoochee",
@@ -11659,13 +11675,13 @@
     }
   ],
   "collection_status": {
-    "status": "complete",
-    "requests": 1,
-    "school": "johns_creek",
+    "status": "checkpointed",
+    "requests": 3,
+    "school": "chattahoochee",
     "error": null,
     "version": 1,
-    "checked_at": "2026-10-31T11:01:15.311366+00:00",
-    "last_source_attempt_at": "2026-10-31T11:01:13.674271+00:00",
+    "checked_at": "2026-10-31T11:31:50.191806+00:00",
+    "last_source_attempt_at": "2026-10-31T11:30:48.616367+00:00",
     "last_access_failure": {
       "manual_retry_requested_at": "2026-10-19T20:52:24.6685116Z",
       "previous_retry_after": "2026-10-19T21:30:44.857328+00:00",
@@ -11678,7 +11694,7 @@
     "last_success_by_school": {
       "johns_creek": "2026-10-31T11:01:14.561274+00:00",
       "north_gwinnett": "2026-10-31T10:31:52.335364+00:00",
-      "chattahoochee": "2026-10-31T09:31:20.548996+00:00",
+      "chattahoochee": "2026-10-31T11:31:19.487377+00:00",
       "northview": "2026-10-31T10:00:53.970562+00:00"
     }
   }
