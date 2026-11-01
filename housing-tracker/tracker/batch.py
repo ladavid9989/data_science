@@ -133,8 +133,10 @@ class Batch:
                     source='Zillow school search / bounded resumable batches', listings=rows,
                     reported_count=job.get('total'), expected_unique_count=len(rows),
                     evidence_files=job.get('evidence', []),
+                    excluded_search_results=list(job.get('excluded', {}).values()),
                     note=f"$400k-$700k; collection window {job['started_at']} to {job.get('finished_at', 'in progress')}. "
-                         f"Page-number pagination; not a source snapshot cursor. {note}")
+                         f"Page-number pagination; not a source snapshot cursor. {note} "
+                         f"Excluded {len(job.get('excluded', {}))} unpriced auction results.")
 
     def search(self, school, job):
         if 'zone' not in job:
@@ -164,19 +166,26 @@ class Batch:
                 raise ValueError('Search exceeds supported pagination limit')
             if 'total' in job and (total != job['total'] or pages != job['pages']):
                 raise PaginationDrift('Pagination drift: changed count/pages; restart required')
-            incoming, ids = {}, []
+            incoming, ids, excluded = {}, [], {}
             for item in result['searchResults']['listResults']:
                 if item.get('relaxed') or item.get('isHomeRec'):
                     continue
                 row = extract_search(item, stamp)
-                if (row['property_type'] != 'SINGLE_FAMILY' or (row['bedrooms'] or 0) < 3 or
-                        (row['bathrooms'] or 0) < 2 or not PRICE_RANGE[0] <= (row['price'] or 0) <= PRICE_RANGE[1]):
-                    raise ValueError('Returned property violates requested criteria')
                 pid = row['property_id']
-                row['first_seen'] = job.get('previous', {}).get(pid, {}).get('first_seen', stamp)
                 if pid in ids or pid in job['ids']:
                     raise PaginationDrift('Pagination drift: duplicate property across pages')
                 ids.append(pid)
+                info = (item.get('hdpData') or {}).get('homeInfo') or {}
+                auction = (info.get('listing_sub_type') or {}).get('is_forAuction') is True or str(item.get('statusText', '')).lower() == 'auction'
+                if auction and row['price'] in (None, 0):
+                    # Zillow can count unpriced auctions in a price-filtered search.
+                    # Reconcile its ID, but never turn $0 or Zestimate into an asking price.
+                    excluded[pid] = dict(property_id=pid, reason='unpriced_auction', observed_at=stamp)
+                    continue
+                if (row['property_type'] != 'SINGLE_FAMILY' or (row['bedrooms'] or 0) < 3 or
+                        (row['bathrooms'] or 0) < 2 or not PRICE_RANGE[0] <= (row['price'] or 0) <= PRICE_RANGE[1]):
+                    raise ValueError('Returned property violates requested criteria')
+                row['first_seen'] = job.get('previous', {}).get(pid, {}).get('first_seen', stamp)
                 member = contains(job['zone']['geometry'], row['longitude'], row['latitude'])
                 if member is not False:
                     row['in_inventory'] = member is True
@@ -185,6 +194,7 @@ class Batch:
                 raise PaginationDrift('Pagination reconciliation failed')
             # Commit records and the next-page bookmark in ONE atomic replacement.
             job['rows'].update(incoming)
+            job.setdefault('excluded', {}).update(excluded)
             job['ids'].extend(ids)
             job.update(total=total, pages=pages, next_page=page + 1)
             job['evidence'].append(job.pop('response'))
@@ -193,7 +203,8 @@ class Batch:
             self.save()
         if not job.get('published'):
             previous = job.get('previous', {})
-            job['watch'] = {pid: row for pid, row in previous.items() if pid not in job['rows'] and row.get('status') != 'sold'}
+            job['watch'] = {pid: row for pid, row in previous.items() if pid not in job['rows']
+                            and pid not in job.get('excluded', {}) and row.get('status') != 'sold'}
             job.pop('previous', None)
             job['published'] = True
             self.publish(self.snapshot(school, job, 'source_complete', 'All pages and unique source count reconciled.'))
@@ -413,6 +424,7 @@ class Batch:
             self.publish(self.snapshot(school, job, 'partial' if job['rows'] else 'failed',
                                        f"{result}; next page {job['next_page']}. {job.get('error', '')}"))
         return dict(status=result, school=school, requests=self.used, next_page=job['next_page'],
+                    excluded_unpriced_auctions=len(job.get('excluded', {})),
                     years=sum(bool(v.get('year_built')) for v in self.state['details'].values()),
                     detail_requests=self.detail_requests, years_added=self.years_added,
                     enrichment=self.enrichment_progress(),
