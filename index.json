@@ -12506,6 +12506,14 @@
       "rows": 16
     },
     {
+      "path": "snapshots/2026-11-02/johns_creek-db05e880ab83e344718321e34e4f167e755adfae9bee17f02dd70105d7d7056b.json.gz",
+      "run_id": "db05e880ab83e344718321e34e4f167e755adfae9bee17f02dd70105d7d7056b",
+      "school": "johns_creek",
+      "observed_at": "2026-11-02T13:00:51.915018+00:00",
+      "quality": "source_complete",
+      "rows": 14
+    },
+    {
       "path": "snapshots/2026-11-02/johns_creek-dccc8753cb7b9b000a311df98553ec851eb094d975676fb97df0d35e980763fe.json.gz",
       "run_id": "dccc8753cb7b9b000a311df98553ec851eb094d975676fb97df0d35e980763fe",
       "school": "johns_creek",
@@ -12683,13 +12691,13 @@
     }
   ],
   "collection_status": {
-    "status": "checkpointed",
-    "requests": 3,
-    "school": "north_gwinnett",
+    "status": "complete",
+    "requests": 1,
+    "school": "johns_creek",
     "error": null,
     "version": 1,
-    "checked_at": "2026-11-02T12:31:54.807009+00:00",
-    "last_source_attempt_at": "2026-11-02T12:30:53.326905+00:00",
+    "checked_at": "2026-11-02T13:00:52.230447+00:00",
+    "last_source_attempt_at": "2026-11-02T13:00:50.923330+00:00",
     "last_access_failure": {
       "manual_retry_requested_at": "2026-10-19T20:52:24.6685116Z",
       "previous_retry_after": "2026-10-19T21:30:44.857328+00:00",
@@ -12700,7 +12708,7 @@
       "strikes": 0
     },
     "last_success_by_school": {
-      "johns_creek": "2026-11-02T11:01:16.610277+00:00",
+      "johns_creek": "2026-11-02T13:00:51.747233+00:00",
       "north_gwinnett": "2026-11-02T12:31:24.348308+00:00",
       "chattahoochee": "2026-11-02T11:31:32.217913+00:00",
       "northview": "2026-11-02T12:01:02.321946+00:00"
