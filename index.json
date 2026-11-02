@@ -12482,6 +12482,22 @@
       "rows": 14
     },
     {
+      "path": "snapshots/2026-11-02/johns_creek-9c7e16d5f7af9536b70654bc27a47e3cf5107c1b859767cac46f16321a39f446.json.gz",
+      "run_id": "9c7e16d5f7af9536b70654bc27a47e3cf5107c1b859767cac46f16321a39f446",
+      "school": "johns_creek",
+      "observed_at": "2026-11-02T11:01:16.898278+00:00",
+      "quality": "source_complete",
+      "rows": 14
+    },
+    {
+      "path": "snapshots/2026-11-02/johns_creek-a008c663f0cd276095b1201aaf9adab45a1aa32d9db3171bdf06188a11f08d19.json.gz",
+      "run_id": "a008c663f0cd276095b1201aaf9adab45a1aa32d9db3171bdf06188a11f08d19",
+      "school": "johns_creek",
+      "observed_at": "2026-11-02T11:02:16.971258+00:00",
+      "quality": "source_complete",
+      "rows": 16
+    },
+    {
       "path": "snapshots/2026-11-02/johns_creek-dccc8753cb7b9b000a311df98553ec851eb094d975676fb97df0d35e980763fe.json.gz",
       "run_id": "dccc8753cb7b9b000a311df98553ec851eb094d975676fb97df0d35e980763fe",
       "school": "johns_creek",
@@ -12635,13 +12651,13 @@
     }
   ],
   "collection_status": {
-    "status": "checkpointed",
+    "status": "complete",
     "requests": 3,
-    "school": "north_gwinnett",
+    "school": "johns_creek",
     "error": null,
     "version": 1,
-    "checked_at": "2026-11-02T10:31:56.852301+00:00",
-    "last_source_attempt_at": "2026-11-02T10:30:55.288780+00:00",
+    "checked_at": "2026-11-02T11:02:17.448999+00:00",
+    "last_source_attempt_at": "2026-11-02T11:01:15.392924+00:00",
     "last_access_failure": {
       "manual_retry_requested_at": "2026-10-19T20:52:24.6685116Z",
       "previous_retry_after": "2026-10-19T21:30:44.857328+00:00",
@@ -12652,7 +12668,7 @@
       "strikes": 0
     },
     "last_success_by_school": {
-      "johns_creek": "2026-11-02T09:01:03.702789+00:00",
+      "johns_creek": "2026-11-02T11:01:16.610277+00:00",
       "north_gwinnett": "2026-11-02T10:31:26.300082+00:00",
       "chattahoochee": "2026-11-02T09:31:18.153604+00:00",
       "northview": "2026-11-02T10:00:55.280662+00:00"
