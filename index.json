@@ -12498,10 +12498,26 @@
       "rows": 17
     },
     {
+      "path": "snapshots/2026-11-02/northview-2eedd547b15ea1d1ab8bbb8906f9e81160ee94a5d39561f71eb7bd3a94e3a3a1.json.gz",
+      "run_id": "2eedd547b15ea1d1ab8bbb8906f9e81160ee94a5d39561f71eb7bd3a94e3a3a1",
+      "school": "northview",
+      "observed_at": "2026-11-02T06:01:29.067943+00:00",
+      "quality": "source_complete",
+      "rows": 18
+    },
+    {
       "path": "snapshots/2026-11-02/northview-48c825b29b9136432ccc43a339b0a933c65db6e880da575ac648ec01ec1c5521.json.gz",
       "run_id": "48c825b29b9136432ccc43a339b0a933c65db6e880da575ac648ec01ec1c5521",
       "school": "northview",
       "observed_at": "2026-11-02T02:01:07.308890+00:00",
+      "quality": "source_complete",
+      "rows": 17
+    },
+    {
+      "path": "snapshots/2026-11-02/northview-a2fbaad7d3fe5c5263a74b79171422779d82f18bbfe582213e0ee2ced2272e3c.json.gz",
+      "run_id": "a2fbaad7d3fe5c5263a74b79171422779d82f18bbfe582213e0ee2ced2272e3c",
+      "school": "northview",
+      "observed_at": "2026-11-02T06:00:58.907746+00:00",
       "quality": "source_complete",
       "rows": 17
     },
@@ -12517,11 +12533,11 @@
   "collection_status": {
     "status": "complete",
     "requests": 2,
-    "school": "chattahoochee",
+    "school": "northview",
     "error": null,
     "version": 1,
-    "checked_at": "2026-11-02T05:31:25.037772+00:00",
-    "last_source_attempt_at": "2026-11-02T05:30:53.561028+00:00",
+    "checked_at": "2026-11-02T06:01:29.286772+00:00",
+    "last_source_attempt_at": "2026-11-02T06:00:57.727339+00:00",
     "last_access_failure": {
       "manual_retry_requested_at": "2026-10-19T20:52:24.6685116Z",
       "previous_retry_after": "2026-10-19T21:30:44.857328+00:00",
@@ -12535,7 +12551,7 @@
       "johns_creek": "2026-11-02T05:01:05.989131+00:00",
       "north_gwinnett": "2026-11-02T04:31:27.557477+00:00",
       "chattahoochee": "2026-11-02T05:31:24.371260+00:00",
-      "northview": "2026-11-02T04:00:58.372904+00:00"
+      "northview": "2026-11-02T06:00:58.685683+00:00"
     }
   }
 }
