@@ -12474,6 +12474,22 @@
       "rows": 44
     },
     {
+      "path": "snapshots/2026-11-02/chattahoochee-9ae51040567c39324bf5947c48e1600bff32b87714529c75918a2239f86e9179.json.gz",
+      "run_id": "9ae51040567c39324bf5947c48e1600bff32b87714529c75918a2239f86e9179",
+      "school": "chattahoochee",
+      "observed_at": "2026-11-02T21:31:58.662722+00:00",
+      "quality": "source_complete",
+      "rows": 43
+    },
+    {
+      "path": "snapshots/2026-11-02/chattahoochee-b1daa1c1f75211a7fafbd7bf85bf1885faead13a4baec59af4f5c0758c0fd9a4.json.gz",
+      "run_id": "b1daa1c1f75211a7fafbd7bf85bf1885faead13a4baec59af4f5c0758c0fd9a4",
+      "school": "chattahoochee",
+      "observed_at": "2026-11-02T21:31:28.456309+00:00",
+      "quality": "source_complete",
+      "rows": 42
+    },
+    {
       "path": "snapshots/2026-11-02/chattahoochee-b1ef2487e82c690d58b707e60e5c4d350e60b4eb9ac69239718d06ef6039410a.json.gz",
       "run_id": "b1ef2487e82c690d58b707e60e5c4d350e60b4eb9ac69239718d06ef6039410a",
       "school": "chattahoochee",
@@ -12859,13 +12875,13 @@
     }
   ],
   "collection_status": {
-    "status": "complete",
-    "requests": 1,
-    "school": "johns_creek",
+    "status": "checkpointed",
+    "requests": 3,
+    "school": "chattahoochee",
     "error": null,
     "version": 1,
-    "checked_at": "2026-11-02T21:01:03.969025+00:00",
-    "last_source_attempt_at": "2026-11-02T21:01:02.215653+00:00",
+    "checked_at": "2026-11-02T21:31:58.915450+00:00",
+    "last_source_attempt_at": "2026-11-02T21:30:57.278680+00:00",
     "last_access_failure": {
       "manual_retry_requested_at": "2026-10-19T20:52:24.6685116Z",
       "previous_retry_after": "2026-10-19T21:30:44.857328+00:00",
@@ -12878,7 +12894,7 @@
     "last_success_by_school": {
       "johns_creek": "2026-11-02T21:01:03.221339+00:00",
       "north_gwinnett": "2026-11-02T20:31:27.629980+00:00",
-      "chattahoochee": "2026-11-02T19:31:21.313242+00:00",
+      "chattahoochee": "2026-11-02T21:31:28.202964+00:00",
       "northview": "2026-11-02T20:00:58.535041+00:00"
     }
   }
