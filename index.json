@@ -12538,6 +12538,14 @@
       "rows": 18
     },
     {
+      "path": "snapshots/2026-11-02/northview-4076b26cf4affb82753c3a6c4e064a802d97326c9dc0ff10d030b98096ea38a1.json.gz",
+      "run_id": "4076b26cf4affb82753c3a6c4e064a802d97326c9dc0ff10d030b98096ea38a1",
+      "school": "northview",
+      "observed_at": "2026-11-02T08:00:55.272142+00:00",
+      "quality": "source_complete",
+      "rows": 17
+    },
+    {
       "path": "snapshots/2026-11-02/northview-48c825b29b9136432ccc43a339b0a933c65db6e880da575ac648ec01ec1c5521.json.gz",
       "run_id": "48c825b29b9136432ccc43a339b0a933c65db6e880da575ac648ec01ec1c5521",
       "school": "northview",
@@ -12560,16 +12568,24 @@
       "observed_at": "2026-11-02T00:00:52.031586+00:00",
       "quality": "source_complete",
       "rows": 17
+    },
+    {
+      "path": "snapshots/2026-11-02/northview-cbef1fb046ccb11b69f5aadcbef3a35b2fcb3ac96375ed283ce11a76fcdb6d37.json.gz",
+      "run_id": "cbef1fb046ccb11b69f5aadcbef3a35b2fcb3ac96375ed283ce11a76fcdb6d37",
+      "school": "northview",
+      "observed_at": "2026-11-02T08:01:25.459770+00:00",
+      "quality": "source_complete",
+      "rows": 18
     }
   ],
   "collection_status": {
     "status": "complete",
     "requests": 2,
-    "school": "chattahoochee",
+    "school": "northview",
     "error": null,
     "version": 1,
-    "checked_at": "2026-11-02T07:31:25.063538+00:00",
-    "last_source_attempt_at": "2026-11-02T07:30:53.243727+00:00",
+    "checked_at": "2026-11-02T08:01:25.623536+00:00",
+    "last_source_attempt_at": "2026-11-02T08:00:54.229631+00:00",
     "last_access_failure": {
       "manual_retry_requested_at": "2026-10-19T20:52:24.6685116Z",
       "previous_retry_after": "2026-10-19T21:30:44.857328+00:00",
@@ -12583,7 +12599,7 @@
       "johns_creek": "2026-11-02T07:00:56.604327+00:00",
       "north_gwinnett": "2026-11-02T06:31:28.568005+00:00",
       "chattahoochee": "2026-11-02T07:31:24.213412+00:00",
-      "northview": "2026-11-02T06:00:58.685683+00:00"
+      "northview": "2026-11-02T08:00:55.103577+00:00"
     }
   }
 }
