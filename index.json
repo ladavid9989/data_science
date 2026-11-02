@@ -12434,6 +12434,14 @@
       "rows": 45
     },
     {
+      "path": "snapshots/2026-11-02/chattahoochee-56ecfc1bc8d8cf4fc84223be5767f684effcce6dd3e0161045b75da003ff412b.json.gz",
+      "run_id": "56ecfc1bc8d8cf4fc84223be5767f684effcce6dd3e0161045b75da003ff412b",
+      "school": "chattahoochee",
+      "observed_at": "2026-11-02T17:31:27.170953+00:00",
+      "quality": "source_complete",
+      "rows": 44
+    },
+    {
       "path": "snapshots/2026-11-02/chattahoochee-57a33fa5460ea63a45db86d3574adc6394e8433a06461aa09cecebb1a453e746.json.gz",
       "run_id": "57a33fa5460ea63a45db86d3574adc6394e8433a06461aa09cecebb1a453e746",
       "school": "chattahoochee",
@@ -12488,6 +12496,14 @@
       "observed_at": "2026-11-02T13:31:34.082062+00:00",
       "quality": "source_complete",
       "rows": 43
+    },
+    {
+      "path": "snapshots/2026-11-02/chattahoochee-f8578b52459e0fedb2c2702d4f961adb2718f0a375e45fba86ae4cffd55c880a.json.gz",
+      "run_id": "f8578b52459e0fedb2c2702d4f961adb2718f0a375e45fba86ae4cffd55c880a",
+      "school": "chattahoochee",
+      "observed_at": "2026-11-02T17:31:57.342759+00:00",
+      "quality": "source_complete",
+      "rows": 45
     },
     {
       "path": "snapshots/2026-11-02/chattahoochee-fcc67a0f08d7bf1ba3b361724ecf2774b71f1929452f6c935529d38dccfad09e.json.gz",
@@ -12779,12 +12795,13 @@
     }
   ],
   "collection_status": {
-    "status": "interval_wait",
-    "requests": 0,
-    "next_batch_at": "2026-11-02T17:25:59.387878+00:00",
+    "status": "checkpointed",
+    "requests": 3,
+    "school": "chattahoochee",
+    "error": null,
     "version": 1,
-    "checked_at": "2026-11-02T17:04:00.152502+00:00",
-    "last_source_attempt_at": "2026-11-02T17:00:59.387878+00:00",
+    "checked_at": "2026-11-02T17:31:57.509279+00:00",
+    "last_source_attempt_at": "2026-11-02T17:30:56.261450+00:00",
     "last_access_failure": {
       "manual_retry_requested_at": "2026-10-19T20:52:24.6685116Z",
       "previous_retry_after": "2026-10-19T21:30:44.857328+00:00",
@@ -12797,7 +12814,7 @@
     "last_success_by_school": {
       "johns_creek": "2026-11-02T17:01:00.529258+00:00",
       "north_gwinnett": "2026-11-02T16:31:31.554068+00:00",
-      "chattahoochee": "2026-11-02T15:31:17.771931+00:00",
+      "chattahoochee": "2026-11-02T17:31:27.003782+00:00",
       "northview": "2026-11-02T16:01:03.758180+00:00"
     }
   }
