@@ -12426,6 +12426,22 @@
       "rows": 43
     },
     {
+      "path": "snapshots/2026-11-02/chattahoochee-4f037be78039ea55e57f469b3faa005cb6d07ec0c73d6444f86e87b71d832547.json.gz",
+      "run_id": "4f037be78039ea55e57f469b3faa005cb6d07ec0c73d6444f86e87b71d832547",
+      "school": "chattahoochee",
+      "observed_at": "2026-11-02T15:31:48.266948+00:00",
+      "quality": "source_complete",
+      "rows": 45
+    },
+    {
+      "path": "snapshots/2026-11-02/chattahoochee-57a33fa5460ea63a45db86d3574adc6394e8433a06461aa09cecebb1a453e746.json.gz",
+      "run_id": "57a33fa5460ea63a45db86d3574adc6394e8433a06461aa09cecebb1a453e746",
+      "school": "chattahoochee",
+      "observed_at": "2026-11-02T15:31:17.933013+00:00",
+      "quality": "source_complete",
+      "rows": 44
+    },
+    {
       "path": "snapshots/2026-11-02/chattahoochee-95a3b3ca072873688cfb3debad48afd63df98a1634c4772d9ca5c4b0cffdb7b0.json.gz",
       "run_id": "95a3b3ca072873688cfb3debad48afd63df98a1634c4772d9ca5c4b0cffdb7b0",
       "school": "chattahoochee",
@@ -12739,13 +12755,13 @@
     }
   ],
   "collection_status": {
-    "status": "complete",
-    "requests": 1,
-    "school": "johns_creek",
+    "status": "checkpointed",
+    "requests": 3,
+    "school": "chattahoochee",
     "error": null,
     "version": 1,
-    "checked_at": "2026-11-02T15:00:54.262414+00:00",
-    "last_source_attempt_at": "2026-11-02T15:00:52.972758+00:00",
+    "checked_at": "2026-11-02T15:31:48.428271+00:00",
+    "last_source_attempt_at": "2026-11-02T15:30:46.984788+00:00",
     "last_access_failure": {
       "manual_retry_requested_at": "2026-10-19T20:52:24.6685116Z",
       "previous_retry_after": "2026-10-19T21:30:44.857328+00:00",
@@ -12758,7 +12774,7 @@
     "last_success_by_school": {
       "johns_creek": "2026-11-02T15:00:53.786216+00:00",
       "north_gwinnett": "2026-11-02T14:31:27.445262+00:00",
-      "chattahoochee": "2026-11-02T13:31:33.827487+00:00",
+      "chattahoochee": "2026-11-02T15:31:17.771931+00:00",
       "northview": "2026-11-02T14:01:11.072722+00:00"
     }
   }
