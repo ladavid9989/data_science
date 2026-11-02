@@ -12554,6 +12554,22 @@
       "rows": 80
     },
     {
+      "path": "snapshots/2026-11-02/north_gwinnett-49c5fe18be27a8c62c2e8a55b2261ee10468176b1852221876ed9a0432bea166.json.gz",
+      "run_id": "49c5fe18be27a8c62c2e8a55b2261ee10468176b1852221876ed9a0432bea166",
+      "school": "north_gwinnett",
+      "observed_at": "2026-11-02T12:31:24.631657+00:00",
+      "quality": "source_complete",
+      "rows": 80
+    },
+    {
+      "path": "snapshots/2026-11-02/north_gwinnett-86966d0ce900eb57ef1ded6a8e1bce6407c2ba171272a0f10e7e1a85ae4a9ab2.json.gz",
+      "run_id": "86966d0ce900eb57ef1ded6a8e1bce6407c2ba171272a0f10e7e1a85ae4a9ab2",
+      "school": "north_gwinnett",
+      "observed_at": "2026-11-02T12:31:54.544623+00:00",
+      "quality": "source_complete",
+      "rows": 81
+    },
+    {
       "path": "snapshots/2026-11-02/north_gwinnett-affee7f82ac9d2ba6c0b0fddc147751e24dce2eb2069239363a468d586930b21.json.gz",
       "run_id": "affee7f82ac9d2ba6c0b0fddc147751e24dce2eb2069239363a468d586930b21",
       "school": "north_gwinnett",
@@ -12667,13 +12683,13 @@
     }
   ],
   "collection_status": {
-    "status": "complete",
-    "requests": 1,
-    "school": "northview",
+    "status": "checkpointed",
+    "requests": 3,
+    "school": "north_gwinnett",
     "error": null,
     "version": 1,
-    "checked_at": "2026-11-02T12:01:03.152319+00:00",
-    "last_source_attempt_at": "2026-11-02T12:01:01.222350+00:00",
+    "checked_at": "2026-11-02T12:31:54.807009+00:00",
+    "last_source_attempt_at": "2026-11-02T12:30:53.326905+00:00",
     "last_access_failure": {
       "manual_retry_requested_at": "2026-10-19T20:52:24.6685116Z",
       "previous_retry_after": "2026-10-19T21:30:44.857328+00:00",
@@ -12685,7 +12701,7 @@
     },
     "last_success_by_school": {
       "johns_creek": "2026-11-02T11:01:16.610277+00:00",
-      "north_gwinnett": "2026-11-02T10:31:26.300082+00:00",
+      "north_gwinnett": "2026-11-02T12:31:24.348308+00:00",
       "chattahoochee": "2026-11-02T11:31:32.217913+00:00",
       "northview": "2026-11-02T12:01:02.321946+00:00"
     }
