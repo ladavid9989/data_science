@@ -13010,6 +13010,14 @@
       "rows": 16
     },
     {
+      "path": "snapshots/2026-11-03/johns_creek-108c3c083f31fb0a2dcea96e48ddcccd170f2b2c15e1b5dc62c639c58ab6c261.json.gz",
+      "run_id": "108c3c083f31fb0a2dcea96e48ddcccd170f2b2c15e1b5dc62c639c58ab6c261",
+      "school": "johns_creek",
+      "observed_at": "2026-11-03T15:01:16.310957+00:00",
+      "quality": "source_complete",
+      "rows": 13
+    },
+    {
       "path": "snapshots/2026-11-03/johns_creek-178588f30caf13d4d14c122c48a6ba7e53ec9e4035219c796ad303748420675b.json.gz",
       "run_id": "178588f30caf13d4d14c122c48a6ba7e53ec9e4035219c796ad303748420675b",
       "school": "johns_creek",
@@ -13022,6 +13030,14 @@
       "run_id": "5010192ae3c79f969da17aa45c00820059a3ddaa46b6e6e8c1b105b555b569b3",
       "school": "johns_creek",
       "observed_at": "2026-11-03T07:01:00.359557+00:00",
+      "quality": "source_complete",
+      "rows": 14
+    },
+    {
+      "path": "snapshots/2026-11-03/johns_creek-5288922d39da3ce1cf0c4f8a976a7188fe35c339133a878420919527a11fd65c.json.gz",
+      "run_id": "5288922d39da3ce1cf0c4f8a976a7188fe35c339133a878420919527a11fd65c",
+      "school": "johns_creek",
+      "observed_at": "2026-11-03T15:01:46.499559+00:00",
       "quality": "source_complete",
       "rows": 14
     },
@@ -13235,12 +13251,13 @@
     }
   ],
   "collection_status": {
-    "status": "interval_wait",
-    "requests": 0,
-    "next_batch_at": "2026-11-03T14:55:54.418643+00:00",
+    "status": "complete",
+    "requests": 2,
+    "school": "johns_creek",
+    "error": null,
     "version": 1,
-    "checked_at": "2026-11-03T14:41:48.248795+00:00",
-    "last_source_attempt_at": "2026-11-03T14:30:54.418643+00:00",
+    "checked_at": "2026-11-03T15:01:46.717495+00:00",
+    "last_source_attempt_at": "2026-11-03T15:01:15.012395+00:00",
     "last_access_failure": {
       "manual_retry_requested_at": "2026-10-19T20:52:24.6685116Z",
       "previous_retry_after": "2026-10-19T21:30:44.857328+00:00",
@@ -13251,7 +13268,7 @@
       "strikes": 0
     },
     "last_success_by_school": {
-      "johns_creek": "2026-11-03T13:01:09.296456+00:00",
+      "johns_creek": "2026-11-03T15:01:16.087779+00:00",
       "north_gwinnett": "2026-11-03T14:31:25.275663+00:00",
       "chattahoochee": "2026-11-03T13:31:27.982426+00:00",
       "northview": "2026-11-03T14:01:05.071758+00:00"
