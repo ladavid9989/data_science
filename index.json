@@ -12922,6 +12922,22 @@
       "rows": 17
     },
     {
+      "path": "snapshots/2026-11-03/chattahoochee-6388d370e6e2b9281675d590482e758440cd286dd4aec485533b6ef0e6da61d5.json.gz",
+      "run_id": "6388d370e6e2b9281675d590482e758440cd286dd4aec485533b6ef0e6da61d5",
+      "school": "chattahoochee",
+      "observed_at": "2026-11-03T01:31:58.620641+00:00",
+      "quality": "source_complete",
+      "rows": 43
+    },
+    {
+      "path": "snapshots/2026-11-03/chattahoochee-fffa4f3a83ab3a82f86fff9278a2c15b5f310fd00360b60b82ed053c8e1df6d5.json.gz",
+      "run_id": "fffa4f3a83ab3a82f86fff9278a2c15b5f310fd00360b60b82ed053c8e1df6d5",
+      "school": "chattahoochee",
+      "observed_at": "2026-11-03T01:31:28.416280+00:00",
+      "quality": "source_complete",
+      "rows": 42
+    },
+    {
       "path": "snapshots/2026-11-03/johns_creek-7b765321110c71ef0a90003d1d8e96fc8ab90552f4664d51e286669840704321.json.gz",
       "run_id": "7b765321110c71ef0a90003d1d8e96fc8ab90552f4664d51e286669840704321",
       "school": "johns_creek",
@@ -12955,13 +12971,13 @@
     }
   ],
   "collection_status": {
-    "status": "complete",
-    "requests": 1,
-    "school": "johns_creek",
+    "status": "checkpointed",
+    "requests": 3,
+    "school": "chattahoochee",
     "error": null,
     "version": 1,
-    "checked_at": "2026-11-03T01:00:56.251343+00:00",
-    "last_source_attempt_at": "2026-11-03T01:00:51.436016+00:00",
+    "checked_at": "2026-11-03T01:31:58.874281+00:00",
+    "last_source_attempt_at": "2026-11-03T01:30:57.331866+00:00",
     "last_access_failure": {
       "manual_retry_requested_at": "2026-10-19T20:52:24.6685116Z",
       "previous_retry_after": "2026-10-19T21:30:44.857328+00:00",
@@ -12974,7 +12990,7 @@
     "last_success_by_school": {
       "johns_creek": "2026-11-03T01:00:55.705466+00:00",
       "north_gwinnett": "2026-11-03T00:31:26.608737+00:00",
-      "chattahoochee": "2026-11-02T23:31:22.243299+00:00",
+      "chattahoochee": "2026-11-03T01:31:28.163649+00:00",
       "northview": "2026-11-03T00:01:00.758008+00:00"
     }
   }
