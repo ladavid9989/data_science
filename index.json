@@ -12930,6 +12930,22 @@
       "rows": 43
     },
     {
+      "path": "snapshots/2026-11-03/chattahoochee-8014c91b2c7bdf39650ff34ee36a5e312b7780c822f167c7c562653df184d566.json.gz",
+      "run_id": "8014c91b2c7bdf39650ff34ee36a5e312b7780c822f167c7c562653df184d566",
+      "school": "chattahoochee",
+      "observed_at": "2026-11-03T03:31:55.744058+00:00",
+      "quality": "source_complete",
+      "rows": 43
+    },
+    {
+      "path": "snapshots/2026-11-03/chattahoochee-8845ad42c3dd298c21566288750cb6b5b5eea3366b654d499250c97705dd4241.json.gz",
+      "run_id": "8845ad42c3dd298c21566288750cb6b5b5eea3366b654d499250c97705dd4241",
+      "school": "chattahoochee",
+      "observed_at": "2026-11-03T03:31:25.393413+00:00",
+      "quality": "source_complete",
+      "rows": 42
+    },
+    {
       "path": "snapshots/2026-11-03/chattahoochee-fffa4f3a83ab3a82f86fff9278a2c15b5f310fd00360b60b82ed053c8e1df6d5.json.gz",
       "run_id": "fffa4f3a83ab3a82f86fff9278a2c15b5f310fd00360b60b82ed053c8e1df6d5",
       "school": "chattahoochee",
@@ -13003,13 +13019,13 @@
     }
   ],
   "collection_status": {
-    "status": "complete",
-    "requests": 1,
-    "school": "johns_creek",
+    "status": "checkpointed",
+    "requests": 3,
+    "school": "chattahoochee",
     "error": null,
     "version": 1,
-    "checked_at": "2026-11-03T03:01:01.810344+00:00",
-    "last_source_attempt_at": "2026-11-03T03:00:58.905019+00:00",
+    "checked_at": "2026-11-03T03:31:55.997843+00:00",
+    "last_source_attempt_at": "2026-11-03T03:30:54.158225+00:00",
     "last_access_failure": {
       "manual_retry_requested_at": "2026-10-19T20:52:24.6685116Z",
       "previous_retry_after": "2026-10-19T21:30:44.857328+00:00",
@@ -13022,7 +13038,7 @@
     "last_success_by_school": {
       "johns_creek": "2026-11-03T03:01:01.053823+00:00",
       "north_gwinnett": "2026-11-03T02:31:27.028671+00:00",
-      "chattahoochee": "2026-11-03T01:31:28.163649+00:00",
+      "chattahoochee": "2026-11-03T03:31:25.139374+00:00",
       "northview": "2026-11-03T02:00:59.324912+00:00"
     }
   }
