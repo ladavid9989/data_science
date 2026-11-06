@@ -14722,10 +14722,26 @@
       "rows": 18
     },
     {
+      "path": "snapshots/2026-11-06/northview-daa7737f766934b22cc2ce82ed9e91f993e79e99d6d7cede56e69bb80ef54c65.json.gz",
+      "run_id": "daa7737f766934b22cc2ce82ed9e91f993e79e99d6d7cede56e69bb80ef54c65",
+      "school": "northview",
+      "observed_at": "2026-11-06T09:31:37.451655+00:00",
+      "quality": "source_complete",
+      "rows": 20
+    },
+    {
       "path": "snapshots/2026-11-06/northview-db88d56574ae7cd98489d6c4762ce5a8af0177c22b95212b9db1a78e35085681.json.gz",
       "run_id": "db88d56574ae7cd98489d6c4762ce5a8af0177c22b95212b9db1a78e35085681",
       "school": "northview",
       "observed_at": "2026-11-06T03:26:35.175683+00:00",
+      "quality": "source_complete",
+      "rows": 19
+    },
+    {
+      "path": "snapshots/2026-11-06/northview-e0ec0e723664d6837f11c95fedc201f10cb409f62315a807b1de30c992591994.json.gz",
+      "run_id": "e0ec0e723664d6837f11c95fedc201f10cb409f62315a807b1de30c992591994",
+      "school": "northview",
+      "observed_at": "2026-11-06T09:31:07.313922+00:00",
       "quality": "source_complete",
       "rows": 19
     }
@@ -14733,11 +14749,11 @@
   "collection_status": {
     "status": "complete",
     "requests": 2,
-    "school": "chattahoochee",
+    "school": "northview",
     "error": null,
     "version": 1,
-    "checked_at": "2026-11-06T09:01:28.509212+00:00",
-    "last_source_attempt_at": "2026-11-06T09:00:57.104625+00:00",
+    "checked_at": "2026-11-06T09:31:37.814158+00:00",
+    "last_source_attempt_at": "2026-11-06T09:31:05.631886+00:00",
     "last_access_failure": {
       "manual_retry_requested_at": "2026-10-19T20:52:24.6685116Z",
       "previous_retry_after": "2026-10-19T21:30:44.857328+00:00",
@@ -14751,7 +14767,7 @@
       "johns_creek": "2026-11-06T08:31:13.773021+00:00",
       "north_gwinnett": "2026-11-06T08:01:31.534404+00:00",
       "chattahoochee": "2026-11-06T09:00:58.051661+00:00",
-      "northview": "2026-11-06T07:30:58.916433+00:00"
+      "northview": "2026-11-06T09:31:06.952524+00:00"
     }
   }
 }
