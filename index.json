@@ -15042,6 +15042,22 @@
       "rows": 0
     },
     {
+      "path": "snapshots/2026-11-07/chattahoochee-ee6648c13c532f305e654b2c108db3bfc9b098518aa5abacc59dc9590661799b.json.gz",
+      "run_id": "ee6648c13c532f305e654b2c108db3bfc9b098518aa5abacc59dc9590661799b",
+      "school": "chattahoochee",
+      "observed_at": "2026-11-07T01:30:55.533627+00:00",
+      "quality": "source_complete",
+      "rows": 39
+    },
+    {
+      "path": "snapshots/2026-11-07/chattahoochee-f01b52d38a0fd5b5626fbbead3ccb1984397dd11675f5e4a76f54cd584e3d51c.json.gz",
+      "run_id": "f01b52d38a0fd5b5626fbbead3ccb1984397dd11675f5e4a76f54cd584e3d51c",
+      "school": "chattahoochee",
+      "observed_at": "2026-11-07T01:31:25.858989+00:00",
+      "quality": "source_complete",
+      "rows": 40
+    },
+    {
       "path": "snapshots/2026-11-07/johns_creek-3b414d12d6bdb43548b66165e6a1dc4ff95e63141d104770dcae38a34e6d19fa.json.gz",
       "run_id": "3b414d12d6bdb43548b66165e6a1dc4ff95e63141d104770dcae38a34e6d19fa",
       "school": "johns_creek",
@@ -15059,13 +15075,13 @@
     }
   ],
   "collection_status": {
-    "status": "error",
-    "requests": 1,
+    "status": "complete",
+    "requests": 2,
     "school": "chattahoochee",
-    "error": "HTTP Error 503: Service Unavailable",
+    "error": null,
     "version": 1,
-    "checked_at": "2026-11-07T01:01:02.390362+00:00",
-    "last_source_attempt_at": "2026-11-07T01:01:01.169151+00:00",
+    "checked_at": "2026-11-07T01:31:26.109739+00:00",
+    "last_source_attempt_at": "2026-11-07T01:30:54.564083+00:00",
     "last_access_failure": {
       "manual_retry_requested_at": "2026-10-19T20:52:24.6685116Z",
       "previous_retry_after": "2026-10-19T21:30:44.857328+00:00",
@@ -15078,7 +15094,7 @@
     "last_success_by_school": {
       "johns_creek": "2026-11-07T00:30:53.666873+00:00",
       "north_gwinnett": "2026-11-07T00:01:33.980721+00:00",
-      "chattahoochee": "2026-11-06T23:01:07.137931+00:00",
+      "chattahoochee": "2026-11-07T01:30:55.338220+00:00",
       "northview": "2026-11-06T23:31:00.996842+00:00"
     }
   }
