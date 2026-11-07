@@ -15154,6 +15154,22 @@
       "rows": 40
     },
     {
+      "path": "snapshots/2026-11-07/johns_creek-0d6d875022bccda215753ac2f24d19808cf80d2b3b7f064206b5879ce76cf2d3.json.gz",
+      "run_id": "0d6d875022bccda215753ac2f24d19808cf80d2b3b7f064206b5879ce76cf2d3",
+      "school": "johns_creek",
+      "observed_at": "2026-11-07T18:32:01.247950+00:00",
+      "quality": "source_complete",
+      "rows": 16
+    },
+    {
+      "path": "snapshots/2026-11-07/johns_creek-178c5fa9d747f1376d573809de3e0672caba3f68733ab302d021c0096257da40.json.gz",
+      "run_id": "178c5fa9d747f1376d573809de3e0672caba3f68733ab302d021c0096257da40",
+      "school": "johns_creek",
+      "observed_at": "2026-11-07T18:31:01.065613+00:00",
+      "quality": "source_complete",
+      "rows": 14
+    },
+    {
       "path": "snapshots/2026-11-07/johns_creek-26b33ca4d43bc76af25190ad093796ad0dbe34591c22dc71ab9574319c5fd93f.json.gz",
       "run_id": "26b33ca4d43bc76af25190ad093796ad0dbe34591c22dc71ab9574319c5fd93f",
       "school": "johns_creek",
@@ -15420,12 +15436,12 @@
   ],
   "collection_status": {
     "status": "complete",
-    "requests": 2,
-    "school": "north_gwinnett",
+    "requests": 3,
+    "school": "johns_creek",
     "error": null,
     "version": 1,
-    "checked_at": "2026-11-07T18:01:40.163764+00:00",
-    "last_source_attempt_at": "2026-11-07T18:01:08.513149+00:00",
+    "checked_at": "2026-11-07T18:32:01.498667+00:00",
+    "last_source_attempt_at": "2026-11-07T18:30:59.868758+00:00",
     "last_access_failure": {
       "manual_retry_requested_at": "2026-10-19T20:52:24.6685116Z",
       "previous_retry_after": "2026-10-19T21:30:44.857328+00:00",
@@ -15436,7 +15452,7 @@
       "strikes": 0
     },
     "last_success_by_school": {
-      "johns_creek": "2026-11-07T16:30:57.791242+00:00",
+      "johns_creek": "2026-11-07T18:31:00.812107+00:00",
       "north_gwinnett": "2026-11-07T18:01:39.383445+00:00",
       "chattahoochee": "2026-11-07T17:01:11.385261+00:00",
       "northview": "2026-11-07T17:31:07.432490+00:00"
