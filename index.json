@@ -15538,6 +15538,14 @@
       "rows": 20
     },
     {
+      "path": "snapshots/2026-11-08/chattahoochee-6c18d2385724d4a60fd7d9200bd3a2468c755df5d54ab79fdf695cbd843c016c.json.gz",
+      "run_id": "6c18d2385724d4a60fd7d9200bd3a2468c755df5d54ab79fdf695cbd843c016c",
+      "school": "chattahoochee",
+      "observed_at": "2026-11-08T01:01:36.411998+00:00",
+      "quality": "failed",
+      "rows": 0
+    },
+    {
       "path": "snapshots/2026-11-08/johns_creek-e2b6c223fb14520eb071ba18382cf0c42e6bfd1344e24dd1774ed6ed3965e042.json.gz",
       "run_id": "e2b6c223fb14520eb071ba18382cf0c42e6bfd1344e24dd1774ed6ed3965e042",
       "school": "johns_creek",
@@ -15547,13 +15555,13 @@
     }
   ],
   "collection_status": {
-    "status": "complete",
+    "status": "error",
     "requests": 1,
-    "school": "johns_creek",
-    "error": null,
+    "school": "chattahoochee",
+    "error": "The read operation timed out",
     "version": 1,
-    "checked_at": "2026-11-08T00:31:04.258952+00:00",
-    "last_source_attempt_at": "2026-11-08T00:31:02.411209+00:00",
+    "checked_at": "2026-11-08T01:01:36.630292+00:00",
+    "last_source_attempt_at": "2026-11-08T01:01:05.808050+00:00",
     "last_access_failure": {
       "manual_retry_requested_at": "2026-10-19T20:52:24.6685116Z",
       "previous_retry_after": "2026-10-19T21:30:44.857328+00:00",
