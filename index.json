@@ -16306,6 +16306,14 @@
       "rows": 18
     },
     {
+      "path": "snapshots/2026-11-09/northview-9547148c70e1741d4405aabbcbd6b5e2cf0086ab5f9f576530fd266bc2d4f933.json.gz",
+      "run_id": "9547148c70e1741d4405aabbcbd6b5e2cf0086ab5f9f576530fd266bc2d4f933",
+      "school": "northview",
+      "observed_at": "2026-11-09T13:31:55.067859+00:00",
+      "quality": "source_complete",
+      "rows": 19
+    },
+    {
       "path": "snapshots/2026-11-09/northview-a5c56d36ae9b105085f38b669ece200ad99e1e8d9472034f40db03caf669cff6.json.gz",
       "run_id": "a5c56d36ae9b105085f38b669ece200ad99e1e8d9472034f40db03caf669cff6",
       "school": "northview",
@@ -16320,16 +16328,24 @@
       "observed_at": "2026-11-09T05:31:20.878742+00:00",
       "quality": "source_complete",
       "rows": 18
+    },
+    {
+      "path": "snapshots/2026-11-09/northview-f437eecc43214e450d3f053f8774b2b834c76ab9a6a01e23a17abdd6cf4ed91c.json.gz",
+      "run_id": "f437eecc43214e450d3f053f8774b2b834c76ab9a6a01e23a17abdd6cf4ed91c",
+      "school": "northview",
+      "observed_at": "2026-11-09T13:31:24.855482+00:00",
+      "quality": "source_complete",
+      "rows": 18
     }
   ],
   "collection_status": {
     "status": "complete",
-    "requests": 1,
-    "school": "chattahoochee",
+    "requests": 2,
+    "school": "northview",
     "error": null,
     "version": 1,
-    "checked_at": "2026-11-09T13:01:26.252919+00:00",
-    "last_source_attempt_at": "2026-11-09T13:01:24.676064+00:00",
+    "checked_at": "2026-11-09T13:31:55.287442+00:00",
+    "last_source_attempt_at": "2026-11-09T13:31:23.692697+00:00",
     "last_access_failure": {
       "manual_retry_requested_at": "2026-10-19T20:52:24.6685116Z",
       "previous_retry_after": "2026-10-19T21:30:44.857328+00:00",
@@ -16343,7 +16359,7 @@
       "johns_creek": "2026-11-09T12:31:07.656856+00:00",
       "north_gwinnett": "2026-11-09T12:01:33.864314+00:00",
       "chattahoochee": "2026-11-09T13:01:25.576870+00:00",
-      "northview": "2026-11-09T11:31:06.954468+00:00"
+      "northview": "2026-11-09T13:31:24.633413+00:00"
     }
   }
 }
