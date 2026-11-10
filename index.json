@@ -16635,12 +16635,11 @@
     }
   ],
   "collection_status": {
-    "status": "complete",
-    "requests": 1,
-    "school": "johns_creek",
-    "error": null,
+    "status": "interval_wait",
+    "requests": 0,
+    "next_batch_at": "2026-11-10T02:56:05.752871+00:00",
     "version": 1,
-    "checked_at": "2026-11-10T02:31:07.552346+00:00",
+    "checked_at": "2026-11-10T02:44:31.355575+00:00",
     "last_source_attempt_at": "2026-11-10T02:31:05.752871+00:00",
     "last_access_failure": {
       "manual_retry_requested_at": "2026-10-19T20:52:24.6685116Z",
