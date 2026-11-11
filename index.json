@@ -17106,6 +17106,22 @@
       "rows": 18
     },
     {
+      "path": "snapshots/2026-11-11/johns_creek-5fa2bc0820f742aaa29ee2a1007cc8141a669f9cf3d1832883dc31c0ff44eaae.json.gz",
+      "run_id": "5fa2bc0820f742aaa29ee2a1007cc8141a669f9cf3d1832883dc31c0ff44eaae",
+      "school": "johns_creek",
+      "observed_at": "2026-11-11T01:01:27.219588+00:00",
+      "quality": "source_complete",
+      "rows": 15
+    },
+    {
+      "path": "snapshots/2026-11-11/johns_creek-84f1b60785dc56af803616416b9162d94b95d67308b59faf21901234ac7be178.json.gz",
+      "run_id": "84f1b60785dc56af803616416b9162d94b95d67308b59faf21901234ac7be178",
+      "school": "johns_creek",
+      "observed_at": "2026-11-11T01:01:00.182499+00:00",
+      "quality": "source_complete",
+      "rows": 14
+    },
+    {
       "path": "snapshots/2026-11-11/north_gwinnett-01a0f7637c433584304df880aef592e96442d1c0d553540fe497a8ff8da3bc0a.json.gz",
       "run_id": "01a0f7637c433584304df880aef592e96442d1c0d553540fe497a8ff8da3bc0a",
       "school": "north_gwinnett",
@@ -17131,13 +17147,13 @@
     }
   ],
   "collection_status": {
-    "status": "checkpointed",
-    "requests": 3,
-    "school": "north_gwinnett",
+    "status": "complete",
+    "requests": 2,
+    "school": "johns_creek",
     "error": null,
     "version": 1,
-    "checked_at": "2026-11-11T00:31:53.422861+00:00",
-    "last_source_attempt_at": "2026-11-11T00:30:51.997184+00:00",
+    "checked_at": "2026-11-11T01:01:27.469960+00:00",
+    "last_source_attempt_at": "2026-11-11T01:00:55.476856+00:00",
     "last_access_failure": {
       "manual_retry_requested_at": "2026-10-19T20:52:24.6685116Z",
       "previous_retry_after": "2026-10-19T21:30:44.857328+00:00",
@@ -17148,7 +17164,7 @@
       "strikes": 0
     },
     "last_success_by_school": {
-      "johns_creek": "2026-11-10T23:00:55.558213+00:00",
+      "johns_creek": "2026-11-11T01:00:59.928650+00:00",
       "north_gwinnett": "2026-11-11T00:31:23.149004+00:00",
       "chattahoochee": "2026-11-10T23:27:59.401953+00:00",
       "northview": "2026-11-11T00:01:00.340892+00:00"
