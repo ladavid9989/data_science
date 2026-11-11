@@ -17146,6 +17146,22 @@
       "rows": 73
     },
     {
+      "path": "snapshots/2026-11-11/north_gwinnett-b3b5d7db813fe34a027d40088bdacaf741821cfc9d8f7ca7acdaa7305d3b867e.json.gz",
+      "run_id": "b3b5d7db813fe34a027d40088bdacaf741821cfc9d8f7ca7acdaa7305d3b867e",
+      "school": "north_gwinnett",
+      "observed_at": "2026-11-11T02:31:19.423349+00:00",
+      "quality": "source_complete",
+      "rows": 72
+    },
+    {
+      "path": "snapshots/2026-11-11/north_gwinnett-e6ddc289c7c61289f0d0d65056cf08f23a731ec65caed518fac661a485646fac.json.gz",
+      "run_id": "e6ddc289c7c61289f0d0d65056cf08f23a731ec65caed518fac661a485646fac",
+      "school": "north_gwinnett",
+      "observed_at": "2026-11-11T02:31:49.482840+00:00",
+      "quality": "source_complete",
+      "rows": 73
+    },
+    {
       "path": "snapshots/2026-11-11/northview-046f2b29892233d44b7ecb18e2612a84040bd78f757c42dfb1c40f583e19cba1.json.gz",
       "run_id": "046f2b29892233d44b7ecb18e2612a84040bd78f757c42dfb1c40f583e19cba1",
       "school": "northview",
@@ -17163,13 +17179,13 @@
     }
   ],
   "collection_status": {
-    "status": "complete",
-    "requests": 1,
-    "school": "northview",
+    "status": "checkpointed",
+    "requests": 3,
+    "school": "north_gwinnett",
     "error": null,
     "version": 1,
-    "checked_at": "2026-11-11T02:00:57.624397+00:00",
-    "last_source_attempt_at": "2026-11-11T02:00:55.789436+00:00",
+    "checked_at": "2026-11-11T02:31:49.729406+00:00",
+    "last_source_attempt_at": "2026-11-11T02:30:48.302324+00:00",
     "last_access_failure": {
       "manual_retry_requested_at": "2026-10-19T20:52:24.6685116Z",
       "previous_retry_after": "2026-10-19T21:30:44.857328+00:00",
@@ -17181,7 +17197,7 @@
     },
     "last_success_by_school": {
       "johns_creek": "2026-11-11T01:00:59.928650+00:00",
-      "north_gwinnett": "2026-11-11T00:31:23.149004+00:00",
+      "north_gwinnett": "2026-11-11T02:31:19.179488+00:00",
       "chattahoochee": "2026-11-11T01:30:50.718027+00:00",
       "northview": "2026-11-11T02:00:56.877152+00:00"
     }
