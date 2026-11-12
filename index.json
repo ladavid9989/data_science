@@ -17874,6 +17874,22 @@
       "rows": 73
     },
     {
+      "path": "snapshots/2026-11-12/north_gwinnett-24c34a16768e91f04fb061706c56c4b1ac3c89351eb7593ff830053496551158.json.gz",
+      "run_id": "24c34a16768e91f04fb061706c56c4b1ac3c89351eb7593ff830053496551158",
+      "school": "north_gwinnett",
+      "observed_at": "2026-11-12T19:32:03.775856+00:00",
+      "quality": "source_complete",
+      "rows": 70
+    },
+    {
+      "path": "snapshots/2026-11-12/north_gwinnett-320fd8c4ab7e9428f1d717b86f62cc6b4ac4586a943c8c5ec99a1c9e3d7b1470.json.gz",
+      "run_id": "320fd8c4ab7e9428f1d717b86f62cc6b4ac4586a943c8c5ec99a1c9e3d7b1470",
+      "school": "north_gwinnett",
+      "observed_at": "2026-11-12T19:31:33.452821+00:00",
+      "quality": "source_complete",
+      "rows": 70
+    },
+    {
       "path": "snapshots/2026-11-12/north_gwinnett-4855215ff7d15082f965abfec287269891b0ff3bbdaa30502dfe57462c431a00.json.gz",
       "run_id": "4855215ff7d15082f965abfec287269891b0ff3bbdaa30502dfe57462c431a00",
       "school": "north_gwinnett",
@@ -18076,12 +18092,12 @@
   ],
   "collection_status": {
     "status": "complete",
-    "requests": 1,
-    "school": "northview",
+    "requests": 3,
+    "school": "north_gwinnett",
     "error": null,
     "version": 1,
-    "checked_at": "2026-11-12T19:00:57.009696+00:00",
-    "last_source_attempt_at": "2026-11-12T19:00:55.649649+00:00",
+    "checked_at": "2026-11-12T19:32:04.033204+00:00",
+    "last_source_attempt_at": "2026-11-12T19:31:02.199202+00:00",
     "last_access_failure": {
       "manual_retry_requested_at": "2026-10-19T20:52:24.6685116Z",
       "previous_retry_after": "2026-10-19T21:30:44.857328+00:00",
@@ -18093,7 +18109,7 @@
     },
     "last_success_by_school": {
       "johns_creek": "2026-11-12T18:01:10.435965+00:00",
-      "north_gwinnett": "2026-11-12T17:31:44.285630+00:00",
+      "north_gwinnett": "2026-11-12T19:31:33.176736+00:00",
       "chattahoochee": "2026-11-12T18:31:01.720212+00:00",
       "northview": "2026-11-12T19:00:56.495481+00:00"
     }
