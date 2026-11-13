@@ -18538,6 +18538,14 @@
       "rows": 19
     },
     {
+      "path": "snapshots/2026-11-13/northview-69ab29130bdd13efdd228d9083760a2d6f3d89cea2d8a6a856ca6f7d568972a3.json.gz",
+      "run_id": "69ab29130bdd13efdd228d9083760a2d6f3d89cea2d8a6a856ca6f7d568972a3",
+      "school": "northview",
+      "observed_at": "2026-11-13T19:02:37.340191+00:00",
+      "quality": "source_complete",
+      "rows": 19
+    },
+    {
       "path": "snapshots/2026-11-13/northview-81b69fd6981b26245bd0c2bedbf9f8fc56c26846fef7d6957fb95ba58e2e7618.json.gz",
       "run_id": "81b69fd6981b26245bd0c2bedbf9f8fc56c26846fef7d6957fb95ba58e2e7618",
       "school": "northview",
@@ -18576,15 +18584,24 @@
       "observed_at": "2026-11-13T15:01:02.068171+00:00",
       "quality": "source_complete",
       "rows": 19
+    },
+    {
+      "path": "snapshots/2026-11-13/northview-d58eea6333e3f7aed6f6f849fd4a9de365c23d82357f955c3da29a9c8627f304.json.gz",
+      "run_id": "d58eea6333e3f7aed6f6f849fd4a9de365c23d82357f955c3da29a9c8627f304",
+      "school": "northview",
+      "observed_at": "2026-11-13T19:03:07.568650+00:00",
+      "quality": "source_complete",
+      "rows": 20
     }
   ],
   "collection_status": {
-    "status": "interval_wait",
-    "requests": 0,
-    "next_batch_at": "2026-11-13T18:56:01.443837+00:00",
+    "status": "complete",
+    "requests": 2,
+    "school": "northview",
+    "error": null,
     "version": 1,
-    "checked_at": "2026-11-13T18:32:02.606196+00:00",
-    "last_source_attempt_at": "2026-11-13T18:31:01.443837+00:00",
+    "checked_at": "2026-11-13T19:03:07.818884+00:00",
+    "last_source_attempt_at": "2026-11-13T19:02:36.155414+00:00",
     "last_access_failure": {
       "manual_retry_requested_at": "2026-10-19T20:52:24.6685116Z",
       "previous_retry_after": "2026-10-19T21:30:44.857328+00:00",
@@ -18598,7 +18615,7 @@
       "johns_creek": "2026-11-13T18:01:15.102934+00:00",
       "north_gwinnett": "2026-11-13T17:32:00.346385+00:00",
       "chattahoochee": "2026-11-13T18:31:02.460138+00:00",
-      "northview": "2026-11-13T17:01:03.978701+00:00"
+      "northview": "2026-11-13T19:02:37.086931+00:00"
     }
   }
 }
