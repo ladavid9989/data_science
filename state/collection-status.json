@@ -1,10 +1,9 @@
 {
-  "status": "complete",
-  "requests": 1,
-  "school": "northview",
-  "error": null,
+  "status": "interval_wait",
+  "requests": 0,
+  "next_batch_at": "2026-11-13T03:21:46.576697+00:00",
   "version": 1,
-  "checked_at": "2026-11-13T02:56:48.669643+00:00",
+  "checked_at": "2026-11-13T03:00:51.775337+00:00",
   "last_source_attempt_at": "2026-11-13T02:56:46.576697+00:00",
   "last_access_failure": {
     "manual_retry_requested_at": "2026-10-19T20:52:24.6685116Z",
