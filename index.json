@@ -18506,6 +18506,14 @@
       "rows": 70
     },
     {
+      "path": "snapshots/2026-11-13/north_gwinnett-93c9e51e39b4a0f0644b2c7364bb598ad4d13a662b55ba86ef1060bb61f19223.json.gz",
+      "run_id": "93c9e51e39b4a0f0644b2c7364bb598ad4d13a662b55ba86ef1060bb61f19223",
+      "school": "north_gwinnett",
+      "observed_at": "2026-11-13T23:31:28.273288+00:00",
+      "quality": "source_complete",
+      "rows": 70
+    },
+    {
       "path": "snapshots/2026-11-13/north_gwinnett-a05c39489e208a65c68c883d940e0d20a0246bd42241bb224861e4c208013c12.json.gz",
       "run_id": "a05c39489e208a65c68c883d940e0d20a0246bd42241bb224861e4c208013c12",
       "school": "north_gwinnett",
@@ -18675,25 +18683,54 @@
     }
   ],
   "collection_status": {
-    "status": "complete",
-    "requests": 1,
-    "school": "northview",
-    "error": null,
+    "status": "blocked",
+    "requests": 3,
+    "school": "north_gwinnett",
+    "error": "HTTP 403: source access stopped",
     "version": 1,
-    "checked_at": "2026-11-13T23:01:02.926138+00:00",
-    "last_source_attempt_at": "2026-11-13T23:01:01.214150+00:00",
+    "checked_at": "2026-11-13T23:31:57.659587+00:00",
+    "last_source_attempt_at": "2026-11-13T23:30:57.119280+00:00",
     "last_access_failure": {
-      "manual_retry_requested_at": "2026-10-19T20:52:24.6685116Z",
-      "previous_retry_after": "2026-10-19T21:30:44.857328+00:00",
+      "blocked_at": "2026-11-13T23:31:57.658289+00:00",
+      "diagnostics": {
+        "base_wait_seconds": 10800,
+        "http_status": 403,
+        "request_path": "https://www.zillow.com/homedetails/3791-Portland-Trail-Dr-Suwanee-GA-30024/80172754_zpid/",
+        "response_headers": {
+          "Content-Type": "text/html",
+          "Server": "CloudFront",
+          "X-Amz-Cf-Id": "daSKuhCd9gmIBUSGFCG4-CCjVXD-owJsWMu7EwzAsr71LL6lXBpJ8w=="
+        },
+        "response_kind": "human_verification",
+        "retry_after_header": "",
+        "server_wait_seconds": null
+      },
       "reason": "HTTP 403: source access stopped",
-      "resolved_at": "2026-10-26T22:00:58.646522+00:00",
-      "retry_after": "2026-10-19T20:52:23.6705118Z",
+      "retry_after": "2026-11-14T02:31:57.658300+00:00",
       "review_required": false,
-      "strikes": 0
+      "strikes": 1
     },
+    "blocked_at": "2026-11-13T23:31:57.658289+00:00",
+    "diagnostics": {
+      "base_wait_seconds": 10800,
+      "http_status": 403,
+      "request_path": "https://www.zillow.com/homedetails/3791-Portland-Trail-Dr-Suwanee-GA-30024/80172754_zpid/",
+      "response_headers": {
+        "Content-Type": "text/html",
+        "Server": "CloudFront",
+        "X-Amz-Cf-Id": "daSKuhCd9gmIBUSGFCG4-CCjVXD-owJsWMu7EwzAsr71LL6lXBpJ8w=="
+      },
+      "response_kind": "human_verification",
+      "retry_after_header": "",
+      "server_wait_seconds": null
+    },
+    "reason": "HTTP 403: source access stopped",
+    "retry_after": "2026-11-14T02:31:57.658300+00:00",
+    "review_required": false,
+    "strikes": 1,
     "last_success_by_school": {
       "johns_creek": "2026-11-13T22:01:02.253327+00:00",
-      "north_gwinnett": "2026-11-13T21:31:20.110643+00:00",
+      "north_gwinnett": "2026-11-13T23:31:27.984247+00:00",
       "chattahoochee": "2026-11-13T22:30:56.488605+00:00",
       "northview": "2026-11-13T23:01:02.262296+00:00"
     }
