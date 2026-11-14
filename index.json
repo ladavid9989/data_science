@@ -18698,6 +18698,22 @@
       "rows": 41
     },
     {
+      "path": "snapshots/2026-11-14/johns_creek-0a24c95ca8ae11d3463caa0c725dadac0c35e5b580f3bfc837e205274b6cd8ff.json.gz",
+      "run_id": "0a24c95ca8ae11d3463caa0c725dadac0c35e5b580f3bfc837e205274b6cd8ff",
+      "school": "johns_creek",
+      "observed_at": "2026-11-14T08:01:01.940126+00:00",
+      "quality": "source_complete",
+      "rows": 14
+    },
+    {
+      "path": "snapshots/2026-11-14/johns_creek-696b3ae329c0ef48d418ecc2f9151f67f1184be86e320fc7f60c35cd497f9192.json.gz",
+      "run_id": "696b3ae329c0ef48d418ecc2f9151f67f1184be86e320fc7f60c35cd497f9192",
+      "school": "johns_creek",
+      "observed_at": "2026-11-14T08:02:01.916701+00:00",
+      "quality": "source_complete",
+      "rows": 16
+    },
+    {
       "path": "snapshots/2026-11-14/johns_creek-821e4a968fdf966a47993c895032ca8c5a5427040d71b534b32c8fd4002eefa5.json.gz",
       "run_id": "821e4a968fdf966a47993c895032ca8c5a5427040d71b534b32c8fd4002eefa5",
       "school": "johns_creek",
@@ -18731,11 +18747,13 @@
     }
   ],
   "collection_status": {
-    "status": "cooldown",
-    "requests": 0,
+    "status": "complete",
+    "requests": 3,
+    "school": "johns_creek",
+    "error": null,
     "version": 1,
-    "checked_at": "2026-11-14T07:30:57.302098+00:00",
-    "last_source_attempt_at": "2026-11-14T04:31:07.952300+00:00",
+    "checked_at": "2026-11-14T08:02:02.167701+00:00",
+    "last_source_attempt_at": "2026-11-14T08:01:00.457820+00:00",
     "last_access_failure": {
       "blocked_at": "2026-11-14T04:32:08.538994+00:00",
       "diagnostics": {
@@ -18752,30 +18770,13 @@
         "server_wait_seconds": null
       },
       "reason": "HTTP 403: source access stopped",
+      "resolved_at": "2026-11-14T08:02:01.792562+00:00",
       "retry_after": "2026-11-14T07:32:08.539007+00:00",
       "review_required": false,
-      "strikes": 1
+      "strikes": 0
     },
-    "blocked_at": "2026-11-14T04:32:08.538994+00:00",
-    "diagnostics": {
-      "base_wait_seconds": 10800,
-      "http_status": 403,
-      "request_path": "https://www.zillow.com/homedetails/3791-Portland-Trail-Dr-Suwanee-GA-30024/80172754_zpid/",
-      "response_headers": {
-        "Content-Type": "text/html",
-        "Server": "CloudFront",
-        "X-Amz-Cf-Id": "LGUnBP1B97THNk3P_ikdog7DUU7Lfe4r3sP1LqA26VqzEQ9eGwvKlA=="
-      },
-      "response_kind": "human_verification",
-      "retry_after_header": "",
-      "server_wait_seconds": null
-    },
-    "reason": "HTTP 403: source access stopped",
-    "retry_after": "2026-11-14T07:32:08.539007+00:00",
-    "review_required": false,
-    "strikes": 1,
     "last_success_by_school": {
-      "johns_creek": "2026-11-14T03:01:04.182733+00:00",
+      "johns_creek": "2026-11-14T08:01:01.687014+00:00",
       "north_gwinnett": "2026-11-14T04:31:38.792633+00:00",
       "chattahoochee": "2026-11-14T03:30:57.621278+00:00",
       "northview": "2026-11-14T04:01:00.280539+00:00"

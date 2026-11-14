@@ -1,9 +1,11 @@
 {
-  "status": "cooldown",
-  "requests": 0,
+  "status": "complete",
+  "requests": 3,
+  "school": "johns_creek",
+  "error": null,
   "version": 1,
-  "checked_at": "2026-11-14T07:30:57.302098+00:00",
-  "last_source_attempt_at": "2026-11-14T04:31:07.952300+00:00",
+  "checked_at": "2026-11-14T08:02:02.167701+00:00",
+  "last_source_attempt_at": "2026-11-14T08:01:00.457820+00:00",
   "last_access_failure": {
     "blocked_at": "2026-11-14T04:32:08.538994+00:00",
     "diagnostics": {
@@ -20,26 +22,9 @@
       "server_wait_seconds": null
     },
     "reason": "HTTP 403: source access stopped",
+    "resolved_at": "2026-11-14T08:02:01.792562+00:00",
     "retry_after": "2026-11-14T07:32:08.539007+00:00",
     "review_required": false,
-    "strikes": 1
-  },
-  "blocked_at": "2026-11-14T04:32:08.538994+00:00",
-  "diagnostics": {
-    "base_wait_seconds": 10800,
-    "http_status": 403,
-    "request_path": "https://www.zillow.com/homedetails/3791-Portland-Trail-Dr-Suwanee-GA-30024/80172754_zpid/",
-    "response_headers": {
-      "Content-Type": "text/html",
-      "Server": "CloudFront",
-      "X-Amz-Cf-Id": "LGUnBP1B97THNk3P_ikdog7DUU7Lfe4r3sP1LqA26VqzEQ9eGwvKlA=="
-    },
-    "response_kind": "human_verification",
-    "retry_after_header": "",
-    "server_wait_seconds": null
-  },
-  "reason": "HTTP 403: source access stopped",
-  "retry_after": "2026-11-14T07:32:08.539007+00:00",
-  "review_required": false,
-  "strikes": 1
+    "strikes": 0
+  }
 }
