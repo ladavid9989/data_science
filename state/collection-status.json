@@ -1,13 +1,13 @@
 {
-  "status": "complete",
-  "requests": 1,
-  "school": "johns_creek",
-  "error": null,
+  "status": "blocked",
+  "requests": 2,
+  "school": "chattahoochee",
+  "error": "HTTP 403: source access stopped",
   "version": 1,
-  "checked_at": "2026-11-14T13:00:52.513045+00:00",
-  "last_source_attempt_at": "2026-11-14T13:00:51.197898+00:00",
+  "checked_at": "2026-11-14T13:31:31.142020+00:00",
+  "last_source_attempt_at": "2026-11-14T13:31:00.512703+00:00",
   "last_access_failure": {
-    "blocked_at": "2026-11-14T08:31:39.865676+00:00",
+    "blocked_at": "2026-11-14T13:31:31.138541+00:00",
     "diagnostics": {
       "base_wait_seconds": 10800,
       "http_status": 403,
@@ -15,16 +15,33 @@
       "response_headers": {
         "Content-Type": "text/html",
         "Server": "CloudFront",
-        "X-Amz-Cf-Id": "lVVt8eYn9ZuPt0guQdZ7zzF8IzxY-rgDMjUWzfzPkQnVx2b7fuwpBg=="
+        "X-Amz-Cf-Id": "PHGDSbMlPgUIY1Ak2NKpdWoPYy6S44KzRkUjJEl9hpuzLsgi575zIQ=="
       },
       "response_kind": "human_verification",
       "retry_after_header": "",
       "server_wait_seconds": null
     },
     "reason": "HTTP 403: source access stopped",
-    "resolved_at": "2026-11-14T12:01:22.700810+00:00",
-    "retry_after": "2026-11-14T11:31:39.865692+00:00",
+    "retry_after": "2026-11-14T16:31:31.138556+00:00",
     "review_required": false,
-    "strikes": 0
-  }
+    "strikes": 1
+  },
+  "blocked_at": "2026-11-14T13:31:31.138541+00:00",
+  "diagnostics": {
+    "base_wait_seconds": 10800,
+    "http_status": 403,
+    "request_path": "https://www.zillow.com/homedetails/210-Bristol-Stone-Ct-Johns-Creek-GA-30005/14658014_zpid/",
+    "response_headers": {
+      "Content-Type": "text/html",
+      "Server": "CloudFront",
+      "X-Amz-Cf-Id": "PHGDSbMlPgUIY1Ak2NKpdWoPYy6S44KzRkUjJEl9hpuzLsgi575zIQ=="
+    },
+    "response_kind": "human_verification",
+    "retry_after_header": "",
+    "server_wait_seconds": null
+  },
+  "reason": "HTTP 403: source access stopped",
+  "retry_after": "2026-11-14T16:31:31.138556+00:00",
+  "review_required": false,
+  "strikes": 1
 }

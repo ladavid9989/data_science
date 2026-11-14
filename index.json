@@ -18690,6 +18690,14 @@
       "rows": 43
     },
     {
+      "path": "snapshots/2026-11-14/chattahoochee-9d1f4e0f0f8d39afd88515b92e2bebbed0a8cac172cf0665c9d1ce32e5b96142.json.gz",
+      "run_id": "9d1f4e0f0f8d39afd88515b92e2bebbed0a8cac172cf0665c9d1ce32e5b96142",
+      "school": "chattahoochee",
+      "observed_at": "2026-11-14T13:31:01.670764+00:00",
+      "quality": "source_complete",
+      "rows": 41
+    },
+    {
       "path": "snapshots/2026-11-14/chattahoochee-cf39d01337ea078605b10aed16ba8730b93bf0bfcc00dbf63a5cf9371414ac93.json.gz",
       "run_id": "cf39d01337ea078605b10aed16ba8730b93bf0bfcc00dbf63a5cf9371414ac93",
       "school": "chattahoochee",
@@ -18787,15 +18795,15 @@
     }
   ],
   "collection_status": {
-    "status": "complete",
-    "requests": 1,
-    "school": "johns_creek",
-    "error": null,
+    "status": "blocked",
+    "requests": 2,
+    "school": "chattahoochee",
+    "error": "HTTP 403: source access stopped",
     "version": 1,
-    "checked_at": "2026-11-14T13:00:52.513045+00:00",
-    "last_source_attempt_at": "2026-11-14T13:00:51.197898+00:00",
+    "checked_at": "2026-11-14T13:31:31.142020+00:00",
+    "last_source_attempt_at": "2026-11-14T13:31:00.512703+00:00",
     "last_access_failure": {
-      "blocked_at": "2026-11-14T08:31:39.865676+00:00",
+      "blocked_at": "2026-11-14T13:31:31.138541+00:00",
       "diagnostics": {
         "base_wait_seconds": 10800,
         "http_status": 403,
@@ -18803,22 +18811,39 @@
         "response_headers": {
           "Content-Type": "text/html",
           "Server": "CloudFront",
-          "X-Amz-Cf-Id": "lVVt8eYn9ZuPt0guQdZ7zzF8IzxY-rgDMjUWzfzPkQnVx2b7fuwpBg=="
+          "X-Amz-Cf-Id": "PHGDSbMlPgUIY1Ak2NKpdWoPYy6S44KzRkUjJEl9hpuzLsgi575zIQ=="
         },
         "response_kind": "human_verification",
         "retry_after_header": "",
         "server_wait_seconds": null
       },
       "reason": "HTTP 403: source access stopped",
-      "resolved_at": "2026-11-14T12:01:22.700810+00:00",
-      "retry_after": "2026-11-14T11:31:39.865692+00:00",
+      "retry_after": "2026-11-14T16:31:31.138556+00:00",
       "review_required": false,
-      "strikes": 0
+      "strikes": 1
     },
+    "blocked_at": "2026-11-14T13:31:31.138541+00:00",
+    "diagnostics": {
+      "base_wait_seconds": 10800,
+      "http_status": 403,
+      "request_path": "https://www.zillow.com/homedetails/210-Bristol-Stone-Ct-Johns-Creek-GA-30005/14658014_zpid/",
+      "response_headers": {
+        "Content-Type": "text/html",
+        "Server": "CloudFront",
+        "X-Amz-Cf-Id": "PHGDSbMlPgUIY1Ak2NKpdWoPYy6S44KzRkUjJEl9hpuzLsgi575zIQ=="
+      },
+      "response_kind": "human_verification",
+      "retry_after_header": "",
+      "server_wait_seconds": null
+    },
+    "reason": "HTTP 403: source access stopped",
+    "retry_after": "2026-11-14T16:31:31.138556+00:00",
+    "review_required": false,
+    "strikes": 1,
     "last_success_by_school": {
       "johns_creek": "2026-11-14T13:00:52.007783+00:00",
       "north_gwinnett": "2026-11-14T12:31:18.923692+00:00",
-      "chattahoochee": "2026-11-14T08:31:10.249266+00:00",
+      "chattahoochee": "2026-11-14T13:31:01.392100+00:00",
       "northview": "2026-11-14T12:01:22.152112+00:00"
     }
   }
