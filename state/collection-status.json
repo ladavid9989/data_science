@@ -1,10 +1,8 @@
 {
-  "status": "blocked",
-  "requests": 3,
-  "school": "north_gwinnett",
-  "error": "HTTP 403: source access stopped",
+  "status": "cooldown",
+  "requests": 0,
   "version": 1,
-  "checked_at": "2026-11-14T04:32:08.540350+00:00",
+  "checked_at": "2026-11-14T05:00:59.877096+00:00",
   "last_source_attempt_at": "2026-11-14T04:31:07.952300+00:00",
   "last_access_failure": {
     "blocked_at": "2026-11-14T04:32:08.538994+00:00",
