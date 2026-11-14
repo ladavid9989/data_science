@@ -18754,6 +18754,14 @@
       "rows": 16
     },
     {
+      "path": "snapshots/2026-11-14/johns_creek-788896332e55e23620f498fa0174ccc7c5325176a20367c2e959c918f3e31c5e.json.gz",
+      "run_id": "788896332e55e23620f498fa0174ccc7c5325176a20367c2e959c918f3e31c5e",
+      "school": "johns_creek",
+      "observed_at": "2026-11-14T22:58:42.125864+00:00",
+      "quality": "source_complete",
+      "rows": 14
+    },
+    {
       "path": "snapshots/2026-11-14/johns_creek-821e4a968fdf966a47993c895032ca8c5a5427040d71b534b32c8fd4002eefa5.json.gz",
       "run_id": "821e4a968fdf966a47993c895032ca8c5a5427040d71b534b32c8fd4002eefa5",
       "school": "johns_creek",
@@ -18859,11 +18867,13 @@
     }
   ],
   "collection_status": {
-    "status": "cooldown",
-    "requests": 0,
+    "status": "complete",
+    "requests": 1,
+    "school": "johns_creek",
+    "error": null,
     "version": 1,
-    "checked_at": "2026-11-14T22:31:03.882826+00:00",
-    "last_source_attempt_at": "2026-11-14T19:30:54.574819+00:00",
+    "checked_at": "2026-11-14T22:58:42.463127+00:00",
+    "last_source_attempt_at": "2026-11-14T22:58:41.033746+00:00",
     "last_access_failure": {
       "blocked_at": "2026-11-14T19:31:55.118590+00:00",
       "diagnostics": {
@@ -18880,30 +18890,13 @@
         "server_wait_seconds": null
       },
       "reason": "HTTP 403: source access stopped",
+      "resolved_at": "2026-11-14T22:58:42.380424+00:00",
       "retry_after": "2026-11-14T22:31:55.118604+00:00",
       "review_required": false,
-      "strikes": 1
+      "strikes": 0
     },
-    "blocked_at": "2026-11-14T19:31:55.118590+00:00",
-    "diagnostics": {
-      "base_wait_seconds": 10800,
-      "http_status": 403,
-      "request_path": "https://www.zillow.com/homedetails/4017-Wyndam-Hill-Dr-Suwanee-GA-30024/66762140_zpid/",
-      "response_headers": {
-        "Content-Type": "text/html",
-        "Server": "CloudFront",
-        "X-Amz-Cf-Id": "MlhTta-x_cbPtvC-G9sRrtqIH3sEGK9FDS3Qkt2r_4U655lVJVrifw=="
-      },
-      "response_kind": "human_verification",
-      "retry_after_header": "",
-      "server_wait_seconds": null
-    },
-    "reason": "HTTP 403: source access stopped",
-    "retry_after": "2026-11-14T22:31:55.118604+00:00",
-    "review_required": false,
-    "strikes": 1,
     "last_success_by_school": {
-      "johns_creek": "2026-11-14T18:00:59.480045+00:00",
+      "johns_creek": "2026-11-14T22:58:41.955818+00:00",
       "north_gwinnett": "2026-11-14T19:31:25.568796+00:00",
       "chattahoochee": "2026-11-14T18:30:59.217933+00:00",
       "northview": "2026-11-14T19:01:06.940493+00:00"
