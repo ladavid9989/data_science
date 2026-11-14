@@ -18746,6 +18746,14 @@
       "rows": 71
     },
     {
+      "path": "snapshots/2026-11-14/northview-2e946eec0f4f94db0522e5fe72476b3bb1ebea12980174133ff3d3653cd0adad.json.gz",
+      "run_id": "2e946eec0f4f94db0522e5fe72476b3bb1ebea12980174133ff3d3653cd0adad",
+      "school": "northview",
+      "observed_at": "2026-11-14T12:01:22.373472+00:00",
+      "quality": "source_complete",
+      "rows": 19
+    },
+    {
       "path": "snapshots/2026-11-14/northview-4b07e9f5d5a56fe16e51adab0f7762bb78a1cf8e4b369aa9e57374d413ae00cd.json.gz",
       "run_id": "4b07e9f5d5a56fe16e51adab0f7762bb78a1cf8e4b369aa9e57374d413ae00cd",
       "school": "northview",
@@ -18755,11 +18763,13 @@
     }
   ],
   "collection_status": {
-    "status": "cooldown",
-    "requests": 0,
+    "status": "complete",
+    "requests": 1,
+    "school": "northview",
+    "error": null,
     "version": 1,
-    "checked_at": "2026-11-14T11:30:53.340284+00:00",
-    "last_source_attempt_at": "2026-11-14T08:31:09.251693+00:00",
+    "checked_at": "2026-11-14T12:01:22.887374+00:00",
+    "last_source_attempt_at": "2026-11-14T12:01:21.241512+00:00",
     "last_access_failure": {
       "blocked_at": "2026-11-14T08:31:39.865676+00:00",
       "diagnostics": {
@@ -18776,33 +18786,16 @@
         "server_wait_seconds": null
       },
       "reason": "HTTP 403: source access stopped",
+      "resolved_at": "2026-11-14T12:01:22.700810+00:00",
       "retry_after": "2026-11-14T11:31:39.865692+00:00",
       "review_required": false,
-      "strikes": 1
+      "strikes": 0
     },
-    "blocked_at": "2026-11-14T08:31:39.865676+00:00",
-    "diagnostics": {
-      "base_wait_seconds": 10800,
-      "http_status": 403,
-      "request_path": "https://www.zillow.com/homedetails/210-Bristol-Stone-Ct-Johns-Creek-GA-30005/14658014_zpid/",
-      "response_headers": {
-        "Content-Type": "text/html",
-        "Server": "CloudFront",
-        "X-Amz-Cf-Id": "lVVt8eYn9ZuPt0guQdZ7zzF8IzxY-rgDMjUWzfzPkQnVx2b7fuwpBg=="
-      },
-      "response_kind": "human_verification",
-      "retry_after_header": "",
-      "server_wait_seconds": null
-    },
-    "reason": "HTTP 403: source access stopped",
-    "retry_after": "2026-11-14T11:31:39.865692+00:00",
-    "review_required": false,
-    "strikes": 1,
     "last_success_by_school": {
       "johns_creek": "2026-11-14T08:01:01.687014+00:00",
       "north_gwinnett": "2026-11-14T04:31:38.792633+00:00",
       "chattahoochee": "2026-11-14T08:31:10.249266+00:00",
-      "northview": "2026-11-14T04:01:00.280539+00:00"
+      "northview": "2026-11-14T12:01:22.152112+00:00"
     }
   }
 }
