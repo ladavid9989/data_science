@@ -1,29 +1,47 @@
 {
-  "status": "interval_wait",
-  "requests": 0,
-  "next_batch_at": "2026-11-14T19:26:05.987195+00:00",
+  "status": "blocked",
+  "requests": 3,
+  "school": "north_gwinnett",
+  "error": "HTTP 403: source access stopped",
   "version": 1,
-  "checked_at": "2026-11-14T19:10:21.096640+00:00",
-  "last_source_attempt_at": "2026-11-14T19:01:05.987195+00:00",
+  "checked_at": "2026-11-14T19:31:55.120471+00:00",
+  "last_source_attempt_at": "2026-11-14T19:30:54.574819+00:00",
   "last_access_failure": {
-    "blocked_at": "2026-11-14T13:31:31.138541+00:00",
+    "blocked_at": "2026-11-14T19:31:55.118590+00:00",
     "diagnostics": {
       "base_wait_seconds": 10800,
       "http_status": 403,
-      "request_path": "https://www.zillow.com/homedetails/210-Bristol-Stone-Ct-Johns-Creek-GA-30005/14658014_zpid/",
+      "request_path": "https://www.zillow.com/homedetails/4017-Wyndam-Hill-Dr-Suwanee-GA-30024/66762140_zpid/",
       "response_headers": {
         "Content-Type": "text/html",
         "Server": "CloudFront",
-        "X-Amz-Cf-Id": "PHGDSbMlPgUIY1Ak2NKpdWoPYy6S44KzRkUjJEl9hpuzLsgi575zIQ=="
+        "X-Amz-Cf-Id": "MlhTta-x_cbPtvC-G9sRrtqIH3sEGK9FDS3Qkt2r_4U655lVJVrifw=="
       },
       "response_kind": "human_verification",
       "retry_after_header": "",
       "server_wait_seconds": null
     },
     "reason": "HTTP 403: source access stopped",
-    "resolved_at": "2026-11-14T17:01:19.856120+00:00",
-    "retry_after": "2026-11-14T16:31:31.138556+00:00",
+    "retry_after": "2026-11-14T22:31:55.118604+00:00",
     "review_required": false,
-    "strikes": 0
-  }
+    "strikes": 1
+  },
+  "blocked_at": "2026-11-14T19:31:55.118590+00:00",
+  "diagnostics": {
+    "base_wait_seconds": 10800,
+    "http_status": 403,
+    "request_path": "https://www.zillow.com/homedetails/4017-Wyndam-Hill-Dr-Suwanee-GA-30024/66762140_zpid/",
+    "response_headers": {
+      "Content-Type": "text/html",
+      "Server": "CloudFront",
+      "X-Amz-Cf-Id": "MlhTta-x_cbPtvC-G9sRrtqIH3sEGK9FDS3Qkt2r_4U655lVJVrifw=="
+    },
+    "response_kind": "human_verification",
+    "retry_after_header": "",
+    "server_wait_seconds": null
+  },
+  "reason": "HTTP 403: source access stopped",
+  "retry_after": "2026-11-14T22:31:55.118604+00:00",
+  "review_required": false,
+  "strikes": 1
 }
