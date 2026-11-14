@@ -1,13 +1,13 @@
 {
-  "status": "complete",
-  "requests": 1,
-  "school": "northview",
-  "error": null,
+  "status": "blocked",
+  "requests": 3,
+  "school": "north_gwinnett",
+  "error": "HTTP 403: source access stopped",
   "version": 1,
-  "checked_at": "2026-11-14T04:01:00.956652+00:00",
-  "last_source_attempt_at": "2026-11-14T04:00:59.353203+00:00",
+  "checked_at": "2026-11-14T04:32:08.540350+00:00",
+  "last_source_attempt_at": "2026-11-14T04:31:07.952300+00:00",
   "last_access_failure": {
-    "blocked_at": "2026-11-13T23:31:57.658289+00:00",
+    "blocked_at": "2026-11-14T04:32:08.538994+00:00",
     "diagnostics": {
       "base_wait_seconds": 10800,
       "http_status": 403,
@@ -15,16 +15,33 @@
       "response_headers": {
         "Content-Type": "text/html",
         "Server": "CloudFront",
-        "X-Amz-Cf-Id": "daSKuhCd9gmIBUSGFCG4-CCjVXD-owJsWMu7EwzAsr71LL6lXBpJ8w=="
+        "X-Amz-Cf-Id": "LGUnBP1B97THNk3P_ikdog7DUU7Lfe4r3sP1LqA26VqzEQ9eGwvKlA=="
       },
       "response_kind": "human_verification",
       "retry_after_header": "",
       "server_wait_seconds": null
     },
     "reason": "HTTP 403: source access stopped",
-    "resolved_at": "2026-11-14T03:02:01.809619+00:00",
-    "retry_after": "2026-11-14T02:31:57.658300+00:00",
+    "retry_after": "2026-11-14T07:32:08.539007+00:00",
     "review_required": false,
-    "strikes": 0
-  }
+    "strikes": 1
+  },
+  "blocked_at": "2026-11-14T04:32:08.538994+00:00",
+  "diagnostics": {
+    "base_wait_seconds": 10800,
+    "http_status": 403,
+    "request_path": "https://www.zillow.com/homedetails/3791-Portland-Trail-Dr-Suwanee-GA-30024/80172754_zpid/",
+    "response_headers": {
+      "Content-Type": "text/html",
+      "Server": "CloudFront",
+      "X-Amz-Cf-Id": "LGUnBP1B97THNk3P_ikdog7DUU7Lfe4r3sP1LqA26VqzEQ9eGwvKlA=="
+    },
+    "response_kind": "human_verification",
+    "retry_after_header": "",
+    "server_wait_seconds": null
+  },
+  "reason": "HTTP 403: source access stopped",
+  "retry_after": "2026-11-14T07:32:08.539007+00:00",
+  "review_required": false,
+  "strikes": 1
 }
