@@ -1,30 +1,47 @@
 {
-  "status": "complete",
-  "requests": 3,
-  "school": "johns_creek",
-  "error": null,
+  "status": "blocked",
+  "requests": 2,
+  "school": "chattahoochee",
+  "error": "HTTP 403: source access stopped",
   "version": 1,
-  "checked_at": "2026-11-14T08:02:02.167701+00:00",
-  "last_source_attempt_at": "2026-11-14T08:01:00.457820+00:00",
+  "checked_at": "2026-11-14T08:31:39.869207+00:00",
+  "last_source_attempt_at": "2026-11-14T08:31:09.251693+00:00",
   "last_access_failure": {
-    "blocked_at": "2026-11-14T04:32:08.538994+00:00",
+    "blocked_at": "2026-11-14T08:31:39.865676+00:00",
     "diagnostics": {
       "base_wait_seconds": 10800,
       "http_status": 403,
-      "request_path": "https://www.zillow.com/homedetails/3791-Portland-Trail-Dr-Suwanee-GA-30024/80172754_zpid/",
+      "request_path": "https://www.zillow.com/homedetails/210-Bristol-Stone-Ct-Johns-Creek-GA-30005/14658014_zpid/",
       "response_headers": {
         "Content-Type": "text/html",
         "Server": "CloudFront",
-        "X-Amz-Cf-Id": "LGUnBP1B97THNk3P_ikdog7DUU7Lfe4r3sP1LqA26VqzEQ9eGwvKlA=="
+        "X-Amz-Cf-Id": "lVVt8eYn9ZuPt0guQdZ7zzF8IzxY-rgDMjUWzfzPkQnVx2b7fuwpBg=="
       },
       "response_kind": "human_verification",
       "retry_after_header": "",
       "server_wait_seconds": null
     },
     "reason": "HTTP 403: source access stopped",
-    "resolved_at": "2026-11-14T08:02:01.792562+00:00",
-    "retry_after": "2026-11-14T07:32:08.539007+00:00",
+    "retry_after": "2026-11-14T11:31:39.865692+00:00",
     "review_required": false,
-    "strikes": 0
-  }
+    "strikes": 1
+  },
+  "blocked_at": "2026-11-14T08:31:39.865676+00:00",
+  "diagnostics": {
+    "base_wait_seconds": 10800,
+    "http_status": 403,
+    "request_path": "https://www.zillow.com/homedetails/210-Bristol-Stone-Ct-Johns-Creek-GA-30005/14658014_zpid/",
+    "response_headers": {
+      "Content-Type": "text/html",
+      "Server": "CloudFront",
+      "X-Amz-Cf-Id": "lVVt8eYn9ZuPt0guQdZ7zzF8IzxY-rgDMjUWzfzPkQnVx2b7fuwpBg=="
+    },
+    "response_kind": "human_verification",
+    "retry_after_header": "",
+    "server_wait_seconds": null
+  },
+  "reason": "HTTP 403: source access stopped",
+  "retry_after": "2026-11-14T11:31:39.865692+00:00",
+  "review_required": false,
+  "strikes": 1
 }
