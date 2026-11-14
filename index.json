@@ -18792,14 +18792,24 @@
       "observed_at": "2026-11-14T04:01:00.510785+00:00",
       "quality": "source_complete",
       "rows": 19
+    },
+    {
+      "path": "snapshots/2026-11-14/northview-ea5e74111792674234a5a70c900f330eee3d01718727c65a07590f1317b7742b.json.gz",
+      "run_id": "ea5e74111792674234a5a70c900f330eee3d01718727c65a07590f1317b7742b",
+      "school": "northview",
+      "observed_at": "2026-11-14T17:01:19.473692+00:00",
+      "quality": "source_complete",
+      "rows": 19
     }
   ],
   "collection_status": {
-    "status": "cooldown",
-    "requests": 0,
+    "status": "complete",
+    "requests": 1,
+    "school": "northview",
+    "error": null,
     "version": 1,
-    "checked_at": "2026-11-14T16:31:02.911076+00:00",
-    "last_source_attempt_at": "2026-11-14T13:31:00.512703+00:00",
+    "checked_at": "2026-11-14T17:01:19.980697+00:00",
+    "last_source_attempt_at": "2026-11-14T17:01:18.307882+00:00",
     "last_access_failure": {
       "blocked_at": "2026-11-14T13:31:31.138541+00:00",
       "diagnostics": {
@@ -18816,33 +18826,16 @@
         "server_wait_seconds": null
       },
       "reason": "HTTP 403: source access stopped",
+      "resolved_at": "2026-11-14T17:01:19.856120+00:00",
       "retry_after": "2026-11-14T16:31:31.138556+00:00",
       "review_required": false,
-      "strikes": 1
+      "strikes": 0
     },
-    "blocked_at": "2026-11-14T13:31:31.138541+00:00",
-    "diagnostics": {
-      "base_wait_seconds": 10800,
-      "http_status": 403,
-      "request_path": "https://www.zillow.com/homedetails/210-Bristol-Stone-Ct-Johns-Creek-GA-30005/14658014_zpid/",
-      "response_headers": {
-        "Content-Type": "text/html",
-        "Server": "CloudFront",
-        "X-Amz-Cf-Id": "PHGDSbMlPgUIY1Ak2NKpdWoPYy6S44KzRkUjJEl9hpuzLsgi575zIQ=="
-      },
-      "response_kind": "human_verification",
-      "retry_after_header": "",
-      "server_wait_seconds": null
-    },
-    "reason": "HTTP 403: source access stopped",
-    "retry_after": "2026-11-14T16:31:31.138556+00:00",
-    "review_required": false,
-    "strikes": 1,
     "last_success_by_school": {
       "johns_creek": "2026-11-14T13:00:52.007783+00:00",
       "north_gwinnett": "2026-11-14T12:31:18.923692+00:00",
       "chattahoochee": "2026-11-14T13:31:01.392100+00:00",
-      "northview": "2026-11-14T12:01:22.152112+00:00"
+      "northview": "2026-11-14T17:01:19.215942+00:00"
     }
   }
 }
