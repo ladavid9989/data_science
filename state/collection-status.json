@@ -1,11 +1,11 @@
 {
   "status": "complete",
-  "requests": 3,
-  "school": "chattahoochee",
+  "requests": 2,
+  "school": "northview",
   "error": null,
   "version": 1,
-  "checked_at": "2026-11-14T23:32:06.495890+00:00",
-  "last_source_attempt_at": "2026-11-14T23:31:04.430855+00:00",
+  "checked_at": "2026-11-15T00:01:32.612635+00:00",
+  "last_source_attempt_at": "2026-11-15T00:01:00.994968+00:00",
   "last_access_failure": {
     "blocked_at": "2026-11-14T19:31:55.118590+00:00",
     "diagnostics": {
