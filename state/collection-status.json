@@ -1,45 +1,47 @@
 {
-  "status": "cooldown",
-  "requests": 0,
+  "status": "blocked",
+  "requests": 2,
+  "school": "johns_creek",
+  "error": "HTTP 403: source access stopped",
   "version": 1,
-  "checked_at": "2026-11-15T03:30:59.466370+00:00",
-  "last_source_attempt_at": "2026-11-15T00:31:02.108657+00:00",
+  "checked_at": "2026-11-15T04:01:29.563204+00:00",
+  "last_source_attempt_at": "2026-11-15T04:00:58.962602+00:00",
   "last_access_failure": {
-    "blocked_at": "2026-11-15T00:32:02.663860+00:00",
+    "blocked_at": "2026-11-15T04:01:29.559270+00:00",
     "diagnostics": {
       "base_wait_seconds": 10800,
       "http_status": 403,
-      "request_path": "https://www.zillow.com/homedetails/4017-Wyndam-Hill-Dr-Suwanee-GA-30024/66762140_zpid/",
+      "request_path": "https://www.zillow.com/homedetails/325-Oak-Alley-Ct-Johns-Creek-GA-30022/55008285_zpid/",
       "response_headers": {
         "Content-Type": "text/html",
         "Server": "CloudFront",
-        "X-Amz-Cf-Id": "_U3xEdID_MecOYv12DC9Q7HTlWCFv28OCPbB2f7RkPPeVkls1QGWGQ=="
+        "X-Amz-Cf-Id": "_r6bS6SmCh7MRcrXF2hHJSL0LcKx6M6vmSbHgFMqjSyQs44jK0FvSQ=="
       },
       "response_kind": "human_verification",
       "retry_after_header": "",
       "server_wait_seconds": null
     },
     "reason": "HTTP 403: source access stopped",
-    "retry_after": "2026-11-15T03:32:02.663875+00:00",
-    "review_required": false,
-    "strikes": 1
+    "retry_after": "2026-11-15T07:01:29.559286+00:00",
+    "review_required": true,
+    "strikes": 2
   },
-  "blocked_at": "2026-11-15T00:32:02.663860+00:00",
+  "blocked_at": "2026-11-15T04:01:29.559270+00:00",
   "diagnostics": {
     "base_wait_seconds": 10800,
     "http_status": 403,
-    "request_path": "https://www.zillow.com/homedetails/4017-Wyndam-Hill-Dr-Suwanee-GA-30024/66762140_zpid/",
+    "request_path": "https://www.zillow.com/homedetails/325-Oak-Alley-Ct-Johns-Creek-GA-30022/55008285_zpid/",
     "response_headers": {
       "Content-Type": "text/html",
       "Server": "CloudFront",
-      "X-Amz-Cf-Id": "_U3xEdID_MecOYv12DC9Q7HTlWCFv28OCPbB2f7RkPPeVkls1QGWGQ=="
+      "X-Amz-Cf-Id": "_r6bS6SmCh7MRcrXF2hHJSL0LcKx6M6vmSbHgFMqjSyQs44jK0FvSQ=="
     },
     "response_kind": "human_verification",
     "retry_after_header": "",
     "server_wait_seconds": null
   },
   "reason": "HTTP 403: source access stopped",
-  "retry_after": "2026-11-15T03:32:02.663875+00:00",
-  "review_required": false,
-  "strikes": 1
+  "retry_after": "2026-11-15T07:01:29.559286+00:00",
+  "review_required": true,
+  "strikes": 2
 }
