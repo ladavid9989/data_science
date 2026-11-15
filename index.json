@@ -19002,6 +19002,14 @@
       "rows": 73
     },
     {
+      "path": "snapshots/2026-11-15/north_gwinnett-16f8a7b4c964deee0a93b8c09d8131d8fae2d45bc63c02fcef755b98cb713386.json.gz",
+      "run_id": "16f8a7b4c964deee0a93b8c09d8131d8fae2d45bc63c02fcef755b98cb713386",
+      "school": "north_gwinnett",
+      "observed_at": "2026-11-15T16:31:58.514299+00:00",
+      "quality": "source_complete",
+      "rows": 73
+    },
+    {
       "path": "snapshots/2026-11-15/north_gwinnett-22bc9a3a88298caa44aecf5cd072a5c01cf075e10b7e15ed3684b72370ab7158.json.gz",
       "run_id": "22bc9a3a88298caa44aecf5cd072a5c01cf075e10b7e15ed3684b72370ab7158",
       "school": "north_gwinnett",
@@ -19046,6 +19054,14 @@
       "run_id": "6c8529868cd163b8f031821d7eff6c2da5ae3fc981ec75219fb3dffc07a1c5e2",
       "school": "north_gwinnett",
       "observed_at": "2026-11-15T10:31:27.592024+00:00",
+      "quality": "source_complete",
+      "rows": 72
+    },
+    {
+      "path": "snapshots/2026-11-15/north_gwinnett-804129d8ae7db0d84dc935f17d1fc119a7b1206af8c8ccd6d39b39b136527791.json.gz",
+      "run_id": "804129d8ae7db0d84dc935f17d1fc119a7b1206af8c8ccd6d39b39b136527791",
+      "school": "north_gwinnett",
+      "observed_at": "2026-11-15T16:31:28.554945+00:00",
       "quality": "source_complete",
       "rows": 72
     },
@@ -19123,13 +19139,13 @@
     }
   ],
   "collection_status": {
-    "status": "complete",
-    "requests": 1,
-    "school": "northview",
+    "status": "checkpointed",
+    "requests": 3,
+    "school": "north_gwinnett",
     "error": null,
     "version": 1,
-    "checked_at": "2026-11-15T16:00:51.615031+00:00",
-    "last_source_attempt_at": "2026-11-15T16:00:50.318393+00:00",
+    "checked_at": "2026-11-15T16:31:58.777673+00:00",
+    "last_source_attempt_at": "2026-11-15T16:30:57.221011+00:00",
     "last_access_failure": {
       "blocked_at": "2026-11-15T04:01:29.559270+00:00",
       "diagnostics": {
@@ -19153,7 +19169,7 @@
     },
     "last_success_by_school": {
       "johns_creek": "2026-11-15T15:00:50.662885+00:00",
-      "north_gwinnett": "2026-11-15T14:31:39.646868+00:00",
+      "north_gwinnett": "2026-11-15T16:31:28.277012+00:00",
       "chattahoochee": "2026-11-15T15:30:58.458303+00:00",
       "northview": "2026-11-15T16:00:51.140083+00:00"
     }
