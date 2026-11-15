@@ -1,9 +1,11 @@
 {
-  "status": "cooldown",
-  "requests": 0,
+  "status": "complete",
+  "requests": 3,
+  "school": "chattahoochee",
+  "error": null,
   "version": 1,
-  "checked_at": "2026-11-15T07:01:00.219685+00:00",
-  "last_source_attempt_at": "2026-11-15T04:00:58.962602+00:00",
+  "checked_at": "2026-11-15T07:32:09.034449+00:00",
+  "last_source_attempt_at": "2026-11-15T07:31:07.482232+00:00",
   "last_access_failure": {
     "blocked_at": "2026-11-15T04:01:29.559270+00:00",
     "diagnostics": {
@@ -20,26 +22,9 @@
       "server_wait_seconds": null
     },
     "reason": "HTTP 403: source access stopped",
+    "resolved_at": "2026-11-15T07:32:08.651524+00:00",
     "retry_after": "2026-11-15T07:01:29.559286+00:00",
-    "review_required": true,
-    "strikes": 2
-  },
-  "blocked_at": "2026-11-15T04:01:29.559270+00:00",
-  "diagnostics": {
-    "base_wait_seconds": 10800,
-    "http_status": 403,
-    "request_path": "https://www.zillow.com/homedetails/325-Oak-Alley-Ct-Johns-Creek-GA-30022/55008285_zpid/",
-    "response_headers": {
-      "Content-Type": "text/html",
-      "Server": "CloudFront",
-      "X-Amz-Cf-Id": "_r6bS6SmCh7MRcrXF2hHJSL0LcKx6M6vmSbHgFMqjSyQs44jK0FvSQ=="
-    },
-    "response_kind": "human_verification",
-    "retry_after_header": "",
-    "server_wait_seconds": null
-  },
-  "reason": "HTTP 403: source access stopped",
-  "retry_after": "2026-11-15T07:01:29.559286+00:00",
-  "review_required": true,
-  "strikes": 2
+    "review_required": false,
+    "strikes": 0
+  }
 }
