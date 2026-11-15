@@ -19074,6 +19074,14 @@
       "rows": 19
     },
     {
+      "path": "snapshots/2026-11-15/northview-1a1f005971c76008e05842f67588047276fd991e7c3ecb6956c361a2482c9566.json.gz",
+      "run_id": "1a1f005971c76008e05842f67588047276fd991e7c3ecb6956c361a2482c9566",
+      "school": "northview",
+      "observed_at": "2026-11-15T16:00:51.300605+00:00",
+      "quality": "source_complete",
+      "rows": 19
+    },
+    {
       "path": "snapshots/2026-11-15/northview-6fc9b468d14bc0077f341b41197815e48eca082adec5e21858748789798d4f6e.json.gz",
       "run_id": "6fc9b468d14bc0077f341b41197815e48eca082adec5e21858748789798d4f6e",
       "school": "northview",
@@ -19117,11 +19125,11 @@
   "collection_status": {
     "status": "complete",
     "requests": 1,
-    "school": "chattahoochee",
+    "school": "northview",
     "error": null,
     "version": 1,
-    "checked_at": "2026-11-15T15:30:59.228866+00:00",
-    "last_source_attempt_at": "2026-11-15T15:30:57.490223+00:00",
+    "checked_at": "2026-11-15T16:00:51.615031+00:00",
+    "last_source_attempt_at": "2026-11-15T16:00:50.318393+00:00",
     "last_access_failure": {
       "blocked_at": "2026-11-15T04:01:29.559270+00:00",
       "diagnostics": {
@@ -19147,7 +19155,7 @@
       "johns_creek": "2026-11-15T15:00:50.662885+00:00",
       "north_gwinnett": "2026-11-15T14:31:39.646868+00:00",
       "chattahoochee": "2026-11-15T15:30:58.458303+00:00",
-      "northview": "2026-11-15T14:01:04.486924+00:00"
+      "northview": "2026-11-15T16:00:51.140083+00:00"
     }
   }
 }
