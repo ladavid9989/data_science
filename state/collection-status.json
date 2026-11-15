@@ -1,13 +1,13 @@
 {
-  "status": "complete",
-  "requests": 2,
-  "school": "northview",
-  "error": null,
+  "status": "blocked",
+  "requests": 3,
+  "school": "north_gwinnett",
+  "error": "HTTP 403: source access stopped",
   "version": 1,
-  "checked_at": "2026-11-15T00:01:32.612635+00:00",
-  "last_source_attempt_at": "2026-11-15T00:01:00.994968+00:00",
+  "checked_at": "2026-11-15T00:32:02.665630+00:00",
+  "last_source_attempt_at": "2026-11-15T00:31:02.108657+00:00",
   "last_access_failure": {
-    "blocked_at": "2026-11-14T19:31:55.118590+00:00",
+    "blocked_at": "2026-11-15T00:32:02.663860+00:00",
     "diagnostics": {
       "base_wait_seconds": 10800,
       "http_status": 403,
@@ -15,16 +15,33 @@
       "response_headers": {
         "Content-Type": "text/html",
         "Server": "CloudFront",
-        "X-Amz-Cf-Id": "MlhTta-x_cbPtvC-G9sRrtqIH3sEGK9FDS3Qkt2r_4U655lVJVrifw=="
+        "X-Amz-Cf-Id": "_U3xEdID_MecOYv12DC9Q7HTlWCFv28OCPbB2f7RkPPeVkls1QGWGQ=="
       },
       "response_kind": "human_verification",
       "retry_after_header": "",
       "server_wait_seconds": null
     },
     "reason": "HTTP 403: source access stopped",
-    "resolved_at": "2026-11-14T22:58:42.380424+00:00",
-    "retry_after": "2026-11-14T22:31:55.118604+00:00",
+    "retry_after": "2026-11-15T03:32:02.663875+00:00",
     "review_required": false,
-    "strikes": 0
-  }
+    "strikes": 1
+  },
+  "blocked_at": "2026-11-15T00:32:02.663860+00:00",
+  "diagnostics": {
+    "base_wait_seconds": 10800,
+    "http_status": 403,
+    "request_path": "https://www.zillow.com/homedetails/4017-Wyndam-Hill-Dr-Suwanee-GA-30024/66762140_zpid/",
+    "response_headers": {
+      "Content-Type": "text/html",
+      "Server": "CloudFront",
+      "X-Amz-Cf-Id": "_U3xEdID_MecOYv12DC9Q7HTlWCFv28OCPbB2f7RkPPeVkls1QGWGQ=="
+    },
+    "response_kind": "human_verification",
+    "retry_after_header": "",
+    "server_wait_seconds": null
+  },
+  "reason": "HTTP 403: source access stopped",
+  "retry_after": "2026-11-15T03:32:02.663875+00:00",
+  "review_required": false,
+  "strikes": 1
 }
