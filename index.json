@@ -18907,12 +18907,10 @@
     }
   ],
   "collection_status": {
-    "status": "blocked",
-    "requests": 3,
-    "school": "north_gwinnett",
-    "error": "HTTP 403: source access stopped",
+    "status": "cooldown",
+    "requests": 0,
     "version": 1,
-    "checked_at": "2026-11-15T00:32:02.665630+00:00",
+    "checked_at": "2026-11-15T01:01:01.019465+00:00",
     "last_source_attempt_at": "2026-11-15T00:31:02.108657+00:00",
     "last_access_failure": {
       "blocked_at": "2026-11-15T00:32:02.663860+00:00",
