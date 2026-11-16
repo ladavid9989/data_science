@@ -19298,12 +19298,28 @@
       "rows": 43
     },
     {
+      "path": "snapshots/2026-11-16/chattahoochee-c254373fd3a48165603b990a0a2145e55f53c17fead19b8011d49d3284b1d5b2.json.gz",
+      "run_id": "c254373fd3a48165603b990a0a2145e55f53c17fead19b8011d49d3284b1d5b2",
+      "school": "chattahoochee",
+      "observed_at": "2026-11-16T08:31:00.747459+00:00",
+      "quality": "source_complete",
+      "rows": 41
+    },
+    {
       "path": "snapshots/2026-11-16/chattahoochee-c5e401416f68d7752f97ea2e7f86506733fb6e4e8efe9dcc327ee5a2b9b32109.json.gz",
       "run_id": "c5e401416f68d7752f97ea2e7f86506733fb6e4e8efe9dcc327ee5a2b9b32109",
       "school": "chattahoochee",
       "observed_at": "2026-11-16T04:30:57.557492+00:00",
       "quality": "source_complete",
       "rows": 41
+    },
+    {
+      "path": "snapshots/2026-11-16/chattahoochee-dbd9b344b76488abc3af91dbc257345ded78283b9cfff92404592aacc0ea1767.json.gz",
+      "run_id": "dbd9b344b76488abc3af91dbc257345ded78283b9cfff92404592aacc0ea1767",
+      "school": "chattahoochee",
+      "observed_at": "2026-11-16T08:32:00.513277+00:00",
+      "quality": "source_complete",
+      "rows": 43
     },
     {
       "path": "snapshots/2026-11-16/johns_creek-6381bcd88971fb0b56ec68b314a70844ba7459d2a2cfbdc6d61dc30352e6de7a.json.gz",
@@ -19388,12 +19404,12 @@
   ],
   "collection_status": {
     "status": "complete",
-    "requests": 1,
-    "school": "johns_creek",
+    "requests": 3,
+    "school": "chattahoochee",
     "error": null,
     "version": 1,
-    "checked_at": "2026-11-16T08:01:04.242415+00:00",
-    "last_source_attempt_at": "2026-11-16T08:01:01.618953+00:00",
+    "checked_at": "2026-11-16T08:32:00.770240+00:00",
+    "last_source_attempt_at": "2026-11-16T08:30:59.140766+00:00",
     "last_access_failure": {
       "blocked_at": "2026-11-16T00:01:32.230384+00:00",
       "diagnostics": {
@@ -19418,7 +19434,7 @@
     "last_success_by_school": {
       "johns_creek": "2026-11-16T08:01:03.482142+00:00",
       "north_gwinnett": "2026-11-16T07:31:50.349473+00:00",
-      "chattahoochee": "2026-11-16T06:31:08.622421+00:00",
+      "chattahoochee": "2026-11-16T08:31:00.483010+00:00",
       "northview": "2026-11-16T07:01:03.301719+00:00"
     }
   }
