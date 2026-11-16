@@ -19346,6 +19346,22 @@
       "rows": 14
     },
     {
+      "path": "snapshots/2026-11-16/johns_creek-c6970a7319b689fcfd05e006fda31545b04cc16f0ed273aaad713ae3aabdc605.json.gz",
+      "run_id": "c6970a7319b689fcfd05e006fda31545b04cc16f0ed273aaad713ae3aabdc605",
+      "school": "johns_creek",
+      "observed_at": "2026-11-16T15:02:31.522807+00:00",
+      "quality": "source_complete",
+      "rows": 16
+    },
+    {
+      "path": "snapshots/2026-11-16/johns_creek-f103cc1879a39bca6b140a25a2e5e21448e7e5848fa22f5b1d21d2ae190d7ca6.json.gz",
+      "run_id": "f103cc1879a39bca6b140a25a2e5e21448e7e5848fa22f5b1d21d2ae190d7ca6",
+      "school": "johns_creek",
+      "observed_at": "2026-11-16T15:01:31.094882+00:00",
+      "quality": "source_complete",
+      "rows": 14
+    },
+    {
       "path": "snapshots/2026-11-16/north_gwinnett-28e0bdaca6041e3d6a29d4ea2258d2ad49e1c464ef33cf6b4ca19a3937d11032.json.gz",
       "run_id": "28e0bdaca6041e3d6a29d4ea2258d2ad49e1c464ef33cf6b4ca19a3937d11032",
       "school": "north_gwinnett",
@@ -19483,11 +19499,13 @@
     }
   ],
   "collection_status": {
-    "status": "cooldown",
-    "requests": 0,
+    "status": "complete",
+    "requests": 3,
+    "school": "johns_creek",
+    "error": null,
     "version": 1,
-    "checked_at": "2026-11-16T14:31:07.168520+00:00",
-    "last_source_attempt_at": "2026-11-16T11:31:10.476956+00:00",
+    "checked_at": "2026-11-16T15:02:31.861554+00:00",
+    "last_source_attempt_at": "2026-11-16T15:01:29.991986+00:00",
     "last_access_failure": {
       "blocked_at": "2026-11-16T11:32:11.022866+00:00",
       "diagnostics": {
@@ -19504,30 +19522,13 @@
         "server_wait_seconds": null
       },
       "reason": "HTTP 403: source access stopped",
+      "resolved_at": "2026-11-16T15:02:31.415281+00:00",
       "retry_after": "2026-11-16T14:32:11.022878+00:00",
       "review_required": false,
-      "strikes": 1
+      "strikes": 0
     },
-    "blocked_at": "2026-11-16T11:32:11.022866+00:00",
-    "diagnostics": {
-      "base_wait_seconds": 10800,
-      "http_status": 403,
-      "request_path": "https://www.zillow.com/homedetails/4041-Oak-Crossing-Dr-Suwanee-GA-30024/62037255_zpid/",
-      "response_headers": {
-        "Content-Type": "text/html",
-        "Server": "CloudFront",
-        "X-Amz-Cf-Id": "jELrJvIkNSwDIZSbk66VYrtTFj0So4TXzUlIOLSYG1PMzZe3RLCHDA=="
-      },
-      "response_kind": "human_verification",
-      "retry_after_header": "",
-      "server_wait_seconds": null
-    },
-    "reason": "HTTP 403: source access stopped",
-    "retry_after": "2026-11-16T14:32:11.022878+00:00",
-    "review_required": false,
-    "strikes": 1,
     "last_success_by_school": {
-      "johns_creek": "2026-11-16T08:01:03.482142+00:00",
+      "johns_creek": "2026-11-16T15:01:30.797884+00:00",
       "north_gwinnett": "2026-11-16T11:31:41.270789+00:00",
       "chattahoochee": "2026-11-16T08:31:00.483010+00:00",
       "northview": "2026-11-16T11:01:08.547713+00:00"
