@@ -19410,6 +19410,14 @@
       "rows": 73
     },
     {
+      "path": "snapshots/2026-11-16/north_gwinnett-cc9806315f1e9d8d9ffe2162c9cf980d613156e3f5fc27cf7656fbcbcc880b43.json.gz",
+      "run_id": "cc9806315f1e9d8d9ffe2162c9cf980d613156e3f5fc27cf7656fbcbcc880b43",
+      "school": "north_gwinnett",
+      "observed_at": "2026-11-16T11:31:41.557666+00:00",
+      "quality": "source_complete",
+      "rows": 72
+    },
+    {
       "path": "snapshots/2026-11-16/north_gwinnett-e24c3dbb266d146972caa33184b0f9f79036b1908a69e919b4c22dc295f8aa58.json.gz",
       "run_id": "e24c3dbb266d146972caa33184b0f9f79036b1908a69e919b4c22dc295f8aa58",
       "school": "north_gwinnett",
@@ -19475,37 +19483,54 @@
     }
   ],
   "collection_status": {
-    "status": "complete",
-    "requests": 1,
-    "school": "northview",
-    "error": null,
+    "status": "blocked",
+    "requests": 3,
+    "school": "north_gwinnett",
+    "error": "HTTP 403: source access stopped",
     "version": 1,
-    "checked_at": "2026-11-16T11:01:09.209152+00:00",
-    "last_source_attempt_at": "2026-11-16T11:01:07.506159+00:00",
+    "checked_at": "2026-11-16T11:32:11.025042+00:00",
+    "last_source_attempt_at": "2026-11-16T11:31:10.476956+00:00",
     "last_access_failure": {
-      "blocked_at": "2026-11-16T00:01:32.230384+00:00",
+      "blocked_at": "2026-11-16T11:32:11.022866+00:00",
       "diagnostics": {
         "base_wait_seconds": 10800,
         "http_status": 403,
-        "request_path": "https://www.zillow.com/homedetails/120-Croftwood-Ct-Johns-Creek-GA-30097/14660299_zpid/",
+        "request_path": "https://www.zillow.com/homedetails/4041-Oak-Crossing-Dr-Suwanee-GA-30024/62037255_zpid/",
         "response_headers": {
           "Content-Type": "text/html",
           "Server": "CloudFront",
-          "X-Amz-Cf-Id": "TBvv01-iLjMvKZgUtxOoIy_OkxGx8D3j0sdyurfArGFzheLV7mR8wQ=="
+          "X-Amz-Cf-Id": "jELrJvIkNSwDIZSbk66VYrtTFj0So4TXzUlIOLSYG1PMzZe3RLCHDA=="
         },
         "response_kind": "human_verification",
         "retry_after_header": "",
         "server_wait_seconds": null
       },
       "reason": "HTTP 403: source access stopped",
-      "resolved_at": "2026-11-16T03:31:30.808440+00:00",
-      "retry_after": "2026-11-16T03:01:32.230420+00:00",
+      "retry_after": "2026-11-16T14:32:11.022878+00:00",
       "review_required": false,
-      "strikes": 0
+      "strikes": 1
     },
+    "blocked_at": "2026-11-16T11:32:11.022866+00:00",
+    "diagnostics": {
+      "base_wait_seconds": 10800,
+      "http_status": 403,
+      "request_path": "https://www.zillow.com/homedetails/4041-Oak-Crossing-Dr-Suwanee-GA-30024/62037255_zpid/",
+      "response_headers": {
+        "Content-Type": "text/html",
+        "Server": "CloudFront",
+        "X-Amz-Cf-Id": "jELrJvIkNSwDIZSbk66VYrtTFj0So4TXzUlIOLSYG1PMzZe3RLCHDA=="
+      },
+      "response_kind": "human_verification",
+      "retry_after_header": "",
+      "server_wait_seconds": null
+    },
+    "reason": "HTTP 403: source access stopped",
+    "retry_after": "2026-11-16T14:32:11.022878+00:00",
+    "review_required": false,
+    "strikes": 1,
     "last_success_by_school": {
       "johns_creek": "2026-11-16T08:01:03.482142+00:00",
-      "north_gwinnett": "2026-11-16T10:31:33.594945+00:00",
+      "north_gwinnett": "2026-11-16T11:31:41.270789+00:00",
       "chattahoochee": "2026-11-16T08:31:00.483010+00:00",
       "northview": "2026-11-16T11:01:08.547713+00:00"
     }
