@@ -1,30 +1,47 @@
 {
-  "status": "complete",
-  "requests": 1,
-  "school": "northview",
-  "error": null,
+  "status": "blocked",
+  "requests": 3,
+  "school": "north_gwinnett",
+  "error": "HTTP 403: source access stopped",
   "version": 1,
-  "checked_at": "2026-11-16T18:01:08.009150+00:00",
-  "last_source_attempt_at": "2026-11-16T18:01:06.257251+00:00",
+  "checked_at": "2026-11-16T18:32:05.640113+00:00",
+  "last_source_attempt_at": "2026-11-16T18:31:05.085016+00:00",
   "last_access_failure": {
-    "blocked_at": "2026-11-16T11:32:11.022866+00:00",
+    "blocked_at": "2026-11-16T18:32:05.638119+00:00",
     "diagnostics": {
       "base_wait_seconds": 10800,
       "http_status": 403,
-      "request_path": "https://www.zillow.com/homedetails/4041-Oak-Crossing-Dr-Suwanee-GA-30024/62037255_zpid/",
+      "request_path": "https://www.zillow.com/homedetails/3525-Hickory-Branch-Trl-Suwanee-GA-30024/14828472_zpid/",
       "response_headers": {
         "Content-Type": "text/html",
         "Server": "CloudFront",
-        "X-Amz-Cf-Id": "jELrJvIkNSwDIZSbk66VYrtTFj0So4TXzUlIOLSYG1PMzZe3RLCHDA=="
+        "X-Amz-Cf-Id": "fLpucNRj_erVCiPu_avGW9c7f--iELltdeiXSIGbmwsSdmOQu-IIHQ=="
       },
       "response_kind": "human_verification",
       "retry_after_header": "",
       "server_wait_seconds": null
     },
     "reason": "HTTP 403: source access stopped",
-    "resolved_at": "2026-11-16T15:02:31.415281+00:00",
-    "retry_after": "2026-11-16T14:32:11.022878+00:00",
+    "retry_after": "2026-11-16T21:32:05.638133+00:00",
     "review_required": false,
-    "strikes": 0
-  }
+    "strikes": 1
+  },
+  "blocked_at": "2026-11-16T18:32:05.638119+00:00",
+  "diagnostics": {
+    "base_wait_seconds": 10800,
+    "http_status": 403,
+    "request_path": "https://www.zillow.com/homedetails/3525-Hickory-Branch-Trl-Suwanee-GA-30024/14828472_zpid/",
+    "response_headers": {
+      "Content-Type": "text/html",
+      "Server": "CloudFront",
+      "X-Amz-Cf-Id": "fLpucNRj_erVCiPu_avGW9c7f--iELltdeiXSIGbmwsSdmOQu-IIHQ=="
+    },
+    "response_kind": "human_verification",
+    "retry_after_header": "",
+    "server_wait_seconds": null
+  },
+  "reason": "HTTP 403: source access stopped",
+  "retry_after": "2026-11-16T21:32:05.638133+00:00",
+  "review_required": false,
+  "strikes": 1
 }
