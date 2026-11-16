@@ -19280,42 +19280,67 @@
       "observed_at": "2026-11-15T00:01:32.355586+00:00",
       "quality": "source_complete",
       "rows": 20
+    },
+    {
+      "path": "snapshots/2026-11-16/northview-ab1d73a1d92452e2f68c77040bf02874c6cd5bf23481abae5688b14f94967d68.json.gz",
+      "run_id": "ab1d73a1d92452e2f68c77040bf02874c6cd5bf23481abae5688b14f94967d68",
+      "school": "northview",
+      "observed_at": "2026-11-16T00:01:02.843463+00:00",
+      "quality": "source_complete",
+      "rows": 19
     }
   ],
   "collection_status": {
-    "status": "complete",
-    "requests": 1,
-    "school": "chattahoochee",
-    "error": null,
+    "status": "blocked",
+    "requests": 2,
+    "school": "northview",
+    "error": "HTTP 403: source access stopped",
     "version": 1,
-    "checked_at": "2026-11-15T23:31:00.043102+00:00",
-    "last_source_attempt_at": "2026-11-15T23:30:58.051819+00:00",
+    "checked_at": "2026-11-16T00:01:32.233928+00:00",
+    "last_source_attempt_at": "2026-11-16T00:01:01.623381+00:00",
     "last_access_failure": {
-      "blocked_at": "2026-11-15T04:01:29.559270+00:00",
+      "blocked_at": "2026-11-16T00:01:32.230384+00:00",
       "diagnostics": {
         "base_wait_seconds": 10800,
         "http_status": 403,
-        "request_path": "https://www.zillow.com/homedetails/325-Oak-Alley-Ct-Johns-Creek-GA-30022/55008285_zpid/",
+        "request_path": "https://www.zillow.com/homedetails/120-Croftwood-Ct-Johns-Creek-GA-30097/14660299_zpid/",
         "response_headers": {
           "Content-Type": "text/html",
           "Server": "CloudFront",
-          "X-Amz-Cf-Id": "_r6bS6SmCh7MRcrXF2hHJSL0LcKx6M6vmSbHgFMqjSyQs44jK0FvSQ=="
+          "X-Amz-Cf-Id": "TBvv01-iLjMvKZgUtxOoIy_OkxGx8D3j0sdyurfArGFzheLV7mR8wQ=="
         },
         "response_kind": "human_verification",
         "retry_after_header": "",
         "server_wait_seconds": null
       },
       "reason": "HTTP 403: source access stopped",
-      "resolved_at": "2026-11-15T07:32:08.651524+00:00",
-      "retry_after": "2026-11-15T07:01:29.559286+00:00",
+      "retry_after": "2026-11-16T03:01:32.230420+00:00",
       "review_required": false,
-      "strikes": 0
+      "strikes": 1
     },
+    "blocked_at": "2026-11-16T00:01:32.230384+00:00",
+    "diagnostics": {
+      "base_wait_seconds": 10800,
+      "http_status": 403,
+      "request_path": "https://www.zillow.com/homedetails/120-Croftwood-Ct-Johns-Creek-GA-30097/14660299_zpid/",
+      "response_headers": {
+        "Content-Type": "text/html",
+        "Server": "CloudFront",
+        "X-Amz-Cf-Id": "TBvv01-iLjMvKZgUtxOoIy_OkxGx8D3j0sdyurfArGFzheLV7mR8wQ=="
+      },
+      "response_kind": "human_verification",
+      "retry_after_header": "",
+      "server_wait_seconds": null
+    },
+    "reason": "HTTP 403: source access stopped",
+    "retry_after": "2026-11-16T03:01:32.230420+00:00",
+    "review_required": false,
+    "strikes": 1,
     "last_success_by_school": {
       "johns_creek": "2026-11-15T23:01:05.824262+00:00",
       "north_gwinnett": "2026-11-15T22:31:35.054893+00:00",
       "chattahoochee": "2026-11-15T23:30:59.218749+00:00",
-      "northview": "2026-11-15T22:01:01.698081+00:00"
+      "northview": "2026-11-16T00:01:02.567987+00:00"
     }
   }
 }
