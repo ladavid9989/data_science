@@ -1,9 +1,11 @@
 {
-  "status": "cooldown",
-  "requests": 0,
+  "status": "complete",
+  "requests": 1,
+  "school": "johns_creek",
+  "error": null,
   "version": 1,
-  "checked_at": "2026-11-16T21:31:40.010792+00:00",
-  "last_source_attempt_at": "2026-11-16T18:31:05.085016+00:00",
+  "checked_at": "2026-11-16T22:01:12.143158+00:00",
+  "last_source_attempt_at": "2026-11-16T22:01:10.472605+00:00",
   "last_access_failure": {
     "blocked_at": "2026-11-16T18:32:05.638119+00:00",
     "diagnostics": {
@@ -20,26 +22,9 @@
       "server_wait_seconds": null
     },
     "reason": "HTTP 403: source access stopped",
+    "resolved_at": "2026-11-16T22:01:12.019769+00:00",
     "retry_after": "2026-11-16T21:32:05.638133+00:00",
     "review_required": false,
-    "strikes": 1
-  },
-  "blocked_at": "2026-11-16T18:32:05.638119+00:00",
-  "diagnostics": {
-    "base_wait_seconds": 10800,
-    "http_status": 403,
-    "request_path": "https://www.zillow.com/homedetails/3525-Hickory-Branch-Trl-Suwanee-GA-30024/14828472_zpid/",
-    "response_headers": {
-      "Content-Type": "text/html",
-      "Server": "CloudFront",
-      "X-Amz-Cf-Id": "fLpucNRj_erVCiPu_avGW9c7f--iELltdeiXSIGbmwsSdmOQu-IIHQ=="
-    },
-    "response_kind": "human_verification",
-    "retry_after_header": "",
-    "server_wait_seconds": null
-  },
-  "reason": "HTTP 403: source access stopped",
-  "retry_after": "2026-11-16T21:32:05.638133+00:00",
-  "review_required": false,
-  "strikes": 1
+    "strikes": 0
+  }
 }
