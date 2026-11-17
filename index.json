@@ -19738,6 +19738,14 @@
       "rows": 71
     },
     {
+      "path": "snapshots/2026-11-17/north_gwinnett-3f8c810a06d393a8928102348313f37e2a8ccc6dd111fd32dc44c3dc6624b6d5.json.gz",
+      "run_id": "3f8c810a06d393a8928102348313f37e2a8ccc6dd111fd32dc44c3dc6624b6d5",
+      "school": "north_gwinnett",
+      "observed_at": "2026-11-17T15:31:32.274898+00:00",
+      "quality": "source_complete",
+      "rows": 71
+    },
+    {
       "path": "snapshots/2026-11-17/north_gwinnett-63d7300cf8a7df2424db995655538278593dc90c843a5d5aedf9b5b51595349d.json.gz",
       "run_id": "63d7300cf8a7df2424db995655538278593dc90c843a5d5aedf9b5b51595349d",
       "school": "north_gwinnett",
@@ -19827,37 +19835,54 @@
     }
   ],
   "collection_status": {
-    "status": "complete",
-    "requests": 1,
-    "school": "northview",
-    "error": null,
+    "status": "blocked",
+    "requests": 3,
+    "school": "north_gwinnett",
+    "error": "HTTP 403: source access stopped",
     "version": 1,
-    "checked_at": "2026-11-17T15:01:04.873933+00:00",
-    "last_source_attempt_at": "2026-11-17T15:01:03.363739+00:00",
+    "checked_at": "2026-11-17T15:32:01.570078+00:00",
+    "last_source_attempt_at": "2026-11-17T15:31:01.036118+00:00",
     "last_access_failure": {
-      "blocked_at": "2026-11-17T09:31:44.581788+00:00",
+      "blocked_at": "2026-11-17T15:32:01.568427+00:00",
       "diagnostics": {
         "base_wait_seconds": 10800,
         "http_status": 403,
-        "request_path": "https://www.zillow.com/homedetails/11840-Aspen-Forest-Dr-Johns-Creek-GA-30005/14656381_zpid/",
+        "request_path": "https://www.zillow.com/homedetails/3791-Portland-Trail-Dr-Suwanee-GA-30024/80172754_zpid/",
         "response_headers": {
           "Content-Type": "text/html",
           "Server": "CloudFront",
-          "X-Amz-Cf-Id": "MnXFAu5sY_txVJTuzwWYm-AMO1uOHG8CBryP7ZmuNUiPaOXH0Ysnxw=="
+          "X-Amz-Cf-Id": "o6VocJo7H8CFcurAbgI0iFk6mUxdOyJeIas9rxbcmRV8l0QA3L5-3A=="
         },
         "response_kind": "human_verification",
         "retry_after_header": "",
         "server_wait_seconds": null
       },
       "reason": "HTTP 403: source access stopped",
-      "resolved_at": "2026-11-17T13:01:29.314427+00:00",
-      "retry_after": "2026-11-17T12:31:44.581808+00:00",
+      "retry_after": "2026-11-17T18:32:01.568439+00:00",
       "review_required": false,
-      "strikes": 0
+      "strikes": 1
     },
+    "blocked_at": "2026-11-17T15:32:01.568427+00:00",
+    "diagnostics": {
+      "base_wait_seconds": 10800,
+      "http_status": 403,
+      "request_path": "https://www.zillow.com/homedetails/3791-Portland-Trail-Dr-Suwanee-GA-30024/80172754_zpid/",
+      "response_headers": {
+        "Content-Type": "text/html",
+        "Server": "CloudFront",
+        "X-Amz-Cf-Id": "o6VocJo7H8CFcurAbgI0iFk6mUxdOyJeIas9rxbcmRV8l0QA3L5-3A=="
+      },
+      "response_kind": "human_verification",
+      "retry_after_header": "",
+      "server_wait_seconds": null
+    },
+    "reason": "HTTP 403: source access stopped",
+    "retry_after": "2026-11-17T18:32:01.568439+00:00",
+    "review_required": false,
+    "strikes": 1,
     "last_success_by_school": {
       "johns_creek": "2026-11-17T14:01:01.948292+00:00",
-      "north_gwinnett": "2026-11-17T13:32:02.228695+00:00",
+      "north_gwinnett": "2026-11-17T15:31:31.982851+00:00",
       "chattahoochee": "2026-11-17T14:30:59.408770+00:00",
       "northview": "2026-11-17T15:01:04.291478+00:00"
     }
