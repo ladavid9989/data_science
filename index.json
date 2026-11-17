@@ -19738,6 +19738,14 @@
       "rows": 73
     },
     {
+      "path": "snapshots/2026-11-17/northview-05330032227321701951252140898318a888adf941702f308cba77139e4c3cc4.json.gz",
+      "run_id": "05330032227321701951252140898318a888adf941702f308cba77139e4c3cc4",
+      "school": "northview",
+      "observed_at": "2026-11-17T13:01:28.973427+00:00",
+      "quality": "source_complete",
+      "rows": 19
+    },
+    {
       "path": "snapshots/2026-11-17/northview-78696943a2331d7007c536a0ce19066905aa5052c71b520071bfad44fc078758.json.gz",
       "run_id": "78696943a2331d7007c536a0ce19066905aa5052c71b520071bfad44fc078758",
       "school": "northview",
@@ -19771,11 +19779,13 @@
     }
   ],
   "collection_status": {
-    "status": "cooldown",
-    "requests": 0,
+    "status": "complete",
+    "requests": 1,
+    "school": "northview",
+    "error": null,
     "version": 1,
-    "checked_at": "2026-11-17T12:31:03.106449+00:00",
-    "last_source_attempt_at": "2026-11-17T09:31:13.969034+00:00",
+    "checked_at": "2026-11-17T13:01:29.422734+00:00",
+    "last_source_attempt_at": "2026-11-17T13:01:27.795231+00:00",
     "last_access_failure": {
       "blocked_at": "2026-11-17T09:31:44.581788+00:00",
       "diagnostics": {
@@ -19792,33 +19802,16 @@
         "server_wait_seconds": null
       },
       "reason": "HTTP 403: source access stopped",
+      "resolved_at": "2026-11-17T13:01:29.314427+00:00",
       "retry_after": "2026-11-17T12:31:44.581808+00:00",
       "review_required": false,
-      "strikes": 1
+      "strikes": 0
     },
-    "blocked_at": "2026-11-17T09:31:44.581788+00:00",
-    "diagnostics": {
-      "base_wait_seconds": 10800,
-      "http_status": 403,
-      "request_path": "https://www.zillow.com/homedetails/11840-Aspen-Forest-Dr-Johns-Creek-GA-30005/14656381_zpid/",
-      "response_headers": {
-        "Content-Type": "text/html",
-        "Server": "CloudFront",
-        "X-Amz-Cf-Id": "MnXFAu5sY_txVJTuzwWYm-AMO1uOHG8CBryP7ZmuNUiPaOXH0Ysnxw=="
-      },
-      "response_kind": "human_verification",
-      "retry_after_header": "",
-      "server_wait_seconds": null
-    },
-    "reason": "HTTP 403: source access stopped",
-    "retry_after": "2026-11-17T12:31:44.581808+00:00",
-    "review_required": false,
-    "strikes": 1,
     "last_success_by_school": {
       "johns_creek": "2026-11-17T09:01:14.222854+00:00",
       "north_gwinnett": "2026-11-17T08:31:25.798501+00:00",
       "chattahoochee": "2026-11-17T09:31:15.067603+00:00",
-      "northview": "2026-11-17T08:01:27.304127+00:00"
+      "northview": "2026-11-17T13:01:28.752527+00:00"
     }
   }
 }
