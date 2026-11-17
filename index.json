@@ -19850,6 +19850,14 @@
       "rows": 73
     },
     {
+      "path": "snapshots/2026-11-17/north_gwinnett-e2f0e97a3f2cc1936ef4b33128a7461fa3813982c4bc5f8c50b96e69dc6069b3.json.gz",
+      "run_id": "e2f0e97a3f2cc1936ef4b33128a7461fa3813982c4bc5f8c50b96e69dc6069b3",
+      "school": "north_gwinnett",
+      "observed_at": "2026-11-17T22:31:33.995823+00:00",
+      "quality": "source_complete",
+      "rows": 73
+    },
+    {
       "path": "snapshots/2026-11-17/north_gwinnett-f9f8c79b3084360e6ff7b29574c87ae7f30d33b4c71a4b8f39abf36de3f913c1.json.gz",
       "run_id": "f9f8c79b3084360e6ff7b29574c87ae7f30d33b4c71a4b8f39abf36de3f913c1",
       "school": "north_gwinnett",
@@ -19923,37 +19931,54 @@
     }
   ],
   "collection_status": {
-    "status": "complete",
-    "requests": 1,
-    "school": "northview",
-    "error": null,
+    "status": "blocked",
+    "requests": 3,
+    "school": "north_gwinnett",
+    "error": "HTTP 403: source access stopped",
     "version": 1,
-    "checked_at": "2026-11-17T22:01:11.775505+00:00",
-    "last_source_attempt_at": "2026-11-17T22:01:09.888721+00:00",
+    "checked_at": "2026-11-17T22:32:03.363943+00:00",
+    "last_source_attempt_at": "2026-11-17T22:31:02.828350+00:00",
     "last_access_failure": {
-      "blocked_at": "2026-11-17T15:32:01.568427+00:00",
+      "blocked_at": "2026-11-17T22:32:03.362143+00:00",
       "diagnostics": {
         "base_wait_seconds": 10800,
         "http_status": 403,
-        "request_path": "https://www.zillow.com/homedetails/3791-Portland-Trail-Dr-Suwanee-GA-30024/80172754_zpid/",
+        "request_path": "https://www.zillow.com/homedetails/2339-Village-Grove-Dr-Suwanee-GA-30024/305283458_zpid/",
         "response_headers": {
           "Content-Type": "text/html",
           "Server": "CloudFront",
-          "X-Amz-Cf-Id": "o6VocJo7H8CFcurAbgI0iFk6mUxdOyJeIas9rxbcmRV8l0QA3L5-3A=="
+          "X-Amz-Cf-Id": "AFvoXcRZyJxi-l-R6WR5_7aIhcKb-9KMAd35oRh4ZTizRrUSgwYRvA=="
         },
         "response_kind": "human_verification",
         "retry_after_header": "",
         "server_wait_seconds": null
       },
       "reason": "HTTP 403: source access stopped",
-      "resolved_at": "2026-11-17T19:02:32.183503+00:00",
-      "retry_after": "2026-11-17T18:32:01.568439+00:00",
+      "retry_after": "2026-11-18T01:32:03.362155+00:00",
       "review_required": false,
-      "strikes": 0
+      "strikes": 1
     },
+    "blocked_at": "2026-11-17T22:32:03.362143+00:00",
+    "diagnostics": {
+      "base_wait_seconds": 10800,
+      "http_status": 403,
+      "request_path": "https://www.zillow.com/homedetails/2339-Village-Grove-Dr-Suwanee-GA-30024/305283458_zpid/",
+      "response_headers": {
+        "Content-Type": "text/html",
+        "Server": "CloudFront",
+        "X-Amz-Cf-Id": "AFvoXcRZyJxi-l-R6WR5_7aIhcKb-9KMAd35oRh4ZTizRrUSgwYRvA=="
+      },
+      "response_kind": "human_verification",
+      "retry_after_header": "",
+      "server_wait_seconds": null
+    },
+    "reason": "HTTP 403: source access stopped",
+    "retry_after": "2026-11-18T01:32:03.362155+00:00",
+    "review_required": false,
+    "strikes": 1,
     "last_success_by_school": {
       "johns_creek": "2026-11-17T21:01:16.010547+00:00",
-      "north_gwinnett": "2026-11-17T20:31:33.731157+00:00",
+      "north_gwinnett": "2026-11-17T22:31:33.705817+00:00",
       "chattahoochee": "2026-11-17T21:31:00.901718+00:00",
       "northview": "2026-11-17T22:01:10.781790+00:00"
     }
