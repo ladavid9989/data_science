@@ -19642,6 +19642,14 @@
       "rows": 40
     },
     {
+      "path": "snapshots/2026-11-17/johns_creek-09bee21cc17bd5246b50a9405b92fc547d36cdb73c69a1fceff8849d1ae4caa5.json.gz",
+      "run_id": "09bee21cc17bd5246b50a9405b92fc547d36cdb73c69a1fceff8849d1ae4caa5",
+      "school": "johns_creek",
+      "observed_at": "2026-11-17T07:01:11.125156+00:00",
+      "quality": "source_complete",
+      "rows": 14
+    },
+    {
       "path": "snapshots/2026-11-17/johns_creek-5d3fde92043b2f4c6f71b395e28b34c11ade41d376a26bde27df49cdd0974dc4.json.gz",
       "run_id": "5d3fde92043b2f4c6f71b395e28b34c11ade41d376a26bde27df49cdd0974dc4",
       "school": "johns_creek",
@@ -19699,11 +19707,13 @@
     }
   ],
   "collection_status": {
-    "status": "cooldown",
-    "requests": 0,
+    "status": "complete",
+    "requests": 1,
+    "school": "johns_creek",
+    "error": null,
     "version": 1,
-    "checked_at": "2026-11-17T06:31:27.393577+00:00",
-    "last_source_attempt_at": "2026-11-17T03:31:07.168061+00:00",
+    "checked_at": "2026-11-17T07:01:11.566810+00:00",
+    "last_source_attempt_at": "2026-11-17T07:01:10.135810+00:00",
     "last_access_failure": {
       "blocked_at": "2026-11-17T03:32:07.729726+00:00",
       "diagnostics": {
@@ -19720,30 +19730,13 @@
         "server_wait_seconds": null
       },
       "reason": "HTTP 403: source access stopped",
+      "resolved_at": "2026-11-17T07:01:11.459374+00:00",
       "retry_after": "2026-11-17T06:32:07.729738+00:00",
       "review_required": false,
-      "strikes": 1
+      "strikes": 0
     },
-    "blocked_at": "2026-11-17T03:32:07.729726+00:00",
-    "diagnostics": {
-      "base_wait_seconds": 10800,
-      "http_status": 403,
-      "request_path": "https://www.zillow.com/homedetails/5260-Overbend-Trl-Suwanee-GA-30024/14840841_zpid/",
-      "response_headers": {
-        "Content-Type": "text/html",
-        "Server": "CloudFront",
-        "X-Amz-Cf-Id": "iohc5KNWba--w3ZbVOXtqBktRYEOxm4c7VJZJLw2K1-c9n8vm5bExg=="
-      },
-      "response_kind": "human_verification",
-      "retry_after_header": "",
-      "server_wait_seconds": null
-    },
-    "reason": "HTTP 403: source access stopped",
-    "retry_after": "2026-11-17T06:32:07.729738+00:00",
-    "review_required": false,
-    "strikes": 1,
     "last_success_by_school": {
-      "johns_creek": "2026-11-17T02:01:28.406143+00:00",
+      "johns_creek": "2026-11-17T07:01:10.898372+00:00",
       "north_gwinnett": "2026-11-17T03:31:37.943936+00:00",
       "chattahoochee": "2026-11-17T02:30:54.969617+00:00",
       "northview": "2026-11-17T03:01:13.038213+00:00"
