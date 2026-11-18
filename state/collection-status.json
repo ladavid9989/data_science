@@ -1,11 +1,11 @@
 {
   "status": "complete",
   "requests": 3,
-  "school": "johns_creek",
+  "school": "chattahoochee",
   "error": null,
   "version": 1,
-  "checked_at": "2026-11-18T20:02:34.170413+00:00",
-  "last_source_attempt_at": "2026-11-18T20:01:32.131503+00:00",
+  "checked_at": "2026-11-18T20:32:09.799179+00:00",
+  "last_source_attempt_at": "2026-11-18T20:31:08.170309+00:00",
   "last_access_failure": {
     "blocked_at": "2026-11-18T15:31:48.917908+00:00",
     "diagnostics": {
