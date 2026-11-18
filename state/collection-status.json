@@ -1,9 +1,11 @@
 {
-  "status": "cooldown",
-  "requests": 0,
+  "status": "complete",
+  "requests": 1,
+  "school": "northview",
+  "error": null,
   "version": 1,
-  "checked_at": "2026-11-18T05:30:58.000438+00:00",
-  "last_source_attempt_at": "2026-11-18T02:31:14.069064+00:00",
+  "checked_at": "2026-11-18T06:01:12.932663+00:00",
+  "last_source_attempt_at": "2026-11-18T06:01:11.075558+00:00",
   "last_access_failure": {
     "blocked_at": "2026-11-18T02:31:44.700334+00:00",
     "diagnostics": {
@@ -20,26 +22,9 @@
       "server_wait_seconds": null
     },
     "reason": "HTTP 403: source access stopped",
+    "resolved_at": "2026-11-18T06:01:12.807683+00:00",
     "retry_after": "2026-11-18T05:31:44.700347+00:00",
     "review_required": false,
-    "strikes": 1
-  },
-  "blocked_at": "2026-11-18T02:31:44.700334+00:00",
-  "diagnostics": {
-    "base_wait_seconds": 10800,
-    "http_status": 403,
-    "request_path": "https://www.zillow.com/homedetails/210-Bristol-Stone-Ct-Johns-Creek-GA-30005/14658014_zpid/",
-    "response_headers": {
-      "Content-Type": "text/html",
-      "Server": "CloudFront",
-      "X-Amz-Cf-Id": "jZzZE26YgCrbLa2k1jbGfR9pA4oejqDOReLWtiAD6s_1FYHFXsqCGQ=="
-    },
-    "response_kind": "human_verification",
-    "retry_after_header": "",
-    "server_wait_seconds": null
-  },
-  "reason": "HTTP 403: source access stopped",
-  "retry_after": "2026-11-18T05:31:44.700347+00:00",
-  "review_required": false,
-  "strikes": 1
+    "strikes": 0
+  }
 }
