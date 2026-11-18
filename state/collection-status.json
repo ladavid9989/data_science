@@ -1,9 +1,11 @@
 {
-  "status": "cooldown",
-  "requests": 0,
+  "status": "complete",
+  "requests": 1,
+  "school": "northview",
+  "error": null,
   "version": 1,
-  "checked_at": "2026-11-18T18:31:07.672452+00:00",
-  "last_source_attempt_at": "2026-11-18T15:31:18.310520+00:00",
+  "checked_at": "2026-11-18T19:01:14.987685+00:00",
+  "last_source_attempt_at": "2026-11-18T19:01:12.768706+00:00",
   "last_access_failure": {
     "blocked_at": "2026-11-18T15:31:48.917908+00:00",
     "diagnostics": {
@@ -20,26 +22,9 @@
       "server_wait_seconds": null
     },
     "reason": "HTTP 403: source access stopped",
+    "resolved_at": "2026-11-18T19:01:14.815576+00:00",
     "retry_after": "2026-11-18T18:31:48.917920+00:00",
     "review_required": false,
-    "strikes": 1
-  },
-  "blocked_at": "2026-11-18T15:31:48.917908+00:00",
-  "diagnostics": {
-    "base_wait_seconds": 10800,
-    "http_status": 403,
-    "request_path": "https://www.zillow.com/homedetails/11840-Aspen-Forest-Dr-Johns-Creek-GA-30005/14656381_zpid/",
-    "response_headers": {
-      "Content-Type": "text/html",
-      "Server": "CloudFront",
-      "X-Amz-Cf-Id": "YmnOOD8j96blx1UegraQDnkJwZ7hR3pzXri91R-mc4AGASiOC1-12w=="
-    },
-    "response_kind": "human_verification",
-    "retry_after_header": "",
-    "server_wait_seconds": null
-  },
-  "reason": "HTTP 403: source access stopped",
-  "retry_after": "2026-11-18T18:31:48.917920+00:00",
-  "review_required": false,
-  "strikes": 1
+    "strikes": 0
+  }
 }
