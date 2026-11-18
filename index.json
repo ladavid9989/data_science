@@ -19928,14 +19928,24 @@
       "observed_at": "2026-11-17T08:01:27.572146+00:00",
       "quality": "source_complete",
       "rows": 19
+    },
+    {
+      "path": "snapshots/2026-11-18/johns_creek-1cf7dfe98c5f7e567f6daaad7f0fe0fdb7e5127e0c2074cb3899a6e68deead4c.json.gz",
+      "run_id": "1cf7dfe98c5f7e567f6daaad7f0fe0fdb7e5127e0c2074cb3899a6e68deead4c",
+      "school": "johns_creek",
+      "observed_at": "2026-11-18T02:01:27.901728+00:00",
+      "quality": "source_complete",
+      "rows": 14
     }
   ],
   "collection_status": {
-    "status": "cooldown",
-    "requests": 0,
+    "status": "complete",
+    "requests": 1,
+    "school": "johns_creek",
+    "error": null,
     "version": 1,
-    "checked_at": "2026-11-18T01:31:11.935513+00:00",
-    "last_source_attempt_at": "2026-11-17T22:31:02.828350+00:00",
+    "checked_at": "2026-11-18T02:01:28.366254+00:00",
+    "last_source_attempt_at": "2026-11-18T02:01:26.823189+00:00",
     "last_access_failure": {
       "blocked_at": "2026-11-17T22:32:03.362143+00:00",
       "diagnostics": {
@@ -19952,30 +19962,13 @@
         "server_wait_seconds": null
       },
       "reason": "HTTP 403: source access stopped",
+      "resolved_at": "2026-11-18T02:01:28.241468+00:00",
       "retry_after": "2026-11-18T01:32:03.362155+00:00",
       "review_required": false,
-      "strikes": 1
+      "strikes": 0
     },
-    "blocked_at": "2026-11-17T22:32:03.362143+00:00",
-    "diagnostics": {
-      "base_wait_seconds": 10800,
-      "http_status": 403,
-      "request_path": "https://www.zillow.com/homedetails/2339-Village-Grove-Dr-Suwanee-GA-30024/305283458_zpid/",
-      "response_headers": {
-        "Content-Type": "text/html",
-        "Server": "CloudFront",
-        "X-Amz-Cf-Id": "AFvoXcRZyJxi-l-R6WR5_7aIhcKb-9KMAd35oRh4ZTizRrUSgwYRvA=="
-      },
-      "response_kind": "human_verification",
-      "retry_after_header": "",
-      "server_wait_seconds": null
-    },
-    "reason": "HTTP 403: source access stopped",
-    "retry_after": "2026-11-18T01:32:03.362155+00:00",
-    "review_required": false,
-    "strikes": 1,
     "last_success_by_school": {
-      "johns_creek": "2026-11-17T21:01:16.010547+00:00",
+      "johns_creek": "2026-11-18T02:01:27.680362+00:00",
       "north_gwinnett": "2026-11-17T22:31:33.705817+00:00",
       "chattahoochee": "2026-11-17T21:31:00.901718+00:00",
       "northview": "2026-11-17T22:01:10.781790+00:00"
