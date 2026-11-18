@@ -19962,6 +19962,14 @@
       "rows": 40
     },
     {
+      "path": "snapshots/2026-11-18/chattahoochee-90e65c668a40fb239c3c7517c49ec27c69d6d406d48d04e715f02318561b3bae.json.gz",
+      "run_id": "90e65c668a40fb239c3c7517c49ec27c69d6d406d48d04e715f02318561b3bae",
+      "school": "chattahoochee",
+      "observed_at": "2026-11-18T15:31:19.577589+00:00",
+      "quality": "source_complete",
+      "rows": 40
+    },
+    {
       "path": "snapshots/2026-11-18/chattahoochee-91a21cad19ceded8103e965703e61471d22997b6c14f787f9f679da14c1469b1.json.gz",
       "run_id": "91a21cad19ceded8103e965703e61471d22997b6c14f787f9f679da14c1469b1",
       "school": "chattahoochee",
@@ -20179,38 +20187,55 @@
     }
   ],
   "collection_status": {
-    "status": "complete",
+    "status": "blocked",
     "requests": 2,
-    "school": "johns_creek",
-    "error": null,
+    "school": "chattahoochee",
+    "error": "HTTP 403: source access stopped",
     "version": 1,
-    "checked_at": "2026-11-18T15:01:42.120751+00:00",
-    "last_source_attempt_at": "2026-11-18T15:01:10.436273+00:00",
+    "checked_at": "2026-11-18T15:31:48.921515+00:00",
+    "last_source_attempt_at": "2026-11-18T15:31:18.310520+00:00",
     "last_access_failure": {
-      "blocked_at": "2026-11-18T02:31:44.700334+00:00",
+      "blocked_at": "2026-11-18T15:31:48.917908+00:00",
       "diagnostics": {
         "base_wait_seconds": 10800,
         "http_status": 403,
-        "request_path": "https://www.zillow.com/homedetails/210-Bristol-Stone-Ct-Johns-Creek-GA-30005/14658014_zpid/",
+        "request_path": "https://www.zillow.com/homedetails/11840-Aspen-Forest-Dr-Johns-Creek-GA-30005/14656381_zpid/",
         "response_headers": {
           "Content-Type": "text/html",
           "Server": "CloudFront",
-          "X-Amz-Cf-Id": "jZzZE26YgCrbLa2k1jbGfR9pA4oejqDOReLWtiAD6s_1FYHFXsqCGQ=="
+          "X-Amz-Cf-Id": "YmnOOD8j96blx1UegraQDnkJwZ7hR3pzXri91R-mc4AGASiOC1-12w=="
         },
         "response_kind": "human_verification",
         "retry_after_header": "",
         "server_wait_seconds": null
       },
       "reason": "HTTP 403: source access stopped",
-      "resolved_at": "2026-11-18T06:01:12.807683+00:00",
-      "retry_after": "2026-11-18T05:31:44.700347+00:00",
+      "retry_after": "2026-11-18T18:31:48.917920+00:00",
       "review_required": false,
-      "strikes": 0
+      "strikes": 1
     },
+    "blocked_at": "2026-11-18T15:31:48.917908+00:00",
+    "diagnostics": {
+      "base_wait_seconds": 10800,
+      "http_status": 403,
+      "request_path": "https://www.zillow.com/homedetails/11840-Aspen-Forest-Dr-Johns-Creek-GA-30005/14656381_zpid/",
+      "response_headers": {
+        "Content-Type": "text/html",
+        "Server": "CloudFront",
+        "X-Amz-Cf-Id": "YmnOOD8j96blx1UegraQDnkJwZ7hR3pzXri91R-mc4AGASiOC1-12w=="
+      },
+      "response_kind": "human_verification",
+      "retry_after_header": "",
+      "server_wait_seconds": null
+    },
+    "reason": "HTTP 403: source access stopped",
+    "retry_after": "2026-11-18T18:31:48.917920+00:00",
+    "review_required": false,
+    "strikes": 1,
     "last_success_by_school": {
       "johns_creek": "2026-11-18T15:01:11.539055+00:00",
       "north_gwinnett": "2026-11-18T14:31:51.764677+00:00",
-      "chattahoochee": "2026-11-18T13:31:17.772611+00:00",
+      "chattahoochee": "2026-11-18T15:31:19.299493+00:00",
       "northview": "2026-11-18T14:01:06.092471+00:00"
     }
   }
