@@ -1,10 +1,8 @@
 {
-  "status": "blocked",
-  "requests": 2,
-  "school": "chattahoochee",
-  "error": "HTTP 403: source access stopped",
+  "status": "cooldown",
+  "requests": 0,
   "version": 1,
-  "checked_at": "2026-11-18T02:31:44.704045+00:00",
+  "checked_at": "2026-11-18T02:54:13.809326+00:00",
   "last_source_attempt_at": "2026-11-18T02:31:14.069064+00:00",
   "last_access_failure": {
     "blocked_at": "2026-11-18T02:31:44.700334+00:00",
