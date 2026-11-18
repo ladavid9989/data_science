@@ -20018,6 +20018,14 @@
       "rows": 14
     },
     {
+      "path": "snapshots/2026-11-18/johns_creek-45e19a3043e4088060d2cbccaf7bfa25e54f3452227ae45d33a2feb4fcb6196f.json.gz",
+      "run_id": "45e19a3043e4088060d2cbccaf7bfa25e54f3452227ae45d33a2feb4fcb6196f",
+      "school": "johns_creek",
+      "observed_at": "2026-11-18T20:02:33.815320+00:00",
+      "quality": "source_complete",
+      "rows": 15
+    },
+    {
       "path": "snapshots/2026-11-18/johns_creek-49d3a97a2304f213afee71eff95497627260ca48fd1fb531a2f9fd4e1fecf78d.json.gz",
       "run_id": "49d3a97a2304f213afee71eff95497627260ca48fd1fb531a2f9fd4e1fecf78d",
       "school": "johns_creek",
@@ -20054,6 +20062,14 @@
       "run_id": "e1bb8d9f20e2d18e9b02366abc34cdc501145ab454eff5e9434690437e07bf1d",
       "school": "johns_creek",
       "observed_at": "2026-11-18T15:01:11.795831+00:00",
+      "quality": "source_complete",
+      "rows": 13
+    },
+    {
+      "path": "snapshots/2026-11-18/johns_creek-f2dd6896ee0e5455c8661bcee43418aba036d6ebd07178a200016d798045f4da.json.gz",
+      "run_id": "f2dd6896ee0e5455c8661bcee43418aba036d6ebd07178a200016d798045f4da",
+      "school": "johns_creek",
+      "observed_at": "2026-11-18T20:01:33.469341+00:00",
       "quality": "source_complete",
       "rows": 13
     },
@@ -20211,12 +20227,13 @@
     }
   ],
   "collection_status": {
-    "status": "interval_wait",
-    "requests": 0,
-    "next_batch_at": "2026-11-18T19:56:03.577846+00:00",
+    "status": "complete",
+    "requests": 3,
+    "school": "johns_creek",
+    "error": null,
     "version": 1,
-    "checked_at": "2026-11-18T19:37:06.141935+00:00",
-    "last_source_attempt_at": "2026-11-18T19:31:03.577846+00:00",
+    "checked_at": "2026-11-18T20:02:34.170413+00:00",
+    "last_source_attempt_at": "2026-11-18T20:01:32.131503+00:00",
     "last_access_failure": {
       "blocked_at": "2026-11-18T15:31:48.917908+00:00",
       "diagnostics": {
@@ -20239,7 +20256,7 @@
       "strikes": 0
     },
     "last_success_by_school": {
-      "johns_creek": "2026-11-18T15:01:11.539055+00:00",
+      "johns_creek": "2026-11-18T20:01:33.246188+00:00",
       "north_gwinnett": "2026-11-18T19:31:34.527660+00:00",
       "chattahoochee": "2026-11-18T15:31:19.299493+00:00",
       "northview": "2026-11-18T19:01:13.941053+00:00"
