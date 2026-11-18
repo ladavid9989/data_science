@@ -1,0 +1,346 @@
+{
+  "schemaVersion": 1,
+  "id": "ep024-027",
+  "revision": "pilot-1",
+  "title": "미국 직장인의 실전 회화 · 복습",
+  "subtitle": "영상에서 만난 12가지 상황, 내 말로 다시 꺼내기",
+  "youtubeUrl": null,
+  "cards": [
+    {
+      "id": "024-q1",
+      "number": 1,
+      "episode": "024",
+      "situation": "다음 회의가 곧 시작되는데",
+      "videoContext": "회의가 끝날 시간이 됐어요. 이제 마칠까요?",
+      "expression": "Run over",
+      "target": "running over",
+      "targetLine": 1,
+      "meaning": "예정된 시간을 넘기다",
+      "explanation": "회의가 예정된 시간을 넘겼다는 뜻이에요.",
+      "dialogue": [
+        {
+          "speaker": "Mia",
+          "en": "Isn't this meeting supposed to end now?",
+          "ko": "이 회의, 지금 끝나야 하는 거 아니야?"
+        },
+        {
+          "speaker": "Ben",
+          "en": "We're running over, so let's wrap up.",
+          "ko": "시간이 넘었네. 이제 마무리하자."
+        }
+      ],
+      "videoAnswerAt": 39.833333333333336,
+      "art": "cards/024-q1-scene.png",
+      "front": "cards/024-q1-front.png",
+      "back": "cards/024-q1-back.png"
+    },
+    {
+      "id": "024-q2",
+      "number": 2,
+      "episode": "024",
+      "situation": "발표 자료를 마지막으로 확인할 때",
+      "videoContext": "발표 직전이에요. 두 사람은 뭘 확인할까요?",
+      "expression": "Run over",
+      "target": "run over",
+      "targetLine": 1,
+      "meaning": "핵심 내용을 다시 훑다",
+      "explanation": "핵심 내용을 다시 한번 훑어보자는 뜻이에요.",
+      "dialogue": [
+        {
+          "speaker": "Jamie",
+          "en": "Are we ready for the presentation?",
+          "ko": "발표 준비 다 됐어?"
+        },
+        {
+          "speaker": "Mia",
+          "en": "Let's run over the main points once more.",
+          "ko": "핵심 내용만 한 번 더 살펴보자."
+        }
+      ],
+      "videoAnswerAt": 87.9,
+      "art": "cards/024-q2-scene.png",
+      "front": "cards/024-q2-front.png",
+      "back": "cards/024-q2-back.png"
+    },
+    {
+      "id": "024-q3",
+      "number": 3,
+      "episode": "024",
+      "situation": "욕실 바닥에 물이 흥건하다면",
+      "videoContext": "욕실 바닥이 물바다예요. 무슨 일이 있었을까요?",
+      "expression": "Run over",
+      "target": "ran over",
+      "targetLine": 1,
+      "meaning": "욕조의 물이 넘치다",
+      "explanation": "욕조에 물이 가득 차서 넘쳤다는 뜻이에요.",
+      "dialogue": [
+        {
+          "speaker": "Ben",
+          "en": "Why is there water all over the floor?",
+          "ko": "바닥에 왜 물이 이렇게 많아?"
+        },
+        {
+          "speaker": "Jamie",
+          "en": "The bathtub ran over while I was on the phone.",
+          "ko": "나 통화하는 사이에 욕조 물이 넘쳤어."
+        }
+      ],
+      "videoAnswerAt": 137.63333333333333,
+      "art": "cards/024-q3-scene.png",
+      "front": "cards/024-q3-front.png",
+      "back": "cards/024-q3-back.png"
+    },
+    {
+      "id": "025-q1",
+      "number": 4,
+      "episode": "025",
+      "situation": "약속 장소에서 친구를 기다릴 때",
+      "videoContext": "약속 장소에서 친구에게 전화를 걸었어요.",
+      "expression": "Run late",
+      "target": "running late",
+      "targetLine": 1,
+      "meaning": "약속 시간에 늦고 있다",
+      "explanation": "약속 시간보다 늦어지고 있다는 뜻이에요.",
+      "dialogue": [
+        {
+          "speaker": "Mia",
+          "en": "Are you almost here?",
+          "ko": "거의 다 왔어?"
+        },
+        {
+          "speaker": "Ben",
+          "en": "I'm running late, but I'm on my way.",
+          "ko": "좀 늦겠는데, 지금 가고 있어."
+        }
+      ],
+      "videoAnswerAt": 197.46666666666667,
+      "art": "cards/025-q1-scene.png",
+      "front": "cards/025-q1-front.png",
+      "back": "cards/025-q1-back.png"
+    },
+    {
+      "id": "025-q2",
+      "number": 5,
+      "episode": "025",
+      "situation": "버스가 아직 오지 않았다면",
+      "videoContext": "정류장에서 버스를 기다리고 있어요.",
+      "expression": "Run late",
+      "target": "running late",
+      "targetLine": 1,
+      "meaning": "버스가 예정 시각보다 늦다",
+      "explanation": "버스가 예정 시각보다 늦는다는 뜻이에요.",
+      "dialogue": [
+        {
+          "speaker": "Jamie",
+          "en": "Should we keep waiting for the bus?",
+          "ko": "버스 계속 기다릴까?"
+        },
+        {
+          "speaker": "Mia",
+          "en": "The bus is running late again.",
+          "ko": "버스가 또 늦게 오네."
+        }
+      ],
+      "videoAnswerAt": 240.13333333333333,
+      "art": "cards/025-q2-scene.png",
+      "front": "cards/025-q2-front.png",
+      "back": "cards/025-q2-back.png"
+    },
+    {
+      "id": "025-q3",
+      "number": 6,
+      "episode": "025",
+      "situation": "저녁을 기다리다 배가 고프다면",
+      "videoContext": "배고픈 사람들이 저녁을 기다리고 있어요.",
+      "expression": "Run late",
+      "target": "running late",
+      "targetLine": 1,
+      "meaning": "저녁 준비가 늦어지고 있다",
+      "explanation": "저녁 준비가 예상보다 늦어진다는 뜻이에요.",
+      "dialogue": [
+        {
+          "speaker": "Ben",
+          "en": "Is dinner ready? Everyone's hungry.",
+          "ko": "저녁 다 됐어? 다들 배고프대."
+        },
+        {
+          "speaker": "Jamie",
+          "en": "Dinner is running late. Have a snack.",
+          "ko": "저녁 준비가 좀 늦어지네. 간식 좀 먹어."
+        }
+      ],
+      "videoAnswerAt": 284.53333333333336,
+      "art": "cards/025-q3-scene.png",
+      "front": "cards/025-q3-front.png",
+      "back": "cards/025-q3-back.png"
+    },
+    {
+      "id": "026-q1",
+      "number": 7,
+      "episode": "026",
+      "situation": "대출금을 매달 조금씩 갚는다면",
+      "videoContext": "대출금을 갚는 친구에게 요즘 어떤지 물어요.",
+      "expression": "Chip away",
+      "target": "chipping away at",
+      "targetLine": 1,
+      "meaning": "빚을 조금씩 갚아 나가다",
+      "explanation": "대출금을 조금씩 갚아 나간다는 뜻이에요.",
+      "dialogue": [
+        {
+          "speaker": "Mia",
+          "en": "Are you making progress with that loan?",
+          "ko": "그 대출금은 좀 갚았어?"
+        },
+        {
+          "speaker": "Ben",
+          "en": "I'm chipping away at the loan every month.",
+          "ko": "매달 조금씩 갚아 나가고 있어."
+        }
+      ],
+      "videoAnswerAt": 345.4,
+      "art": "cards/026-q1-scene.png",
+      "front": "cards/026-q1-front.png",
+      "back": "cards/026-q1-back.png"
+    },
+    {
+      "id": "026-q2",
+      "number": 8,
+      "episode": "026",
+      "situation": "긴 보고서를 어떻게 끝낼지 물을 때",
+      "videoContext": "긴 보고서를 쓰는 동료에게 진행 상황을 물어요.",
+      "expression": "Chip away",
+      "target": "chipping away at",
+      "targetLine": 1,
+      "meaning": "조금씩 꾸준히 처리하다",
+      "explanation": "보고서를 매일 조금씩 쓰고 있다는 뜻이에요.",
+      "dialogue": [
+        {
+          "speaker": "Jamie",
+          "en": "How is that long report coming along?",
+          "ko": "그 긴 보고서는 잘 써 가고 있어?"
+        },
+        {
+          "speaker": "Mia",
+          "en": "I'm chipping away at the report each morning.",
+          "ko": "아침마다 조금씩 쓰고 있어."
+        }
+      ],
+      "videoAnswerAt": 393.7,
+      "art": "cards/026-q2-scene.png",
+      "front": "cards/026-q2-front.png",
+      "back": "cards/026-q2-back.png"
+    },
+    {
+      "id": "026-q3",
+      "number": 9,
+      "episode": "026",
+      "situation": "동료가 더는 의견을 내지 않는다면",
+      "videoContext": "늘 의견을 내던 동료가 요즘 말이 없어요.",
+      "expression": "Chip away",
+      "target": "chipped away at",
+      "targetLine": 1,
+      "meaning": "자신감을 조금씩 약화시키다",
+      "explanation": "거듭된 비판으로 자신감이 조금씩 약해졌다는 뜻이에요.",
+      "dialogue": [
+        {
+          "speaker": "Ben",
+          "en": "Why did he stop sharing his ideas?",
+          "ko": "그 사람은 왜 의견을 내지 않게 된 거야?"
+        },
+        {
+          "speaker": "Jamie",
+          "en": "That constant criticism chipped away at his confidence.",
+          "ko": "계속된 비판 때문에 자신감이 조금씩 꺾였어."
+        }
+      ],
+      "videoAnswerAt": 444.6333333333333,
+      "art": "cards/026-q3-scene.png",
+      "front": "cards/026-q3-front.png",
+      "back": "cards/026-q3-back.png"
+    },
+    {
+      "id": "027-q1",
+      "number": 10,
+      "episode": "027",
+      "situation": "손님이 오기 전에 거실을 손본다면",
+      "videoContext": "거실을 손보는 친구에게 새 가구를 사냐고 물어요.",
+      "expression": "Spruce up",
+      "target": "sprucing up",
+      "targetLine": 1,
+      "meaning": "방을 산뜻하게 꾸미다",
+      "explanation": "식물로 방을 산뜻하게 꾸민다는 뜻이에요.",
+      "dialogue": [
+        {
+          "speaker": "Mia",
+          "en": "Are you buying new furniture?",
+          "ko": "새 가구 사는 거야?"
+        },
+        {
+          "speaker": "Ben",
+          "en": "No, I'm sprucing up the room with plants.",
+          "ko": "아니, 화분으로 방 분위기를 좀 바꾸고 있어."
+        }
+      ],
+      "videoAnswerAt": 511.1333333333333,
+      "art": "cards/027-q1-scene.png",
+      "front": "cards/027-q1-front.png",
+      "back": "cards/027-q1-back.png"
+    },
+    {
+      "id": "027-q2",
+      "number": 11,
+      "episode": "027",
+      "situation": "면접에 가기 전에 거울을 보며",
+      "videoContext": "면접을 앞두고 친구가 셔츠를 갈아입어요.",
+      "expression": "Spruce up",
+      "target": "spruce myself up",
+      "targetLine": 1,
+      "meaning": "옷차림을 단정하게 하다",
+      "explanation": "면접을 앞두고 단정하게 꾸민다는 뜻이에요.",
+      "dialogue": [
+        {
+          "speaker": "Jamie",
+          "en": "Why are you changing your shirt?",
+          "ko": "왜 셔츠를 갈아입어?"
+        },
+        {
+          "speaker": "Mia",
+          "en": "I need to spruce myself up for the interview.",
+          "ko": "면접에 가려면 옷차림을 좀 단정히 해야지."
+        }
+      ],
+      "videoAnswerAt": 559.3,
+      "art": "cards/027-q2-scene.png",
+      "front": "cards/027-q2-front.png",
+      "back": "cards/027-q2-back.png"
+    },
+    {
+      "id": "027-q3",
+      "number": 12,
+      "episode": "027",
+      "situation": "기능은 그대로인데 웹 화면이 달라졌다면",
+      "videoContext": "웹사이트의 분위기가 달라졌어요. 기능까지 바뀌었을까요?",
+      "expression": "Spruce up",
+      "target": "spruced up",
+      "targetLine": 1,
+      "meaning": "웹사이트의 겉모습을 다듬다",
+      "explanation": "웹사이트의 겉모습을 깔끔하게 다듬었다는 뜻이에요.",
+      "dialogue": [
+        {
+          "speaker": "Ben",
+          "en": "Did you add any new features?",
+          "ko": "새 기능도 추가했어?"
+        },
+        {
+          "speaker": "Jamie",
+          "en": "No, we just spruced up the website.",
+          "ko": "아니, 웹사이트 겉모습만 좀 다듬었어."
+        }
+      ],
+      "videoAnswerAt": 608.7333333333333,
+      "art": "cards/027-q3-scene.png",
+      "front": "cards/027-q3-front.png",
+      "back": "cards/027-q3-back.png"
+    }
+  ]
+}
