@@ -20474,6 +20474,14 @@
       "rows": 73
     },
     {
+      "path": "snapshots/2026-11-19/north_gwinnett-5ec4584c40b6cede03220564c6630ffa83de12550354cade99b2c9071e0f8bb2.json.gz",
+      "run_id": "5ec4584c40b6cede03220564c6630ffa83de12550354cade99b2c9071e0f8bb2",
+      "school": "north_gwinnett",
+      "observed_at": "2026-11-19T22:31:42.616831+00:00",
+      "quality": "source_complete",
+      "rows": 72
+    },
+    {
       "path": "snapshots/2026-11-19/north_gwinnett-62f33e27a85ea93a1223d9ef045718af06af532976dc5f9992f830068c95ec54.json.gz",
       "run_id": "62f33e27a85ea93a1223d9ef045718af06af532976dc5f9992f830068c95ec54",
       "school": "north_gwinnett",
@@ -20627,37 +20635,54 @@
     }
   ],
   "collection_status": {
-    "status": "complete",
-    "requests": 1,
-    "school": "northview",
-    "error": null,
+    "status": "blocked",
+    "requests": 3,
+    "school": "north_gwinnett",
+    "error": "HTTP 403: source access stopped",
     "version": 1,
-    "checked_at": "2026-11-19T22:01:10.235311+00:00",
-    "last_source_attempt_at": "2026-11-19T22:01:08.263631+00:00",
+    "checked_at": "2026-11-19T22:32:12.019025+00:00",
+    "last_source_attempt_at": "2026-11-19T22:31:11.456049+00:00",
     "last_access_failure": {
-      "blocked_at": "2026-11-19T11:01:50.794203+00:00",
+      "blocked_at": "2026-11-19T22:32:12.016979+00:00",
       "diagnostics": {
         "base_wait_seconds": 10800,
         "http_status": 403,
-        "request_path": "https://www.zillow.com/homedetails/120-Croftwood-Ct-Johns-Creek-GA-30097/14660299_zpid/",
+        "request_path": "https://www.zillow.com/homedetails/4017-Wyndam-Hill-Dr-Suwanee-GA-30024/66762140_zpid/",
         "response_headers": {
           "Content-Type": "text/html",
           "Server": "CloudFront",
-          "X-Amz-Cf-Id": "w96u3aTNkMf6HqgFDN3l119AbHPkUpWc_AAw-zxvtFjPq47knlRnMA=="
+          "X-Amz-Cf-Id": "lauxSdeDE_ZajCqIkyBbTD2VRWI0ohfL9kDWmkW-3i0TsXG1oaIaYQ=="
         },
         "response_kind": "human_verification",
         "retry_after_header": "",
         "server_wait_seconds": null
       },
       "reason": "HTTP 403: source access stopped",
-      "resolved_at": "2026-11-19T14:32:12.802995+00:00",
-      "retry_after": "2026-11-19T14:01:50.794215+00:00",
+      "retry_after": "2026-11-20T01:32:12.016990+00:00",
       "review_required": false,
-      "strikes": 0
+      "strikes": 1
     },
+    "blocked_at": "2026-11-19T22:32:12.016979+00:00",
+    "diagnostics": {
+      "base_wait_seconds": 10800,
+      "http_status": 403,
+      "request_path": "https://www.zillow.com/homedetails/4017-Wyndam-Hill-Dr-Suwanee-GA-30024/66762140_zpid/",
+      "response_headers": {
+        "Content-Type": "text/html",
+        "Server": "CloudFront",
+        "X-Amz-Cf-Id": "lauxSdeDE_ZajCqIkyBbTD2VRWI0ohfL9kDWmkW-3i0TsXG1oaIaYQ=="
+      },
+      "response_kind": "human_verification",
+      "retry_after_header": "",
+      "server_wait_seconds": null
+    },
+    "reason": "HTTP 403: source access stopped",
+    "retry_after": "2026-11-20T01:32:12.016990+00:00",
+    "review_required": false,
+    "strikes": 1,
     "last_success_by_school": {
       "johns_creek": "2026-11-19T21:01:05.496916+00:00",
-      "north_gwinnett": "2026-11-19T20:31:47.466960+00:00",
+      "north_gwinnett": "2026-11-19T22:31:42.327153+00:00",
       "chattahoochee": "2026-11-19T21:31:11.760812+00:00",
       "northview": "2026-11-19T22:01:09.311329+00:00"
     }
