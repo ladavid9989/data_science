@@ -1,9 +1,11 @@
 {
-  "status": "cooldown",
-  "requests": 0,
+  "status": "checkpointed",
+  "requests": 3,
+  "school": "north_gwinnett",
+  "error": null,
   "version": 1,
-  "checked_at": "2026-11-19T14:01:25.837746+00:00",
-  "last_source_attempt_at": "2026-11-19T11:01:20.180322+00:00",
+  "checked_at": "2026-11-19T14:32:13.189836+00:00",
+  "last_source_attempt_at": "2026-11-19T14:31:11.319446+00:00",
   "last_access_failure": {
     "blocked_at": "2026-11-19T11:01:50.794203+00:00",
     "diagnostics": {
@@ -20,26 +22,9 @@
       "server_wait_seconds": null
     },
     "reason": "HTTP 403: source access stopped",
+    "resolved_at": "2026-11-19T14:32:12.802995+00:00",
     "retry_after": "2026-11-19T14:01:50.794215+00:00",
-    "review_required": true,
-    "strikes": 2
-  },
-  "blocked_at": "2026-11-19T11:01:50.794203+00:00",
-  "diagnostics": {
-    "base_wait_seconds": 10800,
-    "http_status": 403,
-    "request_path": "https://www.zillow.com/homedetails/120-Croftwood-Ct-Johns-Creek-GA-30097/14660299_zpid/",
-    "response_headers": {
-      "Content-Type": "text/html",
-      "Server": "CloudFront",
-      "X-Amz-Cf-Id": "w96u3aTNkMf6HqgFDN3l119AbHPkUpWc_AAw-zxvtFjPq47knlRnMA=="
-    },
-    "response_kind": "human_verification",
-    "retry_after_header": "",
-    "server_wait_seconds": null
-  },
-  "reason": "HTTP 403: source access stopped",
-  "retry_after": "2026-11-19T14:01:50.794215+00:00",
-  "review_required": true,
-  "strikes": 2
+    "review_required": false,
+    "strikes": 0
+  }
 }

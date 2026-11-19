@@ -20362,12 +20362,28 @@
       "rows": 72
     },
     {
+      "path": "snapshots/2026-11-19/north_gwinnett-3f5fefc61a5ce6b816cd5187733942f61a9dbfdd794bc8e5060728ad80a4ec6e.json.gz",
+      "run_id": "3f5fefc61a5ce6b816cd5187733942f61a9dbfdd794bc8e5060728ad80a4ec6e",
+      "school": "north_gwinnett",
+      "observed_at": "2026-11-19T14:31:42.782814+00:00",
+      "quality": "source_complete",
+      "rows": 73
+    },
+    {
       "path": "snapshots/2026-11-19/north_gwinnett-5488ad91fa2f9aac46c26a87d4435ac358dc9f369c7d5927d7269db0ae8fea73.json.gz",
       "run_id": "5488ad91fa2f9aac46c26a87d4435ac358dc9f369c7d5927d7269db0ae8fea73",
       "school": "north_gwinnett",
       "observed_at": "2026-11-19T04:32:13.577302+00:00",
       "quality": "source_complete",
       "rows": 73
+    },
+    {
+      "path": "snapshots/2026-11-19/north_gwinnett-6a8f04a41b1d9db5734625a70b2839c41ce0ce20a896cf030711c0beee8e8a4e.json.gz",
+      "run_id": "6a8f04a41b1d9db5734625a70b2839c41ce0ce20a896cf030711c0beee8e8a4e",
+      "school": "north_gwinnett",
+      "observed_at": "2026-11-19T14:32:12.805377+00:00",
+      "quality": "source_complete",
+      "rows": 74
     },
     {
       "path": "snapshots/2026-11-19/north_gwinnett-6ac3101a24c481e08ca85a1e3bc75eb266d2ce3a8ffc7ded5ede93dbd42b0fb5.json.gz",
@@ -20427,11 +20443,13 @@
     }
   ],
   "collection_status": {
-    "status": "cooldown",
-    "requests": 0,
+    "status": "checkpointed",
+    "requests": 3,
+    "school": "north_gwinnett",
+    "error": null,
     "version": 1,
-    "checked_at": "2026-11-19T14:01:25.837746+00:00",
-    "last_source_attempt_at": "2026-11-19T11:01:20.180322+00:00",
+    "checked_at": "2026-11-19T14:32:13.189836+00:00",
+    "last_source_attempt_at": "2026-11-19T14:31:11.319446+00:00",
     "last_access_failure": {
       "blocked_at": "2026-11-19T11:01:50.794203+00:00",
       "diagnostics": {
@@ -20448,31 +20466,14 @@
         "server_wait_seconds": null
       },
       "reason": "HTTP 403: source access stopped",
+      "resolved_at": "2026-11-19T14:32:12.802995+00:00",
       "retry_after": "2026-11-19T14:01:50.794215+00:00",
-      "review_required": true,
-      "strikes": 2
+      "review_required": false,
+      "strikes": 0
     },
-    "blocked_at": "2026-11-19T11:01:50.794203+00:00",
-    "diagnostics": {
-      "base_wait_seconds": 10800,
-      "http_status": 403,
-      "request_path": "https://www.zillow.com/homedetails/120-Croftwood-Ct-Johns-Creek-GA-30097/14660299_zpid/",
-      "response_headers": {
-        "Content-Type": "text/html",
-        "Server": "CloudFront",
-        "X-Amz-Cf-Id": "w96u3aTNkMf6HqgFDN3l119AbHPkUpWc_AAw-zxvtFjPq47knlRnMA=="
-      },
-      "response_kind": "human_verification",
-      "retry_after_header": "",
-      "server_wait_seconds": null
-    },
-    "reason": "HTTP 403: source access stopped",
-    "retry_after": "2026-11-19T14:01:50.794215+00:00",
-    "review_required": true,
-    "strikes": 2,
     "last_success_by_school": {
       "johns_creek": "2026-11-19T07:01:13.180472+00:00",
-      "north_gwinnett": "2026-11-19T06:31:45.337502+00:00",
+      "north_gwinnett": "2026-11-19T14:31:42.411393+00:00",
       "chattahoochee": "2026-11-19T07:31:16.838740+00:00",
       "northview": "2026-11-19T11:01:21.070100+00:00"
     }
