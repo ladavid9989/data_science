@@ -20274,10 +20274,26 @@
       "rows": 40
     },
     {
+      "path": "snapshots/2026-11-19/chattahoochee-1386564865e450d413f5bc172ed3d33c6bc40133248069b203ec72d1c85ccfc9.json.gz",
+      "run_id": "1386564865e450d413f5bc172ed3d33c6bc40133248069b203ec72d1c85ccfc9",
+      "school": "chattahoochee",
+      "observed_at": "2026-11-19T21:31:12.140021+00:00",
+      "quality": "source_complete",
+      "rows": 40
+    },
+    {
       "path": "snapshots/2026-11-19/chattahoochee-180fb92bee8c8e82edd385cbf91470330ce30f0fe80f823c4d8674a2a82354aa.json.gz",
       "run_id": "180fb92bee8c8e82edd385cbf91470330ce30f0fe80f823c4d8674a2a82354aa",
       "school": "chattahoochee",
       "observed_at": "2026-11-19T15:31:59.004519+00:00",
+      "quality": "source_complete",
+      "rows": 42
+    },
+    {
+      "path": "snapshots/2026-11-19/chattahoochee-4690f79126bace0283ddd6b63a21f9fa8c0f92224ba629468cffbcc026c0aa44.json.gz",
+      "run_id": "4690f79126bace0283ddd6b63a21f9fa8c0f92224ba629468cffbcc026c0aa44",
+      "school": "chattahoochee",
+      "observed_at": "2026-11-19T21:32:12.123437+00:00",
       "quality": "source_complete",
       "rows": 42
     },
@@ -20605,11 +20621,11 @@
   "collection_status": {
     "status": "complete",
     "requests": 3,
-    "school": "johns_creek",
+    "school": "chattahoochee",
     "error": null,
     "version": 1,
-    "checked_at": "2026-11-19T21:02:06.014460+00:00",
-    "last_source_attempt_at": "2026-11-19T21:01:04.700503+00:00",
+    "checked_at": "2026-11-19T21:32:12.485433+00:00",
+    "last_source_attempt_at": "2026-11-19T21:31:10.220786+00:00",
     "last_access_failure": {
       "blocked_at": "2026-11-19T11:01:50.794203+00:00",
       "diagnostics": {
@@ -20634,7 +20650,7 @@
     "last_success_by_school": {
       "johns_creek": "2026-11-19T21:01:05.496916+00:00",
       "north_gwinnett": "2026-11-19T20:31:47.466960+00:00",
-      "chattahoochee": "2026-11-19T19:31:08.236992+00:00",
+      "chattahoochee": "2026-11-19T21:31:11.760812+00:00",
       "northview": "2026-11-19T20:01:16.616801+00:00"
     }
   }
