@@ -1,30 +1,47 @@
 {
-  "status": "complete",
-  "requests": 1,
-  "school": "johns_creek",
-  "error": null,
+  "status": "blocked",
+  "requests": 2,
+  "school": "chattahoochee",
+  "error": "HTTP 403: source access stopped",
   "version": 1,
-  "checked_at": "2026-11-19T07:01:13.941154+00:00",
-  "last_source_attempt_at": "2026-11-19T07:01:12.156714+00:00",
+  "checked_at": "2026-11-19T07:31:46.313815+00:00",
+  "last_source_attempt_at": "2026-11-19T07:31:15.699979+00:00",
   "last_access_failure": {
-    "blocked_at": "2026-11-18T21:32:14.162192+00:00",
+    "blocked_at": "2026-11-19T07:31:46.309838+00:00",
     "diagnostics": {
       "base_wait_seconds": 10800,
       "http_status": 403,
-      "request_path": "https://www.zillow.com/homedetails/5260-Overbend-Trl-Suwanee-GA-30024/14840841_zpid/",
+      "request_path": "https://www.zillow.com/homedetails/210-Bristol-Stone-Ct-Johns-Creek-GA-30005/14658014_zpid/",
       "response_headers": {
         "Content-Type": "text/html",
         "Server": "CloudFront",
-        "X-Amz-Cf-Id": "i8Heq_mlxdJZ1PjLvMSwVv6hVAHVoqKKK8ljElsKhbwvvuq7ZgKAhQ=="
+        "X-Amz-Cf-Id": "rTQ_W6kg4GRZtsR2jqx0ZBJW0wlvc2emBsaFimWSpP2_qFXAImoTMQ=="
       },
       "response_kind": "human_verification",
       "retry_after_header": "",
       "server_wait_seconds": null
     },
     "reason": "HTTP 403: source access stopped",
-    "resolved_at": "2026-11-19T01:02:18.894559+00:00",
-    "retry_after": "2026-11-19T00:32:14.162203+00:00",
+    "retry_after": "2026-11-19T10:31:46.309851+00:00",
     "review_required": false,
-    "strikes": 0
-  }
+    "strikes": 1
+  },
+  "blocked_at": "2026-11-19T07:31:46.309838+00:00",
+  "diagnostics": {
+    "base_wait_seconds": 10800,
+    "http_status": 403,
+    "request_path": "https://www.zillow.com/homedetails/210-Bristol-Stone-Ct-Johns-Creek-GA-30005/14658014_zpid/",
+    "response_headers": {
+      "Content-Type": "text/html",
+      "Server": "CloudFront",
+      "X-Amz-Cf-Id": "rTQ_W6kg4GRZtsR2jqx0ZBJW0wlvc2emBsaFimWSpP2_qFXAImoTMQ=="
+    },
+    "response_kind": "human_verification",
+    "retry_after_header": "",
+    "server_wait_seconds": null
+  },
+  "reason": "HTTP 403: source access stopped",
+  "retry_after": "2026-11-19T10:31:46.309851+00:00",
+  "review_required": false,
+  "strikes": 1
 }

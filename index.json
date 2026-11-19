@@ -20258,6 +20258,14 @@
       "rows": 19
     },
     {
+      "path": "snapshots/2026-11-19/chattahoochee-4eacb19e7262d91d23d87009c75521683fa4b89a3b81150007d10c679f8bbc6a.json.gz",
+      "run_id": "4eacb19e7262d91d23d87009c75521683fa4b89a3b81150007d10c679f8bbc6a",
+      "school": "chattahoochee",
+      "observed_at": "2026-11-19T07:31:17.118420+00:00",
+      "quality": "source_complete",
+      "rows": 40
+    },
+    {
       "path": "snapshots/2026-11-19/chattahoochee-6a49d0efdf8e1fa6e6608e4b9e20fa45e8d7f28afa510ef5d5e70cd7a8c68be1.json.gz",
       "run_id": "6a49d0efdf8e1fa6e6608e4b9e20fa45e8d7f28afa510ef5d5e70cd7a8c68be1",
       "school": "chattahoochee",
@@ -20411,38 +20419,55 @@
     }
   ],
   "collection_status": {
-    "status": "complete",
-    "requests": 1,
-    "school": "johns_creek",
-    "error": null,
+    "status": "blocked",
+    "requests": 2,
+    "school": "chattahoochee",
+    "error": "HTTP 403: source access stopped",
     "version": 1,
-    "checked_at": "2026-11-19T07:01:13.941154+00:00",
-    "last_source_attempt_at": "2026-11-19T07:01:12.156714+00:00",
+    "checked_at": "2026-11-19T07:31:46.313815+00:00",
+    "last_source_attempt_at": "2026-11-19T07:31:15.699979+00:00",
     "last_access_failure": {
-      "blocked_at": "2026-11-18T21:32:14.162192+00:00",
+      "blocked_at": "2026-11-19T07:31:46.309838+00:00",
       "diagnostics": {
         "base_wait_seconds": 10800,
         "http_status": 403,
-        "request_path": "https://www.zillow.com/homedetails/5260-Overbend-Trl-Suwanee-GA-30024/14840841_zpid/",
+        "request_path": "https://www.zillow.com/homedetails/210-Bristol-Stone-Ct-Johns-Creek-GA-30005/14658014_zpid/",
         "response_headers": {
           "Content-Type": "text/html",
           "Server": "CloudFront",
-          "X-Amz-Cf-Id": "i8Heq_mlxdJZ1PjLvMSwVv6hVAHVoqKKK8ljElsKhbwvvuq7ZgKAhQ=="
+          "X-Amz-Cf-Id": "rTQ_W6kg4GRZtsR2jqx0ZBJW0wlvc2emBsaFimWSpP2_qFXAImoTMQ=="
         },
         "response_kind": "human_verification",
         "retry_after_header": "",
         "server_wait_seconds": null
       },
       "reason": "HTTP 403: source access stopped",
-      "resolved_at": "2026-11-19T01:02:18.894559+00:00",
-      "retry_after": "2026-11-19T00:32:14.162203+00:00",
+      "retry_after": "2026-11-19T10:31:46.309851+00:00",
       "review_required": false,
-      "strikes": 0
+      "strikes": 1
     },
+    "blocked_at": "2026-11-19T07:31:46.309838+00:00",
+    "diagnostics": {
+      "base_wait_seconds": 10800,
+      "http_status": 403,
+      "request_path": "https://www.zillow.com/homedetails/210-Bristol-Stone-Ct-Johns-Creek-GA-30005/14658014_zpid/",
+      "response_headers": {
+        "Content-Type": "text/html",
+        "Server": "CloudFront",
+        "X-Amz-Cf-Id": "rTQ_W6kg4GRZtsR2jqx0ZBJW0wlvc2emBsaFimWSpP2_qFXAImoTMQ=="
+      },
+      "response_kind": "human_verification",
+      "retry_after_header": "",
+      "server_wait_seconds": null
+    },
+    "reason": "HTTP 403: source access stopped",
+    "retry_after": "2026-11-19T10:31:46.309851+00:00",
+    "review_required": false,
+    "strikes": 1,
     "last_success_by_school": {
       "johns_creek": "2026-11-19T07:01:13.180472+00:00",
       "north_gwinnett": "2026-11-19T06:31:45.337502+00:00",
-      "chattahoochee": "2026-11-19T05:31:04.479562+00:00",
+      "chattahoochee": "2026-11-19T07:31:16.838740+00:00",
       "northview": "2026-11-19T06:01:14.516924+00:00"
     }
   }
