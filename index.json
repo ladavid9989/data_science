@@ -20410,6 +20410,14 @@
       "rows": 19
     },
     {
+      "path": "snapshots/2026-11-19/northview-17508e633d99016f17d6b7c2bfc9c341ed5d9db15ee03007249a668758516118.json.gz",
+      "run_id": "17508e633d99016f17d6b7c2bfc9c341ed5d9db15ee03007249a668758516118",
+      "school": "northview",
+      "observed_at": "2026-11-19T11:01:21.342708+00:00",
+      "quality": "source_complete",
+      "rows": 19
+    },
+    {
       "path": "snapshots/2026-11-19/northview-20ad9bff2941795c8375a1b2bc0cb0892713d0834b81bd754699c4300a17cd5e.json.gz",
       "run_id": "20ad9bff2941795c8375a1b2bc0cb0892713d0834b81bd754699c4300a17cd5e",
       "school": "northview",
@@ -20419,54 +20427,56 @@
     }
   ],
   "collection_status": {
-    "status": "cooldown",
-    "requests": 0,
+    "status": "blocked",
+    "requests": 2,
+    "school": "northview",
+    "error": "HTTP 403: source access stopped",
     "version": 1,
-    "checked_at": "2026-11-19T10:31:08.279642+00:00",
-    "last_source_attempt_at": "2026-11-19T07:31:15.699979+00:00",
+    "checked_at": "2026-11-19T11:01:50.797754+00:00",
+    "last_source_attempt_at": "2026-11-19T11:01:20.180322+00:00",
     "last_access_failure": {
-      "blocked_at": "2026-11-19T07:31:46.309838+00:00",
+      "blocked_at": "2026-11-19T11:01:50.794203+00:00",
       "diagnostics": {
         "base_wait_seconds": 10800,
         "http_status": 403,
-        "request_path": "https://www.zillow.com/homedetails/210-Bristol-Stone-Ct-Johns-Creek-GA-30005/14658014_zpid/",
+        "request_path": "https://www.zillow.com/homedetails/120-Croftwood-Ct-Johns-Creek-GA-30097/14660299_zpid/",
         "response_headers": {
           "Content-Type": "text/html",
           "Server": "CloudFront",
-          "X-Amz-Cf-Id": "rTQ_W6kg4GRZtsR2jqx0ZBJW0wlvc2emBsaFimWSpP2_qFXAImoTMQ=="
+          "X-Amz-Cf-Id": "w96u3aTNkMf6HqgFDN3l119AbHPkUpWc_AAw-zxvtFjPq47knlRnMA=="
         },
         "response_kind": "human_verification",
         "retry_after_header": "",
         "server_wait_seconds": null
       },
       "reason": "HTTP 403: source access stopped",
-      "retry_after": "2026-11-19T10:31:46.309851+00:00",
-      "review_required": false,
-      "strikes": 1
+      "retry_after": "2026-11-19T14:01:50.794215+00:00",
+      "review_required": true,
+      "strikes": 2
     },
-    "blocked_at": "2026-11-19T07:31:46.309838+00:00",
+    "blocked_at": "2026-11-19T11:01:50.794203+00:00",
     "diagnostics": {
       "base_wait_seconds": 10800,
       "http_status": 403,
-      "request_path": "https://www.zillow.com/homedetails/210-Bristol-Stone-Ct-Johns-Creek-GA-30005/14658014_zpid/",
+      "request_path": "https://www.zillow.com/homedetails/120-Croftwood-Ct-Johns-Creek-GA-30097/14660299_zpid/",
       "response_headers": {
         "Content-Type": "text/html",
         "Server": "CloudFront",
-        "X-Amz-Cf-Id": "rTQ_W6kg4GRZtsR2jqx0ZBJW0wlvc2emBsaFimWSpP2_qFXAImoTMQ=="
+        "X-Amz-Cf-Id": "w96u3aTNkMf6HqgFDN3l119AbHPkUpWc_AAw-zxvtFjPq47knlRnMA=="
       },
       "response_kind": "human_verification",
       "retry_after_header": "",
       "server_wait_seconds": null
     },
     "reason": "HTTP 403: source access stopped",
-    "retry_after": "2026-11-19T10:31:46.309851+00:00",
-    "review_required": false,
-    "strikes": 1,
+    "retry_after": "2026-11-19T14:01:50.794215+00:00",
+    "review_required": true,
+    "strikes": 2,
     "last_success_by_school": {
       "johns_creek": "2026-11-19T07:01:13.180472+00:00",
       "north_gwinnett": "2026-11-19T06:31:45.337502+00:00",
       "chattahoochee": "2026-11-19T07:31:16.838740+00:00",
-      "northview": "2026-11-19T06:01:14.516924+00:00"
+      "northview": "2026-11-19T11:01:21.070100+00:00"
     }
   }
 }
