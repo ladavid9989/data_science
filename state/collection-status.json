@@ -1,11 +1,11 @@
 {
-  "status": "complete",
-  "requests": 1,
-  "school": "northview",
+  "status": "checkpointed",
+  "requests": 3,
+  "school": "north_gwinnett",
   "error": null,
   "version": 1,
-  "checked_at": "2026-11-20T14:01:28.648420+00:00",
-  "last_source_attempt_at": "2026-11-20T14:01:27.180646+00:00",
+  "checked_at": "2026-11-20T14:32:16.644623+00:00",
+  "last_source_attempt_at": "2026-11-20T14:31:15.260968+00:00",
   "last_access_failure": {
     "blocked_at": "2026-11-20T04:31:36.579644+00:00",
     "diagnostics": {
