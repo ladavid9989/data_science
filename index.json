@@ -20650,6 +20650,14 @@
       "rows": 40
     },
     {
+      "path": "snapshots/2026-11-20/chattahoochee-ede6c2ce3d60496999cc66761f753fa61d7b6f291b7f8fa1355b50abb85c33a8.json.gz",
+      "run_id": "ede6c2ce3d60496999cc66761f753fa61d7b6f291b7f8fa1355b50abb85c33a8",
+      "school": "chattahoochee",
+      "observed_at": "2026-11-20T04:31:07.592294+00:00",
+      "quality": "source_complete",
+      "rows": 40
+    },
+    {
       "path": "snapshots/2026-11-20/johns_creek-2b4ce3f43db56e0842a49f1040836e9cb002fdce12069c6a968fc3ad66b05e35.json.gz",
       "run_id": "2b4ce3f43db56e0842a49f1040836e9cb002fdce12069c6a968fc3ad66b05e35",
       "school": "johns_creek",
@@ -20707,38 +20715,55 @@
     }
   ],
   "collection_status": {
-    "status": "complete",
+    "status": "blocked",
     "requests": 2,
-    "school": "johns_creek",
-    "error": null,
+    "school": "chattahoochee",
+    "error": "HTTP 403: source access stopped",
     "version": 1,
-    "checked_at": "2026-11-20T04:01:39.491472+00:00",
-    "last_source_attempt_at": "2026-11-20T04:01:07.723894+00:00",
+    "checked_at": "2026-11-20T04:31:36.583022+00:00",
+    "last_source_attempt_at": "2026-11-20T04:31:05.999817+00:00",
     "last_access_failure": {
-      "blocked_at": "2026-11-19T22:32:12.016979+00:00",
+      "blocked_at": "2026-11-20T04:31:36.579644+00:00",
       "diagnostics": {
         "base_wait_seconds": 10800,
         "http_status": 403,
-        "request_path": "https://www.zillow.com/homedetails/4017-Wyndam-Hill-Dr-Suwanee-GA-30024/66762140_zpid/",
+        "request_path": "https://www.zillow.com/homedetails/150-Ocee-View-Ct-Johns-Creek-GA-30022/14653251_zpid/",
         "response_headers": {
           "Content-Type": "text/html",
           "Server": "CloudFront",
-          "X-Amz-Cf-Id": "lauxSdeDE_ZajCqIkyBbTD2VRWI0ohfL9kDWmkW-3i0TsXG1oaIaYQ=="
+          "X-Amz-Cf-Id": "s8bLyWdRw6cFejttvyBJy-LMsGm5hYNVxOHS_KgJUJma0jeO0j29Ug=="
         },
         "response_kind": "human_verification",
         "retry_after_header": "",
         "server_wait_seconds": null
       },
       "reason": "HTTP 403: source access stopped",
-      "resolved_at": "2026-11-20T02:01:38.957121+00:00",
-      "retry_after": "2026-11-20T01:32:12.016990+00:00",
+      "retry_after": "2026-11-20T07:31:36.579655+00:00",
       "review_required": false,
-      "strikes": 0
+      "strikes": 1
     },
+    "blocked_at": "2026-11-20T04:31:36.579644+00:00",
+    "diagnostics": {
+      "base_wait_seconds": 10800,
+      "http_status": 403,
+      "request_path": "https://www.zillow.com/homedetails/150-Ocee-View-Ct-Johns-Creek-GA-30022/14653251_zpid/",
+      "response_headers": {
+        "Content-Type": "text/html",
+        "Server": "CloudFront",
+        "X-Amz-Cf-Id": "s8bLyWdRw6cFejttvyBJy-LMsGm5hYNVxOHS_KgJUJma0jeO0j29Ug=="
+      },
+      "response_kind": "human_verification",
+      "retry_after_header": "",
+      "server_wait_seconds": null
+    },
+    "reason": "HTTP 403: source access stopped",
+    "retry_after": "2026-11-20T07:31:36.579655+00:00",
+    "review_required": false,
+    "strikes": 1,
     "last_success_by_school": {
       "johns_creek": "2026-11-20T04:01:08.782646+00:00",
       "north_gwinnett": "2026-11-20T03:31:37.016472+00:00",
-      "chattahoochee": "2026-11-20T02:31:05.546810+00:00",
+      "chattahoochee": "2026-11-20T04:31:07.314160+00:00",
       "northview": "2026-11-20T03:01:17.685071+00:00"
     }
   }
