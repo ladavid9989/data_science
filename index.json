@@ -20712,14 +20712,24 @@
       "observed_at": "2026-11-20T03:01:17.941575+00:00",
       "quality": "source_complete",
       "rows": 19
+    },
+    {
+      "path": "snapshots/2026-11-20/northview-ace2655363bbe2c39cfe9c1a609dec0b8adb5e3fa7869149577a1e1c16254b8b.json.gz",
+      "run_id": "ace2655363bbe2c39cfe9c1a609dec0b8adb5e3fa7869149577a1e1c16254b8b",
+      "school": "northview",
+      "observed_at": "2026-11-20T08:01:14.343498+00:00",
+      "quality": "source_complete",
+      "rows": 19
     }
   ],
   "collection_status": {
-    "status": "cooldown",
-    "requests": 0,
+    "status": "complete",
+    "requests": 1,
+    "school": "northview",
+    "error": null,
     "version": 1,
-    "checked_at": "2026-11-20T07:31:04.993454+00:00",
-    "last_source_attempt_at": "2026-11-20T04:31:05.999817+00:00",
+    "checked_at": "2026-11-20T08:01:14.849126+00:00",
+    "last_source_attempt_at": "2026-11-20T08:01:13.025200+00:00",
     "last_access_failure": {
       "blocked_at": "2026-11-20T04:31:36.579644+00:00",
       "diagnostics": {
@@ -20736,33 +20746,16 @@
         "server_wait_seconds": null
       },
       "reason": "HTTP 403: source access stopped",
+      "resolved_at": "2026-11-20T08:01:14.723377+00:00",
       "retry_after": "2026-11-20T07:31:36.579655+00:00",
       "review_required": false,
-      "strikes": 1
+      "strikes": 0
     },
-    "blocked_at": "2026-11-20T04:31:36.579644+00:00",
-    "diagnostics": {
-      "base_wait_seconds": 10800,
-      "http_status": 403,
-      "request_path": "https://www.zillow.com/homedetails/150-Ocee-View-Ct-Johns-Creek-GA-30022/14653251_zpid/",
-      "response_headers": {
-        "Content-Type": "text/html",
-        "Server": "CloudFront",
-        "X-Amz-Cf-Id": "s8bLyWdRw6cFejttvyBJy-LMsGm5hYNVxOHS_KgJUJma0jeO0j29Ug=="
-      },
-      "response_kind": "human_verification",
-      "retry_after_header": "",
-      "server_wait_seconds": null
-    },
-    "reason": "HTTP 403: source access stopped",
-    "retry_after": "2026-11-20T07:31:36.579655+00:00",
-    "review_required": false,
-    "strikes": 1,
     "last_success_by_school": {
       "johns_creek": "2026-11-20T04:01:08.782646+00:00",
       "north_gwinnett": "2026-11-20T03:31:37.016472+00:00",
       "chattahoochee": "2026-11-20T04:31:07.314160+00:00",
-      "northview": "2026-11-20T03:01:17.685071+00:00"
+      "northview": "2026-11-20T08:01:14.085247+00:00"
     }
   }
 }
