@@ -20786,6 +20786,14 @@
       "rows": 12
     },
     {
+      "path": "snapshots/2026-11-20/north_gwinnett-026adf4f0c00b6a92cb57504683dc1207bff4e8bf6d0e05740fd850f65018a9a.json.gz",
+      "run_id": "026adf4f0c00b6a92cb57504683dc1207bff4e8bf6d0e05740fd850f65018a9a",
+      "school": "north_gwinnett",
+      "observed_at": "2026-11-20T21:31:44.743981+00:00",
+      "quality": "source_complete",
+      "rows": 70
+    },
+    {
       "path": "snapshots/2026-11-20/north_gwinnett-31b651e8be4254b8715d7cb9c4f6ffcc391ca4b7214158bdd1502de5cba36bd3.json.gz",
       "run_id": "31b651e8be4254b8715d7cb9c4f6ffcc391ca4b7214158bdd1502de5cba36bd3",
       "school": "north_gwinnett",
@@ -20955,37 +20963,54 @@
     }
   ],
   "collection_status": {
-    "status": "complete",
-    "requests": 2,
-    "school": "northview",
-    "error": null,
+    "status": "blocked",
+    "requests": 3,
+    "school": "north_gwinnett",
+    "error": "HTTP 403: source access stopped",
     "version": 1,
-    "checked_at": "2026-11-20T21:01:49.149948+00:00",
-    "last_source_attempt_at": "2026-11-20T21:01:17.587406+00:00",
+    "checked_at": "2026-11-20T21:32:14.127668+00:00",
+    "last_source_attempt_at": "2026-11-20T21:31:13.577061+00:00",
     "last_access_failure": {
-      "blocked_at": "2026-11-20T15:31:51.909397+00:00",
+      "blocked_at": "2026-11-20T21:32:14.125938+00:00",
       "diagnostics": {
         "base_wait_seconds": 10800,
         "http_status": 403,
-        "request_path": "https://www.zillow.com/homedetails/210-Bristol-Stone-Ct-Johns-Creek-GA-30005/14658014_zpid/",
+        "request_path": "https://www.zillow.com/homedetails/162-Saint-Martin-Dr-Suwanee-GA-30024/14837239_zpid/",
         "response_headers": {
           "Content-Type": "text/html",
           "Server": "CloudFront",
-          "X-Amz-Cf-Id": "Rg7FpljEgBGpDY2T_QGKxSaXfMvt7UzncKOJtuVdVIcOVihgEBnQDw=="
+          "X-Amz-Cf-Id": "0K8UhamLnDBvLz6srZbUk-VO8Ud6LkWF9BHQDar8x-WMFwbjuma9Rg=="
         },
         "response_kind": "human_verification",
         "retry_after_header": "",
         "server_wait_seconds": null
       },
       "reason": "HTTP 403: source access stopped",
-      "resolved_at": "2026-11-20T19:01:42.287003+00:00",
-      "retry_after": "2026-11-20T18:31:51.909407+00:00",
+      "retry_after": "2026-11-21T00:32:14.125950+00:00",
       "review_required": false,
-      "strikes": 0
+      "strikes": 1
     },
+    "blocked_at": "2026-11-20T21:32:14.125938+00:00",
+    "diagnostics": {
+      "base_wait_seconds": 10800,
+      "http_status": 403,
+      "request_path": "https://www.zillow.com/homedetails/162-Saint-Martin-Dr-Suwanee-GA-30024/14837239_zpid/",
+      "response_headers": {
+        "Content-Type": "text/html",
+        "Server": "CloudFront",
+        "X-Amz-Cf-Id": "0K8UhamLnDBvLz6srZbUk-VO8Ud6LkWF9BHQDar8x-WMFwbjuma9Rg=="
+      },
+      "response_kind": "human_verification",
+      "retry_after_header": "",
+      "server_wait_seconds": null
+    },
+    "reason": "HTTP 403: source access stopped",
+    "retry_after": "2026-11-21T00:32:14.125950+00:00",
+    "review_required": false,
+    "strikes": 1,
     "last_success_by_school": {
       "johns_creek": "2026-11-20T20:01:20.398316+00:00",
-      "north_gwinnett": "2026-11-20T19:31:34.636185+00:00",
+      "north_gwinnett": "2026-11-20T21:31:44.456239+00:00",
       "chattahoochee": "2026-11-20T20:31:05.318217+00:00",
       "northview": "2026-11-20T21:01:18.471008+00:00"
     }
