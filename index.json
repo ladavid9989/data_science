@@ -20960,14 +20960,32 @@
       "observed_at": "2026-11-20T10:01:08.795863+00:00",
       "quality": "source_complete",
       "rows": 19
+    },
+    {
+      "path": "snapshots/2026-11-21/johns_creek-1257593ef50a9ef66bbb9e3272f23344f819542b31e4e072f7fa2ae7d22b7262.json.gz",
+      "run_id": "1257593ef50a9ef66bbb9e3272f23344f819542b31e4e072f7fa2ae7d22b7262",
+      "school": "johns_creek",
+      "observed_at": "2026-11-21T01:01:00.371741+00:00",
+      "quality": "source_complete",
+      "rows": 12
+    },
+    {
+      "path": "snapshots/2026-11-21/johns_creek-d8cab7ef01e40a7caf7964835ce844af6e2b3b13a0d994ac29a43aa4a372b509.json.gz",
+      "run_id": "d8cab7ef01e40a7caf7964835ce844af6e2b3b13a0d994ac29a43aa4a372b509",
+      "school": "johns_creek",
+      "observed_at": "2026-11-21T01:02:00.596476+00:00",
+      "quality": "source_complete",
+      "rows": 14
     }
   ],
   "collection_status": {
-    "status": "cooldown",
-    "requests": 0,
+    "status": "complete",
+    "requests": 3,
+    "school": "johns_creek",
+    "error": null,
     "version": 1,
-    "checked_at": "2026-11-21T00:31:16.722052+00:00",
-    "last_source_attempt_at": "2026-11-20T21:31:13.577061+00:00",
+    "checked_at": "2026-11-21T01:02:00.769660+00:00",
+    "last_source_attempt_at": "2026-11-21T01:00:59.442932+00:00",
     "last_access_failure": {
       "blocked_at": "2026-11-20T21:32:14.125938+00:00",
       "diagnostics": {
@@ -20984,30 +21002,13 @@
         "server_wait_seconds": null
       },
       "reason": "HTTP 403: source access stopped",
+      "resolved_at": "2026-11-21T01:02:00.511711+00:00",
       "retry_after": "2026-11-21T00:32:14.125950+00:00",
       "review_required": false,
-      "strikes": 1
+      "strikes": 0
     },
-    "blocked_at": "2026-11-20T21:32:14.125938+00:00",
-    "diagnostics": {
-      "base_wait_seconds": 10800,
-      "http_status": 403,
-      "request_path": "https://www.zillow.com/homedetails/162-Saint-Martin-Dr-Suwanee-GA-30024/14837239_zpid/",
-      "response_headers": {
-        "Content-Type": "text/html",
-        "Server": "CloudFront",
-        "X-Amz-Cf-Id": "0K8UhamLnDBvLz6srZbUk-VO8Ud6LkWF9BHQDar8x-WMFwbjuma9Rg=="
-      },
-      "response_kind": "human_verification",
-      "retry_after_header": "",
-      "server_wait_seconds": null
-    },
-    "reason": "HTTP 403: source access stopped",
-    "retry_after": "2026-11-21T00:32:14.125950+00:00",
-    "review_required": false,
-    "strikes": 1,
     "last_success_by_school": {
-      "johns_creek": "2026-11-20T20:01:20.398316+00:00",
+      "johns_creek": "2026-11-21T01:01:00.204050+00:00",
       "north_gwinnett": "2026-11-20T21:31:44.456239+00:00",
       "chattahoochee": "2026-11-20T20:31:05.318217+00:00",
       "northview": "2026-11-20T21:01:18.471008+00:00"
