@@ -1,9 +1,11 @@
 {
-  "status": "cooldown",
-  "requests": 0,
+  "status": "complete",
+  "requests": 1,
+  "school": "northview",
+  "error": null,
   "version": 1,
-  "checked_at": "2026-11-21T10:31:04.555529+00:00",
-  "last_source_attempt_at": "2026-11-21T07:31:08.267273+00:00",
+  "checked_at": "2026-11-21T11:01:12.676066+00:00",
+  "last_source_attempt_at": "2026-11-21T11:01:10.907922+00:00",
   "last_access_failure": {
     "blocked_at": "2026-11-21T07:31:38.881352+00:00",
     "diagnostics": {
@@ -20,26 +22,9 @@
       "server_wait_seconds": null
     },
     "reason": "HTTP 403: source access stopped",
+    "resolved_at": "2026-11-21T11:01:12.552206+00:00",
     "retry_after": "2026-11-21T10:31:38.881363+00:00",
     "review_required": false,
-    "strikes": 1
-  },
-  "blocked_at": "2026-11-21T07:31:38.881352+00:00",
-  "diagnostics": {
-    "base_wait_seconds": 10800,
-    "http_status": 403,
-    "request_path": "https://www.zillow.com/homedetails/120-N-Hillbrooke-Trl-Johns-Creek-GA-30005/14656765_zpid/",
-    "response_headers": {
-      "Content-Type": "text/html",
-      "Server": "CloudFront",
-      "X-Amz-Cf-Id": "U_RWCgC8aIiWjjUi_ZByX78eoXPSI8IxgaZ0b4-VJpZIlyUxMXUE6A=="
-    },
-    "response_kind": "human_verification",
-    "retry_after_header": "",
-    "server_wait_seconds": null
-  },
-  "reason": "HTTP 403: source access stopped",
-  "retry_after": "2026-11-21T10:31:38.881363+00:00",
-  "review_required": false,
-  "strikes": 1
+    "strikes": 0
+  }
 }
