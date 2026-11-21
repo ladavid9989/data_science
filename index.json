@@ -21010,6 +21010,14 @@
       "rows": 40
     },
     {
+      "path": "snapshots/2026-11-21/chattahoochee-ff1a20f5f30f9b72c5ca191387b5953923a1c9e210301efc8b71850bb4794fca.json.gz",
+      "run_id": "ff1a20f5f30f9b72c5ca191387b5953923a1c9e210301efc8b71850bb4794fca",
+      "school": "chattahoochee",
+      "observed_at": "2026-11-21T07:31:09.470390+00:00",
+      "quality": "source_complete",
+      "rows": 40
+    },
+    {
       "path": "snapshots/2026-11-21/johns_creek-1257593ef50a9ef66bbb9e3272f23344f819542b31e4e072f7fa2ae7d22b7262.json.gz",
       "run_id": "1257593ef50a9ef66bbb9e3272f23344f819542b31e4e072f7fa2ae7d22b7262",
       "school": "johns_creek",
@@ -21139,38 +21147,55 @@
     }
   ],
   "collection_status": {
-    "status": "complete",
-    "requests": 1,
-    "school": "johns_creek",
-    "error": null,
+    "status": "blocked",
+    "requests": 2,
+    "school": "chattahoochee",
+    "error": "HTTP 403: source access stopped",
     "version": 1,
-    "checked_at": "2026-11-21T07:01:10.482964+00:00",
-    "last_source_attempt_at": "2026-11-21T07:01:08.590546+00:00",
+    "checked_at": "2026-11-21T07:31:38.883578+00:00",
+    "last_source_attempt_at": "2026-11-21T07:31:08.267273+00:00",
     "last_access_failure": {
-      "blocked_at": "2026-11-20T21:32:14.125938+00:00",
+      "blocked_at": "2026-11-21T07:31:38.881352+00:00",
       "diagnostics": {
         "base_wait_seconds": 10800,
         "http_status": 403,
-        "request_path": "https://www.zillow.com/homedetails/162-Saint-Martin-Dr-Suwanee-GA-30024/14837239_zpid/",
+        "request_path": "https://www.zillow.com/homedetails/120-N-Hillbrooke-Trl-Johns-Creek-GA-30005/14656765_zpid/",
         "response_headers": {
           "Content-Type": "text/html",
           "Server": "CloudFront",
-          "X-Amz-Cf-Id": "0K8UhamLnDBvLz6srZbUk-VO8Ud6LkWF9BHQDar8x-WMFwbjuma9Rg=="
+          "X-Amz-Cf-Id": "U_RWCgC8aIiWjjUi_ZByX78eoXPSI8IxgaZ0b4-VJpZIlyUxMXUE6A=="
         },
         "response_kind": "human_verification",
         "retry_after_header": "",
         "server_wait_seconds": null
       },
       "reason": "HTTP 403: source access stopped",
-      "resolved_at": "2026-11-21T01:02:00.511711+00:00",
-      "retry_after": "2026-11-21T00:32:14.125950+00:00",
+      "retry_after": "2026-11-21T10:31:38.881363+00:00",
       "review_required": false,
-      "strikes": 0
+      "strikes": 1
     },
+    "blocked_at": "2026-11-21T07:31:38.881352+00:00",
+    "diagnostics": {
+      "base_wait_seconds": 10800,
+      "http_status": 403,
+      "request_path": "https://www.zillow.com/homedetails/120-N-Hillbrooke-Trl-Johns-Creek-GA-30005/14656765_zpid/",
+      "response_headers": {
+        "Content-Type": "text/html",
+        "Server": "CloudFront",
+        "X-Amz-Cf-Id": "U_RWCgC8aIiWjjUi_ZByX78eoXPSI8IxgaZ0b4-VJpZIlyUxMXUE6A=="
+      },
+      "response_kind": "human_verification",
+      "retry_after_header": "",
+      "server_wait_seconds": null
+    },
+    "reason": "HTTP 403: source access stopped",
+    "retry_after": "2026-11-21T10:31:38.881363+00:00",
+    "review_required": false,
+    "strikes": 1,
     "last_success_by_school": {
       "johns_creek": "2026-11-21T07:01:09.701969+00:00",
       "north_gwinnett": "2026-11-21T06:31:30.652518+00:00",
-      "chattahoochee": "2026-11-21T05:31:03.397738+00:00",
+      "chattahoochee": "2026-11-21T07:31:09.193323+00:00",
       "northview": "2026-11-21T06:01:23.657974+00:00"
     }
   }

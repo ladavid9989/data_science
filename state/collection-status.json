@@ -1,30 +1,47 @@
 {
-  "status": "complete",
-  "requests": 1,
-  "school": "johns_creek",
-  "error": null,
+  "status": "blocked",
+  "requests": 2,
+  "school": "chattahoochee",
+  "error": "HTTP 403: source access stopped",
   "version": 1,
-  "checked_at": "2026-11-21T07:01:10.482964+00:00",
-  "last_source_attempt_at": "2026-11-21T07:01:08.590546+00:00",
+  "checked_at": "2026-11-21T07:31:38.883578+00:00",
+  "last_source_attempt_at": "2026-11-21T07:31:08.267273+00:00",
   "last_access_failure": {
-    "blocked_at": "2026-11-20T21:32:14.125938+00:00",
+    "blocked_at": "2026-11-21T07:31:38.881352+00:00",
     "diagnostics": {
       "base_wait_seconds": 10800,
       "http_status": 403,
-      "request_path": "https://www.zillow.com/homedetails/162-Saint-Martin-Dr-Suwanee-GA-30024/14837239_zpid/",
+      "request_path": "https://www.zillow.com/homedetails/120-N-Hillbrooke-Trl-Johns-Creek-GA-30005/14656765_zpid/",
       "response_headers": {
         "Content-Type": "text/html",
         "Server": "CloudFront",
-        "X-Amz-Cf-Id": "0K8UhamLnDBvLz6srZbUk-VO8Ud6LkWF9BHQDar8x-WMFwbjuma9Rg=="
+        "X-Amz-Cf-Id": "U_RWCgC8aIiWjjUi_ZByX78eoXPSI8IxgaZ0b4-VJpZIlyUxMXUE6A=="
       },
       "response_kind": "human_verification",
       "retry_after_header": "",
       "server_wait_seconds": null
     },
     "reason": "HTTP 403: source access stopped",
-    "resolved_at": "2026-11-21T01:02:00.511711+00:00",
-    "retry_after": "2026-11-21T00:32:14.125950+00:00",
+    "retry_after": "2026-11-21T10:31:38.881363+00:00",
     "review_required": false,
-    "strikes": 0
-  }
+    "strikes": 1
+  },
+  "blocked_at": "2026-11-21T07:31:38.881352+00:00",
+  "diagnostics": {
+    "base_wait_seconds": 10800,
+    "http_status": 403,
+    "request_path": "https://www.zillow.com/homedetails/120-N-Hillbrooke-Trl-Johns-Creek-GA-30005/14656765_zpid/",
+    "response_headers": {
+      "Content-Type": "text/html",
+      "Server": "CloudFront",
+      "X-Amz-Cf-Id": "U_RWCgC8aIiWjjUi_ZByX78eoXPSI8IxgaZ0b4-VJpZIlyUxMXUE6A=="
+    },
+    "response_kind": "human_verification",
+    "retry_after_header": "",
+    "server_wait_seconds": null
+  },
+  "reason": "HTTP 403: source access stopped",
+  "retry_after": "2026-11-21T10:31:38.881363+00:00",
+  "review_required": false,
+  "strikes": 1
 }
