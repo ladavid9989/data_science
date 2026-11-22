@@ -1,10 +1,11 @@
 {
-  "status": "interval_wait",
-  "requests": 0,
-  "next_batch_at": "2026-11-22T00:26:01.425386+00:00",
+  "status": "complete",
+  "requests": 1,
+  "school": "chattahoochee",
+  "error": null,
   "version": 1,
-  "checked_at": "2026-11-22T00:19:54.942070+00:00",
-  "last_source_attempt_at": "2026-11-22T00:01:01.425386+00:00",
+  "checked_at": "2026-11-22T00:30:51.983186+00:00",
+  "last_source_attempt_at": "2026-11-22T00:30:50.083278+00:00",
   "last_access_failure": {
     "blocked_at": "2026-11-21T07:31:38.881352+00:00",
     "diagnostics": {
