@@ -1,9 +1,11 @@
 {
-  "status": "cooldown",
-  "requests": 0,
+  "status": "complete",
+  "requests": 1,
+  "school": "northview",
+  "error": null,
   "version": 1,
-  "checked_at": "2026-11-22T10:00:59.742100+00:00",
-  "last_source_attempt_at": "2026-11-22T07:28:36.247761+00:00",
+  "checked_at": "2026-11-22T10:30:56.374692+00:00",
+  "last_source_attempt_at": "2026-11-22T10:30:54.658925+00:00",
   "last_access_failure": {
     "blocked_at": "2026-11-22T07:29:06.878113+00:00",
     "diagnostics": {
@@ -20,26 +22,9 @@
       "server_wait_seconds": null
     },
     "reason": "HTTP 403: source access stopped",
+    "resolved_at": "2026-11-22T10:30:56.250445+00:00",
     "retry_after": "2026-11-22T10:29:06.878126+00:00",
     "review_required": false,
-    "strikes": 1
-  },
-  "blocked_at": "2026-11-22T07:29:06.878113+00:00",
-  "diagnostics": {
-    "base_wait_seconds": 10800,
-    "http_status": 403,
-    "request_path": "https://www.zillow.com/homedetails/5415-Taylor-Rd-Johns-Creek-GA-30022/14655523_zpid/",
-    "response_headers": {
-      "Content-Type": "text/html",
-      "Server": "CloudFront",
-      "X-Amz-Cf-Id": "YW09xyLw5zCkQxcs9euVzUzBxnoedgXRJWSy811cN2VhnCptptx0Hg=="
-    },
-    "response_kind": "human_verification",
-    "retry_after_header": "",
-    "server_wait_seconds": null
-  },
-  "reason": "HTTP 403: source access stopped",
-  "retry_after": "2026-11-22T10:29:06.878126+00:00",
-  "review_required": false,
-  "strikes": 1
+    "strikes": 0
+  }
 }
