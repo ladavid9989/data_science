@@ -1,30 +1,47 @@
 {
-  "status": "complete",
-  "requests": 1,
-  "school": "northview",
-  "error": null,
+  "status": "blocked",
+  "requests": 3,
+  "school": "north_gwinnett",
+  "error": "HTTP 403: source access stopped",
   "version": 1,
-  "checked_at": "2026-11-22T19:31:05.326514+00:00",
-  "last_source_attempt_at": "2026-11-22T19:31:03.633802+00:00",
+  "checked_at": "2026-11-22T20:01:57.888365+00:00",
+  "last_source_attempt_at": "2026-11-22T20:00:57.324295+00:00",
   "last_access_failure": {
-    "blocked_at": "2026-11-22T13:31:27.777639+00:00",
+    "blocked_at": "2026-11-22T20:01:57.886276+00:00",
     "diagnostics": {
       "base_wait_seconds": 10800,
       "http_status": 403,
-      "request_path": "https://www.zillow.com/homedetails/485-Weatherend-Ct-Johns-Creek-GA-30022/14679358_zpid/",
+      "request_path": "https://www.zillow.com/homedetails/3525-Hickory-Branch-Trl-Suwanee-GA-30024/14828472_zpid/",
       "response_headers": {
         "Content-Type": "text/html",
         "Server": "CloudFront",
-        "X-Amz-Cf-Id": "dkt25WkUzrHsOTiNlu0ExHNKSzKxpPnXzpfYukmsovIgVokEcrYoWg=="
+        "X-Amz-Cf-Id": "e_A0NG-DeIX9w-r17AxV8NE0sbwdH5BJEozmnCpyAYPQpePJC20dgQ=="
       },
       "response_kind": "human_verification",
       "retry_after_header": "",
       "server_wait_seconds": null
     },
     "reason": "HTTP 403: source access stopped",
-    "resolved_at": "2026-11-22T17:01:50.051907+00:00",
-    "retry_after": "2026-11-22T16:31:27.777651+00:00",
+    "retry_after": "2026-11-22T23:01:57.886288+00:00",
     "review_required": false,
-    "strikes": 0
-  }
+    "strikes": 1
+  },
+  "blocked_at": "2026-11-22T20:01:57.886276+00:00",
+  "diagnostics": {
+    "base_wait_seconds": 10800,
+    "http_status": 403,
+    "request_path": "https://www.zillow.com/homedetails/3525-Hickory-Branch-Trl-Suwanee-GA-30024/14828472_zpid/",
+    "response_headers": {
+      "Content-Type": "text/html",
+      "Server": "CloudFront",
+      "X-Amz-Cf-Id": "e_A0NG-DeIX9w-r17AxV8NE0sbwdH5BJEozmnCpyAYPQpePJC20dgQ=="
+    },
+    "response_kind": "human_verification",
+    "retry_after_header": "",
+    "server_wait_seconds": null
+  },
+  "reason": "HTTP 403: source access stopped",
+  "retry_after": "2026-11-22T23:01:57.886288+00:00",
+  "review_required": false,
+  "strikes": 1
 }
