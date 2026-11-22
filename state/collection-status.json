@@ -1,9 +1,11 @@
 {
-  "status": "cooldown",
-  "requests": 0,
+  "status": "complete",
+  "requests": 3,
+  "school": "johns_creek",
+  "error": null,
   "version": 1,
-  "checked_at": "2026-11-22T04:30:56.860812+00:00",
-  "last_source_attempt_at": "2026-11-22T01:30:52.501696+00:00",
+  "checked_at": "2026-11-22T05:01:58.856943+00:00",
+  "last_source_attempt_at": "2026-11-22T05:00:57.191586+00:00",
   "last_access_failure": {
     "blocked_at": "2026-11-22T01:31:53.030399+00:00",
     "diagnostics": {
@@ -20,26 +22,9 @@
       "server_wait_seconds": null
     },
     "reason": "HTTP 403: source access stopped",
+    "resolved_at": "2026-11-22T05:01:58.479126+00:00",
     "retry_after": "2026-11-22T04:31:53.030411+00:00",
     "review_required": false,
-    "strikes": 1
-  },
-  "blocked_at": "2026-11-22T01:31:53.030399+00:00",
-  "diagnostics": {
-    "base_wait_seconds": 10800,
-    "http_status": 403,
-    "request_path": "https://www.zillow.com/homedetails/4895-Backbay-St-Suwanee-GA-30024/80158057_zpid/",
-    "response_headers": {
-      "Content-Type": "text/html",
-      "Server": "CloudFront",
-      "X-Amz-Cf-Id": "GKMqHTtDBBhYP6NURoB4lbUpnqAdOUrZGlBC0d1GFL2gVfrLo2WLMw=="
-    },
-    "response_kind": "human_verification",
-    "retry_after_header": "",
-    "server_wait_seconds": null
-  },
-  "reason": "HTTP 403: source access stopped",
-  "retry_after": "2026-11-22T04:31:53.030411+00:00",
-  "review_required": false,
-  "strikes": 1
+    "strikes": 0
+  }
 }

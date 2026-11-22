@@ -21466,6 +21466,22 @@
       "rows": 11
     },
     {
+      "path": "snapshots/2026-11-22/johns_creek-b0f8a06a6a0e7d3fc5a6040536a7e286b165b694a3dae201b490bbd5f5094577.json.gz",
+      "run_id": "b0f8a06a6a0e7d3fc5a6040536a7e286b165b694a3dae201b490bbd5f5094577",
+      "school": "johns_creek",
+      "observed_at": "2026-11-22T05:00:58.393025+00:00",
+      "quality": "source_complete",
+      "rows": 11
+    },
+    {
+      "path": "snapshots/2026-11-22/johns_creek-ca185b4b1f338070984169704f4d39d19c9453161a01c8ecc908152fb18305e4.json.gz",
+      "run_id": "ca185b4b1f338070984169704f4d39d19c9453161a01c8ecc908152fb18305e4",
+      "school": "johns_creek",
+      "observed_at": "2026-11-22T05:01:58.603277+00:00",
+      "quality": "source_complete",
+      "rows": 13
+    },
+    {
       "path": "snapshots/2026-11-22/north_gwinnett-74ff7864dd3c27ed78d6a217adea07c0f15cea42c7c128390e2cc89ac0a1f610.json.gz",
       "run_id": "74ff7864dd3c27ed78d6a217adea07c0f15cea42c7c128390e2cc89ac0a1f610",
       "school": "north_gwinnett",
@@ -21483,11 +21499,13 @@
     }
   ],
   "collection_status": {
-    "status": "cooldown",
-    "requests": 0,
+    "status": "complete",
+    "requests": 3,
+    "school": "johns_creek",
+    "error": null,
     "version": 1,
-    "checked_at": "2026-11-22T04:30:56.860812+00:00",
-    "last_source_attempt_at": "2026-11-22T01:30:52.501696+00:00",
+    "checked_at": "2026-11-22T05:01:58.856943+00:00",
+    "last_source_attempt_at": "2026-11-22T05:00:57.191586+00:00",
     "last_access_failure": {
       "blocked_at": "2026-11-22T01:31:53.030399+00:00",
       "diagnostics": {
@@ -21504,30 +21522,13 @@
         "server_wait_seconds": null
       },
       "reason": "HTTP 403: source access stopped",
+      "resolved_at": "2026-11-22T05:01:58.479126+00:00",
       "retry_after": "2026-11-22T04:31:53.030411+00:00",
       "review_required": false,
-      "strikes": 1
+      "strikes": 0
     },
-    "blocked_at": "2026-11-22T01:31:53.030399+00:00",
-    "diagnostics": {
-      "base_wait_seconds": 10800,
-      "http_status": 403,
-      "request_path": "https://www.zillow.com/homedetails/4895-Backbay-St-Suwanee-GA-30024/80158057_zpid/",
-      "response_headers": {
-        "Content-Type": "text/html",
-        "Server": "CloudFront",
-        "X-Amz-Cf-Id": "GKMqHTtDBBhYP6NURoB4lbUpnqAdOUrZGlBC0d1GFL2gVfrLo2WLMw=="
-      },
-      "response_kind": "human_verification",
-      "retry_after_header": "",
-      "server_wait_seconds": null
-    },
-    "reason": "HTTP 403: source access stopped",
-    "retry_after": "2026-11-22T04:31:53.030411+00:00",
-    "review_required": false,
-    "strikes": 1,
     "last_success_by_school": {
-      "johns_creek": "2026-11-22T00:01:02.398539+00:00",
+      "johns_creek": "2026-11-22T05:00:58.134258+00:00",
       "north_gwinnett": "2026-11-22T01:31:23.500764+00:00",
       "chattahoochee": "2026-11-22T00:30:51.175694+00:00",
       "northview": "2026-11-22T01:00:58.853139+00:00"
