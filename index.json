@@ -21466,6 +21466,14 @@
       "rows": 11
     },
     {
+      "path": "snapshots/2026-11-22/north_gwinnett-74ff7864dd3c27ed78d6a217adea07c0f15cea42c7c128390e2cc89ac0a1f610.json.gz",
+      "run_id": "74ff7864dd3c27ed78d6a217adea07c0f15cea42c7c128390e2cc89ac0a1f610",
+      "school": "north_gwinnett",
+      "observed_at": "2026-11-22T01:31:23.789484+00:00",
+      "quality": "source_complete",
+      "rows": 70
+    },
+    {
       "path": "snapshots/2026-11-22/northview-f6653480e6439ce6d032d3169f970e5736c7b62d13f753411a9b536dea9bc9cc.json.gz",
       "run_id": "f6653480e6439ce6d032d3169f970e5736c7b62d13f753411a9b536dea9bc9cc",
       "school": "northview",
@@ -21475,37 +21483,54 @@
     }
   ],
   "collection_status": {
-    "status": "complete",
-    "requests": 1,
-    "school": "northview",
-    "error": null,
+    "status": "blocked",
+    "requests": 3,
+    "school": "north_gwinnett",
+    "error": "HTTP 403: source access stopped",
     "version": 1,
-    "checked_at": "2026-11-22T01:00:59.616676+00:00",
-    "last_source_attempt_at": "2026-11-22T01:00:57.624128+00:00",
+    "checked_at": "2026-11-22T01:31:53.032355+00:00",
+    "last_source_attempt_at": "2026-11-22T01:30:52.501696+00:00",
     "last_access_failure": {
-      "blocked_at": "2026-11-21T07:31:38.881352+00:00",
+      "blocked_at": "2026-11-22T01:31:53.030399+00:00",
       "diagnostics": {
         "base_wait_seconds": 10800,
         "http_status": 403,
-        "request_path": "https://www.zillow.com/homedetails/120-N-Hillbrooke-Trl-Johns-Creek-GA-30005/14656765_zpid/",
+        "request_path": "https://www.zillow.com/homedetails/4895-Backbay-St-Suwanee-GA-30024/80158057_zpid/",
         "response_headers": {
           "Content-Type": "text/html",
           "Server": "CloudFront",
-          "X-Amz-Cf-Id": "U_RWCgC8aIiWjjUi_ZByX78eoXPSI8IxgaZ0b4-VJpZIlyUxMXUE6A=="
+          "X-Amz-Cf-Id": "GKMqHTtDBBhYP6NURoB4lbUpnqAdOUrZGlBC0d1GFL2gVfrLo2WLMw=="
         },
         "response_kind": "human_verification",
         "retry_after_header": "",
         "server_wait_seconds": null
       },
       "reason": "HTTP 403: source access stopped",
-      "resolved_at": "2026-11-21T11:01:12.552206+00:00",
-      "retry_after": "2026-11-21T10:31:38.881363+00:00",
+      "retry_after": "2026-11-22T04:31:53.030411+00:00",
       "review_required": false,
-      "strikes": 0
+      "strikes": 1
     },
+    "blocked_at": "2026-11-22T01:31:53.030399+00:00",
+    "diagnostics": {
+      "base_wait_seconds": 10800,
+      "http_status": 403,
+      "request_path": "https://www.zillow.com/homedetails/4895-Backbay-St-Suwanee-GA-30024/80158057_zpid/",
+      "response_headers": {
+        "Content-Type": "text/html",
+        "Server": "CloudFront",
+        "X-Amz-Cf-Id": "GKMqHTtDBBhYP6NURoB4lbUpnqAdOUrZGlBC0d1GFL2gVfrLo2WLMw=="
+      },
+      "response_kind": "human_verification",
+      "retry_after_header": "",
+      "server_wait_seconds": null
+    },
+    "reason": "HTTP 403: source access stopped",
+    "retry_after": "2026-11-22T04:31:53.030411+00:00",
+    "review_required": false,
+    "strikes": 1,
     "last_success_by_school": {
       "johns_creek": "2026-11-22T00:01:02.398539+00:00",
-      "north_gwinnett": "2026-11-21T23:31:23.116909+00:00",
+      "north_gwinnett": "2026-11-22T01:31:23.500764+00:00",
       "chattahoochee": "2026-11-22T00:30:51.175694+00:00",
       "northview": "2026-11-22T01:00:58.853139+00:00"
     }
