@@ -21498,10 +21498,26 @@
       "rows": 42
     },
     {
+      "path": "snapshots/2026-11-22/chattahoochee-cb47946489244c873c6524b1cf5ea88abc6a75ca87db6725e125f975d79e0c7e.json.gz",
+      "run_id": "cb47946489244c873c6524b1cf5ea88abc6a75ca87db6725e125f975d79e0c7e",
+      "school": "chattahoochee",
+      "observed_at": "2026-11-22T19:02:05.764920+00:00",
+      "quality": "source_complete",
+      "rows": 42
+    },
+    {
       "path": "snapshots/2026-11-22/chattahoochee-d7286c0627eac74dc8b19e20e84bc92866c4ee9803e6b8c5dec630d23f7e8f27.json.gz",
       "run_id": "d7286c0627eac74dc8b19e20e84bc92866c4ee9803e6b8c5dec630d23f7e8f27",
       "school": "chattahoochee",
       "observed_at": "2026-11-22T00:30:51.444418+00:00",
+      "quality": "source_complete",
+      "rows": 40
+    },
+    {
+      "path": "snapshots/2026-11-22/chattahoochee-dfdb64ba354d91f5cec26156af9050f97716ae7b6c6ce55acff8f0aead10a2fe.json.gz",
+      "run_id": "dfdb64ba354d91f5cec26156af9050f97716ae7b6c6ce55acff8f0aead10a2fe",
+      "school": "chattahoochee",
+      "observed_at": "2026-11-22T19:01:05.474385+00:00",
       "quality": "source_complete",
       "rows": 40
     },
@@ -21700,12 +21716,12 @@
   ],
   "collection_status": {
     "status": "complete",
-    "requests": 2,
-    "school": "johns_creek",
+    "requests": 3,
+    "school": "chattahoochee",
     "error": null,
     "version": 1,
-    "checked_at": "2026-11-22T18:31:25.515075+00:00",
-    "last_source_attempt_at": "2026-11-22T18:30:53.737470+00:00",
+    "checked_at": "2026-11-22T19:02:06.023640+00:00",
+    "last_source_attempt_at": "2026-11-22T19:01:04.370338+00:00",
     "last_access_failure": {
       "blocked_at": "2026-11-22T13:31:27.777639+00:00",
       "diagnostics": {
@@ -21730,7 +21746,7 @@
     "last_success_by_school": {
       "johns_creek": "2026-11-22T18:30:54.837655+00:00",
       "north_gwinnett": "2026-11-22T18:01:28.972197+00:00",
-      "chattahoochee": "2026-11-22T17:00:49.861713+00:00",
+      "chattahoochee": "2026-11-22T19:01:05.209527+00:00",
       "northview": "2026-11-22T17:30:49.474740+00:00"
     }
   }
