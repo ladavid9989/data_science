@@ -21643,12 +21643,10 @@
     }
   ],
   "collection_status": {
-    "status": "blocked",
-    "requests": 2,
-    "school": "johns_creek",
-    "error": "HTTP 403: source access stopped",
+    "status": "cooldown",
+    "requests": 0,
     "version": 1,
-    "checked_at": "2026-11-22T13:31:27.779416+00:00",
+    "checked_at": "2026-11-22T14:00:55.484800+00:00",
     "last_source_attempt_at": "2026-11-22T13:30:57.172550+00:00",
     "last_access_failure": {
       "blocked_at": "2026-11-22T13:31:27.777639+00:00",
