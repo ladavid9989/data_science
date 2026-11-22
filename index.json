@@ -21546,6 +21546,14 @@
       "rows": 11
     },
     {
+      "path": "snapshots/2026-11-22/johns_creek-42f422958b713c6da368c8c3a7666fc646a92c88a535b03d5533b635ac9d760b.json.gz",
+      "run_id": "42f422958b713c6da368c8c3a7666fc646a92c88a535b03d5533b635ac9d760b",
+      "school": "johns_creek",
+      "observed_at": "2026-11-22T23:31:00.357419+00:00",
+      "quality": "source_complete",
+      "rows": 11
+    },
+    {
       "path": "snapshots/2026-11-22/johns_creek-58dc9110058f2e91e3416d3d65d5e2a19619145dadf62a4ea66d61b895733047.json.gz",
       "run_id": "58dc9110058f2e91e3416d3d65d5e2a19619145dadf62a4ea66d61b895733047",
       "school": "johns_creek",
@@ -21731,11 +21739,13 @@
     }
   ],
   "collection_status": {
-    "status": "cooldown",
-    "requests": 0,
+    "status": "complete",
+    "requests": 1,
+    "school": "johns_creek",
+    "error": null,
     "version": 1,
-    "checked_at": "2026-11-22T23:00:58.627014+00:00",
-    "last_source_attempt_at": "2026-11-22T20:00:57.324295+00:00",
+    "checked_at": "2026-11-22T23:31:00.777374+00:00",
+    "last_source_attempt_at": "2026-11-22T23:30:59.169283+00:00",
     "last_access_failure": {
       "blocked_at": "2026-11-22T20:01:57.886276+00:00",
       "diagnostics": {
@@ -21752,30 +21762,13 @@
         "server_wait_seconds": null
       },
       "reason": "HTTP 403: source access stopped",
+      "resolved_at": "2026-11-22T23:31:00.687577+00:00",
       "retry_after": "2026-11-22T23:01:57.886288+00:00",
       "review_required": false,
-      "strikes": 1
+      "strikes": 0
     },
-    "blocked_at": "2026-11-22T20:01:57.886276+00:00",
-    "diagnostics": {
-      "base_wait_seconds": 10800,
-      "http_status": 403,
-      "request_path": "https://www.zillow.com/homedetails/3525-Hickory-Branch-Trl-Suwanee-GA-30024/14828472_zpid/",
-      "response_headers": {
-        "Content-Type": "text/html",
-        "Server": "CloudFront",
-        "X-Amz-Cf-Id": "e_A0NG-DeIX9w-r17AxV8NE0sbwdH5BJEozmnCpyAYPQpePJC20dgQ=="
-      },
-      "response_kind": "human_verification",
-      "retry_after_header": "",
-      "server_wait_seconds": null
-    },
-    "reason": "HTTP 403: source access stopped",
-    "retry_after": "2026-11-22T23:01:57.886288+00:00",
-    "review_required": false,
-    "strikes": 1,
     "last_success_by_school": {
-      "johns_creek": "2026-11-22T18:30:54.837655+00:00",
+      "johns_creek": "2026-11-22T23:31:00.158526+00:00",
       "north_gwinnett": "2026-11-22T20:01:28.125550+00:00",
       "chattahoochee": "2026-11-22T19:01:05.209527+00:00",
       "northview": "2026-11-22T19:31:04.513289+00:00"
