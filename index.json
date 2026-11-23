@@ -21826,6 +21826,14 @@
       "rows": 11
     },
     {
+      "path": "snapshots/2026-11-23/johns_creek-73ecbef5f7abd0416a2850f500139a4f826a7fb30618055722f6c09d04188153.json.gz",
+      "run_id": "73ecbef5f7abd0416a2850f500139a4f826a7fb30618055722f6c09d04188153",
+      "school": "johns_creek",
+      "observed_at": "2026-11-23T18:30:59.149547+00:00",
+      "quality": "source_complete",
+      "rows": 11
+    },
+    {
       "path": "snapshots/2026-11-23/johns_creek-c8d33b30195580ba2b8fb6b3903c0cd6951d7de36ddfda043bfa15c4de565a6f.json.gz",
       "run_id": "c8d33b30195580ba2b8fb6b3903c0cd6951d7de36ddfda043bfa15c4de565a6f",
       "school": "johns_creek",
@@ -21963,36 +21971,53 @@
     }
   ],
   "collection_status": {
-    "status": "checkpointed",
-    "requests": 3,
-    "school": "north_gwinnett",
-    "error": null,
+    "status": "blocked",
+    "requests": 2,
+    "school": "johns_creek",
+    "error": "HTTP 403: source access stopped",
     "version": 1,
-    "checked_at": "2026-11-23T18:02:03.798126+00:00",
-    "last_source_attempt_at": "2026-11-23T18:01:02.364666+00:00",
+    "checked_at": "2026-11-23T18:31:28.456935+00:00",
+    "last_source_attempt_at": "2026-11-23T18:30:57.865472+00:00",
     "last_access_failure": {
-      "blocked_at": "2026-11-23T14:01:41.551353+00:00",
+      "blocked_at": "2026-11-23T18:31:28.454423+00:00",
       "diagnostics": {
         "base_wait_seconds": 10800,
         "http_status": 403,
-        "request_path": "https://www.zillow.com/homedetails/5415-Taylor-Rd-Johns-Creek-GA-30022/14655523_zpid/",
+        "request_path": "https://www.zillow.com/homedetails/485-Weatherend-Ct-Johns-Creek-GA-30022/14679358_zpid/",
         "response_headers": {
           "Content-Type": "text/html",
           "Server": "CloudFront",
-          "X-Amz-Cf-Id": "5pUnZEQLcpgOAE2tByX8ygDXyubfy8kFM8r47eatPfmnzFVrZyWpfQ=="
+          "X-Amz-Cf-Id": "b57Q2KF-Sb0eS8AkSvVIM_BDbjRSNKM0hNECnQZrvTfGERKzoLSDJw=="
         },
         "response_kind": "human_verification",
         "retry_after_header": "",
         "server_wait_seconds": null
       },
       "reason": "HTTP 403: source access stopped",
-      "resolved_at": "2026-11-23T17:31:00.123973+00:00",
-      "retry_after": "2026-11-23T17:01:41.551367+00:00",
+      "retry_after": "2026-11-23T21:31:28.454435+00:00",
       "review_required": false,
-      "strikes": 0
+      "strikes": 1
     },
+    "blocked_at": "2026-11-23T18:31:28.454423+00:00",
+    "diagnostics": {
+      "base_wait_seconds": 10800,
+      "http_status": 403,
+      "request_path": "https://www.zillow.com/homedetails/485-Weatherend-Ct-Johns-Creek-GA-30022/14679358_zpid/",
+      "response_headers": {
+        "Content-Type": "text/html",
+        "Server": "CloudFront",
+        "X-Amz-Cf-Id": "b57Q2KF-Sb0eS8AkSvVIM_BDbjRSNKM0hNECnQZrvTfGERKzoLSDJw=="
+      },
+      "response_kind": "human_verification",
+      "retry_after_header": "",
+      "server_wait_seconds": null
+    },
+    "reason": "HTTP 403: source access stopped",
+    "retry_after": "2026-11-23T21:31:28.454435+00:00",
+    "review_required": false,
+    "strikes": 1,
     "last_success_by_school": {
-      "johns_creek": "2026-11-23T13:31:02.853641+00:00",
+      "johns_creek": "2026-11-23T18:30:58.875512+00:00",
       "north_gwinnett": "2026-11-23T18:01:33.270514+00:00",
       "chattahoochee": "2026-11-23T14:01:11.968499+00:00",
       "northview": "2026-11-23T17:30:59.484629+00:00"
