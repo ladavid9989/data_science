@@ -21786,6 +21786,14 @@
       "rows": 71
     },
     {
+      "path": "snapshots/2026-11-23/north_gwinnett-c5bde78e23c10afbc3852fca279e8af9d9e8754fe81f0792d8e8281e258d9efd.json.gz",
+      "run_id": "c5bde78e23c10afbc3852fca279e8af9d9e8754fe81f0792d8e8281e258d9efd",
+      "school": "north_gwinnett",
+      "observed_at": "2026-11-23T03:01:33.377576+00:00",
+      "quality": "source_complete",
+      "rows": 70
+    },
+    {
       "path": "snapshots/2026-11-23/northview-7ddfca53087c09dc5c8ce25440ebae5e82f1054a019148bd51481fe60a17681d.json.gz",
       "run_id": "7ddfca53087c09dc5c8ce25440ebae5e82f1054a019148bd51481fe60a17681d",
       "school": "northview",
@@ -21811,37 +21819,54 @@
     }
   ],
   "collection_status": {
-    "status": "complete",
-    "requests": 1,
-    "school": "northview",
-    "error": null,
+    "status": "blocked",
+    "requests": 3,
+    "school": "north_gwinnett",
+    "error": "HTTP 403: source access stopped",
     "version": 1,
-    "checked_at": "2026-11-23T02:30:57.765094+00:00",
-    "last_source_attempt_at": "2026-11-23T02:30:56.045373+00:00",
+    "checked_at": "2026-11-23T03:02:02.818161+00:00",
+    "last_source_attempt_at": "2026-11-23T03:01:02.258214+00:00",
     "last_access_failure": {
-      "blocked_at": "2026-11-22T20:01:57.886276+00:00",
+      "blocked_at": "2026-11-23T03:02:02.816599+00:00",
       "diagnostics": {
         "base_wait_seconds": 10800,
         "http_status": 403,
-        "request_path": "https://www.zillow.com/homedetails/3525-Hickory-Branch-Trl-Suwanee-GA-30024/14828472_zpid/",
+        "request_path": "https://www.zillow.com/homedetails/5260-Overbend-Trl-Suwanee-GA-30024/14840841_zpid/",
         "response_headers": {
           "Content-Type": "text/html",
           "Server": "CloudFront",
-          "X-Amz-Cf-Id": "e_A0NG-DeIX9w-r17AxV8NE0sbwdH5BJEozmnCpyAYPQpePJC20dgQ=="
+          "X-Amz-Cf-Id": "bQCZikC9wkdKsAIJEPmwBkTRkb8WeS88YIpNV1BETHtviblcihS9fw=="
         },
         "response_kind": "human_verification",
         "retry_after_header": "",
         "server_wait_seconds": null
       },
       "reason": "HTTP 403: source access stopped",
-      "resolved_at": "2026-11-22T23:31:00.687577+00:00",
-      "retry_after": "2026-11-22T23:01:57.886288+00:00",
+      "retry_after": "2026-11-23T06:02:02.816610+00:00",
       "review_required": false,
-      "strikes": 0
+      "strikes": 1
     },
+    "blocked_at": "2026-11-23T03:02:02.816599+00:00",
+    "diagnostics": {
+      "base_wait_seconds": 10800,
+      "http_status": 403,
+      "request_path": "https://www.zillow.com/homedetails/5260-Overbend-Trl-Suwanee-GA-30024/14840841_zpid/",
+      "response_headers": {
+        "Content-Type": "text/html",
+        "Server": "CloudFront",
+        "X-Amz-Cf-Id": "bQCZikC9wkdKsAIJEPmwBkTRkb8WeS88YIpNV1BETHtviblcihS9fw=="
+      },
+      "response_kind": "human_verification",
+      "retry_after_header": "",
+      "server_wait_seconds": null
+    },
+    "reason": "HTTP 403: source access stopped",
+    "retry_after": "2026-11-23T06:02:02.816610+00:00",
+    "review_required": false,
+    "strikes": 1,
     "last_success_by_school": {
       "johns_creek": "2026-11-23T01:30:55.174541+00:00",
-      "north_gwinnett": "2026-11-23T01:01:35.452065+00:00",
+      "north_gwinnett": "2026-11-23T03:01:33.089475+00:00",
       "chattahoochee": "2026-11-23T02:01:10.392644+00:00",
       "northview": "2026-11-23T02:30:57.112294+00:00"
     }
