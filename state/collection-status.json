@@ -1,30 +1,47 @@
 {
-  "status": "complete",
-  "requests": 3,
-  "school": "johns_creek",
-  "error": null,
+  "status": "blocked",
+  "requests": 2,
+  "school": "chattahoochee",
+  "error": "HTTP 403: source access stopped",
   "version": 1,
-  "checked_at": "2026-11-23T06:31:57.659053+00:00",
-  "last_source_attempt_at": "2026-11-23T06:30:55.910065+00:00",
+  "checked_at": "2026-11-23T07:01:37.720419+00:00",
+  "last_source_attempt_at": "2026-11-23T07:01:07.121381+00:00",
   "last_access_failure": {
-    "blocked_at": "2026-11-23T03:02:02.816599+00:00",
+    "blocked_at": "2026-11-23T07:01:37.716441+00:00",
     "diagnostics": {
       "base_wait_seconds": 10800,
       "http_status": 403,
-      "request_path": "https://www.zillow.com/homedetails/5260-Overbend-Trl-Suwanee-GA-30024/14840841_zpid/",
+      "request_path": "https://www.zillow.com/homedetails/225-W-Brookhollow-Ct-Alpharetta-GA-30022/450020382_zpid/",
       "response_headers": {
         "Content-Type": "text/html",
         "Server": "CloudFront",
-        "X-Amz-Cf-Id": "bQCZikC9wkdKsAIJEPmwBkTRkb8WeS88YIpNV1BETHtviblcihS9fw=="
+        "X-Amz-Cf-Id": "GQ332FquDljSNvIwAq9NSIrCMEVq0trnL-j_laGzuzbOVxmTDbK3WA=="
       },
       "response_kind": "human_verification",
       "retry_after_header": "",
       "server_wait_seconds": null
     },
     "reason": "HTTP 403: source access stopped",
-    "resolved_at": "2026-11-23T06:31:57.279841+00:00",
-    "retry_after": "2026-11-23T06:02:02.816610+00:00",
+    "retry_after": "2026-11-23T10:01:37.716453+00:00",
     "review_required": false,
-    "strikes": 0
-  }
+    "strikes": 1
+  },
+  "blocked_at": "2026-11-23T07:01:37.716441+00:00",
+  "diagnostics": {
+    "base_wait_seconds": 10800,
+    "http_status": 403,
+    "request_path": "https://www.zillow.com/homedetails/225-W-Brookhollow-Ct-Alpharetta-GA-30022/450020382_zpid/",
+    "response_headers": {
+      "Content-Type": "text/html",
+      "Server": "CloudFront",
+      "X-Amz-Cf-Id": "GQ332FquDljSNvIwAq9NSIrCMEVq0trnL-j_laGzuzbOVxmTDbK3WA=="
+    },
+    "response_kind": "human_verification",
+    "retry_after_header": "",
+    "server_wait_seconds": null
+  },
+  "reason": "HTTP 403: source access stopped",
+  "retry_after": "2026-11-23T10:01:37.716453+00:00",
+  "review_required": false,
+  "strikes": 1
 }
