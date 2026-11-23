@@ -21834,6 +21834,14 @@
       "rows": 13
     },
     {
+      "path": "snapshots/2026-11-23/johns_creek-4cce761847a3f7f5e0353c38ddbfdda6c9ac631f6f3e02cfdad14a4a7313ced8.json.gz",
+      "run_id": "4cce761847a3f7f5e0353c38ddbfdda6c9ac631f6f3e02cfdad14a4a7313ced8",
+      "school": "johns_creek",
+      "observed_at": "2026-11-23T23:30:58.932922+00:00",
+      "quality": "source_complete",
+      "rows": 11
+    },
+    {
       "path": "snapshots/2026-11-23/johns_creek-600dbdab474a630b5a94b7cb49cf1929d6559863848f547a8608bec7c9fcbbd6.json.gz",
       "run_id": "600dbdab474a630b5a94b7cb49cf1929d6559863848f547a8608bec7c9fcbbd6",
       "school": "johns_creek",
@@ -22011,15 +22019,15 @@
     }
   ],
   "collection_status": {
-    "status": "checkpointed",
-    "requests": 3,
-    "school": "north_gwinnett",
-    "error": null,
+    "status": "blocked",
+    "requests": 2,
+    "school": "johns_creek",
+    "error": "HTTP 403: source access stopped",
     "version": 1,
-    "checked_at": "2026-11-23T23:02:08.879515+00:00",
-    "last_source_attempt_at": "2026-11-23T23:01:06.984367+00:00",
+    "checked_at": "2026-11-23T23:31:28.265640+00:00",
+    "last_source_attempt_at": "2026-11-23T23:30:57.687140+00:00",
     "last_access_failure": {
-      "blocked_at": "2026-11-23T18:31:28.454423+00:00",
+      "blocked_at": "2026-11-23T23:31:28.261909+00:00",
       "diagnostics": {
         "base_wait_seconds": 10800,
         "http_status": 403,
@@ -22027,20 +22035,37 @@
         "response_headers": {
           "Content-Type": "text/html",
           "Server": "CloudFront",
-          "X-Amz-Cf-Id": "b57Q2KF-Sb0eS8AkSvVIM_BDbjRSNKM0hNECnQZrvTfGERKzoLSDJw=="
+          "X-Amz-Cf-Id": "AzjF8LsWoac32NNIDjV5kzUcQTt3hCcBDOVSZqSkX873U9XcXfn6YQ=="
         },
         "response_kind": "human_verification",
         "retry_after_header": "",
         "server_wait_seconds": null
       },
       "reason": "HTTP 403: source access stopped",
-      "resolved_at": "2026-11-23T22:01:59.398008+00:00",
-      "retry_after": "2026-11-23T21:31:28.454435+00:00",
+      "retry_after": "2026-11-24T02:31:28.261920+00:00",
       "review_required": false,
-      "strikes": 0
+      "strikes": 1
     },
+    "blocked_at": "2026-11-23T23:31:28.261909+00:00",
+    "diagnostics": {
+      "base_wait_seconds": 10800,
+      "http_status": 403,
+      "request_path": "https://www.zillow.com/homedetails/485-Weatherend-Ct-Johns-Creek-GA-30022/14679358_zpid/",
+      "response_headers": {
+        "Content-Type": "text/html",
+        "Server": "CloudFront",
+        "X-Amz-Cf-Id": "AzjF8LsWoac32NNIDjV5kzUcQTt3hCcBDOVSZqSkX873U9XcXfn6YQ=="
+      },
+      "response_kind": "human_verification",
+      "retry_after_header": "",
+      "server_wait_seconds": null
+    },
+    "reason": "HTTP 403: source access stopped",
+    "retry_after": "2026-11-24T02:31:28.261920+00:00",
+    "review_required": false,
+    "strikes": 1,
     "last_success_by_school": {
-      "johns_creek": "2026-11-23T18:30:58.875512+00:00",
+      "johns_creek": "2026-11-23T23:30:58.658925+00:00",
       "north_gwinnett": "2026-11-23T23:01:38.030564+00:00",
       "chattahoochee": "2026-11-23T22:00:59.167338+00:00",
       "northview": "2026-11-23T22:31:02.520423+00:00"
