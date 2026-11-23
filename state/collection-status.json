@@ -1,9 +1,11 @@
 {
-  "status": "cooldown",
-  "requests": 0,
+  "status": "complete",
+  "requests": 3,
+  "school": "chattahoochee",
+  "error": null,
   "version": 1,
-  "checked_at": "2026-11-23T21:30:58.546285+00:00",
-  "last_source_attempt_at": "2026-11-23T18:30:57.865472+00:00",
+  "checked_at": "2026-11-23T22:01:59.779337+00:00",
+  "last_source_attempt_at": "2026-11-23T22:00:58.115055+00:00",
   "last_access_failure": {
     "blocked_at": "2026-11-23T18:31:28.454423+00:00",
     "diagnostics": {
@@ -20,26 +22,9 @@
       "server_wait_seconds": null
     },
     "reason": "HTTP 403: source access stopped",
+    "resolved_at": "2026-11-23T22:01:59.398008+00:00",
     "retry_after": "2026-11-23T21:31:28.454435+00:00",
     "review_required": false,
-    "strikes": 1
-  },
-  "blocked_at": "2026-11-23T18:31:28.454423+00:00",
-  "diagnostics": {
-    "base_wait_seconds": 10800,
-    "http_status": 403,
-    "request_path": "https://www.zillow.com/homedetails/485-Weatherend-Ct-Johns-Creek-GA-30022/14679358_zpid/",
-    "response_headers": {
-      "Content-Type": "text/html",
-      "Server": "CloudFront",
-      "X-Amz-Cf-Id": "b57Q2KF-Sb0eS8AkSvVIM_BDbjRSNKM0hNECnQZrvTfGERKzoLSDJw=="
-    },
-    "response_kind": "human_verification",
-    "retry_after_header": "",
-    "server_wait_seconds": null
-  },
-  "reason": "HTTP 403: source access stopped",
-  "retry_after": "2026-11-23T21:31:28.454435+00:00",
-  "review_required": false,
-  "strikes": 1
+    "strikes": 0
+  }
 }

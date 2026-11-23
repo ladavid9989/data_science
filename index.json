@@ -21778,6 +21778,22 @@
       "rows": 40
     },
     {
+      "path": "snapshots/2026-11-23/chattahoochee-5c4e91da2f3365f074f43462e7eef53c45f99a368ba3de6216b8153cb78feb0a.json.gz",
+      "run_id": "5c4e91da2f3365f074f43462e7eef53c45f99a368ba3de6216b8153cb78feb0a",
+      "school": "chattahoochee",
+      "observed_at": "2026-11-23T22:01:59.523242+00:00",
+      "quality": "source_complete",
+      "rows": 42
+    },
+    {
+      "path": "snapshots/2026-11-23/chattahoochee-73ac831f39ba3038545ee140c4a571255f2d4659d6b96b5aeef45e93eff38144.json.gz",
+      "run_id": "73ac831f39ba3038545ee140c4a571255f2d4659d6b96b5aeef45e93eff38144",
+      "school": "chattahoochee",
+      "observed_at": "2026-11-23T22:00:59.431531+00:00",
+      "quality": "source_complete",
+      "rows": 40
+    },
+    {
       "path": "snapshots/2026-11-23/chattahoochee-b9ef459f915a37b7da87c16e3004d79e10771538284dceff241d2ed79d14ffc5.json.gz",
       "run_id": "b9ef459f915a37b7da87c16e3004d79e10771538284dceff241d2ed79d14ffc5",
       "school": "chattahoochee",
@@ -21971,11 +21987,13 @@
     }
   ],
   "collection_status": {
-    "status": "cooldown",
-    "requests": 0,
+    "status": "complete",
+    "requests": 3,
+    "school": "chattahoochee",
+    "error": null,
     "version": 1,
-    "checked_at": "2026-11-23T21:30:58.546285+00:00",
-    "last_source_attempt_at": "2026-11-23T18:30:57.865472+00:00",
+    "checked_at": "2026-11-23T22:01:59.779337+00:00",
+    "last_source_attempt_at": "2026-11-23T22:00:58.115055+00:00",
     "last_access_failure": {
       "blocked_at": "2026-11-23T18:31:28.454423+00:00",
       "diagnostics": {
@@ -21992,32 +22010,15 @@
         "server_wait_seconds": null
       },
       "reason": "HTTP 403: source access stopped",
+      "resolved_at": "2026-11-23T22:01:59.398008+00:00",
       "retry_after": "2026-11-23T21:31:28.454435+00:00",
       "review_required": false,
-      "strikes": 1
+      "strikes": 0
     },
-    "blocked_at": "2026-11-23T18:31:28.454423+00:00",
-    "diagnostics": {
-      "base_wait_seconds": 10800,
-      "http_status": 403,
-      "request_path": "https://www.zillow.com/homedetails/485-Weatherend-Ct-Johns-Creek-GA-30022/14679358_zpid/",
-      "response_headers": {
-        "Content-Type": "text/html",
-        "Server": "CloudFront",
-        "X-Amz-Cf-Id": "b57Q2KF-Sb0eS8AkSvVIM_BDbjRSNKM0hNECnQZrvTfGERKzoLSDJw=="
-      },
-      "response_kind": "human_verification",
-      "retry_after_header": "",
-      "server_wait_seconds": null
-    },
-    "reason": "HTTP 403: source access stopped",
-    "retry_after": "2026-11-23T21:31:28.454435+00:00",
-    "review_required": false,
-    "strikes": 1,
     "last_success_by_school": {
       "johns_creek": "2026-11-23T18:30:58.875512+00:00",
       "north_gwinnett": "2026-11-23T18:01:33.270514+00:00",
-      "chattahoochee": "2026-11-23T14:01:11.968499+00:00",
+      "chattahoochee": "2026-11-23T22:00:59.167338+00:00",
       "northview": "2026-11-23T17:30:59.484629+00:00"
     }
   }
