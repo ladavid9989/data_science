@@ -21834,6 +21834,14 @@
       "rows": 18
     },
     {
+      "path": "snapshots/2026-11-23/northview-b88308a8d1885de881b43847f3ed03b461d31a0ec673ad72051fed97b803c1ae.json.gz",
+      "run_id": "b88308a8d1885de881b43847f3ed03b461d31a0ec673ad72051fed97b803c1ae",
+      "school": "northview",
+      "observed_at": "2026-11-23T10:31:04.493358+00:00",
+      "quality": "source_complete",
+      "rows": 18
+    },
+    {
       "path": "snapshots/2026-11-23/northview-bbd1e95d66a1de911445b3204955e6c44a6f06253eae1181880ae6df80c40c88.json.gz",
       "run_id": "bbd1e95d66a1de911445b3204955e6c44a6f06253eae1181880ae6df80c40c88",
       "school": "northview",
@@ -21843,11 +21851,13 @@
     }
   ],
   "collection_status": {
-    "status": "cooldown",
-    "requests": 0,
+    "status": "complete",
+    "requests": 1,
+    "school": "northview",
+    "error": null,
     "version": 1,
-    "checked_at": "2026-11-23T10:01:08.902397+00:00",
-    "last_source_attempt_at": "2026-11-23T07:01:07.121381+00:00",
+    "checked_at": "2026-11-23T10:31:04.997252+00:00",
+    "last_source_attempt_at": "2026-11-23T10:31:03.293969+00:00",
     "last_access_failure": {
       "blocked_at": "2026-11-23T07:01:37.716441+00:00",
       "diagnostics": {
@@ -21864,33 +21874,16 @@
         "server_wait_seconds": null
       },
       "reason": "HTTP 403: source access stopped",
+      "resolved_at": "2026-11-23T10:31:04.872129+00:00",
       "retry_after": "2026-11-23T10:01:37.716453+00:00",
       "review_required": false,
-      "strikes": 1
+      "strikes": 0
     },
-    "blocked_at": "2026-11-23T07:01:37.716441+00:00",
-    "diagnostics": {
-      "base_wait_seconds": 10800,
-      "http_status": 403,
-      "request_path": "https://www.zillow.com/homedetails/225-W-Brookhollow-Ct-Alpharetta-GA-30022/450020382_zpid/",
-      "response_headers": {
-        "Content-Type": "text/html",
-        "Server": "CloudFront",
-        "X-Amz-Cf-Id": "GQ332FquDljSNvIwAq9NSIrCMEVq0trnL-j_laGzuzbOVxmTDbK3WA=="
-      },
-      "response_kind": "human_verification",
-      "retry_after_header": "",
-      "server_wait_seconds": null
-    },
-    "reason": "HTTP 403: source access stopped",
-    "retry_after": "2026-11-23T10:01:37.716453+00:00",
-    "review_required": false,
-    "strikes": 1,
     "last_success_by_school": {
       "johns_creek": "2026-11-23T06:30:57.618389+00:00",
       "north_gwinnett": "2026-11-23T03:01:33.089475+00:00",
       "chattahoochee": "2026-11-23T07:01:08.097979+00:00",
-      "northview": "2026-11-23T02:30:57.112294+00:00"
+      "northview": "2026-11-23T10:31:04.236313+00:00"
     }
   }
 }
