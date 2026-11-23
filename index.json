@@ -21754,6 +21754,14 @@
       "rows": 40
     },
     {
+      "path": "snapshots/2026-11-23/chattahoochee-22df16a935968bbaaf16f861a2733f1e150cea622af246b7ca945b192a268688.json.gz",
+      "run_id": "22df16a935968bbaaf16f861a2733f1e150cea622af246b7ca945b192a268688",
+      "school": "chattahoochee",
+      "observed_at": "2026-11-23T14:01:12.248561+00:00",
+      "quality": "source_complete",
+      "rows": 40
+    },
+    {
       "path": "snapshots/2026-11-23/chattahoochee-3d7109afe69a428cfc3cc82c4aaed7e9d14673e1facc5ca2bbfe52a90bba54da.json.gz",
       "run_id": "3d7109afe69a428cfc3cc82c4aaed7e9d14673e1facc5ca2bbfe52a90bba54da",
       "school": "chattahoochee",
@@ -21931,38 +21939,55 @@
     }
   ],
   "collection_status": {
-    "status": "complete",
-    "requests": 1,
-    "school": "johns_creek",
-    "error": null,
+    "status": "blocked",
+    "requests": 2,
+    "school": "chattahoochee",
+    "error": "HTTP 403: source access stopped",
     "version": 1,
-    "checked_at": "2026-11-23T13:31:03.988771+00:00",
-    "last_source_attempt_at": "2026-11-23T13:31:01.612514+00:00",
+    "checked_at": "2026-11-23T14:01:41.555272+00:00",
+    "last_source_attempt_at": "2026-11-23T14:01:10.898785+00:00",
     "last_access_failure": {
-      "blocked_at": "2026-11-23T07:01:37.716441+00:00",
+      "blocked_at": "2026-11-23T14:01:41.551353+00:00",
       "diagnostics": {
         "base_wait_seconds": 10800,
         "http_status": 403,
-        "request_path": "https://www.zillow.com/homedetails/225-W-Brookhollow-Ct-Alpharetta-GA-30022/450020382_zpid/",
+        "request_path": "https://www.zillow.com/homedetails/5415-Taylor-Rd-Johns-Creek-GA-30022/14655523_zpid/",
         "response_headers": {
           "Content-Type": "text/html",
           "Server": "CloudFront",
-          "X-Amz-Cf-Id": "GQ332FquDljSNvIwAq9NSIrCMEVq0trnL-j_laGzuzbOVxmTDbK3WA=="
+          "X-Amz-Cf-Id": "5pUnZEQLcpgOAE2tByX8ygDXyubfy8kFM8r47eatPfmnzFVrZyWpfQ=="
         },
         "response_kind": "human_verification",
         "retry_after_header": "",
         "server_wait_seconds": null
       },
       "reason": "HTTP 403: source access stopped",
-      "resolved_at": "2026-11-23T10:31:04.872129+00:00",
-      "retry_after": "2026-11-23T10:01:37.716453+00:00",
+      "retry_after": "2026-11-23T17:01:41.551367+00:00",
       "review_required": false,
-      "strikes": 0
+      "strikes": 1
     },
+    "blocked_at": "2026-11-23T14:01:41.551353+00:00",
+    "diagnostics": {
+      "base_wait_seconds": 10800,
+      "http_status": 403,
+      "request_path": "https://www.zillow.com/homedetails/5415-Taylor-Rd-Johns-Creek-GA-30022/14655523_zpid/",
+      "response_headers": {
+        "Content-Type": "text/html",
+        "Server": "CloudFront",
+        "X-Amz-Cf-Id": "5pUnZEQLcpgOAE2tByX8ygDXyubfy8kFM8r47eatPfmnzFVrZyWpfQ=="
+      },
+      "response_kind": "human_verification",
+      "retry_after_header": "",
+      "server_wait_seconds": null
+    },
+    "reason": "HTTP 403: source access stopped",
+    "retry_after": "2026-11-23T17:01:41.551367+00:00",
+    "review_required": false,
+    "strikes": 1,
     "last_success_by_school": {
       "johns_creek": "2026-11-23T13:31:02.853641+00:00",
       "north_gwinnett": "2026-11-23T13:01:34.739348+00:00",
-      "chattahoochee": "2026-11-23T12:01:05.777176+00:00",
+      "chattahoochee": "2026-11-23T14:01:11.968499+00:00",
       "northview": "2026-11-23T12:31:09.163347+00:00"
     }
   }
