@@ -21898,6 +21898,14 @@
       "rows": 70
     },
     {
+      "path": "snapshots/2026-11-23/northview-20b7f7667ed0c167cc5325bf6d3d8acaec758b692152679d949a70c4cf3ca2e3.json.gz",
+      "run_id": "20b7f7667ed0c167cc5325bf6d3d8acaec758b692152679d949a70c4cf3ca2e3",
+      "school": "northview",
+      "observed_at": "2026-11-23T17:30:59.742790+00:00",
+      "quality": "source_complete",
+      "rows": 18
+    },
+    {
       "path": "snapshots/2026-11-23/northview-62140f6db7101d3773522c97af20239c9d0287fe82b5aa1267988afb528f4a15.json.gz",
       "run_id": "62140f6db7101d3773522c97af20239c9d0287fe82b5aa1267988afb528f4a15",
       "school": "northview",
@@ -21939,11 +21947,13 @@
     }
   ],
   "collection_status": {
-    "status": "cooldown",
-    "requests": 0,
+    "status": "complete",
+    "requests": 1,
+    "school": "northview",
+    "error": null,
     "version": 1,
-    "checked_at": "2026-11-23T17:01:14.902805+00:00",
-    "last_source_attempt_at": "2026-11-23T14:01:10.898785+00:00",
+    "checked_at": "2026-11-23T17:31:00.249270+00:00",
+    "last_source_attempt_at": "2026-11-23T17:30:58.516459+00:00",
     "last_access_failure": {
       "blocked_at": "2026-11-23T14:01:41.551353+00:00",
       "diagnostics": {
@@ -21960,33 +21970,16 @@
         "server_wait_seconds": null
       },
       "reason": "HTTP 403: source access stopped",
+      "resolved_at": "2026-11-23T17:31:00.123973+00:00",
       "retry_after": "2026-11-23T17:01:41.551367+00:00",
       "review_required": false,
-      "strikes": 1
+      "strikes": 0
     },
-    "blocked_at": "2026-11-23T14:01:41.551353+00:00",
-    "diagnostics": {
-      "base_wait_seconds": 10800,
-      "http_status": 403,
-      "request_path": "https://www.zillow.com/homedetails/5415-Taylor-Rd-Johns-Creek-GA-30022/14655523_zpid/",
-      "response_headers": {
-        "Content-Type": "text/html",
-        "Server": "CloudFront",
-        "X-Amz-Cf-Id": "5pUnZEQLcpgOAE2tByX8ygDXyubfy8kFM8r47eatPfmnzFVrZyWpfQ=="
-      },
-      "response_kind": "human_verification",
-      "retry_after_header": "",
-      "server_wait_seconds": null
-    },
-    "reason": "HTTP 403: source access stopped",
-    "retry_after": "2026-11-23T17:01:41.551367+00:00",
-    "review_required": false,
-    "strikes": 1,
     "last_success_by_school": {
       "johns_creek": "2026-11-23T13:31:02.853641+00:00",
       "north_gwinnett": "2026-11-23T13:01:34.739348+00:00",
       "chattahoochee": "2026-11-23T14:01:11.968499+00:00",
-      "northview": "2026-11-23T12:31:09.163347+00:00"
+      "northview": "2026-11-23T17:30:59.484629+00:00"
     }
   }
 }
