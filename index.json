@@ -21843,12 +21843,10 @@
     }
   ],
   "collection_status": {
-    "status": "blocked",
-    "requests": 2,
-    "school": "chattahoochee",
-    "error": "HTTP 403: source access stopped",
+    "status": "cooldown",
+    "requests": 0,
     "version": 1,
-    "checked_at": "2026-11-23T07:01:37.720419+00:00",
+    "checked_at": "2026-11-23T07:31:02.807235+00:00",
     "last_source_attempt_at": "2026-11-23T07:01:07.121381+00:00",
     "last_access_failure": {
       "blocked_at": "2026-11-23T07:01:37.716441+00:00",
