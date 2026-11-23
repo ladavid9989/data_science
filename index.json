@@ -21762,12 +21762,28 @@
       "rows": 40
     },
     {
+      "path": "snapshots/2026-11-23/johns_creek-1802159e68acf90cd1a27f5cd411e22d89cd836e012607d13cc24a42d9b4347e.json.gz",
+      "run_id": "1802159e68acf90cd1a27f5cd411e22d89cd836e012607d13cc24a42d9b4347e",
+      "school": "johns_creek",
+      "observed_at": "2026-11-23T06:30:57.883653+00:00",
+      "quality": "source_complete",
+      "rows": 11
+    },
+    {
       "path": "snapshots/2026-11-23/johns_creek-600dbdab474a630b5a94b7cb49cf1929d6559863848f547a8608bec7c9fcbbd6.json.gz",
       "run_id": "600dbdab474a630b5a94b7cb49cf1929d6559863848f547a8608bec7c9fcbbd6",
       "school": "johns_creek",
       "observed_at": "2026-11-23T01:30:55.449642+00:00",
       "quality": "source_complete",
       "rows": 11
+    },
+    {
+      "path": "snapshots/2026-11-23/johns_creek-e703ed130a588fe9b6d145de310bb132701a2ef03e0ac915a26aac9ff10908d9.json.gz",
+      "run_id": "e703ed130a588fe9b6d145de310bb132701a2ef03e0ac915a26aac9ff10908d9",
+      "school": "johns_creek",
+      "observed_at": "2026-11-23T06:31:57.405405+00:00",
+      "quality": "source_complete",
+      "rows": 13
     },
     {
       "path": "snapshots/2026-11-23/north_gwinnett-55a1a82c2ee90e5fc083311dae524e307aad7e9ef7368423ae79495dc80f84eb.json.gz",
@@ -21819,11 +21835,13 @@
     }
   ],
   "collection_status": {
-    "status": "cooldown",
-    "requests": 0,
+    "status": "complete",
+    "requests": 3,
+    "school": "johns_creek",
+    "error": null,
     "version": 1,
-    "checked_at": "2026-11-23T06:01:00.241077+00:00",
-    "last_source_attempt_at": "2026-11-23T03:01:02.258214+00:00",
+    "checked_at": "2026-11-23T06:31:57.659053+00:00",
+    "last_source_attempt_at": "2026-11-23T06:30:55.910065+00:00",
     "last_access_failure": {
       "blocked_at": "2026-11-23T03:02:02.816599+00:00",
       "diagnostics": {
@@ -21840,30 +21858,13 @@
         "server_wait_seconds": null
       },
       "reason": "HTTP 403: source access stopped",
+      "resolved_at": "2026-11-23T06:31:57.279841+00:00",
       "retry_after": "2026-11-23T06:02:02.816610+00:00",
       "review_required": false,
-      "strikes": 1
+      "strikes": 0
     },
-    "blocked_at": "2026-11-23T03:02:02.816599+00:00",
-    "diagnostics": {
-      "base_wait_seconds": 10800,
-      "http_status": 403,
-      "request_path": "https://www.zillow.com/homedetails/5260-Overbend-Trl-Suwanee-GA-30024/14840841_zpid/",
-      "response_headers": {
-        "Content-Type": "text/html",
-        "Server": "CloudFront",
-        "X-Amz-Cf-Id": "bQCZikC9wkdKsAIJEPmwBkTRkb8WeS88YIpNV1BETHtviblcihS9fw=="
-      },
-      "response_kind": "human_verification",
-      "retry_after_header": "",
-      "server_wait_seconds": null
-    },
-    "reason": "HTTP 403: source access stopped",
-    "retry_after": "2026-11-23T06:02:02.816610+00:00",
-    "review_required": false,
-    "strikes": 1,
     "last_success_by_school": {
-      "johns_creek": "2026-11-23T01:30:55.174541+00:00",
+      "johns_creek": "2026-11-23T06:30:57.618389+00:00",
       "north_gwinnett": "2026-11-23T03:01:33.089475+00:00",
       "chattahoochee": "2026-11-23T02:01:10.392644+00:00",
       "northview": "2026-11-23T02:30:57.112294+00:00"

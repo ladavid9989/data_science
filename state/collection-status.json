@@ -1,9 +1,11 @@
 {
-  "status": "cooldown",
-  "requests": 0,
+  "status": "complete",
+  "requests": 3,
+  "school": "johns_creek",
+  "error": null,
   "version": 1,
-  "checked_at": "2026-11-23T06:01:00.241077+00:00",
-  "last_source_attempt_at": "2026-11-23T03:01:02.258214+00:00",
+  "checked_at": "2026-11-23T06:31:57.659053+00:00",
+  "last_source_attempt_at": "2026-11-23T06:30:55.910065+00:00",
   "last_access_failure": {
     "blocked_at": "2026-11-23T03:02:02.816599+00:00",
     "diagnostics": {
@@ -20,26 +22,9 @@
       "server_wait_seconds": null
     },
     "reason": "HTTP 403: source access stopped",
+    "resolved_at": "2026-11-23T06:31:57.279841+00:00",
     "retry_after": "2026-11-23T06:02:02.816610+00:00",
     "review_required": false,
-    "strikes": 1
-  },
-  "blocked_at": "2026-11-23T03:02:02.816599+00:00",
-  "diagnostics": {
-    "base_wait_seconds": 10800,
-    "http_status": 403,
-    "request_path": "https://www.zillow.com/homedetails/5260-Overbend-Trl-Suwanee-GA-30024/14840841_zpid/",
-    "response_headers": {
-      "Content-Type": "text/html",
-      "Server": "CloudFront",
-      "X-Amz-Cf-Id": "bQCZikC9wkdKsAIJEPmwBkTRkb8WeS88YIpNV1BETHtviblcihS9fw=="
-    },
-    "response_kind": "human_verification",
-    "retry_after_header": "",
-    "server_wait_seconds": null
-  },
-  "reason": "HTTP 403: source access stopped",
-  "retry_after": "2026-11-23T06:02:02.816610+00:00",
-  "review_required": false,
-  "strikes": 1
+    "strikes": 0
+  }
 }
