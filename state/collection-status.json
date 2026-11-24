@@ -1,30 +1,47 @@
 {
-  "status": "complete",
+  "status": "blocked",
   "requests": 2,
-  "school": "johns_creek",
-  "error": null,
+  "school": "chattahoochee",
+  "error": "HTTP 403: source access stopped",
   "version": 1,
-  "checked_at": "2026-11-24T04:31:28.548189+00:00",
-  "last_source_attempt_at": "2026-11-24T04:30:56.973909+00:00",
+  "checked_at": "2026-11-24T05:01:25.605097+00:00",
+  "last_source_attempt_at": "2026-11-24T05:00:55.005974+00:00",
   "last_access_failure": {
-    "blocked_at": "2026-11-23T23:31:28.261909+00:00",
+    "blocked_at": "2026-11-24T05:01:25.601323+00:00",
     "diagnostics": {
       "base_wait_seconds": 10800,
       "http_status": 403,
-      "request_path": "https://www.zillow.com/homedetails/485-Weatherend-Ct-Johns-Creek-GA-30022/14679358_zpid/",
+      "request_path": "https://www.zillow.com/homedetails/120-N-Hillbrooke-Trl-Johns-Creek-GA-30005/14656765_zpid/",
       "response_headers": {
         "Content-Type": "text/html",
         "Server": "CloudFront",
-        "X-Amz-Cf-Id": "AzjF8LsWoac32NNIDjV5kzUcQTt3hCcBDOVSZqSkX873U9XcXfn6YQ=="
+        "X-Amz-Cf-Id": "tAcxLhIuun2nGFCiGPPc7htsns5E0wCfjh7Qqh8HIK_uZfPJzkOVNQ=="
       },
       "response_kind": "human_verification",
       "retry_after_header": "",
       "server_wait_seconds": null
     },
     "reason": "HTTP 403: source access stopped",
-    "resolved_at": "2026-11-24T03:02:05.714699+00:00",
-    "retry_after": "2026-11-24T02:31:28.261920+00:00",
+    "retry_after": "2026-11-24T08:01:25.601335+00:00",
     "review_required": false,
-    "strikes": 0
-  }
+    "strikes": 1
+  },
+  "blocked_at": "2026-11-24T05:01:25.601323+00:00",
+  "diagnostics": {
+    "base_wait_seconds": 10800,
+    "http_status": 403,
+    "request_path": "https://www.zillow.com/homedetails/120-N-Hillbrooke-Trl-Johns-Creek-GA-30005/14656765_zpid/",
+    "response_headers": {
+      "Content-Type": "text/html",
+      "Server": "CloudFront",
+      "X-Amz-Cf-Id": "tAcxLhIuun2nGFCiGPPc7htsns5E0wCfjh7Qqh8HIK_uZfPJzkOVNQ=="
+    },
+    "response_kind": "human_verification",
+    "retry_after_header": "",
+    "server_wait_seconds": null
+  },
+  "reason": "HTTP 403: source access stopped",
+  "retry_after": "2026-11-24T08:01:25.601335+00:00",
+  "review_required": false,
+  "strikes": 1
 }
