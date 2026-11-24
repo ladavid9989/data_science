@@ -22088,14 +22088,24 @@
       "observed_at": "2026-11-24T03:31:00.157543+00:00",
       "quality": "source_complete",
       "rows": 18
+    },
+    {
+      "path": "snapshots/2026-11-24/northview-febb7983b17bbd387af35e9906a70e3ccd4ca9d38a87da8b1e5f89be425eccae.json.gz",
+      "run_id": "febb7983b17bbd387af35e9906a70e3ccd4ca9d38a87da8b1e5f89be425eccae",
+      "school": "northview",
+      "observed_at": "2026-11-24T08:31:00.427694+00:00",
+      "quality": "source_complete",
+      "rows": 18
     }
   ],
   "collection_status": {
-    "status": "cooldown",
-    "requests": 0,
+    "status": "complete",
+    "requests": 1,
+    "school": "northview",
+    "error": null,
     "version": 1,
-    "checked_at": "2026-11-24T08:01:03.032656+00:00",
-    "last_source_attempt_at": "2026-11-24T05:00:55.005974+00:00",
+    "checked_at": "2026-11-24T08:31:00.982109+00:00",
+    "last_source_attempt_at": "2026-11-24T08:30:59.141884+00:00",
     "last_access_failure": {
       "blocked_at": "2026-11-24T05:01:25.601323+00:00",
       "diagnostics": {
@@ -22112,33 +22122,16 @@
         "server_wait_seconds": null
       },
       "reason": "HTTP 403: source access stopped",
+      "resolved_at": "2026-11-24T08:31:00.845091+00:00",
       "retry_after": "2026-11-24T08:01:25.601335+00:00",
       "review_required": false,
-      "strikes": 1
+      "strikes": 0
     },
-    "blocked_at": "2026-11-24T05:01:25.601323+00:00",
-    "diagnostics": {
-      "base_wait_seconds": 10800,
-      "http_status": 403,
-      "request_path": "https://www.zillow.com/homedetails/120-N-Hillbrooke-Trl-Johns-Creek-GA-30005/14656765_zpid/",
-      "response_headers": {
-        "Content-Type": "text/html",
-        "Server": "CloudFront",
-        "X-Amz-Cf-Id": "tAcxLhIuun2nGFCiGPPc7htsns5E0wCfjh7Qqh8HIK_uZfPJzkOVNQ=="
-      },
-      "response_kind": "human_verification",
-      "retry_after_header": "",
-      "server_wait_seconds": null
-    },
-    "reason": "HTTP 403: source access stopped",
-    "retry_after": "2026-11-24T08:01:25.601335+00:00",
-    "review_required": false,
-    "strikes": 1,
     "last_success_by_school": {
       "johns_creek": "2026-11-24T04:30:57.897757+00:00",
       "north_gwinnett": "2026-11-24T04:01:31.670834+00:00",
       "chattahoochee": "2026-11-24T05:00:56.429563+00:00",
-      "northview": "2026-11-24T03:30:59.910623+00:00"
+      "northview": "2026-11-24T08:31:00.163559+00:00"
     }
   }
 }
