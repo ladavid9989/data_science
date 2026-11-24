@@ -22170,6 +22170,14 @@
       "rows": 18
     },
     {
+      "path": "snapshots/2026-11-24/northview-caf7a33c0414cd0226d3e3b74bdc21581d1aca6c05281393be8a16ac6514c725.json.gz",
+      "run_id": "caf7a33c0414cd0226d3e3b74bdc21581d1aca6c05281393be8a16ac6514c725",
+      "school": "northview",
+      "observed_at": "2026-11-24T18:31:07.092697+00:00",
+      "quality": "source_complete",
+      "rows": 18
+    },
+    {
       "path": "snapshots/2026-11-24/northview-fc96761df6bc3d0d4dfc1df91eaff4c78470c509c5551e84fa23d516e6e0dc99.json.gz",
       "run_id": "fc96761df6bc3d0d4dfc1df91eaff4c78470c509c5551e84fa23d516e6e0dc99",
       "school": "northview",
@@ -22187,11 +22195,13 @@
     }
   ],
   "collection_status": {
-    "status": "cooldown",
-    "requests": 0,
+    "status": "complete",
+    "requests": 1,
+    "school": "northview",
+    "error": null,
     "version": 1,
-    "checked_at": "2026-11-24T18:01:09.962023+00:00",
-    "last_source_attempt_at": "2026-11-24T15:01:07.833340+00:00",
+    "checked_at": "2026-11-24T18:31:07.615675+00:00",
+    "last_source_attempt_at": "2026-11-24T18:31:05.502178+00:00",
     "last_access_failure": {
       "blocked_at": "2026-11-24T15:01:38.437780+00:00",
       "diagnostics": {
@@ -22208,33 +22218,16 @@
         "server_wait_seconds": null
       },
       "reason": "HTTP 403: source access stopped",
+      "resolved_at": "2026-11-24T18:31:07.488775+00:00",
       "retry_after": "2026-11-24T18:01:38.437792+00:00",
       "review_required": false,
-      "strikes": 1
+      "strikes": 0
     },
-    "blocked_at": "2026-11-24T15:01:38.437780+00:00",
-    "diagnostics": {
-      "base_wait_seconds": 10800,
-      "http_status": 403,
-      "request_path": "https://www.zillow.com/homedetails/120-N-Hillbrooke-Trl-Johns-Creek-GA-30005/14656765_zpid/",
-      "response_headers": {
-        "Content-Type": "text/html",
-        "Server": "CloudFront",
-        "X-Amz-Cf-Id": "zFLpCCv26shAxwFwJ7SGfrCaGlIyqUT2Dm9aL4V3ljWcEpQ9Tcg5sA=="
-      },
-      "response_kind": "human_verification",
-      "retry_after_header": "",
-      "server_wait_seconds": null
-    },
-    "reason": "HTTP 403: source access stopped",
-    "retry_after": "2026-11-24T18:01:38.437792+00:00",
-    "review_required": false,
-    "strikes": 1,
     "last_success_by_school": {
       "johns_creek": "2026-11-24T14:31:01.296976+00:00",
       "north_gwinnett": "2026-11-24T14:01:36.222327+00:00",
       "chattahoochee": "2026-11-24T15:01:08.743923+00:00",
-      "northview": "2026-11-24T13:31:05.417379+00:00"
+      "northview": "2026-11-24T18:31:06.793239+00:00"
     }
   }
 }
