@@ -1,30 +1,47 @@
 {
-  "status": "complete",
-  "requests": 1,
-  "school": "johns_creek",
-  "error": null,
+  "status": "blocked",
+  "requests": 2,
+  "school": "chattahoochee",
+  "error": "HTTP 403: source access stopped",
   "version": 1,
-  "checked_at": "2026-11-24T19:31:03.958063+00:00",
-  "last_source_attempt_at": "2026-11-24T19:31:02.361047+00:00",
+  "checked_at": "2026-11-24T20:01:45.256191+00:00",
+  "last_source_attempt_at": "2026-11-24T20:01:14.627797+00:00",
   "last_access_failure": {
-    "blocked_at": "2026-11-24T15:01:38.437780+00:00",
+    "blocked_at": "2026-11-24T20:01:45.252635+00:00",
     "diagnostics": {
       "base_wait_seconds": 10800,
       "http_status": 403,
-      "request_path": "https://www.zillow.com/homedetails/120-N-Hillbrooke-Trl-Johns-Creek-GA-30005/14656765_zpid/",
+      "request_path": "https://www.zillow.com/homedetails/420-Dunhill-View-Ct-Johns-Creek-GA-30005/14656670_zpid/",
       "response_headers": {
         "Content-Type": "text/html",
         "Server": "CloudFront",
-        "X-Amz-Cf-Id": "zFLpCCv26shAxwFwJ7SGfrCaGlIyqUT2Dm9aL4V3ljWcEpQ9Tcg5sA=="
+        "X-Amz-Cf-Id": "8omWy2HLZbOGFwPTAS5sbz5qR4V7664_COawJ-cYzKU-yVBqpU8_Wg=="
       },
       "response_kind": "human_verification",
       "retry_after_header": "",
       "server_wait_seconds": null
     },
     "reason": "HTTP 403: source access stopped",
-    "resolved_at": "2026-11-24T18:31:07.488775+00:00",
-    "retry_after": "2026-11-24T18:01:38.437792+00:00",
+    "retry_after": "2026-11-24T23:01:45.252648+00:00",
     "review_required": false,
-    "strikes": 0
-  }
+    "strikes": 1
+  },
+  "blocked_at": "2026-11-24T20:01:45.252635+00:00",
+  "diagnostics": {
+    "base_wait_seconds": 10800,
+    "http_status": 403,
+    "request_path": "https://www.zillow.com/homedetails/420-Dunhill-View-Ct-Johns-Creek-GA-30005/14656670_zpid/",
+    "response_headers": {
+      "Content-Type": "text/html",
+      "Server": "CloudFront",
+      "X-Amz-Cf-Id": "8omWy2HLZbOGFwPTAS5sbz5qR4V7664_COawJ-cYzKU-yVBqpU8_Wg=="
+    },
+    "response_kind": "human_verification",
+    "retry_after_header": "",
+    "server_wait_seconds": null
+  },
+  "reason": "HTTP 403: source access stopped",
+  "retry_after": "2026-11-24T23:01:45.252648+00:00",
+  "review_required": false,
+  "strikes": 1
 }

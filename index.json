@@ -22042,6 +22042,14 @@
       "rows": 42
     },
     {
+      "path": "snapshots/2026-11-24/chattahoochee-a4eb90aaf96bfa7af8dfab69a8d1f99ea03cb62bb5a1d90d5d5fd24fe98d5ee0.json.gz",
+      "run_id": "a4eb90aaf96bfa7af8dfab69a8d1f99ea03cb62bb5a1d90d5d5fd24fe98d5ee0",
+      "school": "chattahoochee",
+      "observed_at": "2026-11-24T20:01:15.999433+00:00",
+      "quality": "source_complete",
+      "rows": 39
+    },
+    {
       "path": "snapshots/2026-11-24/chattahoochee-e961447444c961a4866a1376c1c52bdb29376c4d06ee96181a15edc9d9b43a6f.json.gz",
       "run_id": "e961447444c961a4866a1376c1c52bdb29376c4d06ee96181a15edc9d9b43a6f",
       "school": "chattahoochee",
@@ -22219,38 +22227,55 @@
     }
   ],
   "collection_status": {
-    "status": "complete",
-    "requests": 1,
-    "school": "johns_creek",
-    "error": null,
+    "status": "blocked",
+    "requests": 2,
+    "school": "chattahoochee",
+    "error": "HTTP 403: source access stopped",
     "version": 1,
-    "checked_at": "2026-11-24T19:31:03.958063+00:00",
-    "last_source_attempt_at": "2026-11-24T19:31:02.361047+00:00",
+    "checked_at": "2026-11-24T20:01:45.256191+00:00",
+    "last_source_attempt_at": "2026-11-24T20:01:14.627797+00:00",
     "last_access_failure": {
-      "blocked_at": "2026-11-24T15:01:38.437780+00:00",
+      "blocked_at": "2026-11-24T20:01:45.252635+00:00",
       "diagnostics": {
         "base_wait_seconds": 10800,
         "http_status": 403,
-        "request_path": "https://www.zillow.com/homedetails/120-N-Hillbrooke-Trl-Johns-Creek-GA-30005/14656765_zpid/",
+        "request_path": "https://www.zillow.com/homedetails/420-Dunhill-View-Ct-Johns-Creek-GA-30005/14656670_zpid/",
         "response_headers": {
           "Content-Type": "text/html",
           "Server": "CloudFront",
-          "X-Amz-Cf-Id": "zFLpCCv26shAxwFwJ7SGfrCaGlIyqUT2Dm9aL4V3ljWcEpQ9Tcg5sA=="
+          "X-Amz-Cf-Id": "8omWy2HLZbOGFwPTAS5sbz5qR4V7664_COawJ-cYzKU-yVBqpU8_Wg=="
         },
         "response_kind": "human_verification",
         "retry_after_header": "",
         "server_wait_seconds": null
       },
       "reason": "HTTP 403: source access stopped",
-      "resolved_at": "2026-11-24T18:31:07.488775+00:00",
-      "retry_after": "2026-11-24T18:01:38.437792+00:00",
+      "retry_after": "2026-11-24T23:01:45.252648+00:00",
       "review_required": false,
-      "strikes": 0
+      "strikes": 1
     },
+    "blocked_at": "2026-11-24T20:01:45.252635+00:00",
+    "diagnostics": {
+      "base_wait_seconds": 10800,
+      "http_status": 403,
+      "request_path": "https://www.zillow.com/homedetails/420-Dunhill-View-Ct-Johns-Creek-GA-30005/14656670_zpid/",
+      "response_headers": {
+        "Content-Type": "text/html",
+        "Server": "CloudFront",
+        "X-Amz-Cf-Id": "8omWy2HLZbOGFwPTAS5sbz5qR4V7664_COawJ-cYzKU-yVBqpU8_Wg=="
+      },
+      "response_kind": "human_verification",
+      "retry_after_header": "",
+      "server_wait_seconds": null
+    },
+    "reason": "HTTP 403: source access stopped",
+    "retry_after": "2026-11-24T23:01:45.252648+00:00",
+    "review_required": false,
+    "strikes": 1,
     "last_success_by_school": {
       "johns_creek": "2026-11-24T19:31:03.185053+00:00",
       "north_gwinnett": "2026-11-24T19:01:32.379475+00:00",
-      "chattahoochee": "2026-11-24T15:01:08.743923+00:00",
+      "chattahoochee": "2026-11-24T20:01:15.721447+00:00",
       "northview": "2026-11-24T18:31:06.793239+00:00"
     }
   }
