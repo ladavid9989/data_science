@@ -22194,6 +22194,14 @@
       "rows": 19
     },
     {
+      "path": "snapshots/2026-11-24/northview-8c936b8581044b9a1c3dee2b36372f84ba5258934d745d8418b0e792d32f573f.json.gz",
+      "run_id": "8c936b8581044b9a1c3dee2b36372f84ba5258934d745d8418b0e792d32f573f",
+      "school": "northview",
+      "observed_at": "2026-11-24T23:31:05.137236+00:00",
+      "quality": "source_complete",
+      "rows": 18
+    },
+    {
       "path": "snapshots/2026-11-24/northview-9e2fca4b7d6593e2dd61963ea3dbe5e9a76cd6df4994b3db33aa6e9667f0cf3a.json.gz",
       "run_id": "9e2fca4b7d6593e2dd61963ea3dbe5e9a76cd6df4994b3db33aa6e9667f0cf3a",
       "school": "northview",
@@ -22227,11 +22235,13 @@
     }
   ],
   "collection_status": {
-    "status": "cooldown",
-    "requests": 0,
+    "status": "complete",
+    "requests": 1,
+    "school": "northview",
+    "error": null,
     "version": 1,
-    "checked_at": "2026-11-24T23:00:58.802138+00:00",
-    "last_source_attempt_at": "2026-11-24T20:01:14.627797+00:00",
+    "checked_at": "2026-11-24T23:31:05.674308+00:00",
+    "last_source_attempt_at": "2026-11-24T23:31:03.852169+00:00",
     "last_access_failure": {
       "blocked_at": "2026-11-24T20:01:45.252635+00:00",
       "diagnostics": {
@@ -22248,33 +22258,16 @@
         "server_wait_seconds": null
       },
       "reason": "HTTP 403: source access stopped",
+      "resolved_at": "2026-11-24T23:31:05.540556+00:00",
       "retry_after": "2026-11-24T23:01:45.252648+00:00",
       "review_required": false,
-      "strikes": 1
+      "strikes": 0
     },
-    "blocked_at": "2026-11-24T20:01:45.252635+00:00",
-    "diagnostics": {
-      "base_wait_seconds": 10800,
-      "http_status": 403,
-      "request_path": "https://www.zillow.com/homedetails/420-Dunhill-View-Ct-Johns-Creek-GA-30005/14656670_zpid/",
-      "response_headers": {
-        "Content-Type": "text/html",
-        "Server": "CloudFront",
-        "X-Amz-Cf-Id": "8omWy2HLZbOGFwPTAS5sbz5qR4V7664_COawJ-cYzKU-yVBqpU8_Wg=="
-      },
-      "response_kind": "human_verification",
-      "retry_after_header": "",
-      "server_wait_seconds": null
-    },
-    "reason": "HTTP 403: source access stopped",
-    "retry_after": "2026-11-24T23:01:45.252648+00:00",
-    "review_required": false,
-    "strikes": 1,
     "last_success_by_school": {
       "johns_creek": "2026-11-24T19:31:03.185053+00:00",
       "north_gwinnett": "2026-11-24T19:01:32.379475+00:00",
       "chattahoochee": "2026-11-24T20:01:15.721447+00:00",
-      "northview": "2026-11-24T18:31:06.793239+00:00"
+      "northview": "2026-11-24T23:31:04.864730+00:00"
     }
   }
 }
