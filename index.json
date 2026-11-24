@@ -22042,6 +22042,14 @@
       "rows": 42
     },
     {
+      "path": "snapshots/2026-11-24/chattahoochee-e961447444c961a4866a1376c1c52bdb29376c4d06ee96181a15edc9d9b43a6f.json.gz",
+      "run_id": "e961447444c961a4866a1376c1c52bdb29376c4d06ee96181a15edc9d9b43a6f",
+      "school": "chattahoochee",
+      "observed_at": "2026-11-24T10:01:06.212126+00:00",
+      "quality": "source_complete",
+      "rows": 40
+    },
+    {
       "path": "snapshots/2026-11-24/johns_creek-2ed7a357ad6c0ddf2055e02efac2a9ae56a33c106f88a0374d8e576057469645.json.gz",
       "run_id": "2ed7a357ad6c0ddf2055e02efac2a9ae56a33c106f88a0374d8e576057469645",
       "school": "johns_creek",
@@ -22131,15 +22139,15 @@
     }
   ],
   "collection_status": {
-    "status": "complete",
-    "requests": 3,
-    "school": "johns_creek",
-    "error": null,
+    "status": "blocked",
+    "requests": 2,
+    "school": "chattahoochee",
+    "error": "HTTP 403: source access stopped",
     "version": 1,
-    "checked_at": "2026-11-24T09:32:39.268964+00:00",
-    "last_source_attempt_at": "2026-11-24T09:31:37.592261+00:00",
+    "checked_at": "2026-11-24T10:01:35.640675+00:00",
+    "last_source_attempt_at": "2026-11-24T10:01:05.019424+00:00",
     "last_access_failure": {
-      "blocked_at": "2026-11-24T05:01:25.601323+00:00",
+      "blocked_at": "2026-11-24T10:01:35.636834+00:00",
       "diagnostics": {
         "base_wait_seconds": 10800,
         "http_status": 403,
@@ -22147,22 +22155,39 @@
         "response_headers": {
           "Content-Type": "text/html",
           "Server": "CloudFront",
-          "X-Amz-Cf-Id": "tAcxLhIuun2nGFCiGPPc7htsns5E0wCfjh7Qqh8HIK_uZfPJzkOVNQ=="
+          "X-Amz-Cf-Id": "mmN2ucQqR3k1MfM_VEK-nOGUurj_Z5cTUyGHLBNy1MVGAUop6PqOxQ=="
         },
         "response_kind": "human_verification",
         "retry_after_header": "",
         "server_wait_seconds": null
       },
       "reason": "HTTP 403: source access stopped",
-      "resolved_at": "2026-11-24T08:31:00.845091+00:00",
-      "retry_after": "2026-11-24T08:01:25.601335+00:00",
+      "retry_after": "2026-11-24T13:01:35.636847+00:00",
       "review_required": false,
-      "strikes": 0
+      "strikes": 1
     },
+    "blocked_at": "2026-11-24T10:01:35.636834+00:00",
+    "diagnostics": {
+      "base_wait_seconds": 10800,
+      "http_status": 403,
+      "request_path": "https://www.zillow.com/homedetails/120-N-Hillbrooke-Trl-Johns-Creek-GA-30005/14656765_zpid/",
+      "response_headers": {
+        "Content-Type": "text/html",
+        "Server": "CloudFront",
+        "X-Amz-Cf-Id": "mmN2ucQqR3k1MfM_VEK-nOGUurj_Z5cTUyGHLBNy1MVGAUop6PqOxQ=="
+      },
+      "response_kind": "human_verification",
+      "retry_after_header": "",
+      "server_wait_seconds": null
+    },
+    "reason": "HTTP 403: source access stopped",
+    "retry_after": "2026-11-24T13:01:35.636847+00:00",
+    "review_required": false,
+    "strikes": 1,
     "last_success_by_school": {
       "johns_creek": "2026-11-24T09:31:38.539173+00:00",
       "north_gwinnett": "2026-11-24T09:01:25.529185+00:00",
-      "chattahoochee": "2026-11-24T05:00:56.429563+00:00",
+      "chattahoochee": "2026-11-24T10:01:05.934250+00:00",
       "northview": "2026-11-24T08:31:00.163559+00:00"
     }
   }
