@@ -1,13 +1,13 @@
 {
-  "status": "complete",
-  "requests": 3,
-  "school": "johns_creek",
-  "error": null,
+  "status": "blocked",
+  "requests": 2,
+  "school": "chattahoochee",
+  "error": "HTTP 403: source access stopped",
   "version": 1,
-  "checked_at": "2026-11-24T14:32:02.008251+00:00",
-  "last_source_attempt_at": "2026-11-24T14:31:00.192454+00:00",
+  "checked_at": "2026-11-24T15:01:38.441390+00:00",
+  "last_source_attempt_at": "2026-11-24T15:01:07.833340+00:00",
   "last_access_failure": {
-    "blocked_at": "2026-11-24T10:01:35.636834+00:00",
+    "blocked_at": "2026-11-24T15:01:38.437780+00:00",
     "diagnostics": {
       "base_wait_seconds": 10800,
       "http_status": 403,
@@ -15,16 +15,33 @@
       "response_headers": {
         "Content-Type": "text/html",
         "Server": "CloudFront",
-        "X-Amz-Cf-Id": "mmN2ucQqR3k1MfM_VEK-nOGUurj_Z5cTUyGHLBNy1MVGAUop6PqOxQ=="
+        "X-Amz-Cf-Id": "zFLpCCv26shAxwFwJ7SGfrCaGlIyqUT2Dm9aL4V3ljWcEpQ9Tcg5sA=="
       },
       "response_kind": "human_verification",
       "retry_after_header": "",
       "server_wait_seconds": null
     },
     "reason": "HTTP 403: source access stopped",
-    "resolved_at": "2026-11-24T13:31:06.049042+00:00",
-    "retry_after": "2026-11-24T13:01:35.636847+00:00",
+    "retry_after": "2026-11-24T18:01:38.437792+00:00",
     "review_required": false,
-    "strikes": 0
-  }
+    "strikes": 1
+  },
+  "blocked_at": "2026-11-24T15:01:38.437780+00:00",
+  "diagnostics": {
+    "base_wait_seconds": 10800,
+    "http_status": 403,
+    "request_path": "https://www.zillow.com/homedetails/120-N-Hillbrooke-Trl-Johns-Creek-GA-30005/14656765_zpid/",
+    "response_headers": {
+      "Content-Type": "text/html",
+      "Server": "CloudFront",
+      "X-Amz-Cf-Id": "zFLpCCv26shAxwFwJ7SGfrCaGlIyqUT2Dm9aL4V3ljWcEpQ9Tcg5sA=="
+    },
+    "response_kind": "human_verification",
+    "retry_after_header": "",
+    "server_wait_seconds": null
+  },
+  "reason": "HTTP 403: source access stopped",
+  "retry_after": "2026-11-24T18:01:38.437792+00:00",
+  "review_required": false,
+  "strikes": 1
 }
