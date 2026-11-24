@@ -22016,14 +22016,32 @@
       "observed_at": "2026-11-23T22:31:02.743359+00:00",
       "quality": "source_complete",
       "rows": 18
+    },
+    {
+      "path": "snapshots/2026-11-24/chattahoochee-01670b46620007371927443caa30296c9cbd9dce2a59f716a814cd9f11f6ea31.json.gz",
+      "run_id": "01670b46620007371927443caa30296c9cbd9dce2a59f716a814cd9f11f6ea31",
+      "school": "chattahoochee",
+      "observed_at": "2026-11-24T03:01:05.680909+00:00",
+      "quality": "source_complete",
+      "rows": 40
+    },
+    {
+      "path": "snapshots/2026-11-24/chattahoochee-684d5a17b57cbc3ce10717bec140bd325298072a3808fb70dc0d997fa24a581a.json.gz",
+      "run_id": "684d5a17b57cbc3ce10717bec140bd325298072a3808fb70dc0d997fa24a581a",
+      "school": "chattahoochee",
+      "observed_at": "2026-11-24T03:02:05.840212+00:00",
+      "quality": "source_complete",
+      "rows": 42
     }
   ],
   "collection_status": {
-    "status": "cooldown",
-    "requests": 0,
+    "status": "complete",
+    "requests": 3,
+    "school": "chattahoochee",
+    "error": null,
     "version": 1,
-    "checked_at": "2026-11-24T02:30:48.597070+00:00",
-    "last_source_attempt_at": "2026-11-23T23:30:57.687140+00:00",
+    "checked_at": "2026-11-24T03:02:06.097317+00:00",
+    "last_source_attempt_at": "2026-11-24T03:01:04.506749+00:00",
     "last_access_failure": {
       "blocked_at": "2026-11-23T23:31:28.261909+00:00",
       "diagnostics": {
@@ -22040,32 +22058,15 @@
         "server_wait_seconds": null
       },
       "reason": "HTTP 403: source access stopped",
+      "resolved_at": "2026-11-24T03:02:05.714699+00:00",
       "retry_after": "2026-11-24T02:31:28.261920+00:00",
       "review_required": false,
-      "strikes": 1
+      "strikes": 0
     },
-    "blocked_at": "2026-11-23T23:31:28.261909+00:00",
-    "diagnostics": {
-      "base_wait_seconds": 10800,
-      "http_status": 403,
-      "request_path": "https://www.zillow.com/homedetails/485-Weatherend-Ct-Johns-Creek-GA-30022/14679358_zpid/",
-      "response_headers": {
-        "Content-Type": "text/html",
-        "Server": "CloudFront",
-        "X-Amz-Cf-Id": "AzjF8LsWoac32NNIDjV5kzUcQTt3hCcBDOVSZqSkX873U9XcXfn6YQ=="
-      },
-      "response_kind": "human_verification",
-      "retry_after_header": "",
-      "server_wait_seconds": null
-    },
-    "reason": "HTTP 403: source access stopped",
-    "retry_after": "2026-11-24T02:31:28.261920+00:00",
-    "review_required": false,
-    "strikes": 1,
     "last_success_by_school": {
       "johns_creek": "2026-11-23T23:30:58.658925+00:00",
       "north_gwinnett": "2026-11-23T23:01:38.030564+00:00",
-      "chattahoochee": "2026-11-23T22:00:59.167338+00:00",
+      "chattahoochee": "2026-11-24T03:01:05.417720+00:00",
       "northview": "2026-11-23T22:31:02.520423+00:00"
     }
   }
