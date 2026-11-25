@@ -1,9 +1,11 @@
 {
-  "status": "cooldown",
-  "requests": 0,
+  "status": "complete",
+  "requests": 3,
+  "school": "johns_creek",
+  "error": null,
   "version": 1,
-  "checked_at": "2026-11-25T20:31:04.354685+00:00",
-  "last_source_attempt_at": "2026-11-25T17:31:03.731769+00:00",
+  "checked_at": "2026-11-25T21:02:15.499487+00:00",
+  "last_source_attempt_at": "2026-11-25T21:01:13.792179+00:00",
   "last_access_failure": {
     "blocked_at": "2026-11-25T17:32:04.300922+00:00",
     "diagnostics": {
@@ -20,26 +22,9 @@
       "server_wait_seconds": null
     },
     "reason": "HTTP 403: source access stopped",
+    "resolved_at": "2026-11-25T21:02:15.119147+00:00",
     "retry_after": "2026-11-25T20:32:04.300934+00:00",
     "review_required": false,
-    "strikes": 1
-  },
-  "blocked_at": "2026-11-25T17:32:04.300922+00:00",
-  "diagnostics": {
-    "base_wait_seconds": 10800,
-    "http_status": 403,
-    "request_path": "https://www.zillow.com/homedetails/4502-Thach-Ave-Sugar-Hill-GA-30518/172439787_zpid/",
-    "response_headers": {
-      "Content-Type": "text/html",
-      "Server": "CloudFront",
-      "X-Amz-Cf-Id": "q0KZFQ2-RWf44Na5ygwRGI5XWjqO4rebCojYtJ7k4Exmow8Cg2z_Sg=="
-    },
-    "response_kind": "human_verification",
-    "retry_after_header": "",
-    "server_wait_seconds": null
-  },
-  "reason": "HTTP 403: source access stopped",
-  "retry_after": "2026-11-25T20:32:04.300934+00:00",
-  "review_required": false,
-  "strikes": 1
+    "strikes": 0
+  }
 }

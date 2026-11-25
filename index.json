@@ -22346,6 +22346,14 @@
       "rows": 13
     },
     {
+      "path": "snapshots/2026-11-25/johns_creek-72284c30b81f1ad576048fd30daee21f3b25e8e930370e11894fa506e2abea3d.json.gz",
+      "run_id": "72284c30b81f1ad576048fd30daee21f3b25e8e930370e11894fa506e2abea3d",
+      "school": "johns_creek",
+      "observed_at": "2026-11-25T21:01:14.947752+00:00",
+      "quality": "source_complete",
+      "rows": 11
+    },
+    {
       "path": "snapshots/2026-11-25/johns_creek-7805b638df3a8ec017cf7e968fee1414b63404febadfa15b62e957445e3ec90c.json.gz",
       "run_id": "7805b638df3a8ec017cf7e968fee1414b63404febadfa15b62e957445e3ec90c",
       "school": "johns_creek",
@@ -22360,6 +22368,14 @@
       "observed_at": "2026-11-25T09:01:00.238000+00:00",
       "quality": "source_complete",
       "rows": 11
+    },
+    {
+      "path": "snapshots/2026-11-25/johns_creek-e73223068e72b5efe14892df2f1b17c6337392330e0a9a2107e914b0ce75c33b.json.gz",
+      "run_id": "e73223068e72b5efe14892df2f1b17c6337392330e0a9a2107e914b0ce75c33b",
+      "school": "johns_creek",
+      "observed_at": "2026-11-25T21:02:15.244598+00:00",
+      "quality": "source_complete",
+      "rows": 13
     },
     {
       "path": "snapshots/2026-11-25/johns_creek-ef672ca7e3e5c1d8cc401d9f8ad057ded6486b98146b6124fc2e6208ad39d015.json.gz",
@@ -22603,11 +22619,13 @@
     }
   ],
   "collection_status": {
-    "status": "cooldown",
-    "requests": 0,
+    "status": "complete",
+    "requests": 3,
+    "school": "johns_creek",
+    "error": null,
     "version": 1,
-    "checked_at": "2026-11-25T20:31:04.354685+00:00",
-    "last_source_attempt_at": "2026-11-25T17:31:03.731769+00:00",
+    "checked_at": "2026-11-25T21:02:15.499487+00:00",
+    "last_source_attempt_at": "2026-11-25T21:01:13.792179+00:00",
     "last_access_failure": {
       "blocked_at": "2026-11-25T17:32:04.300922+00:00",
       "diagnostics": {
@@ -22624,30 +22642,13 @@
         "server_wait_seconds": null
       },
       "reason": "HTTP 403: source access stopped",
+      "resolved_at": "2026-11-25T21:02:15.119147+00:00",
       "retry_after": "2026-11-25T20:32:04.300934+00:00",
       "review_required": false,
-      "strikes": 1
+      "strikes": 0
     },
-    "blocked_at": "2026-11-25T17:32:04.300922+00:00",
-    "diagnostics": {
-      "base_wait_seconds": 10800,
-      "http_status": 403,
-      "request_path": "https://www.zillow.com/homedetails/4502-Thach-Ave-Sugar-Hill-GA-30518/172439787_zpid/",
-      "response_headers": {
-        "Content-Type": "text/html",
-        "Server": "CloudFront",
-        "X-Amz-Cf-Id": "q0KZFQ2-RWf44Na5ygwRGI5XWjqO4rebCojYtJ7k4Exmow8Cg2z_Sg=="
-      },
-      "response_kind": "human_verification",
-      "retry_after_header": "",
-      "server_wait_seconds": null
-    },
-    "reason": "HTTP 403: source access stopped",
-    "retry_after": "2026-11-25T20:32:04.300934+00:00",
-    "review_required": false,
-    "strikes": 1,
     "last_success_by_school": {
-      "johns_creek": "2026-11-25T16:00:59.537318+00:00",
+      "johns_creek": "2026-11-25T21:01:14.690837+00:00",
       "north_gwinnett": "2026-11-25T17:31:34.561181+00:00",
       "chattahoochee": "2026-11-25T16:31:05.896490+00:00",
       "northview": "2026-11-25T17:01:07.558978+00:00"
