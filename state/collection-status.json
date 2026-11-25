@@ -1,11 +1,11 @@
 {
-  "status": "checkpointed",
-  "requests": 3,
-  "school": "north_gwinnett",
+  "status": "complete",
+  "requests": 2,
+  "school": "johns_creek",
   "error": null,
   "version": 1,
-  "checked_at": "2026-11-25T04:31:54.623314+00:00",
-  "last_source_attempt_at": "2026-11-25T04:30:53.162121+00:00",
+  "checked_at": "2026-11-25T05:01:32.741500+00:00",
+  "last_source_attempt_at": "2026-11-25T05:01:01.071727+00:00",
   "last_access_failure": {
     "blocked_at": "2026-11-24T20:01:45.252635+00:00",
     "diagnostics": {
