@@ -1,29 +1,47 @@
 {
-  "status": "interval_wait",
-  "requests": 0,
-  "next_batch_at": "2026-11-25T10:55:17.495755+00:00",
+  "status": "blocked",
+  "requests": 2,
+  "school": "johns_creek",
+  "error": "HTTP 403: source access stopped",
   "version": 1,
-  "checked_at": "2026-11-25T10:32:16.556273+00:00",
-  "last_source_attempt_at": "2026-11-25T10:30:17.495755+00:00",
+  "checked_at": "2026-11-25T11:01:37.708147+00:00",
+  "last_source_attempt_at": "2026-11-25T11:01:07.092006+00:00",
   "last_access_failure": {
-    "blocked_at": "2026-11-24T20:01:45.252635+00:00",
+    "blocked_at": "2026-11-25T11:01:37.704409+00:00",
     "diagnostics": {
       "base_wait_seconds": 10800,
       "http_status": 403,
-      "request_path": "https://www.zillow.com/homedetails/420-Dunhill-View-Ct-Johns-Creek-GA-30005/14656670_zpid/",
+      "request_path": "https://www.zillow.com/homedetails/325-Oak-Alley-Ct-Johns-Creek-GA-30022/55008285_zpid/",
       "response_headers": {
         "Content-Type": "text/html",
         "Server": "CloudFront",
-        "X-Amz-Cf-Id": "8omWy2HLZbOGFwPTAS5sbz5qR4V7664_COawJ-cYzKU-yVBqpU8_Wg=="
+        "X-Amz-Cf-Id": "fHyS07e4Y5MrC8zp1qfYyh9decKKK7fJ-oTftYRhg4yt6DoVvUhXyA=="
       },
       "response_kind": "human_verification",
       "retry_after_header": "",
       "server_wait_seconds": null
     },
     "reason": "HTTP 403: source access stopped",
-    "resolved_at": "2026-11-24T23:31:05.540556+00:00",
-    "retry_after": "2026-11-24T23:01:45.252648+00:00",
+    "retry_after": "2026-11-25T14:01:37.704422+00:00",
     "review_required": false,
-    "strikes": 0
-  }
+    "strikes": 1
+  },
+  "blocked_at": "2026-11-25T11:01:37.704409+00:00",
+  "diagnostics": {
+    "base_wait_seconds": 10800,
+    "http_status": 403,
+    "request_path": "https://www.zillow.com/homedetails/325-Oak-Alley-Ct-Johns-Creek-GA-30022/55008285_zpid/",
+    "response_headers": {
+      "Content-Type": "text/html",
+      "Server": "CloudFront",
+      "X-Amz-Cf-Id": "fHyS07e4Y5MrC8zp1qfYyh9decKKK7fJ-oTftYRhg4yt6DoVvUhXyA=="
+    },
+    "response_kind": "human_verification",
+    "retry_after_header": "",
+    "server_wait_seconds": null
+  },
+  "reason": "HTTP 403: source access stopped",
+  "retry_after": "2026-11-25T14:01:37.704422+00:00",
+  "review_required": false,
+  "strikes": 1
 }
