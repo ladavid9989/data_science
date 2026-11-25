@@ -22290,12 +22290,28 @@
       "rows": 41
     },
     {
+      "path": "snapshots/2026-11-25/chattahoochee-d19649c991d30d35ef35d61667125665961e5c77cdcb2308d07c14bce1aed46b.json.gz",
+      "run_id": "d19649c991d30d35ef35d61667125665961e5c77cdcb2308d07c14bce1aed46b",
+      "school": "chattahoochee",
+      "observed_at": "2026-11-25T14:31:21.959667+00:00",
+      "quality": "source_complete",
+      "rows": 39
+    },
+    {
       "path": "snapshots/2026-11-25/chattahoochee-e0f4a72ebe97db16dd4fee6147dd31ac83a032342cae25e4c3682cf963eda266.json.gz",
       "run_id": "e0f4a72ebe97db16dd4fee6147dd31ac83a032342cae25e4c3682cf963eda266",
       "school": "chattahoochee",
       "observed_at": "2026-11-25T03:31:07.789070+00:00",
       "quality": "source_complete",
       "rows": 39
+    },
+    {
+      "path": "snapshots/2026-11-25/chattahoochee-ef4895173317a79a78018ba8b74a989db7eeb1a341937b235f02466046f98633.json.gz",
+      "run_id": "ef4895173317a79a78018ba8b74a989db7eeb1a341937b235f02466046f98633",
+      "school": "chattahoochee",
+      "observed_at": "2026-11-25T14:32:21.931995+00:00",
+      "quality": "source_complete",
+      "rows": 41
     },
     {
       "path": "snapshots/2026-11-25/johns_creek-0b7f6e8e3690ac621cdfb4dd5a2e76b1e62aa2bc56a23cba25af9bf5b6a3c6b0.json.gz",
@@ -22507,11 +22523,13 @@
     }
   ],
   "collection_status": {
-    "status": "cooldown",
-    "requests": 0,
+    "status": "complete",
+    "requests": 3,
+    "school": "chattahoochee",
+    "error": null,
     "version": 1,
-    "checked_at": "2026-11-25T14:01:15.881096+00:00",
-    "last_source_attempt_at": "2026-11-25T11:01:07.092006+00:00",
+    "checked_at": "2026-11-25T14:32:22.187513+00:00",
+    "last_source_attempt_at": "2026-11-25T14:31:19.932948+00:00",
     "last_access_failure": {
       "blocked_at": "2026-11-25T11:01:37.704409+00:00",
       "diagnostics": {
@@ -22528,32 +22546,15 @@
         "server_wait_seconds": null
       },
       "reason": "HTTP 403: source access stopped",
+      "resolved_at": "2026-11-25T14:32:21.806902+00:00",
       "retry_after": "2026-11-25T14:01:37.704422+00:00",
       "review_required": false,
-      "strikes": 1
+      "strikes": 0
     },
-    "blocked_at": "2026-11-25T11:01:37.704409+00:00",
-    "diagnostics": {
-      "base_wait_seconds": 10800,
-      "http_status": 403,
-      "request_path": "https://www.zillow.com/homedetails/325-Oak-Alley-Ct-Johns-Creek-GA-30022/55008285_zpid/",
-      "response_headers": {
-        "Content-Type": "text/html",
-        "Server": "CloudFront",
-        "X-Amz-Cf-Id": "fHyS07e4Y5MrC8zp1qfYyh9decKKK7fJ-oTftYRhg4yt6DoVvUhXyA=="
-      },
-      "response_kind": "human_verification",
-      "retry_after_header": "",
-      "server_wait_seconds": null
-    },
-    "reason": "HTTP 403: source access stopped",
-    "retry_after": "2026-11-25T14:01:37.704422+00:00",
-    "review_required": false,
-    "strikes": 1,
     "last_success_by_school": {
       "johns_creek": "2026-11-25T11:01:08.087812+00:00",
       "north_gwinnett": "2026-11-25T10:30:48.337694+00:00",
-      "chattahoochee": "2026-11-25T09:31:01.738011+00:00",
+      "chattahoochee": "2026-11-25T14:31:21.696269+00:00",
       "northview": "2026-11-25T10:01:03.486842+00:00"
     }
   }
