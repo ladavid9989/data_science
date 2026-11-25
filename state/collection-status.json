@@ -1,30 +1,47 @@
 {
-  "status": "complete",
-  "requests": 2,
-  "school": "northview",
-  "error": null,
+  "status": "blocked",
+  "requests": 3,
+  "school": "north_gwinnett",
+  "error": "HTTP 403: source access stopped",
   "version": 1,
-  "checked_at": "2026-11-25T17:01:38.314513+00:00",
-  "last_source_attempt_at": "2026-11-25T17:01:06.578877+00:00",
+  "checked_at": "2026-11-25T17:32:04.302898+00:00",
+  "last_source_attempt_at": "2026-11-25T17:31:03.731769+00:00",
   "last_access_failure": {
-    "blocked_at": "2026-11-25T11:01:37.704409+00:00",
+    "blocked_at": "2026-11-25T17:32:04.300922+00:00",
     "diagnostics": {
       "base_wait_seconds": 10800,
       "http_status": 403,
-      "request_path": "https://www.zillow.com/homedetails/325-Oak-Alley-Ct-Johns-Creek-GA-30022/55008285_zpid/",
+      "request_path": "https://www.zillow.com/homedetails/4502-Thach-Ave-Sugar-Hill-GA-30518/172439787_zpid/",
       "response_headers": {
         "Content-Type": "text/html",
         "Server": "CloudFront",
-        "X-Amz-Cf-Id": "fHyS07e4Y5MrC8zp1qfYyh9decKKK7fJ-oTftYRhg4yt6DoVvUhXyA=="
+        "X-Amz-Cf-Id": "q0KZFQ2-RWf44Na5ygwRGI5XWjqO4rebCojYtJ7k4Exmow8Cg2z_Sg=="
       },
       "response_kind": "human_verification",
       "retry_after_header": "",
       "server_wait_seconds": null
     },
     "reason": "HTTP 403: source access stopped",
-    "resolved_at": "2026-11-25T14:32:21.806902+00:00",
-    "retry_after": "2026-11-25T14:01:37.704422+00:00",
+    "retry_after": "2026-11-25T20:32:04.300934+00:00",
     "review_required": false,
-    "strikes": 0
-  }
+    "strikes": 1
+  },
+  "blocked_at": "2026-11-25T17:32:04.300922+00:00",
+  "diagnostics": {
+    "base_wait_seconds": 10800,
+    "http_status": 403,
+    "request_path": "https://www.zillow.com/homedetails/4502-Thach-Ave-Sugar-Hill-GA-30518/172439787_zpid/",
+    "response_headers": {
+      "Content-Type": "text/html",
+      "Server": "CloudFront",
+      "X-Amz-Cf-Id": "q0KZFQ2-RWf44Na5ygwRGI5XWjqO4rebCojYtJ7k4Exmow8Cg2z_Sg=="
+    },
+    "response_kind": "human_verification",
+    "retry_after_header": "",
+    "server_wait_seconds": null
+  },
+  "reason": "HTTP 403: source access stopped",
+  "retry_after": "2026-11-25T20:32:04.300934+00:00",
+  "review_required": false,
+  "strikes": 1
 }

@@ -22426,6 +22426,14 @@
       "rows": 70
     },
     {
+      "path": "snapshots/2026-11-25/north_gwinnett-31354c33e0c85fa6afdb6667d3a43d77609b187da03bac3e14c1a6716d567db3.json.gz",
+      "run_id": "31354c33e0c85fa6afdb6667d3a43d77609b187da03bac3e14c1a6716d567db3",
+      "school": "north_gwinnett",
+      "observed_at": "2026-11-25T17:31:34.849434+00:00",
+      "quality": "source_complete",
+      "rows": 71
+    },
+    {
       "path": "snapshots/2026-11-25/north_gwinnett-3c02301ea7ade9b5257238e21d18e2c3543082896da746088e19ce047f57a4d1.json.gz",
       "run_id": "3c02301ea7ade9b5257238e21d18e2c3543082896da746088e19ce047f57a4d1",
       "school": "north_gwinnett",
@@ -22595,37 +22603,54 @@
     }
   ],
   "collection_status": {
-    "status": "complete",
-    "requests": 2,
-    "school": "northview",
-    "error": null,
+    "status": "blocked",
+    "requests": 3,
+    "school": "north_gwinnett",
+    "error": "HTTP 403: source access stopped",
     "version": 1,
-    "checked_at": "2026-11-25T17:01:38.314513+00:00",
-    "last_source_attempt_at": "2026-11-25T17:01:06.578877+00:00",
+    "checked_at": "2026-11-25T17:32:04.302898+00:00",
+    "last_source_attempt_at": "2026-11-25T17:31:03.731769+00:00",
     "last_access_failure": {
-      "blocked_at": "2026-11-25T11:01:37.704409+00:00",
+      "blocked_at": "2026-11-25T17:32:04.300922+00:00",
       "diagnostics": {
         "base_wait_seconds": 10800,
         "http_status": 403,
-        "request_path": "https://www.zillow.com/homedetails/325-Oak-Alley-Ct-Johns-Creek-GA-30022/55008285_zpid/",
+        "request_path": "https://www.zillow.com/homedetails/4502-Thach-Ave-Sugar-Hill-GA-30518/172439787_zpid/",
         "response_headers": {
           "Content-Type": "text/html",
           "Server": "CloudFront",
-          "X-Amz-Cf-Id": "fHyS07e4Y5MrC8zp1qfYyh9decKKK7fJ-oTftYRhg4yt6DoVvUhXyA=="
+          "X-Amz-Cf-Id": "q0KZFQ2-RWf44Na5ygwRGI5XWjqO4rebCojYtJ7k4Exmow8Cg2z_Sg=="
         },
         "response_kind": "human_verification",
         "retry_after_header": "",
         "server_wait_seconds": null
       },
       "reason": "HTTP 403: source access stopped",
-      "resolved_at": "2026-11-25T14:32:21.806902+00:00",
-      "retry_after": "2026-11-25T14:01:37.704422+00:00",
+      "retry_after": "2026-11-25T20:32:04.300934+00:00",
       "review_required": false,
-      "strikes": 0
+      "strikes": 1
     },
+    "blocked_at": "2026-11-25T17:32:04.300922+00:00",
+    "diagnostics": {
+      "base_wait_seconds": 10800,
+      "http_status": 403,
+      "request_path": "https://www.zillow.com/homedetails/4502-Thach-Ave-Sugar-Hill-GA-30518/172439787_zpid/",
+      "response_headers": {
+        "Content-Type": "text/html",
+        "Server": "CloudFront",
+        "X-Amz-Cf-Id": "q0KZFQ2-RWf44Na5ygwRGI5XWjqO4rebCojYtJ7k4Exmow8Cg2z_Sg=="
+      },
+      "response_kind": "human_verification",
+      "retry_after_header": "",
+      "server_wait_seconds": null
+    },
+    "reason": "HTTP 403: source access stopped",
+    "retry_after": "2026-11-25T20:32:04.300934+00:00",
+    "review_required": false,
+    "strikes": 1,
     "last_success_by_school": {
       "johns_creek": "2026-11-25T16:00:59.537318+00:00",
-      "north_gwinnett": "2026-11-25T15:31:35.315527+00:00",
+      "north_gwinnett": "2026-11-25T17:31:34.561181+00:00",
       "chattahoochee": "2026-11-25T16:31:05.896490+00:00",
       "northview": "2026-11-25T17:01:07.558978+00:00"
     }
