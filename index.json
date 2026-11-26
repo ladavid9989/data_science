@@ -22706,6 +22706,14 @@
       "rows": 0
     },
     {
+      "path": "snapshots/2026-11-26/johns_creek-3be4d7cbf68ec15453ceff9e7eaf64e53313d8df57c69e2f20fb5b661622423b.json.gz",
+      "run_id": "3be4d7cbf68ec15453ceff9e7eaf64e53313d8df57c69e2f20fb5b661622423b",
+      "school": "johns_creek",
+      "observed_at": "2026-11-26T05:01:06.714009+00:00",
+      "quality": "source_complete",
+      "rows": 11
+    },
+    {
       "path": "snapshots/2026-11-26/johns_creek-3fbb426ed576d6402271f16232ffc5d19c52bf7ee704f52ba9b699c3e25eaf6c.json.gz",
       "run_id": "3fbb426ed576d6402271f16232ffc5d19c52bf7ee704f52ba9b699c3e25eaf6c",
       "school": "johns_creek",
@@ -22795,36 +22803,53 @@
     }
   ],
   "collection_status": {
-    "status": "checkpointed",
-    "requests": 3,
-    "school": "north_gwinnett",
-    "error": null,
+    "status": "blocked",
+    "requests": 2,
+    "school": "johns_creek",
+    "error": "HTTP 403: source access stopped",
     "version": 1,
-    "checked_at": "2026-11-26T04:31:59.457265+00:00",
-    "last_source_attempt_at": "2026-11-26T04:30:57.793971+00:00",
+    "checked_at": "2026-11-26T05:01:36.110706+00:00",
+    "last_source_attempt_at": "2026-11-26T05:01:05.512711+00:00",
     "last_access_failure": {
-      "blocked_at": "2026-11-25T17:32:04.300922+00:00",
+      "blocked_at": "2026-11-26T05:01:36.106877+00:00",
       "diagnostics": {
         "base_wait_seconds": 10800,
         "http_status": 403,
-        "request_path": "https://www.zillow.com/homedetails/4502-Thach-Ave-Sugar-Hill-GA-30518/172439787_zpid/",
+        "request_path": "https://www.zillow.com/homedetails/485-Weatherend-Ct-Johns-Creek-GA-30022/14679358_zpid/",
         "response_headers": {
           "Content-Type": "text/html",
           "Server": "CloudFront",
-          "X-Amz-Cf-Id": "q0KZFQ2-RWf44Na5ygwRGI5XWjqO4rebCojYtJ7k4Exmow8Cg2z_Sg=="
+          "X-Amz-Cf-Id": "2c28p-PdHrqCxBt_NruPk4V8g5SMAmJu1sv5bdaKbp7bJD1y5NowfQ=="
         },
         "response_kind": "human_verification",
         "retry_after_header": "",
         "server_wait_seconds": null
       },
       "reason": "HTTP 403: source access stopped",
-      "resolved_at": "2026-11-25T21:02:15.119147+00:00",
-      "retry_after": "2026-11-25T20:32:04.300934+00:00",
+      "retry_after": "2026-11-26T08:01:36.106888+00:00",
       "review_required": false,
-      "strikes": 0
+      "strikes": 1
     },
+    "blocked_at": "2026-11-26T05:01:36.106877+00:00",
+    "diagnostics": {
+      "base_wait_seconds": 10800,
+      "http_status": 403,
+      "request_path": "https://www.zillow.com/homedetails/485-Weatherend-Ct-Johns-Creek-GA-30022/14679358_zpid/",
+      "response_headers": {
+        "Content-Type": "text/html",
+        "Server": "CloudFront",
+        "X-Amz-Cf-Id": "2c28p-PdHrqCxBt_NruPk4V8g5SMAmJu1sv5bdaKbp7bJD1y5NowfQ=="
+      },
+      "response_kind": "human_verification",
+      "retry_after_header": "",
+      "server_wait_seconds": null
+    },
+    "reason": "HTTP 403: source access stopped",
+    "retry_after": "2026-11-26T08:01:36.106888+00:00",
+    "review_required": false,
+    "strikes": 1,
     "last_success_by_school": {
-      "johns_creek": "2026-11-26T03:01:02.905816+00:00",
+      "johns_creek": "2026-11-26T05:01:06.442738+00:00",
       "north_gwinnett": "2026-11-26T04:31:28.654249+00:00",
       "chattahoochee": "2026-11-26T03:31:09.563633+00:00",
       "northview": "2026-11-26T04:01:02.857857+00:00"
