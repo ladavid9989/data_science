@@ -1,11 +1,11 @@
 {
-  "status": "checkpointed",
-  "requests": 3,
-  "school": "north_gwinnett",
-  "error": null,
+  "status": "error",
+  "requests": 1,
+  "school": "johns_creek",
+  "error": "HTTP Error 503: Service Unavailable",
   "version": 1,
-  "checked_at": "2026-11-26T00:32:09.416126+00:00",
-  "last_source_attempt_at": "2026-11-26T00:31:07.399355+00:00",
+  "checked_at": "2026-11-26T01:01:02.842929+00:00",
+  "last_source_attempt_at": "2026-11-26T01:01:01.883776+00:00",
   "last_access_failure": {
     "blocked_at": "2026-11-25T17:32:04.300922+00:00",
     "diagnostics": {
