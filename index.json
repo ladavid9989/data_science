@@ -22786,6 +22786,14 @@
       "rows": 71
     },
     {
+      "path": "snapshots/2026-11-26/northview-04d43da531a103ebc6792fcaec49f8ba8195f6fe89557cf03b7d2a8cf1b51cd6.json.gz",
+      "run_id": "04d43da531a103ebc6792fcaec49f8ba8195f6fe89557cf03b7d2a8cf1b51cd6",
+      "school": "northview",
+      "observed_at": "2026-11-26T12:01:09.221965+00:00",
+      "quality": "source_complete",
+      "rows": 15
+    },
+    {
       "path": "snapshots/2026-11-26/northview-3b6bdd28fda49f413e61718481ad3111f5410ede962f92db061f17d5bcc8a818.json.gz",
       "run_id": "3b6bdd28fda49f413e61718481ad3111f5410ede962f92db061f17d5bcc8a818",
       "school": "northview",
@@ -22811,54 +22819,56 @@
     }
   ],
   "collection_status": {
-    "status": "cooldown",
-    "requests": 0,
+    "status": "blocked",
+    "requests": 2,
+    "school": "northview",
+    "error": "HTTP 403: source access stopped",
     "version": 1,
-    "checked_at": "2026-11-26T11:30:58.456819+00:00",
-    "last_source_attempt_at": "2026-11-26T08:31:01.177299+00:00",
+    "checked_at": "2026-11-26T12:01:38.465667+00:00",
+    "last_source_attempt_at": "2026-11-26T12:01:07.820438+00:00",
     "last_access_failure": {
-      "blocked_at": "2026-11-26T08:31:31.797307+00:00",
+      "blocked_at": "2026-11-26T12:01:38.461682+00:00",
       "diagnostics": {
         "base_wait_seconds": 10800,
         "http_status": 403,
-        "request_path": "https://www.zillow.com/homedetails/150-Ocee-View-Ct-Johns-Creek-GA-30022/14653251_zpid/",
+        "request_path": "https://www.zillow.com/homedetails/120-Croftwood-Ct-Johns-Creek-GA-30097/14660299_zpid/",
         "response_headers": {
           "Content-Type": "text/html",
           "Server": "CloudFront",
-          "X-Amz-Cf-Id": "Sc1TgdRoTE_eFg7HupCDWOrYs6v96wPozTlT9krbmK1fgOFmuHO41A=="
+          "X-Amz-Cf-Id": "DC87Vc4XDvu6oKHis2zSaYPGFLvZ1rOPWIepvVE-quPt4PKMK93MNQ=="
         },
         "response_kind": "human_verification",
         "retry_after_header": "",
         "server_wait_seconds": null
       },
       "reason": "HTTP 403: source access stopped",
-      "retry_after": "2026-11-26T11:31:31.797319+00:00",
+      "retry_after": "2026-11-26T15:01:38.461696+00:00",
       "review_required": true,
-      "strikes": 2
+      "strikes": 3
     },
-    "blocked_at": "2026-11-26T08:31:31.797307+00:00",
+    "blocked_at": "2026-11-26T12:01:38.461682+00:00",
     "diagnostics": {
       "base_wait_seconds": 10800,
       "http_status": 403,
-      "request_path": "https://www.zillow.com/homedetails/150-Ocee-View-Ct-Johns-Creek-GA-30022/14653251_zpid/",
+      "request_path": "https://www.zillow.com/homedetails/120-Croftwood-Ct-Johns-Creek-GA-30097/14660299_zpid/",
       "response_headers": {
         "Content-Type": "text/html",
         "Server": "CloudFront",
-        "X-Amz-Cf-Id": "Sc1TgdRoTE_eFg7HupCDWOrYs6v96wPozTlT9krbmK1fgOFmuHO41A=="
+        "X-Amz-Cf-Id": "DC87Vc4XDvu6oKHis2zSaYPGFLvZ1rOPWIepvVE-quPt4PKMK93MNQ=="
       },
       "response_kind": "human_verification",
       "retry_after_header": "",
       "server_wait_seconds": null
     },
     "reason": "HTTP 403: source access stopped",
-    "retry_after": "2026-11-26T11:31:31.797319+00:00",
+    "retry_after": "2026-11-26T15:01:38.461696+00:00",
     "review_required": true,
-    "strikes": 2,
+    "strikes": 3,
     "last_success_by_school": {
       "johns_creek": "2026-11-26T05:01:06.442738+00:00",
       "north_gwinnett": "2026-11-26T04:31:28.654249+00:00",
       "chattahoochee": "2026-11-26T08:31:02.214315+00:00",
-      "northview": "2026-11-26T04:01:02.857857+00:00"
+      "northview": "2026-11-26T12:01:08.945714+00:00"
     }
   }
 }
