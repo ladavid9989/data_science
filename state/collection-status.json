@@ -1,10 +1,11 @@
 {
-  "status": "interval_wait",
-  "requests": 0,
-  "next_batch_at": "2026-11-26T02:55:50.830748+00:00",
+  "status": "complete",
+  "requests": 1,
+  "school": "johns_creek",
+  "error": null,
   "version": 1,
-  "checked_at": "2026-11-26T02:51:21.441398+00:00",
-  "last_source_attempt_at": "2026-11-26T02:30:50.830748+00:00",
+  "checked_at": "2026-11-26T03:01:03.665920+00:00",
+  "last_source_attempt_at": "2026-11-26T03:01:01.717697+00:00",
   "last_access_failure": {
     "blocked_at": "2026-11-25T17:32:04.300922+00:00",
     "diagnostics": {
