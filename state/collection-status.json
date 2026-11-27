@@ -1,45 +1,47 @@
 {
-  "status": "cooldown",
-  "requests": 0,
+  "status": "blocked",
+  "requests": 2,
+  "school": "chattahoochee",
+  "error": "HTTP 403: source access stopped",
   "version": 1,
-  "checked_at": "2026-11-27T12:01:03.249071+00:00",
-  "last_source_attempt_at": "2026-11-27T09:01:04.987864+00:00",
+  "checked_at": "2026-11-27T12:32:21.561671+00:00",
+  "last_source_attempt_at": "2026-11-27T12:31:51.008141+00:00",
   "last_access_failure": {
-    "blocked_at": "2026-11-27T09:01:35.519804+00:00",
+    "blocked_at": "2026-11-27T12:32:21.550263+00:00",
     "diagnostics": {
       "base_wait_seconds": 10800,
       "http_status": 403,
-      "request_path": "https://www.zillow.com/homedetails/485-Weatherend-Ct-Johns-Creek-GA-30022/14679358_zpid/",
+      "request_path": "https://www.zillow.com/homedetails/150-Ocee-View-Ct-Johns-Creek-GA-30022/14653251_zpid/",
       "response_headers": {
         "Content-Type": "text/html",
         "Server": "CloudFront",
-        "X-Amz-Cf-Id": "BdmGiEHWkqvplFVkN5716sfsm8pd28SmG2LgRgRI7-W4zqMpV-maaw=="
+        "X-Amz-Cf-Id": "sWESXCLLBQrvK14iAmTVfPA2YFK2OlhKKxoybh4UEcZE3_t7PKUJlQ=="
       },
       "response_kind": "human_verification",
       "retry_after_header": "",
       "server_wait_seconds": null
     },
     "reason": "HTTP 403: source access stopped",
-    "retry_after": "2026-11-27T12:01:35.519817+00:00",
+    "retry_after": "2026-11-27T15:32:21.550273+00:00",
     "review_required": true,
-    "strikes": 9
+    "strikes": 10
   },
-  "blocked_at": "2026-11-27T09:01:35.519804+00:00",
+  "blocked_at": "2026-11-27T12:32:21.550263+00:00",
   "diagnostics": {
     "base_wait_seconds": 10800,
     "http_status": 403,
-    "request_path": "https://www.zillow.com/homedetails/485-Weatherend-Ct-Johns-Creek-GA-30022/14679358_zpid/",
+    "request_path": "https://www.zillow.com/homedetails/150-Ocee-View-Ct-Johns-Creek-GA-30022/14653251_zpid/",
     "response_headers": {
       "Content-Type": "text/html",
       "Server": "CloudFront",
-      "X-Amz-Cf-Id": "BdmGiEHWkqvplFVkN5716sfsm8pd28SmG2LgRgRI7-W4zqMpV-maaw=="
+      "X-Amz-Cf-Id": "sWESXCLLBQrvK14iAmTVfPA2YFK2OlhKKxoybh4UEcZE3_t7PKUJlQ=="
     },
     "response_kind": "human_verification",
     "retry_after_header": "",
     "server_wait_seconds": null
   },
   "reason": "HTTP 403: source access stopped",
-  "retry_after": "2026-11-27T12:01:35.519817+00:00",
+  "retry_after": "2026-11-27T15:32:21.550273+00:00",
   "review_required": true,
-  "strikes": 9
+  "strikes": 10
 }
