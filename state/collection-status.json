@@ -1,10 +1,8 @@
 {
-  "status": "blocked",
-  "requests": 2,
-  "school": "johns_creek",
-  "error": "HTTP 403: source access stopped",
+  "status": "cooldown",
+  "requests": 0,
   "version": 1,
-  "checked_at": "2026-11-27T22:42:28.634468+00:00",
+  "checked_at": "2026-11-27T23:01:08.841126+00:00",
   "last_source_attempt_at": "2026-11-27T22:41:58.012028+00:00",
   "last_access_failure": {
     "blocked_at": "2026-11-27T22:42:28.630587+00:00",
