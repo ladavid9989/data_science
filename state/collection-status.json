@@ -1,45 +1,47 @@
 {
-  "status": "cooldown",
-  "requests": 0,
+  "status": "blocked",
+  "requests": 2,
+  "school": "johns_creek",
+  "error": "HTTP 403: source access stopped",
   "version": 1,
-  "checked_at": "2026-11-27T22:30:50.232650+00:00",
-  "last_source_attempt_at": "2026-11-27T19:31:00.811026+00:00",
+  "checked_at": "2026-11-27T22:42:28.634468+00:00",
+  "last_source_attempt_at": "2026-11-27T22:41:58.012028+00:00",
   "last_access_failure": {
-    "blocked_at": "2026-11-27T19:32:01.339162+00:00",
+    "blocked_at": "2026-11-27T22:42:28.630587+00:00",
     "diagnostics": {
       "base_wait_seconds": 10800,
       "http_status": 403,
-      "request_path": "https://www.zillow.com/homedetails/4228-Woods-Creek-Ln-Suwanee-GA-30024/112437949_zpid/",
+      "request_path": "https://www.zillow.com/homedetails/485-Weatherend-Ct-Johns-Creek-GA-30022/14679358_zpid/",
       "response_headers": {
         "Content-Type": "text/html",
         "Server": "CloudFront",
-        "X-Amz-Cf-Id": "44tyjxhE7OCcW_ehPiGYVhkOaFumfiVCeHCGKQfDUNUGtMmXS9AdNw=="
+        "X-Amz-Cf-Id": "fSgO7AXTZRD1BAtueDo2DtceBgr7seCQgryNMLd-T4EMuGI3Kq5NZg=="
       },
       "response_kind": "human_verification",
       "retry_after_header": "",
       "server_wait_seconds": null
     },
     "reason": "HTTP 403: source access stopped",
-    "retry_after": "2026-11-27T22:32:01.339173+00:00",
+    "retry_after": "2026-11-28T01:42:28.630596+00:00",
     "review_required": true,
-    "strikes": 12
+    "strikes": 13
   },
-  "blocked_at": "2026-11-27T19:32:01.339162+00:00",
+  "blocked_at": "2026-11-27T22:42:28.630587+00:00",
   "diagnostics": {
     "base_wait_seconds": 10800,
     "http_status": 403,
-    "request_path": "https://www.zillow.com/homedetails/4228-Woods-Creek-Ln-Suwanee-GA-30024/112437949_zpid/",
+    "request_path": "https://www.zillow.com/homedetails/485-Weatherend-Ct-Johns-Creek-GA-30022/14679358_zpid/",
     "response_headers": {
       "Content-Type": "text/html",
       "Server": "CloudFront",
-      "X-Amz-Cf-Id": "44tyjxhE7OCcW_ehPiGYVhkOaFumfiVCeHCGKQfDUNUGtMmXS9AdNw=="
+      "X-Amz-Cf-Id": "fSgO7AXTZRD1BAtueDo2DtceBgr7seCQgryNMLd-T4EMuGI3Kq5NZg=="
     },
     "response_kind": "human_verification",
     "retry_after_header": "",
     "server_wait_seconds": null
   },
   "reason": "HTTP 403: source access stopped",
-  "retry_after": "2026-11-27T22:32:01.339173+00:00",
+  "retry_after": "2026-11-28T01:42:28.630596+00:00",
   "review_required": true,
-  "strikes": 12
+  "strikes": 13
 }
