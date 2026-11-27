@@ -22842,6 +22842,14 @@
       "rows": 15
     },
     {
+      "path": "snapshots/2026-11-27/johns_creek-cf9831d6986d33e518686c1a16eb0bd3e6526817e13b52be996d685cdbbe9933.json.gz",
+      "run_id": "cf9831d6986d33e518686c1a16eb0bd3e6526817e13b52be996d685cdbbe9933",
+      "school": "johns_creek",
+      "observed_at": "2026-11-27T09:01:06.212124+00:00",
+      "quality": "source_complete",
+      "rows": 11
+    },
+    {
       "path": "snapshots/2026-11-27/north_gwinnett-400c302beb333b8b1616a9b575866a3d005c222375d5109e403b7956db55664c.json.gz",
       "run_id": "400c302beb333b8b1616a9b575866a3d005c222375d5109e403b7956db55664c",
       "school": "north_gwinnett",
@@ -22859,51 +22867,53 @@
     }
   ],
   "collection_status": {
-    "status": "cooldown",
-    "requests": 0,
+    "status": "blocked",
+    "requests": 2,
+    "school": "johns_creek",
+    "error": "HTTP 403: source access stopped",
     "version": 1,
-    "checked_at": "2026-11-27T08:31:05.638905+00:00",
-    "last_source_attempt_at": "2026-11-27T05:30:56.893531+00:00",
+    "checked_at": "2026-11-27T09:01:35.532649+00:00",
+    "last_source_attempt_at": "2026-11-27T09:01:04.987864+00:00",
     "last_access_failure": {
-      "blocked_at": "2026-11-27T05:31:57.401216+00:00",
+      "blocked_at": "2026-11-27T09:01:35.519804+00:00",
       "diagnostics": {
         "base_wait_seconds": 10800,
         "http_status": 403,
-        "request_path": "https://www.zillow.com/homedetails/4228-Woods-Creek-Ln-Suwanee-GA-30024/112437949_zpid/",
+        "request_path": "https://www.zillow.com/homedetails/485-Weatherend-Ct-Johns-Creek-GA-30022/14679358_zpid/",
         "response_headers": {
           "Content-Type": "text/html",
           "Server": "CloudFront",
-          "X-Amz-Cf-Id": "X99yyEiGVhy_lyhenrC3gK8-yX29-tl6ZoWxV_BzH049JLqrGZRDow=="
+          "X-Amz-Cf-Id": "BdmGiEHWkqvplFVkN5716sfsm8pd28SmG2LgRgRI7-W4zqMpV-maaw=="
         },
         "response_kind": "human_verification",
         "retry_after_header": "",
         "server_wait_seconds": null
       },
       "reason": "HTTP 403: source access stopped",
-      "retry_after": "2026-11-27T08:31:57.401226+00:00",
+      "retry_after": "2026-11-27T12:01:35.519817+00:00",
       "review_required": true,
-      "strikes": 8
+      "strikes": 9
     },
-    "blocked_at": "2026-11-27T05:31:57.401216+00:00",
+    "blocked_at": "2026-11-27T09:01:35.519804+00:00",
     "diagnostics": {
       "base_wait_seconds": 10800,
       "http_status": 403,
-      "request_path": "https://www.zillow.com/homedetails/4228-Woods-Creek-Ln-Suwanee-GA-30024/112437949_zpid/",
+      "request_path": "https://www.zillow.com/homedetails/485-Weatherend-Ct-Johns-Creek-GA-30022/14679358_zpid/",
       "response_headers": {
         "Content-Type": "text/html",
         "Server": "CloudFront",
-        "X-Amz-Cf-Id": "X99yyEiGVhy_lyhenrC3gK8-yX29-tl6ZoWxV_BzH049JLqrGZRDow=="
+        "X-Amz-Cf-Id": "BdmGiEHWkqvplFVkN5716sfsm8pd28SmG2LgRgRI7-W4zqMpV-maaw=="
       },
       "response_kind": "human_verification",
       "retry_after_header": "",
       "server_wait_seconds": null
     },
     "reason": "HTTP 403: source access stopped",
-    "retry_after": "2026-11-27T08:31:57.401226+00:00",
+    "retry_after": "2026-11-27T12:01:35.519817+00:00",
     "review_required": true,
-    "strikes": 8,
+    "strikes": 9,
     "last_success_by_school": {
-      "johns_creek": "2026-11-26T19:01:07.279275+00:00",
+      "johns_creek": "2026-11-27T09:01:06.037068+00:00",
       "north_gwinnett": "2026-11-27T05:31:27.780740+00:00",
       "chattahoochee": "2026-11-26T22:31:12.314986+00:00",
       "northview": "2026-11-27T02:01:08.793181+00:00"
