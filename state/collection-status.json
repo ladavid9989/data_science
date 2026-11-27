@@ -1,45 +1,47 @@
 {
-  "status": "cooldown",
-  "requests": 0,
+  "status": "blocked",
+  "requests": 2,
+  "school": "northview",
+  "error": "HTTP 403: source access stopped",
   "version": 1,
-  "checked_at": "2026-11-27T01:31:03.143244+00:00",
-  "last_source_attempt_at": "2026-11-26T22:31:11.173846+00:00",
+  "checked_at": "2026-11-27T02:01:38.376068+00:00",
+  "last_source_attempt_at": "2026-11-27T02:01:07.568042+00:00",
   "last_access_failure": {
-    "blocked_at": "2026-11-26T22:31:41.993252+00:00",
+    "blocked_at": "2026-11-27T02:01:38.365725+00:00",
     "diagnostics": {
       "base_wait_seconds": 10800,
       "http_status": 403,
-      "request_path": "https://www.zillow.com/homedetails/150-Ocee-View-Ct-Johns-Creek-GA-30022/14653251_zpid/",
+      "request_path": "https://www.zillow.com/homedetails/120-Croftwood-Ct-Johns-Creek-GA-30097/14660299_zpid/",
       "response_headers": {
         "Content-Type": "text/html",
         "Server": "CloudFront",
-        "X-Amz-Cf-Id": "XqRNRK-7A-9qYmheqmJgQCxPhXkrHcKgKMBTPf2t9q9gUXBnEYvX-w=="
+        "X-Amz-Cf-Id": "Q9VO2mqPVvzdsrR2iEJYBvvBmhwEOLnn5mcdu5xix179SVV6xxRpWA=="
       },
       "response_kind": "human_verification",
       "retry_after_header": "",
       "server_wait_seconds": null
     },
     "reason": "HTTP 403: source access stopped",
-    "retry_after": "2026-11-27T01:31:41.993300+00:00",
+    "retry_after": "2026-11-27T05:01:38.365737+00:00",
     "review_required": true,
-    "strikes": 6
+    "strikes": 7
   },
-  "blocked_at": "2026-11-26T22:31:41.993252+00:00",
+  "blocked_at": "2026-11-27T02:01:38.365725+00:00",
   "diagnostics": {
     "base_wait_seconds": 10800,
     "http_status": 403,
-    "request_path": "https://www.zillow.com/homedetails/150-Ocee-View-Ct-Johns-Creek-GA-30022/14653251_zpid/",
+    "request_path": "https://www.zillow.com/homedetails/120-Croftwood-Ct-Johns-Creek-GA-30097/14660299_zpid/",
     "response_headers": {
       "Content-Type": "text/html",
       "Server": "CloudFront",
-      "X-Amz-Cf-Id": "XqRNRK-7A-9qYmheqmJgQCxPhXkrHcKgKMBTPf2t9q9gUXBnEYvX-w=="
+      "X-Amz-Cf-Id": "Q9VO2mqPVvzdsrR2iEJYBvvBmhwEOLnn5mcdu5xix179SVV6xxRpWA=="
     },
     "response_kind": "human_verification",
     "retry_after_header": "",
     "server_wait_seconds": null
   },
   "reason": "HTTP 403: source access stopped",
-  "retry_after": "2026-11-27T01:31:41.993300+00:00",
+  "retry_after": "2026-11-27T05:01:38.365737+00:00",
   "review_required": true,
-  "strikes": 6
+  "strikes": 7
 }
