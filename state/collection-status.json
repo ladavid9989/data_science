@@ -1,45 +1,47 @@
 {
-  "status": "cooldown",
-  "requests": 0,
+  "status": "blocked",
+  "requests": 3,
+  "school": "north_gwinnett",
+  "error": "HTTP 403: source access stopped",
   "version": 1,
-  "checked_at": "2026-11-27T05:01:05.590855+00:00",
-  "last_source_attempt_at": "2026-11-27T02:01:07.568042+00:00",
+  "checked_at": "2026-11-27T05:31:57.402792+00:00",
+  "last_source_attempt_at": "2026-11-27T05:30:56.893531+00:00",
   "last_access_failure": {
-    "blocked_at": "2026-11-27T02:01:38.365725+00:00",
+    "blocked_at": "2026-11-27T05:31:57.401216+00:00",
     "diagnostics": {
       "base_wait_seconds": 10800,
       "http_status": 403,
-      "request_path": "https://www.zillow.com/homedetails/120-Croftwood-Ct-Johns-Creek-GA-30097/14660299_zpid/",
+      "request_path": "https://www.zillow.com/homedetails/4228-Woods-Creek-Ln-Suwanee-GA-30024/112437949_zpid/",
       "response_headers": {
         "Content-Type": "text/html",
         "Server": "CloudFront",
-        "X-Amz-Cf-Id": "Q9VO2mqPVvzdsrR2iEJYBvvBmhwEOLnn5mcdu5xix179SVV6xxRpWA=="
+        "X-Amz-Cf-Id": "X99yyEiGVhy_lyhenrC3gK8-yX29-tl6ZoWxV_BzH049JLqrGZRDow=="
       },
       "response_kind": "human_verification",
       "retry_after_header": "",
       "server_wait_seconds": null
     },
     "reason": "HTTP 403: source access stopped",
-    "retry_after": "2026-11-27T05:01:38.365737+00:00",
+    "retry_after": "2026-11-27T08:31:57.401226+00:00",
     "review_required": true,
-    "strikes": 7
+    "strikes": 8
   },
-  "blocked_at": "2026-11-27T02:01:38.365725+00:00",
+  "blocked_at": "2026-11-27T05:31:57.401216+00:00",
   "diagnostics": {
     "base_wait_seconds": 10800,
     "http_status": 403,
-    "request_path": "https://www.zillow.com/homedetails/120-Croftwood-Ct-Johns-Creek-GA-30097/14660299_zpid/",
+    "request_path": "https://www.zillow.com/homedetails/4228-Woods-Creek-Ln-Suwanee-GA-30024/112437949_zpid/",
     "response_headers": {
       "Content-Type": "text/html",
       "Server": "CloudFront",
-      "X-Amz-Cf-Id": "Q9VO2mqPVvzdsrR2iEJYBvvBmhwEOLnn5mcdu5xix179SVV6xxRpWA=="
+      "X-Amz-Cf-Id": "X99yyEiGVhy_lyhenrC3gK8-yX29-tl6ZoWxV_BzH049JLqrGZRDow=="
     },
     "response_kind": "human_verification",
     "retry_after_header": "",
     "server_wait_seconds": null
   },
   "reason": "HTTP 403: source access stopped",
-  "retry_after": "2026-11-27T05:01:38.365737+00:00",
+  "retry_after": "2026-11-27T08:31:57.401226+00:00",
   "review_required": true,
-  "strikes": 7
+  "strikes": 8
 }
