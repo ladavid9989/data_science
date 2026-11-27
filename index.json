@@ -22866,6 +22866,14 @@
       "rows": 72
     },
     {
+      "path": "snapshots/2026-11-27/north_gwinnett-6981120d102be9791fd0310523cbb28ed77282cc90050cbf5a7b6b1b48b0779d.json.gz",
+      "run_id": "6981120d102be9791fd0310523cbb28ed77282cc90050cbf5a7b6b1b48b0779d",
+      "school": "north_gwinnett",
+      "observed_at": "2026-11-27T19:31:32.238183+00:00",
+      "quality": "source_complete",
+      "rows": 73
+    },
+    {
       "path": "snapshots/2026-11-27/northview-18c096a85bfbefa78fe2463e3cf74fca1f23b2ad7bbc0784be137f00e6643d75.json.gz",
       "run_id": "18c096a85bfbefa78fe2463e3cf74fca1f23b2ad7bbc0784be137f00e6643d75",
       "school": "northview",
@@ -22883,52 +22891,54 @@
     }
   ],
   "collection_status": {
-    "status": "cooldown",
-    "requests": 0,
+    "status": "blocked",
+    "requests": 3,
+    "school": "north_gwinnett",
+    "error": "HTTP 403: source access stopped",
     "version": 1,
-    "checked_at": "2026-11-27T19:00:57.927624+00:00",
-    "last_source_attempt_at": "2026-11-27T16:01:07.397392+00:00",
+    "checked_at": "2026-11-27T19:32:01.341256+00:00",
+    "last_source_attempt_at": "2026-11-27T19:31:00.811026+00:00",
     "last_access_failure": {
-      "blocked_at": "2026-11-27T16:01:37.876493+00:00",
+      "blocked_at": "2026-11-27T19:32:01.339162+00:00",
       "diagnostics": {
         "base_wait_seconds": 10800,
         "http_status": 403,
-        "request_path": "https://www.zillow.com/homedetails/120-Croftwood-Ct-Johns-Creek-GA-30097/14660299_zpid/",
+        "request_path": "https://www.zillow.com/homedetails/4228-Woods-Creek-Ln-Suwanee-GA-30024/112437949_zpid/",
         "response_headers": {
           "Content-Type": "text/html",
           "Server": "CloudFront",
-          "X-Amz-Cf-Id": "nKvQQqhXMbn6KyWVRaBCXkcKtr15zoxx5YVEvCIw3OwCW3ixySScBQ=="
+          "X-Amz-Cf-Id": "44tyjxhE7OCcW_ehPiGYVhkOaFumfiVCeHCGKQfDUNUGtMmXS9AdNw=="
         },
         "response_kind": "human_verification",
         "retry_after_header": "",
         "server_wait_seconds": null
       },
       "reason": "HTTP 403: source access stopped",
-      "retry_after": "2026-11-27T19:01:37.876507+00:00",
+      "retry_after": "2026-11-27T22:32:01.339173+00:00",
       "review_required": true,
-      "strikes": 11
+      "strikes": 12
     },
-    "blocked_at": "2026-11-27T16:01:37.876493+00:00",
+    "blocked_at": "2026-11-27T19:32:01.339162+00:00",
     "diagnostics": {
       "base_wait_seconds": 10800,
       "http_status": 403,
-      "request_path": "https://www.zillow.com/homedetails/120-Croftwood-Ct-Johns-Creek-GA-30097/14660299_zpid/",
+      "request_path": "https://www.zillow.com/homedetails/4228-Woods-Creek-Ln-Suwanee-GA-30024/112437949_zpid/",
       "response_headers": {
         "Content-Type": "text/html",
         "Server": "CloudFront",
-        "X-Amz-Cf-Id": "nKvQQqhXMbn6KyWVRaBCXkcKtr15zoxx5YVEvCIw3OwCW3ixySScBQ=="
+        "X-Amz-Cf-Id": "44tyjxhE7OCcW_ehPiGYVhkOaFumfiVCeHCGKQfDUNUGtMmXS9AdNw=="
       },
       "response_kind": "human_verification",
       "retry_after_header": "",
       "server_wait_seconds": null
     },
     "reason": "HTTP 403: source access stopped",
-    "retry_after": "2026-11-27T19:01:37.876507+00:00",
+    "retry_after": "2026-11-27T22:32:01.339173+00:00",
     "review_required": true,
-    "strikes": 11,
+    "strikes": 12,
     "last_success_by_school": {
       "johns_creek": "2026-11-27T09:01:06.037068+00:00",
-      "north_gwinnett": "2026-11-27T05:31:27.780740+00:00",
+      "north_gwinnett": "2026-11-27T19:31:31.993574+00:00",
       "chattahoochee": "2026-11-27T12:31:51.819920+00:00",
       "northview": "2026-11-27T16:01:08.188505+00:00"
     }
