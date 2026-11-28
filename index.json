@@ -22896,56 +22896,66 @@
       "observed_at": "2026-11-27T16:01:08.367336+00:00",
       "quality": "source_complete",
       "rows": 16
+    },
+    {
+      "path": "snapshots/2026-11-28/chattahoochee-bff9c16875fba45e475209b53c63dabdc652ab08178cf037705acf80b6363fb0.json.gz",
+      "run_id": "bff9c16875fba45e475209b53c63dabdc652ab08178cf037705acf80b6363fb0",
+      "school": "chattahoochee",
+      "observed_at": "2026-11-28T02:01:07.042551+00:00",
+      "quality": "source_complete",
+      "rows": 40
     }
   ],
   "collection_status": {
-    "status": "cooldown",
-    "requests": 0,
+    "status": "blocked",
+    "requests": 2,
+    "school": "chattahoochee",
+    "error": "HTTP 403: source access stopped",
     "version": 1,
-    "checked_at": "2026-11-28T01:30:59.763840+00:00",
-    "last_source_attempt_at": "2026-11-27T22:41:58.012028+00:00",
+    "checked_at": "2026-11-28T02:01:36.344991+00:00",
+    "last_source_attempt_at": "2026-11-28T02:01:05.763294+00:00",
     "last_access_failure": {
-      "blocked_at": "2026-11-27T22:42:28.630587+00:00",
+      "blocked_at": "2026-11-28T02:01:36.339331+00:00",
       "diagnostics": {
         "base_wait_seconds": 10800,
         "http_status": 403,
-        "request_path": "https://www.zillow.com/homedetails/485-Weatherend-Ct-Johns-Creek-GA-30022/14679358_zpid/",
+        "request_path": "https://www.zillow.com/homedetails/150-Ocee-View-Ct-Johns-Creek-GA-30022/14653251_zpid/",
         "response_headers": {
           "Content-Type": "text/html",
           "Server": "CloudFront",
-          "X-Amz-Cf-Id": "fSgO7AXTZRD1BAtueDo2DtceBgr7seCQgryNMLd-T4EMuGI3Kq5NZg=="
+          "X-Amz-Cf-Id": "RKfqdfwFv2G3qYXqwrEmpxiT_hByJJlvb9eitSuJudoH_HvNP30SJg=="
         },
         "response_kind": "human_verification",
         "retry_after_header": "",
         "server_wait_seconds": null
       },
       "reason": "HTTP 403: source access stopped",
-      "retry_after": "2026-11-28T01:42:28.630596+00:00",
+      "retry_after": "2026-11-28T05:01:36.339344+00:00",
       "review_required": true,
-      "strikes": 13
+      "strikes": 14
     },
-    "blocked_at": "2026-11-27T22:42:28.630587+00:00",
+    "blocked_at": "2026-11-28T02:01:36.339331+00:00",
     "diagnostics": {
       "base_wait_seconds": 10800,
       "http_status": 403,
-      "request_path": "https://www.zillow.com/homedetails/485-Weatherend-Ct-Johns-Creek-GA-30022/14679358_zpid/",
+      "request_path": "https://www.zillow.com/homedetails/150-Ocee-View-Ct-Johns-Creek-GA-30022/14653251_zpid/",
       "response_headers": {
         "Content-Type": "text/html",
         "Server": "CloudFront",
-        "X-Amz-Cf-Id": "fSgO7AXTZRD1BAtueDo2DtceBgr7seCQgryNMLd-T4EMuGI3Kq5NZg=="
+        "X-Amz-Cf-Id": "RKfqdfwFv2G3qYXqwrEmpxiT_hByJJlvb9eitSuJudoH_HvNP30SJg=="
       },
       "response_kind": "human_verification",
       "retry_after_header": "",
       "server_wait_seconds": null
     },
     "reason": "HTTP 403: source access stopped",
-    "retry_after": "2026-11-28T01:42:28.630596+00:00",
+    "retry_after": "2026-11-28T05:01:36.339344+00:00",
     "review_required": true,
-    "strikes": 13,
+    "strikes": 14,
     "last_success_by_school": {
       "johns_creek": "2026-11-27T22:41:59.088433+00:00",
       "north_gwinnett": "2026-11-27T19:31:31.993574+00:00",
-      "chattahoochee": "2026-11-27T12:31:51.819920+00:00",
+      "chattahoochee": "2026-11-28T02:01:06.778116+00:00",
       "northview": "2026-11-27T16:01:08.188505+00:00"
     }
   }
