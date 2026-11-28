@@ -1,10 +1,8 @@
 {
-  "status": "blocked",
-  "requests": 2,
-  "school": "northview",
-  "error": "HTTP 403: source access stopped",
+  "status": "cooldown",
+  "requests": 0,
   "version": 1,
-  "checked_at": "2026-11-28T05:31:22.582155+00:00",
+  "checked_at": "2026-11-28T06:01:06.796322+00:00",
   "last_source_attempt_at": "2026-11-28T05:30:52.058885+00:00",
   "last_access_failure": {
     "blocked_at": "2026-11-28T05:31:22.570337+00:00",
